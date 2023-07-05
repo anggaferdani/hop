@@ -2,40 +2,24 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Update;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Tag extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $table = 'users';
+    protected $table = 'tags';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nama_panjang',
-        'email',
-        'password',
-        'level',
+        'tag',
         'status_aktif',
         'created_by',
         'updated_by',
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
     protected static function booted(){
@@ -50,6 +34,6 @@ class User extends Authenticatable
     }
 
     public function updates(){
-        return $this->hasMany(Update::class);
+        return $this->belongsToMany(Update::class, 'update_tags', 'tag_id', 'update_id');
     }
 }
