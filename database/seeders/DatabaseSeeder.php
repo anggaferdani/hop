@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Tag;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Fasilitas;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

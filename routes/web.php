@@ -6,7 +6,9 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\FoodAndBeverageController;
+use App\Http\Controllers\LodgingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +43,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
         Route::resource('fasilitas', FasilitasController::class);
-        Route::resource('lodging', LodgingContoller::class);
-        Route::get('lodging/delete-image/{id}', [LodgingContoller::class, 'deleteImage'])->name('lodging.delete-image');
+        Route::resource('lodging', LodgingController::class);
+        Route::get('lodging/delete-image/{id}', [LodgingController::class, 'deleteImage'])->name('lodging.delete-image');
     });
 });
 
@@ -58,8 +60,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
         Route::resource('fasilitas', FasilitasController::class);
-        Route::resource('lodging', LodgingContoller::class);
-        Route::get('lodging/delete-image/{id}', [LodgingContoller::class, 'deleteImage'])->name('lodging.delete-image');
+        Route::resource('lodging', LodgingController::class);
+        Route::get('lodging/delete-image/{id}', [LodgingController::class, 'deleteImage'])->name('lodging.delete-image');
     });
 });
 
