@@ -4,11 +4,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\LodgingController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\FoodAndBeverageController;
-use App\Http\Controllers\LodgingController;
 
 /*
 |--------------------------------------------------------------------------
