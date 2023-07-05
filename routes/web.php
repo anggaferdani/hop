@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\FoodAndBeverageController;
 
 /*
 |--------------------------------------------------------------------------
