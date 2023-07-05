@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
@@ -12,6 +13,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('login');
+        if(!$request->expectsJson()){
+            session()->flash('fail', 'Cannot be routed to your destination route. You must login first');
+            return route('login', ['fail' => true, 'return_url' => URL::current()]);
+        }
     }
 }

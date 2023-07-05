@@ -64,5 +64,10 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'disableBackButton' => \App\Http\Middleware\DisableBackButton::class,
+        'disableRedirectToLoginPage' => \App\Http\Middleware\DisableRedirectToLoginPage::class,
+        'superadmin' => \App\Http\Middleware\Superadmin::class,
+        'admin' => \App\Http\Middleware\Admin::class,
+        'vendor' => \App\Http\Middleware\Vendor::class,
     ];
 }
