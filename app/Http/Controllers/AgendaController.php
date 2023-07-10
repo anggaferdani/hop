@@ -35,15 +35,10 @@ class AgendaController extends Controller
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
-            'tiket' => 'required',
-            'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
             'image.*' => 'required',
             'type.*' => 'required',
         ]);
-
-        $harga = preg_replace('/\D/', '', $request->harga_tiket);
-        $harga_tiket = trim($harga);
 
         $array = array(
             'penyelenggara' => $request['penyelenggara'],
@@ -53,8 +48,6 @@ class AgendaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
-            'tiket' => $request['tiket'],
-            'harga_tiket' => $harga_tiket,
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
         );
@@ -114,13 +107,9 @@ class AgendaController extends Controller
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
-            'tiket' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
         ]);
-
-        $harga = preg_replace('/\D/', '', $request->harga_tiket);
-        $harga_tiket = trim($harga);
 
         $agenda->update([
             'penyelenggara' => $request['penyelenggara'],
@@ -130,8 +119,6 @@ class AgendaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
-            'tiket' => $request['tiket'],
-            'harga_tiket' => $harga_tiket,
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
         ]);
@@ -170,15 +157,15 @@ class AgendaController extends Controller
         }
     }
 
-    public function deleteImage($id, $agenda_id){
+    public function deleteImage($id){
         $image = AgendaImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("agenda/image/".$image->image))){
             File::delete("agenda/image/".$image->image);
         }
-        
-        Agenda::find(Crypt::decrypt($agenda_id))->delete();
 
+        $image->delete();
+        
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
     }
 }

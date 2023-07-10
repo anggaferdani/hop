@@ -24,8 +24,6 @@ class Agenda extends Model
         'provinsi',
         'kabupaten_kota',
         'kecamatan',
-        'tiket',
-        'harga_tiket',
         'tanggal_mulai',
         'tanggal_berakhir',
         'status_aktif',

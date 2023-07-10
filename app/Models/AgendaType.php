@@ -10,7 +10,7 @@ class AgendaType extends Model
 {
     use HasFactory;
 
-    protected $table = 'agenda_tags';
+    protected $table = 'agenda_types';
 
     protected $primaryKey = 'id';
 

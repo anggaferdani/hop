@@ -72,22 +72,6 @@
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>
-          <div class="form-group">
-            <label for="">Tiket</label>
-            <select disabled class="form-control select2" name="tiket" onchange="show(this)">
-              <option disabled selected>Select</option>
-              <option value="Berbayar" @if($agenda->tiket == 'Berbayar')@selected(true)@endif>Berbayar</option>
-              <option value="Gratis" @if($agenda->tiket == 'Gratis')@selected(true)@endif>Gratis</option>
-            </select>
-            @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          @if($agenda->tiket == 'Berbayar')
-            <div class="form-group" id="hidden">
-              <label for="">Harga Tiket</label>
-              <input disabled type="text" class="form-control" id="harga_tiket" name="harga_tiket" value="{{ $agenda->harga_tiket }}" onkeyup="formatNumber(this)">
-              @error('harga_tiket')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-          @endif
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Tanggal Mulai</label>

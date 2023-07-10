@@ -73,20 +73,6 @@
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>
-          <div class="form-group">
-            <label for="">Tiket</label>
-            <select class="form-control select2" name="tiket" onchange="show(this)">
-              <option disabled selected>Select</option>
-              <option value="Berbayar">Berbayar</option>
-              <option value="Gratis">Gratis</option>
-            </select>
-            @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group" id="hidden" style="display: none;">
-            <label for="">Harga Tiket</label>
-            <input type="text" class="form-control" name="harga_tiket" id="harga_tiket" onkeyup="formatNumber(this)">
-            @error('harga_tiket')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Tanggal Mulai</label>
