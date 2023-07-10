@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Agenda;
+use App\Models\ActivityManajemen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,5 +36,9 @@ class Type extends Model
 
     public function agenadas(){
         return $this->belongsToMany(Agenda::class, 'agenda_types', 'type_id', 'agenda_id');
+    }
+
+    public function activity_manajemens(){
+        return $this->belongsToMany(ActivityManajemen::class, 'activity_manajemen_types', 'type_id', 'activity_manajemen_id');
     }
 }
