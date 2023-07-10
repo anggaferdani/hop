@@ -46,9 +46,9 @@
             @foreach($update->update_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('update/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
                 @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.update.delete-image', ['id' => Crypt::encrypt($image->id), 'update_id' => Crypt::encrypt($update->id)]) }}" class="text-white"><i class="fas fa-times"></i></a>
+                  <a href="{{ route('superadmin.update.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
                 @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.update.delete-image', ['id' => Crypt::encrypt($image->id), 'update_id' => Crypt::encrypt($update->id)]) }}" class="text-white"><i class="fas fa-times"></i></a>
+                  <a href="{{ route('admin.update.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
                 @endif
               </div>
             @endforeach

@@ -136,15 +136,15 @@ class UpdateController extends Controller
         }
     }
 
-    public function deleteImage($id, $update_id){
+    public function deleteImage($id){
         $image = UpdateImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("update/image/".$image->image))){
             File::delete("update/image/".$image->image);
         }
-        
-        Update::find(Crypt::decrypt($update_id))->delete();
 
+        $image->delete();
+        
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
     }
 }
