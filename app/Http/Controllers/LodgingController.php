@@ -147,14 +147,14 @@ class LodgingController extends Controller
         }
     }
 
-    public function deleteImage($id, $lodging_id){
+    public function deleteImage($id){
         $image = LodgingImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("lodging/image/".$image->image))){
             File::delete("lodging/image/".$image->image);
         }
         
-        Lodging::find(Crypt::decrypt($lodging_id))->delete();
+        $image->delete();
 
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
     }

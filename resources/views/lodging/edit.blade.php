@@ -41,9 +41,9 @@
             @foreach($lodging->lodging_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('lodging/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
                 @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.lodging.delete-image', ['id' => Crypt::encrypt($image->id), 'lodging_id' => Crypt::encrypt($lodging->id)]) }}" class="text-white"><i class="fas fa-times"></i></a>
+                  <a href="{{ route('superadmin.lodging.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
                 @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.lodging.delete-image', ['id' => Crypt::encrypt($image->id), 'lodging_id' => Crypt::encrypt($lodging->id)]) }}" class="text-white"><i class="fas fa-times"></i></a>
+                  <a href="{{ route('admin.lodging.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
                 @endif
               </div>
             @endforeach
