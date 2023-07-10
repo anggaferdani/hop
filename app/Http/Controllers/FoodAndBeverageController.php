@@ -134,15 +134,15 @@ class FoodAndBeverageController extends Controller
         }
     }
 
-    public function deleteImage($id, $food_and_beverage_id){
+    public function deleteImage($id){
         $image = FoodAndBeverageImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("food-and-beverage/image/".$image->image))){
             File::delete("food-and-beverage/image/".$image->image);
         }
-        
-        FoodAndBeverage::find(Crypt::decrypt($food_and_beverage_id))->delete();
 
+        $image->delete();
+        
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
     }
 }
