@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Fasilitas;
+use App\Models\Kategori;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -93,5 +94,21 @@ class DatabaseSeeder extends Seeder
         ];
 
         Fasilitas::insert($fasilitasies);
+
+        $kategoris = [
+            [
+                'kategori' => 'Seminar',
+            ], [
+                'kategori' => 'Konser/Pertunjukan',
+            ], [
+                'kategori' => 'Workshop',
+            ], [
+                'kategori' => 'Talkshow',
+            ], [
+                'kategori' => 'Bazaar',
+            ],
+        ];
+
+        Kategori::insert($kategoris);
     }
 }
