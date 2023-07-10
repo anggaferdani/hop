@@ -15,6 +15,9 @@
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.agenda') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.agenda.index') }}"><i class="fas fa-star"></i><span>Agenda</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.food-and-beverage.index') }}"><i class="fas fa-lemon"></i><span>Food And Beverage</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.lodging') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.lodging.index') }}"><i class="fas fa-map"></i><span>Lodging</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.kategori') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.kategori.index') }}"><i class="fas fa-th-list"></i><span>Kategori</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.activity-manajemen.index') }}"><i class="fas fa-th"></i><span>Activity Manajemen</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.banner') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.banner.index') }}"><i class="fas fa-share-alt"></i><span>Banner</span></a></li>
       @endif
       @if(auth()->user()->level == 'Admin')
         <li class="menu-header">Menu</li>
@@ -23,6 +26,9 @@
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.agenda') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.agenda.index') }}"><i class="fas fa-star"></i><span>Agenda</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.food-and-beverage.index') }}"><i class="fas fa-lemon"></i><span>Food And Beverage</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.lodging') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.lodging.index') }}"><i class="fas fa-map"></i><span>Lodging</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'admin.kategori') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.kategori.index') }}"><i class="fas fa-th-list"></i><span>Kategori</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'admin.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.activity-manajemen.index') }}"><i class="fas fa-th"></i><span>Activity Manajemen</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'admin.banner') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.banner.index') }}"><i class="fas fa-share-alt"></i><span>Banner</span></a></li>
       @endif
       @if(auth()->user()->level == 'Vendor')
         <li class="menu-header">Menu</li>
