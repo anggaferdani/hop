@@ -34,6 +34,6 @@ class FoodAndBeverageImage extends Model
     }
 
     public function food_and_beverages(){
-        return $this->belongsTo(FoodAndBeverage::class, 'foon_and_beverage_id');
+        return $this->belongsTo(FoodAndBeverage::class, 'food_and_beverage_id');
     }
 }
