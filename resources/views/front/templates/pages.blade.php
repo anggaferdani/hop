@@ -61,6 +61,62 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js" integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script type="text/javascript">
+    var cards = $('.height2');
+    var maxHeight = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+      if (maxHeight < $(cards[i]).outerHeight()) {
+        maxHeight = $(cards[i]).outerHeight();
+      }
+    }
+    for (var i = 0; i < cards.length; i++) {
+      $(cards[i]).height(maxHeight);
+    }
+  </script>
+
+  <script type="text/javascript">
+    var cards = $('.height3');
+    var maxHeight = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+      if (maxHeight < $(cards[i]).outerHeight()) {
+        maxHeight = $(cards[i]).outerHeight();
+      }
+    }
+    for (var i = 0; i < cards.length; i++) {
+      $(cards[i]).height(maxHeight);
+    }
+  </script>
+
+  <script type="text/javascript">
+    var cards = $('.height4');
+    var maxHeight = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+      if (maxHeight < $(cards[i]).outerHeight()) {
+        maxHeight = $(cards[i]).outerHeight();
+      }
+    }
+    for (var i = 0; i < cards.length; i++) {
+      $(cards[i]).height(maxHeight);
+    }
+  </script>
+
+  <script type="text/javascript">
+    var cards = $('.height5');
+    var maxHeight = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+      if (maxHeight < $(cards[i]).outerHeight()) {
+        maxHeight = $(cards[i]).outerHeight();
+      }
+    }
+    for (var i = 0; i < cards.length; i++) {
+      $(cards[i]).height(maxHeight);
+    }
+  </script>
+
+  <script type="text/javascript">
     $('.banner2').slick({
       autoplay: true,
       arrows: false,

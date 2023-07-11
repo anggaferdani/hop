@@ -40,8 +40,8 @@
               </div>
               @endforeach
               <div class="card-body">
-                <div class="fw-bold text-dark mb-2" style="text-align: justify;">{{ Str::limit($update->judul, 35) }}</div>
-                <div class="card-text small text-muted lh-sm" style="text-align: justify;">{!! Str::limit($update->deskripsi, 140) !!}</div>
+                <div class="fw-bold text-dark mb-2" style="text-align: justify; word-break: break-all;">{{ Str::limit($update->judul, 35) }}</div>
+                <div class="card-text small text-muted lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($update->deskripsi, 140) !!}</div>
                 <div class="row align-items-center">
                   <div class="col-md-6 my-auto"> 
                     <p class="small text-muted m-0">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</p>

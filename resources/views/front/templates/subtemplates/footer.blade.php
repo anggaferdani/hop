@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="text-white fs-4 fw-bold mb-2">About Us</div>
         <ul class="list-unstyled">
-          <li class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aperiam commodi eveniet asperiores repellendus iusto totam ullam itaque? Quod veritatis id in commodi illo repudiandae ratione hic repellendus provident iusto.</li>
+          <li class="text-white" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aperiam commodi eveniet asperiores repellendus iusto totam ullam itaque? Quod veritatis id in commodi illo repudiandae ratione hic repellendus provident iusto.</li>
         </ul>
       </div>
       <div class="col-md-3">

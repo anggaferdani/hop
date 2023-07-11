@@ -34,21 +34,21 @@
         @foreach($updates as $update)
           <div class="col-md-4">
             <a href="{{ route('update', Crypt::encrypt($update->id)) }}">
-              <div class="card h-100">
+              <div class="card height2 h-100">
                 @foreach($update->update_images->take(1) as $update_image)
                 <div style="height: 120px;">
                   <img src="{{ asset('update/image/'.$update_image["image"]) }}" alt="" class="card-img-top" style="height: 100%; object-fit: cover;">
                 </div>
                 @endforeach
                 <div class="card-body">
-                  <div class="fw-bold text-dark mb-2" style="text-align: justify;">{{ Str::limit($update->judul, 35) }}</div>
-                  <div class="card-text small text-muted lh-sm" style="text-align: justify;">{!! Str::limit($update->deskripsi, 140) !!}</div>
+                  <div class="fw-bold text-dark mb-2" style="text-align: justify; word-break: break-all;">{{ Str::limit($update->judul, 35) }}</div>
+                  <div class="card-text small text-muted lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($update->deskripsi, 140) !!}</div>
                   <div class="row align-items-center">
                     <div class="col-md-6 my-auto"> 
                       <p class="small text-muted m-0">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</p>
                     </div>
                     <div class="col-md-6 my-auto">
-                      <div class="d-flex justify-content-end ms-auto gap-1">
+                      <div class="d-flex justify-content-start justify-content-md-end mt-2 mt-md-0 ms-auto gap-1">
                         @foreach($update->tags->take(2) as $tag)
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($tag->tag, 15) }}</div>
                         @endforeach
@@ -66,7 +66,7 @@
 </section>
 
 <section class="pb-5">
-  <div class="container">
+  <div class="container position-relative">
     <div class="pt-4 d-flex justify-content-between align-items-center">
       <div class="fs-3 fw-bold color m-0">Agendas</div>
       <div class="fs-5 fw-bold m-0"><a href="{{ route('agendas') }}" class="color">View All</a></div>
@@ -90,14 +90,14 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <div class="fw-bold color mb-2">{{ Str::limit($agenda->judul, 20) }}</div>
-                      <div class="small color lh-sm" style="text-align: justify;">{!! Str::limit($agenda->deskripsi, 70) !!}</div>
+                      <div class="small color lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($agenda->deskripsi, 85) !!}</div>
                       <div class="d-flex gap-1">
                         @foreach($agenda->types->take(2) as $type)
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color mt-3">{{ Str::limit($lokasi, 30) }}</div>
-                      <div class="small mb-0 color">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="small mb-0 color2 mt-3">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                     </div>
                   </div>
                 </div>
@@ -106,12 +106,12 @@
           </div>
         @endforeach
       </div>
-      {{-- <button class="button-arrow-left position-absolute start-0 top-50 translate-middle-y">
+      <button class="button-arrow-left position-absolute start-0 top-50 translate-middle-y">
         <img class="hy" src="{{ asset('front/img/kiri.png') }}" alt="">
       </button>
       <button class="button-arrow-right  position-absolute end-0 top-50 translate-middle-y">
         <img class="hy" src="{{ asset('front/img/kanan.png') }}" alt="">
-      </button> --}}
+      </button>
     </div>
   </div>
 </section>

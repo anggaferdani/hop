@@ -11,6 +11,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
 use App\Models\ActivityManajemen;
+use App\Models\Fasilitas;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -109,9 +110,27 @@ class FrontController extends Controller
         ));
     }
 
-    public function lodgings(){
-        $lodgings = Lodging::with('lodging_images')->where('status_aktif', 'Aktif')->latest()->get();
+    public function lodgings(Request $request){
+        $query = Lodging::query();
+        $fasilitasies = Fasilitas::where('status_aktif', 'Aktif')->get();
+
+        if(isset($request->provinsi) && ($request->provinsi != null)){
+            $query->where('provinsi', $request->provinsi);
+        }
+        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
+            $query->where('kabupaten_kota', $request->kabupaten_kota);
+        }
+        if(isset($request->kecamatan) && ($request->kecamatan != null)){
+            $query->where('kecamatan', $request->kecamatan);
+        }
+        if(isset($request->harga) && ($request->harga != null)){
+            $query->where('harga', $request->harga);
+        }
+
+        $lodgings = $query->with('lodging_images')->where('status_aktif', 'Aktif')->latest()->get();
+
         return view('front.lodgings', compact(
+            'fasilitasies',
             'lodgings',
         ));
     }

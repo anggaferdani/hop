@@ -31,8 +31,8 @@
                     </div>
                     @endforeach
                     <div class="card-body">
-                      <div class="card-title text-dark fw-bold" style="text-align: justify;">{{ Str::limit($activity_manajemen->judul, 15) }}</div>
-                      <div class="card-text small text-muted lh-sm" style="text-align: justify;">{!! Str::limit($activity_manajemen->deskripsi, 60) !!}</div>
+                      <div class="card-title text-dark fw-bold" style="text-align: justify; word-break: break-all;">{{ Str::limit($activity_manajemen->judul, 15) }}</div>
+                      <div class="card-text small text-muted lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($activity_manajemen->deskripsi, 75) !!}</div>
                       <p class="text-muted mb-2" style="font-size: 12px;">{{ \Carbon\Carbon::parse($activity_manajemen->tanggal_publikasi)->format('l, d M Y') }}</p>
                       <div class="d-flex gap-1">
                         @foreach($activity_manajemen->types->take(2) as $type)

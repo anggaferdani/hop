@@ -10,73 +10,68 @@
             <div class="fs-3 fw-bold color">Sort By</div>
           </div>
         </div>
-        <div class="row">
-          <div class="py-2">
-            <h4 class="fw-bold color2 m-0">Location</h4>
+        <form action="{{ route('lodgings') }}">
+          <div class="row">
+            <div class="py-2">
+              <h4 class="fw-bold color2 m-0">Location</h4>
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label fs-5">Provinsi</label>
-          <input type="text" class="form-control" placeholder="Masukan Provinsi">
-        </div>
-        <div class="mb-3">
-          <label class="form-label fs-5">Kota/Kabupaten</label>
-          <input type="text" class="form-control" placeholder="Masukan Kota/Kabupaten">
-        </div>
-        <div class="mb-3">
-          <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" placeholder="Masukan Kecamatan">
-        </div>
-        <div class="row">
-          <div class="py-2">
-            <h4 class="fw-bold color2 m-0">Price</h4>
+          <div class="mb-3">
+            <label class="form-label fs-5">Provinsi</label>
+            <input type="text" class="form-control" name="provinsi" placeholder="Masukan Provinsi">
           </div>
-        </div>
-        <div class="pt-1 pb-3">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" checked>
-            <label class="form-check-label"><= Rp.50.000</label>
+          <div class="mb-3">
+            <label class="form-label fs-5">Kabupaten/Kota</label>
+            <input type="text" class="form-control" name="kabupaten_kota" placeholder="Masukan Kota/Kabupaten">
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">Rp.50.000 - Rp.100.000</label>
+          <div class="mb-3">
+            <label class="form-label fs-5">Kecamatan</label>
+            <input type="text" class="form-control" name="kecamatan" placeholder="Masukan Kecamatan">
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">>= Rp.100.000</label>
+          <div class="row">
+            <div class="py-2">
+              <h4 class="fw-bold color2 m-0">Seating Area</h4>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="py-2">
-            <h4 class="fw-bold color2 m-0">Facility</h4>
+          <div class="pt-1 pb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="seating" value="Outdoor">
+              <label class="form-check-label">Outdoor</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="seating" value="Semi Outdoor">
+              <label class="form-check-label">Semi Outdoor</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="seating" value="Indoor Non-Smoking">
+              <label class="form-check-label">Indoor Non-Smoking</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="seating" value="Indoor Smoking">
+              <label class="form-check-label">Indoor Smoking</label>
+            </div>
           </div>
-        </div>
-        <div class="pt-1 pb-3">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" checked>
-            <label class="form-check-label">Smooking Room</label>
+          <div class="row">
+            <div class="py-2">
+              <h4 class="fw-bold color2 m-0">Price</h4>
+            </div>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">Swimming Pool</label>
+          <div class="pt-1 pb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="harga" value="< = Rp.50.000">
+              <label class="form-check-label">< = Rp.50.000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="harga" value="Rp.50.000 - Rp.100.000">
+              <label class="form-check-label">Rp.50.000 - Rp.100.000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="harga" value="> = Rp.100.000">
+              <label class="form-check-label">> = Rp.100.000</label>
+            </div>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">Restaurant</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">Coffe Shop</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">Wedding Services</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label">Rooftop Teracce</label>
-          </div>
-        </div>
+          <button class="btn btn-primary w-100" style="background-color: #5AA4C2 !important">Apply</button>
+        </form>
       </div>
       <div class="col-sm-9 py-4">
         <div class="row">
