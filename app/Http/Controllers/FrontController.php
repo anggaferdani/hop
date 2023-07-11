@@ -76,8 +76,27 @@ class FrontController extends Controller
         ));
     }
 
-    public function food_and_beverages(){
-        $food_and_beverages = FoodAndBeverage::with('food_and_beverage_images')->where('status_aktif', 'Aktif')->latest()->get();
+    public function food_and_beverages(Request $request){
+        $query = FoodAndBeverage::query();
+
+        if(isset($request->provinsi) && ($request->provinsi != null)){
+            $query->where('provinsi', $request->provinsi);
+        }
+        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
+            $query->where('kabupaten_kota', $request->kabupaten_kota);
+        }
+        if(isset($request->kecamatan) && ($request->kecamatan != null)){
+            $query->where('kecamatan', $request->kecamatan);
+        }
+        if(isset($request->seating) && ($request->seating != null)){
+            $query->where('seating', $request->seating);
+        }
+        if(isset($request->harga) && ($request->harga != null)){
+            $query->where('harga', $request->harga);
+        }
+
+        $food_and_beverages = $query->with('food_and_beverage_images')->where('status_aktif', 'Aktif')->latest()->get();
+
         return view('front.food-and-beverages', compact(
             'food_and_beverages',
         ));
