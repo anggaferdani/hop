@@ -9,23 +9,16 @@
         <p class="elit m-0">Mau kemana?</p>
       </div>
     </div>
-    <div id="outer-grid4">
-      <div >
-        <input class="form-control form-control-sm " type="text" placeholder="Provinsi" aria-label=".form-control-sm example">
+    <form action="{{ route('agendas') }}" class="row g-3" method="GET">
+      <div class="col-md-2"><input type="text" class="form-control" name="provinsi" placeholder="Provinsi"></div>
+      <div class="col-md-2"><input type="text" class="form-control" name="kabupaten_kota" placeholder="Kabupaten/Kota"></div>
+      <div class="col-md-2"><input type="text" class="form-control" name="kecamatan" placeholder="Kecamatan"></div>
+      <div class="col-md-2"><input type="date" class="form-control" name="tanggal_mulai" placeholder="Start Date"></div>
+      <div class="col-md-2"><input type="date" class="form-control" name="tanggal_berakhir" placeholder="End Date"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" style="background-color: #5AA4C2 !important">Apply</button>
       </div>
-      <div >
-        <input class="form-control form-control-sm " type="text" placeholder="Kota/Kabupaten" aria-label=".form-control-sm example">
-      </div>
-      <div >
-        <input class="form-control form-control-sm " type="text" placeholder="Kecamatan" aria-label=".form-control-sm example">
-      </div>
-      <div >
-        <input class="form-control form-control-sm " type="text" placeholder="Start Date" aria-label=".form-control-sm example">
-      </div>
-      <div >
-        <input class="form-control form-control-sm " type="text" placeholder="End Date" aria-label=".form-control-sm example">
-      </div>
-    </div>
+    </form>
     <div class="row g-2 py-4">
       @foreach($agendas as $agenda)
       <?php $lokasi = $agenda->provinsi.", ".$agenda->kabupaten_kota.", ".$agenda->kecamatan ?>
@@ -41,14 +34,14 @@
                 <div class="col-md-8">
                   <div class="card-body">
                     <div class="fw-bold color mb-2">{{ Str::limit($agenda->judul, 20) }}</div>
-                    <div class="small color lh-sm" style="text-align: justify;">{!! Str::limit($agenda->deskripsi, 70) !!}</div>
+                    <div class="small color lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($agenda->deskripsi, 85) !!}</div>
                     <div class="d-flex gap-1">
                       @foreach($agenda->types->take(2) as $type)
                         <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                       @endforeach
                     </div>
-                    <div class="small mb-0 color mt-3">{{ Str::limit($lokasi, 30) }}</div>
-                    <div class="small mb-0 color">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                    <div class="small mb-0 color2 mt-3">{{ Str::limit($lokasi, 30) }}</div>
+                    <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                   </div>
                 </div>
               </div>
