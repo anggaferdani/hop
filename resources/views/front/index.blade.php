@@ -34,7 +34,7 @@
         @foreach($updates as $update)
           <div class="col-md-4">
             <a href="{{ route('update', Crypt::encrypt($update->id)) }}">
-              <div class="card height2 h-100">
+              <div class="card h-100">
                 @foreach($update->update_images->take(1) as $update_image)
                 <div style="height: 120px;">
                   <img src="{{ asset('update/image/'.$update_image["image"]) }}" alt="" class="card-img-top" style="height: 100%; object-fit: cover;">
@@ -48,7 +48,7 @@
                       <p class="small text-muted m-0">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</p>
                     </div>
                     <div class="col-md-6 my-auto">
-                      <div class="d-flex justify-content-start justify-content-md-end mt-2 mt-md-0 ms-auto gap-1">
+                      <div class="d-flex justify-content-end ms-auto gap-1">
                         @foreach($update->tags->take(2) as $tag)
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($tag->tag, 15) }}</div>
                         @endforeach
