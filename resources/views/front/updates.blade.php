@@ -5,7 +5,7 @@
   @foreach($update_banners as $update_banner)
   <a href="{{ route('update', Crypt::encrypt($update_banner->id)) }}">
     @foreach ($update_banner->update_images->take(1) as $update_image)
-    <section style="height: 400px; background: url({{ asset('update/image/'.$update_image["image"]) }}); background-size: cover; background-position: center;">
+    <section style="height: 400px; background-image: url('{{ asset('update/image/'.$update_image["image"]) }}'); background-size: cover; background-position: center;">
     @endforeach
       <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-end py-4 px-md-0 py-md-5 px-4">
