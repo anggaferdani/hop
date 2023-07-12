@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');
+            $table->enum('tiket', ['Berbayar', 'Gratis'])->default('Berbayar');
+            $table->string('harga_mulai')->nullable();
+            $table->string('harga_akhir')->nullable();
             $table->string('tanggal_mulai');
             $table->string('tanggal_berakhir');
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');

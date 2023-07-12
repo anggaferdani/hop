@@ -21,8 +21,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link {{ str_contains(Route::currentRouteName(), 'food-and-beverages') || str_contains(Route::currentRouteName(), 'lodgings') ? 'active2' : '' }} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hangout Places</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item my-1" href="{{ route('food-and-beverages') }}">Food and Beverages</a></li>
-              <li><a class="dropdown-item my-1" href="{{ route('lodgings') }}">Lodgings</a></li>
+              <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'food-and-beverages') ? 'active2' : '' }}" href="{{ route('food-and-beverages') }}">Resto Dan Cafe</a></li>
+              <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'lodgings') ? 'active2' : '' }}" href="{{ route('lodgings') }}">Penginapan</a></li>
             </ul>
           </li>
           <li class="nav-item mx-1">

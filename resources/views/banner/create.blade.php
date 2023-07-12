@@ -18,7 +18,7 @@
         @endif
           @csrf
           <div class="form-group">
-            <label for="">Thumbnail</label>
+            <label for="">Thumbnail <span class="text-danger"> *disarankan 1440x413</span></label>
             <input type="file" class="form-control" name="thumbnail" onchange="file(event)">
             @error('thumbnail')<div class="text-danger">{{ $message }}</div>@enderror
             <div><img src="#" id="image" alt="" width="200px"></div>

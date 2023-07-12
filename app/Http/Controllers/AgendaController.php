@@ -36,9 +36,16 @@ class AgendaController extends Controller
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
             'tanggal_berakhir' => 'required',
+            'tiket' => 'required',
             'image.*' => 'required',
             'type.*' => 'required',
         ]);
+
+        $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
+        $harga_mulai2 = trim($harga_mulai);
+
+        $harga_akhir = preg_replace('/\D/', '', $request->harga_akhir);
+        $harga_akhir2 = trim($harga_akhir);
 
         $array = array(
             'penyelenggara' => $request['penyelenggara'],
@@ -48,6 +55,9 @@ class AgendaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
+            'tiket' => $request['tiket'],
+            'harga_mulai' => $harga_mulai2,
+            'harga_akhir' => $harga_akhir2,
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
         );
@@ -109,7 +119,14 @@ class AgendaController extends Controller
             'kecamatan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
+            'tiket' => 'required',
         ]);
+
+        $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
+        $harga_mulai2 = trim($harga_mulai);
+
+        $harga_akhir = preg_replace('/\D/', '', $request->harga_akhir);
+        $harga_akhir2 = trim($harga_akhir);
 
         $agenda->update([
             'penyelenggara' => $request['penyelenggara'],
@@ -119,6 +136,9 @@ class AgendaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
+            'tiket' => $request['tiket'],
+            'harga_mulai' => $harga_mulai2,
+            'harga_akhir' => $harga_akhir2,
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
         ]);

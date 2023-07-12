@@ -14,7 +14,7 @@
         <form action="" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
           @csrf
           <div class="form-group">
-            <label for="">Thumbnail</label>
+            <label for="">Thumbnail <span class="text-danger"> *disarankan 1440x413</span></label>
             <input disabled type="file" class="form-control-file" name="thumbnail" value="{{ $banner->thumbnail }}" onchange="file(event)">
             @error('thumbnail')<div class="text-danger">{{ $message }}</div>@enderror
             <div><img src="{{ asset('banner/thumbnail/'.$banner['thumbnail']) }}" id="image" alt="" width="200px"></div>

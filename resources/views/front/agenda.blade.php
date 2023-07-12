@@ -28,7 +28,11 @@
       <div class="fs-5 fw-bold">Lokasi</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->provinsi }}, {{ $agenda->kabupaten_kota }}, {{ $agenda->kecamatan }}</div>
       <div class="fs-5 fw-bold">Start End Date</div>
-      <div class="fs-5 text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
+      <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
+      @if($agenda->tiket == 'Berbayar')
+      <div class="fs-5 fw-bold">Tickets</div>
+      <div class="fs-5 text-muted lh-sm">{{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_mulai)), 3))) }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_akhir)), 3))) }}</div>
+      @endif
       <div class="d-block text-center text-md-start mt-4">
         <button class="text-white border-0 rounded-pill fs-5 px-5 py-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
       </div>

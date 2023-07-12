@@ -33,7 +33,19 @@
                 @endforeach
                 <div class="col-md-8">
                   <div class="card-body">
-                    <div class="fw-bold color mb-2">{{ Str::limit($agenda->judul, 20) }}</div>
+                    <div class="d-flex mb-2 justify-content-between">
+                      <div class="col-md-10">
+                        <div class="fw-bold color">{{ Str::limit($agenda->judul, 30) }}</div>
+                      </div>
+                      <div class="col-md-2">
+                        @if($agenda->tiket == 'Berbayar')
+                          <div class="tagging rounded-2 py-1 px-2">Paid</div>
+                        @endif
+                        @if($agenda->tiket == 'Gratis')
+                          <div class="tagging rounded-2 py-1 px-2">Free</div>
+                        @endif
+                      </div>
+                    </div>
                     <div class="small color lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($agenda->deskripsi, 85) !!}</div>
                     <div class="d-flex gap-1">
                       @foreach($agenda->types->take(2) as $type)

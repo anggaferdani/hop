@@ -1,7 +1,7 @@
 @extends('front.templates.pages')
 @section('title', 'Index')
 @section('content')
-<section class="py-0 py-md-4" style="position: relative;">
+<section class="py-0 pt-md-4" style="position: relative;">
   <div class="banner2 mt-0" style="width: 100%; height: 400px;">
     @foreach($banners as $banner)
       <a href="{{ $banner->link }}" style="width: 100%; height: 400px;"><img src="{{ asset('banner/thumbnail/'.$banner["thumbnail"]) }}" style="width: 100%; height: 400px; object-fit: cover;" alt=""></a>
@@ -89,7 +89,19 @@
                   @endforeach
                   <div class="col-md-8">
                     <div class="card-body">
-                      <div class="fw-bold color mb-2">{{ Str::limit($agenda->judul, 20) }}</div>
+                      <div class="d-flex mb-2 justify-content-between">
+                        <div class="col-md-10">
+                          <div class="fw-bold color">{{ Str::limit($agenda->judul, 30) }}</div>
+                        </div>
+                        <div class="col-md-2">
+                          @if($agenda->tiket == 'Berbayar')
+                            <div class="tagging rounded-2 py-1 px-2">Paid</div>
+                          @endif
+                          @if($agenda->tiket == 'Gratis')
+                            <div class="tagging rounded-2 py-1 px-2">Free</div>
+                          @endif
+                        </div>
+                      </div>
                       <div class="small color lh-sm" style="text-align: justify; word-break: break-all;">{!! Str::limit($agenda->deskripsi, 85) !!}</div>
                       <div class="d-flex gap-1">
                         @foreach($agenda->types->take(2) as $type)
@@ -106,12 +118,6 @@
           </div>
         @endforeach
       </div>
-      <button class="button-arrow-left position-absolute start-0 top-50 translate-middle-y">
-        <img class="hy" src="{{ asset('front/img/kiri.png') }}" alt="">
-      </button>
-      <button class="button-arrow-right  position-absolute end-0 top-50 translate-middle-y">
-        <img class="hy" src="{{ asset('front/img/kanan.png') }}" alt="">
-      </button>
     </div>
   </div>
 </section>

@@ -108,7 +108,7 @@
           </div>
           <div class="form-group">
             <label for="">Harga Mulai</label>
-            <input disabled type="text" class="form-control" name="harga_mulai" onkeyup="formatNumber(this)">
+            <input disabled type="text" class="form-control" name="harga_mulai" value="{{ $activity_manajemen->harga_mulai }}" onkeyup="formatNumber(this)">
             @error('harga_mulai')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-row">
