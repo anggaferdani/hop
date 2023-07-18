@@ -17,6 +17,7 @@ class DaftarController extends Controller
             'jenis_kelamin' => 'required',
             'no_telepon' => 'required',
             'email' => 'required',
+            'bukti_transfer' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
@@ -36,6 +37,13 @@ class DaftarController extends Controller
             'kecamatan' => $request['kecamatan'],
             'pekerjaan' => $request['pekerjaan'],
         );
+        
+        if($bukti_transfer = $request->file('bukti_transfer')){
+            $destination_path = 'pendaftar/bukti-transfer/';
+            $bukti_transfer2 = date('YmdHis').rand(999999999, 9999999999);
+            $bukti_transfer->move($destination_path, $bukti_transfer2);
+            $array['bukti_transfer'] = $bukti_transfer2;
+        }
     
         $pendaftar = Pendaftar::create($array);
     

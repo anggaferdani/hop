@@ -21,6 +21,7 @@ class Pendaftar extends Model
         'jenis_kelamin',
         'no_telepon',
         'email',
+        'bukti_transfer',
         'provinsi',
         'kabupaten_kota',
         'kecamatan',

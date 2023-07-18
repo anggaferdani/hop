@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ActivityManajemenController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
@@ -12,9 +11,12 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\LodgingController;
-use App\Http\Controllers\FasilitasController;
-use App\Http\Controllers\FoodAndBeverageController;
+use App\Http\Controllers\SeatingController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\FoodAndBeverageController;
+use App\Http\Controllers\ActivityManajemenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,7 @@ Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/index', [FrontController::class, 'index'])->name('index');
 Route::get('/updates', [FrontController::class, 'updates'])->name('updates');
 Route::get('/update/{id}', [FrontController::class, 'update'])->name('update');
+Route::get('/tags/{id}', [FrontController::class, 'tags'])->name('tags');
 Route::get('/agendas', [FrontController::class, 'agendas'])->name('agendas');
 Route::get('/agenda/{id}', [FrontController::class, 'agenda'])->name('agenda');
 Route::get('/food-and-beverages', [FrontController::class, 'food_and_beverages'])->name('food-and-beverages');
@@ -41,6 +44,8 @@ Route::get('/activity-manajemens', [FrontController::class, 'activity_manajemens
 Route::get('/activity-manajemen/{id}', [FrontController::class, 'activity_manajemen'])->name('activity-manajemen');
 Route::get('/kategoris/{id}', [FrontController::class, 'kategoris'])->name('kategoris');
 Route::get('/about-us', [FrontController::class, 'about_us'])->name('about-us');
+Route::get('/autocomplete', [FrontController::class, 'autocomplete'])->name('autocomplete');
+Route::post('/search', [FrontController::class, 'search'])->name('search');
 
 Route::middleware(['web', 'disableBackButton'])->group(function(){
     Route::middleware(['disableRedirectToLoginPage'])->group(function(){
@@ -61,8 +66,10 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
+        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
+        Route::resource('seating', SeatingController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
@@ -83,8 +90,10 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
+        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
+        Route::resource('seating', SeatingController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
