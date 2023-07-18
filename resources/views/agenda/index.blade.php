@@ -28,7 +28,7 @@
           <form>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search">
-              <div class="input-group-append">                                            
+              <div class="input-group-append">
                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
               </div>
             </div>
@@ -68,6 +68,7 @@
                         @method('DELETE')
                         <a href="{{ route('superadmin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
                         <a href="{{ route('superadmin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                        <a href="{{ route('superadmin.pendaftar.index', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i></a>
                         <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
                       </form>
                     @elseif(auth()->user()->level == 'Admin')
@@ -76,6 +77,7 @@
                         @method('DELETE')
                         <a href="{{ route('admin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
                         <a href="{{ route('admin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                        <a href="{{ route('admin.pendaftar.index', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i></a>
                         <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
                       </form>
                     @endif

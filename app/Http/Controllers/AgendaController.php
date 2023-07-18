@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\Agenda;
 use App\Models\AgendaImage;
+use App\Models\Pendaftar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
@@ -187,5 +188,14 @@ class AgendaController extends Controller
         $image->delete();
         
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
+    }
+
+    public function pendaftar($agenda_id){
+        $agenda = Agenda::find(Crypt::decrypt($agenda_id));
+        $pendaftars = Pendaftar::latest()->paginate(10);
+        return view('agenda.pendaftar', compact(
+            'agenda',
+            'pendaftars',
+        ));
     }
 }
