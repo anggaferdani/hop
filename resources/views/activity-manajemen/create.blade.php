@@ -1,7 +1,7 @@
 @extends('templates.pages')
-@section('title', 'Activity Manajemen')
+@section('title', 'Community')
 @section('header')
-<h1>Activity Manajemen</h1>
+<h1>Community</h1>
 @endsection
 @section('content')
 <div class="row">
