@@ -405,6 +405,15 @@
   </script>
 
   <script type="text/javascript">
+    $(document).ready(function(){
+      $('.deskripsi3').each(function(f){
+        var newstr = $(this).text().substring(0, 50) + "...";
+        $(this).text(newstr);
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
     (function(){
       'use strict'
       var forms = document.querySelectorAll('.needs-validation')

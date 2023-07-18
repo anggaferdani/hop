@@ -180,29 +180,38 @@ class FrontController extends Controller
     }
 
     public function autocomplete(Request $request){
-        $search = $request->search;
+        $search = $request->get('search');
 
-        if($search == ''){
-            $autocomplate = Agenda::orderby('judul', 'asc')->select('id', 'judul')->where('status_aktif', 'Aktif')->get();
-        }else{
-            $autocomplate = Agenda::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
-        }
+        $agendas = Agenda::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $updates = Update::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $activity_manajemens = ActivityManajemen::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+
+        $autocomplates = $agendas->union($updates)->union($activity_manajemens);
 
         $response = array();
-        foreach($autocomplate as $autocomplate){
-            $response[] = array("value" => $autocomplate->id, "label" => $autocomplate->judul);
+        foreach($autocomplates as $autocomplate){
+            $response[] = array(
+                "value" => $autocomplate->id,
+                "label" => $autocomplate->judul
+            );
         }
 
         return response()->json($response);
     }
 
     public function search(Request $request){
-        $search = $request->search;
+        $search = $request->get('search');
 
         if($search != ""){
             $agenda = Agenda::where('judul', 'LIKE', '%' . $search . '%')->where('status_aktif', 'Aktif')->first();
+            $update = Update::where('judul', 'LIKE', '%' . $search . '%')->where('status_aktif', 'Aktif')->first();
+            $activity_manajemen = ActivityManajemen::where('judul', 'LIKE', '%' . $search . '%')->where('status_aktif', 'Aktif')->first();
             if($agenda){
                 return redirect()->route('agenda', Crypt::encrypt($agenda->id));
+            }elseif($update){
+                return redirect()->route('update', Crypt::encrypt($update->id));
+            }elseif($activity_manajemen){
+                return redirect()->route('activity-manajemen', Crypt::encrypt($activity_manajemen->id));
             }else{
                 return redirect()->back();
             }
