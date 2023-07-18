@@ -1,4 +1,4 @@
-<footer class="py-3" style="background-color: #5AA4C2;">
+<footer class="pt-5 pb-3" style="background-color: #5AA4C2;">
   <div class="container">
     <div class="row">
       <div class="col-md-6">

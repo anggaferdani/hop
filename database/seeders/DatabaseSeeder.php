@@ -8,6 +8,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Fasilitas;
 use App\Models\Kategori;
+use App\Models\Seating;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -94,6 +95,20 @@ class DatabaseSeeder extends Seeder
         ];
 
         Fasilitas::insert($fasilitasies);
+
+        $seatings = [
+            [
+                'seating' => 'Outdoor',
+            ], [
+                'seating' => 'Semi Outdoor',
+            ], [
+                'seating' => 'Indoor Non-Smoking',
+            ], [
+                'seating' => 'Indoor Smooking',
+            ],
+        ];
+
+        Seating::insert($seatings);
 
         $kategoris = [
             [
