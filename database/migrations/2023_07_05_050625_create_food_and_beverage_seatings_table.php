@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('food_and_beverages', function (Blueprint $table) {
+        Schema::create('food_and_beverage_seatings', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_tempat');
-            $table->longText('deskripsi_tempat');
-            $table->string('provinsi');
-            $table->string('kabupaten_kota');
-            $table->string('kecamatan');
-            $table->enum('harga', ['< = Rp.50.000', 'Rp.50.000 - Rp.100.000', '> = Rp.100.000']);
-            $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
+            $table->foreignId('food_and_beverage_id')->references('id')->on('food_and_beverages')->onDelete('cascade');
+            $table->foreignId('seating_id')->references('id')->on('seatings')->onDelete('cascade');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('food_and_beverages');
+        Schema::dropIfExists('food_and_beverage_seatings');
     }
 };

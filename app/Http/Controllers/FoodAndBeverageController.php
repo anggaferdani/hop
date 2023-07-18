@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Seating;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
 use App\Models\FoodAndBeverageImage;
@@ -19,7 +20,10 @@ class FoodAndBeverageController extends Controller
     }
 
     public function create(){
-        return view('food-and-beverage.create');
+        $seatings = Seating::select('id', 'seating')->where('status_aktif', 'Aktif')->get();
+        return view('food-and-beverage.create', compact(
+            'seatings',
+        ));
     }
 
     public function store(Request $request){
@@ -30,8 +34,8 @@ class FoodAndBeverageController extends Controller
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
-            'seating' => 'required',
             'harga' => 'required',
+            'seating.*' => 'required',
         ]);
 
         $array = array(
@@ -40,7 +44,6 @@ class FoodAndBeverageController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
-            'seating' => $request['seating'],
             'harga' => $request['harga'],
         );
 
@@ -57,6 +60,8 @@ class FoodAndBeverageController extends Controller
             }
         }
 
+        $food_and_beverage->seatings()->attach($request->seating);
+
         if(auth()->user()->level == 'Superadmin'){
             return redirect()->route('superadmin.food-and-beverage.index')->with('success', 'Data has been created at '.$food_and_beverage->created_at);
         }elseif(auth()->user()->level == 'Admin'){
@@ -66,15 +71,19 @@ class FoodAndBeverageController extends Controller
 
     public function show($id){
         $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
+        $seating_id = $food_and_beverage->seatings->pluck('id');
         return view('food-and-beverage.show', compact(
             'food_and_beverage',
+            'seating_id',
         ));
     }
 
     public function edit($id){
         $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
+        $seating_id = $food_and_beverage->seatings->pluck('id');
         return view('food-and-beverage.edit', compact(
             'food_and_beverage',
+            'seating_id',
         ));
     }
 
@@ -88,7 +97,6 @@ class FoodAndBeverageController extends Controller
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
-            'seating' => 'required',
             'harga' => 'required',
         ]);
 
@@ -98,7 +106,6 @@ class FoodAndBeverageController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
-            'seating' => $request['seating'],
             'harga' => $request['harga'],
         ]);
 
@@ -112,6 +119,8 @@ class FoodAndBeverageController extends Controller
                 ]);
             }
         }
+
+        $food_and_beverage->seatings()->sync($request->seating);
 
         if(auth()->user()->level == 'Superadmin'){
             return redirect()->route('superadmin.food-and-beverage.index')->with('success', 'Data has been updated at '.$food_and_beverage->updated_at);

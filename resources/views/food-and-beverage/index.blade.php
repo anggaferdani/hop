@@ -1,7 +1,7 @@
 @extends('templates.pages')
-@section('title', 'Food And Beverage')
+@section('title', 'Resto & Cafe')
 @section('header')
-<h1>Food And Beverage</h1>
+<h1>Resto & Cafe</h1>
 @endsection
 @section('content')
 <div class="row">
@@ -18,8 +18,10 @@
         <div class="float-left">
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.food-and-beverage.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
+            <a href="{{ route('superadmin.seating.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i></a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.food-and-beverage.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
+            <a href="{{ route('superadmin.seating.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i></a>
           @endif
         </div>
         <div class="float-right">

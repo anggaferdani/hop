@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
 use App\Models\ActivityManajemen;
 use App\Models\Fasilitas;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -29,10 +30,12 @@ class FrontController extends Controller
 
     public function updates(){
         $update_banners = Update::with('update_images')->where('status_aktif', 'Aktif')->latest()->get();
-        $updates = Update::with('update_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $updates = Update::with('update_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $tags = Tag::where('status_aktif', 'Aktif')->get();
         return view('front.updates', compact(
             'update_banners',
             'updates',
+            'tags',
         ));
     }
 
@@ -40,6 +43,13 @@ class FrontController extends Controller
         $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
         return view('front.update', compact(
             'update',
+        ));
+    }
+
+    public function tags($id){
+        $tag = Tag::with(["updates" => function($query){ $query->where("status_aktif", "Aktif"); }])->where('id', Crypt::decrypt($id))->where('status_aktif', 'Aktif')->find(Crypt::decrypt($id));
+        return view('front.tags', compact(
+            'tag',
         ));
     }
 
@@ -167,5 +177,37 @@ class FrontController extends Controller
 
     public function about_us(){
         return view('front.about-us');
+    }
+
+    public function autocomplete(Request $request){
+        $search = $request->search;
+
+        if($search == ''){
+            $autocomplate = Agenda::orderby('judul', 'asc')->select('id', 'judul')->where('status_aktif', 'Aktif')->get();
+        }else{
+            $autocomplate = Agenda::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        }
+
+        $response = array();
+        foreach($autocomplate as $autocomplate){
+            $response[] = array("value" => $autocomplate->id, "label" => $autocomplate->judul);
+        }
+
+        return response()->json($response);
+    }
+
+    public function search(Request $request){
+        $search = $request->search;
+
+        if($search != ""){
+            $agenda = Agenda::where('judul', 'LIKE', '%' . $search . '%')->where('status_aktif', 'Aktif')->first();
+            if($agenda){
+                return redirect()->route('agenda', Crypt::encrypt($agenda->id));
+            }else{
+                return redirect()->back();
+            }
+        }else{
+            return redirect()->back();
+        }
     }
 }

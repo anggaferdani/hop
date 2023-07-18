@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/components.css') }}">
 
+  @stack('style')
+
   <!-- Start GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
   <script>
@@ -39,6 +41,12 @@
       height: 100%;
       object-fit: cover;
       cursor: pointer;
+    }
+    .modal-backdrop{
+      display: none;
+    }
+    .modal{
+      background: rgba(0, 0, 0, 0.5); 
     }
   </style>
 </head>

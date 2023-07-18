@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Food And Beverages')
+@section('title', 'Resto & Cafe')
 @section('content')
 <section>
   <div class="container-fluid">
@@ -76,7 +76,7 @@
       <div class="col-sm-9 py-4">
         <div class="row">
           <div class="pt-4 pb-3">
-            <div class="fs-3 fw-bold color m-0">Food and Beverages</div>
+            <div class="fs-3 fw-bold color m-0">Resto & Cafe</div>
             <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
         </div>
@@ -87,9 +87,11 @@
               <a href="{{ route('food-and-beverage', Crypt::encrypt($food_and_beverage->id)) }}">
                 <div class="card h-100 border-0" style="height: 230px">
                   @foreach($food_and_beverage->food_and_beverage_images->take(1) as $food_and_beverage_image)
-                  <img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                  <div style="height: 150px">
+                    <img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                  </div>
                   @endforeach
-                  <div class="fw-bold text-dark fs-5 py-2">{{ Str::limit($food_and_beverage->nama_tempat, 20) }}</div>
+                  <div class="fw-bold text-dark py-2">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
                   <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
                   <p class="small fw-bold m-0 text-muted">{{ Str::limit($lokasi, 30) }}</p>
                 </div>

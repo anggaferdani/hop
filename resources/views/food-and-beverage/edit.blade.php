@@ -1,7 +1,7 @@
 @extends('templates.pages')
-@section('title', 'Food And Beverage')
+@section('title', 'Resto & Cafe')
 @section('header')
-<h1>Food And Beverage</h1>
+<h1>Resto & Cafe</h1>
 @endsection
 @section('content')
 <div class="row">
@@ -68,14 +68,16 @@
           </div>
           <div class="form-group">
             <label for="">Seating</label>
-            <select class="form-control select2" name="seating">
-              <option disabled selected>Select</option>
-              <option value="Outdoor" @if($food_and_beverage->seating == 'Outdoor')@selected(true)@endif>Outdoor</option>
-              <option value="Semi Outdoor" @if($food_and_beverage->seating == 'Semi Outdoor')@selected(true)@endif>Semi Outdoor</option>
-              <option value="Indoor Non-Smoking" @if($food_and_beverage->seating == 'Indoor Non-Smoking')@selected(true)@endif>Indoor Non-Smoking</option>
-              <option value="Indoor Smoking" @if($food_and_beverage->seating == 'Indoor Smoking')@selected(true)@endif>Indoor Non-Smoking</option>
+            <select class="form-control select2" name="seating[]" multiple>
+              @foreach($seatings as $seating)
+                <option value="{{ $seating->id }}"
+                @foreach($lodging->seating as $seating2)
+                  @if($seating2->id == $seating->id)@selected(true)@endif
+                @endforeach
+                >{{ $seating->seating }}</option>
+              @endforeach
             </select>
-            @error('seating')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('seating[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Harga</label>
