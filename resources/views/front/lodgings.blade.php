@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Lodgings')
+@section('title', 'Penginapan')
 @section('content')
 <section>
   <div class="container-fluid">
@@ -76,7 +76,7 @@
       <div class="col-sm-9 py-4">
         <div class="row">
           <div class="pt-4 pb-3">
-            <div class="fs-3 fw-bold color m-0">Lodgings</div>
+            <div class="fs-3 fw-bold color m-0">Penginapan</div>
             <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
         </div>
@@ -87,7 +87,9 @@
               <a href="{{ route('lodging', Crypt::encrypt($lodging->id)) }}">
                 <div class="card h-100 border-0" style="height: 230px">
                   @foreach($lodging->lodging_images->take(1) as $lodging_image)
-                  <img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                  <div style="height: 150px">
+                    <img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                  </div>
                   @endforeach
                   <div class="fs-5 py-2 text-dark fw-bold">{{ Str::limit($lodging->nama_tempat, 20) }}</div>
                   <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
