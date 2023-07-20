@@ -18,9 +18,11 @@
             <img src="{{ asset('update/image/'.$update_image["image"]) }}" alt="" class="card-img-top" style="height: 100%; object-fit: cover;">
           </div>
           @endforeach
-          <div class="card-body">
-            <div class="fw-bold text-dark mb-2" style="text-align: justify; word-break: break-all;">{{ Str::limit($update->judul, 35) }}</div>
-            <div class="card-text small text-muted lh-sm deskripsi mb-2" style="text-align: justify; word-break: break-all;">{!! $update->deskripsi !!}</div>
+          <div class="card-body" style="height: 170px; display: flex; justify-content: space-between; flex-direction: column;">
+            <div>
+              <div class="fw-bold text-dark mb-2" style="text-align: justify; word-break: break-all;">{{ Str::limit($update->judul, 35) }}</div>
+              <div class="card-text small text-muted lh-sm deskripsi mb-2" style="text-align: justify; word-break: break-all;">{!! $update->deskripsi !!}</div>
+            </div>
             <div class="row align-items-center">
               <div class="col-md-6 my-auto"> 
                 <p class="small text-muted m-0">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</p>
@@ -33,8 +35,8 @@
                 </div>
               </div>
             </div>
-            <a href="{{ route('update', Crypt::encrypt($update->id)) }}" class="stretched-link"></a>
           </div>
+          <a href="{{ route('update', Crypt::encrypt($update->id)) }}" class="stretched-link"></a>
         </div>
       </div>
       @endforeach

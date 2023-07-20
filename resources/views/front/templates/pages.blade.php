@@ -18,6 +18,18 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 <style>
+  @media (min-width:768px) {
+    .w-md-50 {
+        width: 50% !important;
+    }
+  }
+  #search::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E %3Cpath d='M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z'%3E%3C/path%3E %3C/svg%3E") center no-repeat;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
   .active2{
     color: #EC5D71 !important;
   }
@@ -87,10 +99,15 @@
           });
         },
         select: function(event, ui){
-          $('#search').val(ui.item.label);
+          $('#search').val(ui.item.judul);
           return false;
         }
-      });
+      }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+        return $( "<li>" )
+          .append( "<div><span class='fw-bold'>" + item.judul + "</span><br><span>" + item.deskripsi + "</span><br><span class='small fw-light'>" + item.provinsi + "</span>, <span class='small fw-light'>" + item.kabupaten_kota + "</span>, <span class='small fw-light'>" + item.kecamatan + "</span></div>" )
+          .appendTo( ul );
+      };
+      $("#search").autocomplete("widget").attr('style', 'max-height: 250px; overflow-y: auto; overflow-x: hidden;');
     });
   </script>
 
@@ -407,7 +424,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.deskripsi3').each(function(f){
-        var newstr = $(this).text().substring(0, 50) + "...";
+        var newstr = $(this).text().substring(0, 70) + "...";
         $(this).text(newstr);
       });
     });

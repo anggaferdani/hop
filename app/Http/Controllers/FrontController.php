@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Agenda;
 use App\Models\Banner;
 use App\Models\Update;
 use App\Models\Lodging;
 use App\Models\Kategori;
+use App\Models\Fasilitas;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
 use App\Models\ActivityManajemen;
-use App\Models\Fasilitas;
-use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -74,7 +76,7 @@ class FrontController extends Controller
             ->orWhereBetween('tanggal_berakhir', array($tanggal_mulai, $tanggal_berakhir))->get();
         }
 
-        $agendas = $query->with('agenda_images')->where('status_aktif', 'Aktif')->latest()->paginate(3);
+        $agendas = $query->with('agenda_images')->where('status_aktif', 'Aktif')->latest()->paginate(9);
         return view('front.agendas', compact(
             'agendas',
         ));
@@ -182,9 +184,12 @@ class FrontController extends Controller
     public function autocomplete(Request $request){
         $search = $request->get('search');
 
-        $agendas = Agenda::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
-        $updates = Update::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
-        $activity_manajemens = ActivityManajemen::orderby('judul', 'asc')->select('id', 'judul')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $agenda = DB::raw("CONCAT(`penyelenggara`, ' ', `judul`, ' ', `jenis`, ' ', `provinsi`, ' ', `kabupaten_kota`, ' ', `kecamatan`)");
+        $activity_manajemen = DB::raw("CONCAT(`judul`, ' ', `provinsi`, ' ', `kabupaten_kota`, ' ', `kecamatan`)");
+
+        $agendas = Agenda::orderby('judul', 'asc')->where($agenda, 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $updates = Update::orderby('judul', 'asc')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $activity_manajemens = ActivityManajemen::orderby($activity_manajemen, 'asc')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
 
         $autocomplates = $agendas->union($updates)->union($activity_manajemens);
 
@@ -192,7 +197,12 @@ class FrontController extends Controller
         foreach($autocomplates as $autocomplate){
             $response[] = array(
                 "value" => $autocomplate->id,
-                "label" => $autocomplate->judul
+                "judul" => $autocomplate->judul,
+                "deskripsi" => Str::limit($autocomplate->deskripsi, 75),
+                "provinsi" => $autocomplate->provinsi,
+                "kabupaten_kota" => $autocomplate->kabupaten_kota,
+                "kecamatan" => $autocomplate->kecamatan,
+                "kategori" => class_basename($autocomplate),
             );
         }
 

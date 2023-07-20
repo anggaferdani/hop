@@ -69,16 +69,18 @@
           @if($kategori->id == $activity_manajemen->kategori_id)
             @foreach($kategori->activity_manajemens as $activity_manajemen)
               <div class="col-md-2" style="width: 24.99999999%">
-                <a href="{{ route('activity-manajemen', Crypt::encrypt($activity_manajemen->id)) }}">
-                  <div class="card h-100">
-                    @foreach($activity_manajemen->activity_manajemen_images->take(1) as $activity_manajemen_image)
-                    <div style="height: 120px;">
-                      <img src="{{ asset('activity-manajemen/image/'.$activity_manajemen_image["image"]) }}" alt="" class="card-img-top" style="height: 100%; object-fit: cover;">
-                    </div>
-                    @endforeach
-                    <div class="card-body">
+                <div class="card h-100">
+                  @foreach($activity_manajemen->activity_manajemen_images->take(1) as $activity_manajemen_image)
+                  <div style="height: 120px;">
+                    <img src="{{ asset('activity-manajemen/image/'.$activity_manajemen_image["image"]) }}" alt="" class="card-img-top" style="height: 100%; object-fit: cover;">
+                  </div>
+                  @endforeach
+                  <div class="card-body" style="height: 170px; display: flex; justify-content: space-between; flex-direction: column;">
+                    <div class="div">
                       <div class="card-title text-dark fw-bold" style="text-align: justify; word-break: break-all;">{{ Str::limit($activity_manajemen->judul, 15) }}</div>
-                      <div class="card-text small text-muted lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $activity_manajemen->deskripsi !!}</div>
+                      <div class="card-text small text-muted lh-sm deskripsi3 mb-2" style="text-align: justify; word-break: break-all;">{!! $activity_manajemen->deskripsi !!}</div>
+                    </div>
+                    <div>
                       <p class="text-muted mb-2" style="font-size: 12px;">{{ \Carbon\Carbon::parse($activity_manajemen->tanggal_publikasi)->format('l, d M Y') }}</p>
                       <div class="d-flex gap-1">
                         @foreach($activity_manajemen->types->take(2) as $type)
@@ -87,7 +89,8 @@
                       </div>
                     </div>
                   </div>
-                </a>
+                  <a href="{{ route('activity-manajemen', Crypt::encrypt($activity_manajemen->id)) }}" class="stretched-link"></a>
+                </div>
               </div>
             @endforeach
           @endif

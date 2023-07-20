@@ -23,7 +23,7 @@
       @foreach($agendas as $agenda)
         <?php $lokasi = $agenda->provinsi.", ".$agenda->kabupaten_kota.", ".$agenda->kecamatan ?>
           <div class="col-md-4">
-            <div class="card">
+            <div class="card h-100">
               <div class="row g-0">
                 @foreach($agenda->agenda_images->take(1) as $agenda_image)
                 <div class="col-md-4">
@@ -31,29 +31,33 @@
                 </div>
                 @endforeach
                 <div class="col-md-8">
-                  <div class="card-body">
-                    <div class="d-flex mb-2 justify-content-between">
-                      <div class="col-md-10">
-                        <div class="fw-bold lh-sm color">{{ Str::limit($agenda->judul, 35) }}</div>
+                  <div class="card-body" style="height: 200px; display: flex; justify-content: space-between; flex-direction: column;">
+                    <div>
+                      <div class="d-flex mb-2 justify-content-between">
+                        <div class="col-md-10">
+                          <div class="fw-bold lh-sm color">{{ Str::limit($agenda->judul, 35) }}</div>
+                        </div>
+                        <div class="col-md-2">
+                          @if($agenda->tiket == 'Berbayar')
+                            <div class="tagging rounded-2 py-1 px-2">Paid</div>
+                          @endif
+                          @if($agenda->tiket == 'Gratis')
+                            <div class="tagging rounded-2 py-1 px-2">Free</div>
+                          @endif
+                        </div>
                       </div>
-                      <div class="col-md-2">
-                        @if($agenda->tiket == 'Berbayar')
-                          <div class="tagging rounded-2 py-1 px-2">Paid</div>
-                        @endif
-                        @if($agenda->tiket == 'Gratis')
-                          <div class="tagging rounded-2 py-1 px-2">Free</div>
-                        @endif
+                      <div class="small color lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda->deskripsi !!}</div>
+                    </div>
+                    <div>
+                      <div class="d-flex gap-1 mb-2">
+                        @foreach($agenda->types->take(2) as $type)
+                          <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                        @endforeach
                       </div>
+                      <div class="small mb-0 color2">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>
-                    <div class="small color lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda->deskripsi !!}</div>
-                    <div class="d-flex gap-1 mb-2">
-                      @foreach($agenda->types->take(2) as $type)
-                        <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
-                      @endforeach
-                    </div>
-                    <div class="small mb-0 color2">{{ Str::limit($lokasi, 30) }}</div>
-                    <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
-                    <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                   </div>
                 </div>
               </div>
