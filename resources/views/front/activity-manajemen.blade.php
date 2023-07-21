@@ -28,12 +28,6 @@
           <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
           <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
         </div>
-        <hr class="text-secondary">
-        <div class="d-flex gap-3">
-          @if(!empty($activity_manajemen->whatsapp))<a href="{{ $activity_manajemen->whatsapp }}" class="business"><i class="fa-brands fa-whatsapp fs-2"></i></a>@endif
-          @if(!empty($activity_manajemen->instagram))<a href="{{ $activity_manajemen->instagram }}" class="business"><i class="fa-brands fa-instagram fs-2"></i></a>@endif
-          @if(!empty($activity_manajemen->twitter))<a href="{{ $activity_manajemen->twitter }}" class="business"><i class="fa-brands fa-twitter fs-2"></i></a>@endif
-        </div>
       </div>
       <div class="col-md-3 py-3 py-md-0">
         <div class="row row-cols-1 gap-2">
@@ -49,19 +43,22 @@
             <div class="card p-0">
               <div class="card-body">
                 <div class="card-title d-flex align-items-center gap-2">
-                  <img src="{{ asset('front/img/63.png') }}" class="img-fluid" alt="">
-                  <h5 class="text-muted small fw-bold m-0">Dapatkan Point HOP</h5>
+                  <h5 class="text-muted small fw-bold m-0">Kontak</h5>
                 </div>
-                <hr>
-                <p class="small m-0" style="text-align: justify; word-break: break-all;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eius cupiditate fugit similique ipsum dolore quidem voluptatem.</p>
+                <div class="d-flex gap-3">
+                  @if(!empty($activity_manajemen->whatsapp))<a href="{{ $activity_manajemen->whatsapp }}" class="business"><i class="fa-brands fa-whatsapp fs-2"></i></a>@endif
+                  @if(!empty($activity_manajemen->instagram))<a href="{{ $activity_manajemen->instagram }}" class="business"><i class="fa-brands fa-instagram fs-2"></i></a>@endif
+                  @if(!empty($activity_manajemen->twitter))<a href="{{ $activity_manajemen->twitter }}" class="business"><i class="fa-brands fa-twitter fs-2"></i></a>@endif
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="pt-0 pt-md-4 pb-1 d-flex justify-content-between align-items-center">
-      <div class="fs-5 fw-bold m-0">Pilihan Lainnya</div>
+    <div class="pt-4 mb-2 d-flex justify-content-between align-items-center">
+      <div class="fs-4 fw-bold color m-0">Pilihan Lainnya</div>
+      <div class="fs-5 fw-bold m-0"><a href="{{ route('agendas') }}" class="color">View All</a></div>
     </div>
     <div class="row pt-3">
       <div class="card3">

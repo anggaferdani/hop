@@ -4,12 +4,12 @@
 <section class="py-5">
   <div class="container">
     <div class="pt-4 d-flex justify-content-between align-items-center">
-      <div class="fs-3 fw-bold color m-0">Rekomendasi Untuk Saya</div>
+      <div class="fs-3 fw-bold color m-0">Community Categories</div>
     </div>
     <div class="row">
       <div class="d-flex flex-wrap gap-2 mt-3">
         @foreach($kategoris as $kategori)
-          <a href="{{ route('kategoris', Crypt::encrypt($kategori->id)) }}" class="fs-5 p-1 px-3 tagging2">{{ $kategori->kategori }}</a>
+          <a href="{{ route('kategoris', Crypt::encrypt($kategori->id)) }}" class="p-1 px-3 tagging2">{{ $kategori->kategori }}</a>
         @endforeach
       </div>
     </div>

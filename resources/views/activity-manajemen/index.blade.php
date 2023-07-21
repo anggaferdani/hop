@@ -18,10 +18,10 @@
         <div class="float-left">
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.activity-manajemen.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('superadmin.type.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i></a>
+            <a href="{{ route('superadmin.kategori.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i> Input Community</a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.activity-manajemen.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('admin.type.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i></a>
+            <a href="{{ route('admin.kategori.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i> Input Community</a>
           @endif
         </div>
         <div class="float-right">

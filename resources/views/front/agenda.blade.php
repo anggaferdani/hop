@@ -1,7 +1,7 @@
 @extends('front.templates.pages')
 @section('title', 'Agenda')
 @section('content')
-<section class="pt-md-4 pb-md-5 pt-1 pb-4">
+<section class="pt-md-4 pb-md-2 pt-1 pb-2">
   <div class="container">
     <div class="row mb-md-4">
       <div class="banner3">
@@ -30,13 +30,111 @@
       <div class="fs-5 fw-bold">Lokasi</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->provinsi }}, {{ $agenda->kabupaten_kota }}, {{ $agenda->kecamatan }}</div>
       <div class="fs-5 fw-bold">Start End Date</div>
-      <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
       @if($agenda->tiket == 'Berbayar')
-      <div class="fs-5 fw-bold">Tickets</div>
-      <div class="fs-5 text-muted lh-sm">{{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_mulai)), 3))) }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_akhir)), 3))) }}</div>
+        <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
+        <div class="fs-5 fw-bold">Tickets</div>
+        <div class="fs-5 text-muted lh-sm">{{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_mulai)), 3))) }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_akhir)), 3))) }}</div>
+      @endif
+      @if($agenda->tiket == 'Gratis')
+        <div class="fs-5 text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
       @endif
       <div class="d-block text-center text-md-start mt-4">
         <button class="text-white border-0 rounded-pill fs-5 px-5 py-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
+      </div>
+    </div>
+    <div class="pt-4 mb-2 d-flex justify-content-between align-items-center">
+      <div class="fs-4 fw-bold color m-0">Pilihan Lainnya</div>
+      <div class="fs-5 fw-bold m-0"><a href="{{ route('agendas') }}" class="color">View All</a></div>
+    </div>
+    <div class="row">
+      <div class="card2">
+        @foreach($agendas as $agenda)
+        <?php $lokasi = $agenda->provinsi.", ".$agenda->kabupaten_kota.", ".$agenda->kecamatan ?>
+          <div class="col-md-4">
+            @if($agenda->tiket == 'Berbayar')
+            <div class="card" style="background-color: #EC5D71;">
+              <div class="row g-0">
+                @foreach($agenda->agenda_images->take(1) as $agenda_image)
+                <div class="col-4 col-md-4">
+                  <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="rounded-start" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
+                @endforeach
+                <div class="col-8 col-md-8">
+                  <div class="card-body" style="height: 200px; display: flex; justify-content: space-between; flex-direction: column;">
+                    <div>
+                      <div class="d-flex mb-2 justify-content-between">
+                        <div class="col-md-10">
+                          <div class="fw-bold lh-sm text-white">{{ Str::limit($agenda->judul, 35) }}</div>
+                        </div>
+                        <div class="col-md-2">
+                          @if($agenda->tiket == 'Berbayar')
+                            <div class="tagging3 rounded-2 py-1 px-2">Paid</div>
+                          @endif
+                          @if($agenda->tiket == 'Gratis')
+                            <div class="tagging3 rounded-2 py-1 px-2">Free</div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="small text-white lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda->deskripsi !!}</div>
+                    </div>
+                    <div>
+                      <div class="d-flex gap-1 mb-2">
+                        @foreach($agenda->types->take(2) as $type)
+                          <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                        @endforeach
+                      </div>
+                      <div class="small mb-0 text-white">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
+            @if($agenda->tiket == 'Gratis')
+            <div class="card">
+              <div class="row g-0">
+                @foreach($agenda->agenda_images->take(1) as $agenda_image)
+                <div class="col-4 col-md-4">
+                  <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="rounded-start" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
+                @endforeach
+                <div class="col-8 col-md-8">
+                  <div class="card-body" style="height: 200px; display: flex; justify-content: space-between; flex-direction: column;">
+                    <div>
+                      <div class="d-flex mb-2 justify-content-between">
+                        <div class="col-md-10">
+                          <div class="fw-bold lh-sm color">{{ Str::limit($agenda->judul, 35) }}</div>
+                        </div>
+                        <div class="col-md-2">
+                          @if($agenda->tiket == 'Berbayar')
+                            <div class="tagging rounded-2 py-1 px-2">Paid</div>
+                          @endif
+                          @if($agenda->tiket == 'Gratis')
+                            <div class="tagging rounded-2 py-1 px-2">Free</div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="small color lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda->deskripsi !!}</div>
+                    </div>
+                    <div>
+                      <div class="d-flex gap-1 mb-2">
+                        @foreach($agenda->types->take(2) as $type)
+                          <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                        @endforeach
+                      </div>
+                      <div class="small mb-0 color2">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
+          </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -50,7 +148,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>1 tiket untuk 1 nama pesanan <span class="text-danger">*</span></p>
+        <p>1 tiket untuk setiap 1 pemesanan <span class="text-danger">*</span></p>
         <form action="{{ route('post-register') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
           @csrf
           <input type="hidden" class="form-control" name="agenda_id" value="{{ $agenda->id }}" required>
@@ -79,6 +177,14 @@
           <div class="mb-3">
             <label class="form-label">Email <span class="text-danger">*</span></label>
             <input type="email" class="form-control" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Jenis Tiket <span class="text-danger">*</span></label>
+            <select class="form-select" name="jenis_kelamin" required>
+              <option selected disabled value="">Select</option>
+              <option value="Tiket A">Tiket A</option>
+              <option value="Tiket B">Tiket B</option>
+            </select>
           </div>
           <img src="{{ asset('front/img/qr.jpeg') }}" class="mb-2" width="200" alt="">
           <div class="mb-3">

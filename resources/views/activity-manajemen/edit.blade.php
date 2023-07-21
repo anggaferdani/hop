@@ -51,7 +51,7 @@
             @error('tanggal_publikasi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger">*</span></label>
+            <label for="">Image <span class="text-danger"> *disarankan 271x200</span></label>
             <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
             @foreach($activity_manajemen->activity_manajemen_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('activity-manajemen/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
