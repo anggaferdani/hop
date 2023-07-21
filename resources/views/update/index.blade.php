@@ -18,10 +18,10 @@
         <div class="float-left">
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.update.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('superadmin.tag.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i></a>
+            <a href="{{ route('superadmin.tag.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i> Input Tag</a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.update.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('admin.tag.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i></a>
+            <a href="{{ route('admin.tag.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i> Input Tag</a>
           @endif
         </div>
         <div class="float-right">
