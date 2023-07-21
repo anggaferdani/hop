@@ -36,7 +36,7 @@
             @error('deskripsi_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image</label>
+            <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
             <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
             @foreach($lodging->lodging_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('lodging/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
