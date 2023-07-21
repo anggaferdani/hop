@@ -43,8 +43,10 @@ class FrontController extends Controller
 
     public function update($id){
         $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
+        $updates = Update::with('users', 'update_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         return view('front.update', compact(
             'update',
+            'updates',
         ));
     }
 
@@ -84,8 +86,10 @@ class FrontController extends Controller
 
     public function agenda($id){
         $agenda = Agenda::with('agenda_images')->find(Crypt::decrypt($id));
+        $agendas = Agenda::with('agenda_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         return view('front.agenda', compact(
             'agenda',
+            'agendas',
         ));
     }
 
@@ -117,8 +121,10 @@ class FrontController extends Controller
 
     public function food_and_beverage($id){
         $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
+        $food_and_beverages = FoodAndBeverage::with('food_and_beverage_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         return view('front.food-and-beverage', compact(
             'food_and_beverage',
+            'food_and_beverages',
         ));
     }
 
@@ -149,8 +155,10 @@ class FrontController extends Controller
 
     public function lodging($id){
         $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
+        $lodgings = Lodging::with('lodging_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         return view('front.lodging', compact(
             'lodging',
+            'lodgings',
         ));
     }
 
@@ -184,11 +192,12 @@ class FrontController extends Controller
     public function autocomplete(Request $request){
         $search = $request->get('search');
 
-        $agenda = DB::raw("CONCAT(`penyelenggara`, ' ', `judul`, ' ', `jenis`, ' ', `provinsi`, ' ', `kabupaten_kota`, ' ', `kecamatan`)");
-        $activity_manajemen = DB::raw("CONCAT(`judul`, ' ', `provinsi`, ' ', `kabupaten_kota`, ' ', `kecamatan`)");
+        $agenda = DB::raw("CONCAT(`penyelenggara`, ' ', `judul`, ' ', `deskripsi`,  ' ', `jenis`, ' ', `provinsi`, ' ', `kabupaten_kota`, ' ', `kecamatan`)");
+        $update = DB::raw("CONCAT(`judul`, ' ', `deskripsi`)");
+        $activity_manajemen = DB::raw("CONCAT(`judul`, ' ', `deskripsi`,  ' ', `provinsi`, ' ', `kabupaten_kota`, ' ', `kecamatan`)");
 
         $agendas = Agenda::orderby('judul', 'asc')->where($agenda, 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
-        $updates = Update::orderby('judul', 'asc')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $updates = Update::orderby('judul', 'asc')->where($update, 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
         $activity_manajemens = ActivityManajemen::orderby($activity_manajemen, 'asc')->where('judul', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
 
         $autocomplates = $agendas->union($updates)->union($activity_manajemens);
