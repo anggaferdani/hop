@@ -28,7 +28,7 @@
             @error('deskripsi_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image</label>
+            <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
             <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>

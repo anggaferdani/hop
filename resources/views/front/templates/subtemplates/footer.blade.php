@@ -10,17 +10,14 @@
       <div class="col-md-3">
         <div class="text-white fs-4 fw-bold mb-2">Hangout Places</div>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Food and Beverage</a></li>
-          <li><a href="#" class="text-white">Lodging</a></li>
+          <li><a href="#" class="text-white">Resto & Cafe</a></li>
+          <li><a href="#" class="text-white">Penginapan</a></li>
         </ul>
       </div>
       <div class="col-md-3">
         <div class="text-white fs-4 fw-bold mb-2">Social Media</div>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Instagram</a></li>
-          <li><a href="#" class="text-white">Facebook</a></li>
-          <li><a href="#" class="text-white">Youtube</a></li>
-          <li><a href="#" class="text-white">Twitter</a></li>
+          <li><a href="#" class="text-white"><div class="fa-brands fa-instagram fs-5"></div></a></li>
         </ul>
       </div>
     </div>
