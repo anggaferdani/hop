@@ -23,7 +23,7 @@
 
 <section class="py-5">
   <div class="container">
-    <div class="pt-4 d-flex justify-content-between align-items-center">
+    {{-- <div class="pt-4 d-flex justify-content-between align-items-center">
       <div class="fs-3 fw-bold color m-0">Rekomendasi Untuk Saya</div>
     </div>
     <div class="row">
@@ -32,29 +32,40 @@
           <a href="{{ route('tags', Crypt::encrypt($tag->id)) }}" class="fs-5 p-1 px-3 tagging2">{{ $tag->tag }}</a>
         @endforeach
       </div>
-    </div>
+    </div> --}}
     <div class="pt-4 d-flex justify-content-between align-items-center">
       <div class="fs-3 fw-bold color m-0">Updates</div>
     </div>
     <div class="row pb-4">
       <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
-    {{-- <div class="row" style="height: 400px">
-      <div class="col-md-8 h-100">
-        <div class="h-100 px-4 pb-4" style="background-image: url('{{ asset('front/img/banner.png') }}');">
-          <div class="w-md-50 p-4 h-100 text-white" style="text-align: justify; background: rgba(0, 0, 0, 0.5)">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque officia ipsa fuga eaque aliquam maiores quo deserunt quis ut, sed magni incidunt atque nobis obcaecati tempora itaque dolores, amet libero.</div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <div class="row" style="height: 400px">
+      <div class="col-md-8">
+        <div class="banner4">
+          @foreach($updates->take(3) as $update3)
+          @foreach($update3->update_images->take(1) as $update_image2)
+          <div class="h-100 px-4 pb-4" style="background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('update/image/'.$update_image2["image"]) }}');">
+          @endforeach
+            <div class="w-md-50 p-4 h-100 text-white" style="text-align: justify; background: rgba(0, 0, 0, 0.7)">{!! Str::limit($update3->deskripsi, 500) !!} <a href="" class="color">Read More.</a></div>
           </div>
+            @endforeach
         </div>
       </div>
-    </div> --}}
-    <div class="row g-2">
+      <div class="col-md-4 pe-4">
+        <div class="row justify-content-between h-100 gap-2">
+          @foreach($updates->take(3) as $update2)
+            <div class="card" style="background-color: #D9D9D9;">
+              <div class="card-body" style="height: 100px; display: flex; justify-content: space-between; flex-direction: column;">
+                <div class="small">{{ \Carbon\Carbon::parse($update2->tanggal_publikasi)->format('l, d M Y') }}</div>
+                <h5 class="card-title m-0 fw-bold">{{ Str::limit($update2->judul, 55) }}</h5>
+                <div class="card-text small"><a href="{{ route('update', Crypt::encrypt($update2->id)) }}" class="color stretched-link">Read Article</a></div>
+              </div>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </div>
+    <div class="row pt-2 g-2">
       @foreach($updates as $update)
       <div class="col-md-4">
         <div class="card h-100">
