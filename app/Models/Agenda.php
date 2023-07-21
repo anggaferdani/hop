@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Type;
+use App\Models\JenisTiket;
 use App\Models\AgendaImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -47,6 +48,10 @@ class Agenda extends Model
 
     public function agenda_images(){
         return $this->hasMany(AgendaImage::class);
+    }
+
+    public function jenis_tikets(){
+        return $this->hasMany(JenisTiket::class);
     }
 
     public function types(){

@@ -41,7 +41,7 @@
             @error('deskripsi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image</label>
+            <label for="">Image <span class="text-danger"> *disarankan 1116x400</span></label>
             <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
             @foreach($agenda->agenda_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('agenda/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">

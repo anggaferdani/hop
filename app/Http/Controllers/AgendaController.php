@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\Agenda;
 use App\Models\AgendaImage;
+use App\Models\JenisTiket;
 use App\Models\Pendaftar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -40,6 +41,7 @@ class AgendaController extends Controller
             'tiket' => 'required',
             'image.*' => 'required',
             'type.*' => 'required',
+            'addMoreInputFields.*.jenis_tiket' => 'required'
         ]);
 
         $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
@@ -74,6 +76,10 @@ class AgendaController extends Controller
                     'image' => $image2,
                 ]);
             }
+        }
+
+        foreach($request->addMoreInputFields as $key => $jenis_tiket){
+            JenisTiket::create($jenis_tiket);
         }
 
         $agenda->types()->attach($request->type);
