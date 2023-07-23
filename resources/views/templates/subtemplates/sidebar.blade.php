@@ -11,6 +11,7 @@
         <li class="menu-header">Menu</li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.dashboard') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.dashboard') }}"><i class="fas fa-quote-right"></i><span>Dashboard</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.admin') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.admin.index') }}"><i class="fas fa-user"></i><span>Admin</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.vendor') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.vendor.index') }}"><i class="fas fa-user"></i><span>Vendor</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.update') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.update.index') }}"><i class="fas fa-quote-left"></i><span>Update</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.agenda') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.agenda.index') }}"><i class="fas fa-star"></i><span>Agenda</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'superadmin.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('superadmin.food-and-beverage.index') }}"><i class="fas fa-coffee"></i><span>Resto & Cafe</span></a></li>
@@ -21,6 +22,7 @@
       @if(auth()->user()->level == 'Admin')
         <li class="menu-header">Menu</li>
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.dashboard') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-quote-right"></i><span>Dashboard</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'admin.vendor') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.vendor.index') }}"><i class="fas fa-user"></i><span>Vendor</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.update') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.update.index') }}"><i class="fas fa-quote-left"></i><span>Update</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.agenda') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.agenda.index') }}"><i class="fas fa-star"></i><span>Agenda</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'admin.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.food-and-beverage.index') }}"><i class="fas fa-coffee"></i><span>Resto & Cafe</span></a></li>

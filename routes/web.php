@@ -17,6 +17,7 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\FoodAndBeverageController;
 use App\Http\Controllers\ActivityManajemenController;
+use App\Http\Controllers\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,12 +66,13 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
     Route::middleware(['auth:web', 'disableBackButton', 'superadmin'])->group(function(){
         Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
         Route::resource('admin', AdminController::class);
+        Route::resource('vendor', VendorController::class);
         Route::resource('tag', TagController::class);
         Route::resource('update', UpdateController::class);
         Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
-        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index2'])->name('pendaftar.index2');
+        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::resource('seating', SeatingController::class);
@@ -89,12 +91,13 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::middleware(['auth:web', 'disableBackButton', 'admin'])->group(function(){
         Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
+        Route::resource('vendor', VendorController::class);
         Route::resource('tag', TagController::class);
         Route::resource('update', UpdateController::class);
         Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
-        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index2'])->name('pendaftar.index2');
+        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::resource('seating', SeatingController::class);
