@@ -85,7 +85,7 @@ class FrontController extends Controller
     }
 
     public function agenda($id){
-        $agenda = Agenda::with('agenda_images')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
         $agendas = Agenda::with('agenda_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         return view('front.agenda', compact(
             'agenda',

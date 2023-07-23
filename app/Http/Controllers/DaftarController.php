@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agenda;
+use App\Models\JenisTiket;
 use App\Models\Pendaftar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -17,6 +18,7 @@ class DaftarController extends Controller
             'jenis_kelamin' => 'required',
             'no_telepon' => 'required',
             'email' => 'required',
+            'jenis_tiket_id' => 'required',
             'bukti_transfer' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
@@ -32,6 +34,7 @@ class DaftarController extends Controller
             'jenis_kelamin' => $request['jenis_kelamin'],
             'no_telepon' => $request['no_telepon'],
             'email' => $request['email'],
+            'jenis_tiket_id' => $request['jenis_tiket_id'],
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
@@ -48,11 +51,13 @@ class DaftarController extends Controller
         $pendaftar = Pendaftar::create($array);
     
         $agenda = Agenda::find($request->agenda_id);
+        $jenis_tiket = JenisTiket::where('agenda_id', $pendaftar->id)->first();
 
         $nama_panjang = 'Nama panjang : '.$pendaftar->nama_panjang;
         $judul = 'Judul : '.$agenda->judul;
         $deskripsi = 'Deskripsi : Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta enim fugiat mollitia sit cupiditate, ea quisquam impedit qui ipsa est, tenetur eligendi ipsam labore reiciendis ullam non dolorem? Nesciunt, doloremque.';
         $lokasi = 'Lokasi : '.$agenda->provinsi.', '.$agenda->kabupaten_kota.', '.$agenda->kecamatan;
+        $jenis_tiket = 'Jenis Tiket : Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3)));
         $tanggal_mulai_dan_berakhir = 'Tanggal mulai dan berakhir : '.$agenda->tanggal_mulai.' sampai '.$agenda->tanggal_berakhir;
 
         $mail = [
@@ -64,6 +69,7 @@ class DaftarController extends Controller
             'judul' => $judul,
             'deskripsi' => $deskripsi,
             'lokasi' => $lokasi,
+            'jenis_tiket' => $jenis_tiket,
             'tanggal_mulai_dan_berakhir' => $tanggal_mulai_dan_berakhir,
             'token' => $pendaftar->token,
         ];

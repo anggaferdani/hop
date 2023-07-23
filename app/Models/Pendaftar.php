@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\JenisTiket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ class Pendaftar extends Model
         'jenis_kelamin',
         'no_telepon',
         'email',
+        'jenis_tiket_id',
         'bukti_transfer',
         'provinsi',
         'kabupaten_kota',
@@ -40,5 +42,9 @@ class Pendaftar extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function jenis_tikets(){
+        return $this->belongsTo(JenisTiket::class, 'jenis_tiket_id');
     }
 }

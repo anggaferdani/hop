@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Update;
+use App\Models\Verifikasi;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
@@ -51,5 +52,9 @@ class User extends Authenticatable
 
     public function updates(){
         return $this->hasMany(Update::class);
+    }
+
+    public function verifikasis(){
+        return $this->hasMany(Verifikasi::class);
     }
 }
