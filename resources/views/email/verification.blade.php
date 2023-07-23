@@ -7,13 +7,8 @@
   <title></title>
 </head>
 <body>
-  <div>{!! DNS2D::getBarcodeHTML("$token", 'QRCODE') !!}</div>
-  <br>
-  <div>{!! $nama_panjang !!}</div>
-  <div>{!! $judul !!}</div>
+  <img src="{{ asset('front/img/logo.png') }}" width="150" height="150" class="" alt="">
   <div>{!! $deskripsi !!}</div>
-  <div>{!! $lokasi !!}</div>
-  <div>{!! $jenis_tiket !!}</div>
-  <div>{!! $tanggal_mulai_dan_berakhir !!}</div>
+  <a class="btn btn-primary" href="{!! $url !!}">Verifikasi</a>
 </body>
 </html>
