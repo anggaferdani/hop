@@ -21,6 +21,9 @@
     <div class="row">
       <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
       <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
+      {!! $share !!}
+      <div class="fs-5 fw-bold">Penyelenggara</div>
+      <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->users->nama_panjang }}</div>
       <div class="fs-5 fw-bold">Event Type</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->jenis }}, 
         @foreach($agenda->types as $type)
@@ -33,7 +36,9 @@
       @if($agenda->tiket == 'Berbayar')
         <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
         <div class="fs-5 fw-bold">Tickets</div>
-        <div class="fs-5 text-muted lh-sm">{{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_mulai)), 3))) }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($agenda->harga_akhir)), 3))) }}</div>
+        @foreach($agenda->jenis_tikets as $jenis_tiket)
+          <div class="fs-5 text-muted lh-sm">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</div>
+        @endforeach
       @endif
       @if($agenda->tiket == 'Gratis')
         <div class="fs-5 text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
@@ -178,20 +183,23 @@
             <label class="form-label">Email <span class="text-danger">*</span></label>
             <input type="email" class="form-control" name="email" required>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Jenis Tiket <span class="text-danger">*</span></label>
-            <select class="form-select" name="jenis_tiket_id" required>
-              <option selected disabled value="">Select</option>
-              @foreach($agenda->jenis_tikets as $jenis_tiket)
-                <option value="{{ $jenis_tiket->id }}">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</option>
-              @endforeach
-            </select>
-          </div>
-          <img src="{{ asset('front/img/qr.jpeg') }}" class="mb-2" width="200" alt="">
-          <div class="mb-3">
-            <label class="form-label">Bukti Transfer <span class="text-danger">*</span></label>
-            <input type="file" class="form-control" name="bukti_transfer" required>
-          </div>
+          @if($agenda->tiket == 'Berbayar')
+            <div class="mb-3">
+              <label class="form-label">Jenis Tiket <span class="text-danger">*</span></label>
+              <select class="form-select" name="jenis_tiket_id" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
+                <option selected disabled value="">Select</option>
+                @foreach($agenda->jenis_tikets as $jenis_tiket)
+                  <option value="{{ $jenis_tiket->id }}">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</option>
+                @endforeach
+              </select>
+            </div>
+            <img src="{{ asset('front/img/qr.jpeg') }}" class="mb-2" width="200" alt="">
+            <div class="mb-3">
+              <label class="form-label">Bukti Transfer <span class="text-danger">*</span></label>
+              <input type="file" class="form-control" name="bukti_transfer" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
+            </div>
+          @elseif($agenda->tiket == 'Gratis')
+          @endif
           <div class="row g-3">
             <div class="mb-3 col-md-4">
               <label class="form-label">Provinsi <span class="text-danger">*</span></label>
