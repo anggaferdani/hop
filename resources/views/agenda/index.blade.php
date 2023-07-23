@@ -53,7 +53,7 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
-                  <td>{{ $agenda->penyelenggara }}</td>
+                  <td>{{ $agenda->users->nama_panjang }}</td>
                   <td>{{ $agenda->judul }}</td>
                   <td>
                     @foreach($agenda->agenda_images->take(1) as $agenda_image)
@@ -68,7 +68,7 @@
                         @method('DELETE')
                         <a href="{{ route('superadmin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
                         <a href="{{ route('superadmin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <a href="{{ route('superadmin.pendaftar.index2', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i></a>
+                        <a href="{{ route('superadmin.pendaftar.index', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i></a>
                         <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
                       </form>
                     @elseif(auth()->user()->level == 'Admin')
@@ -77,7 +77,7 @@
                         @method('DELETE')
                         <a href="{{ route('admin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
                         <a href="{{ route('admin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <a href="{{ route('admin.pendaftar.index2', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i></a>
+                        <a href="{{ route('admin.pendaftar.index', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i></a>
                         <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
                       </form>
                     @endif

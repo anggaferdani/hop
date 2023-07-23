@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Type;
+use App\Models\User;
 use App\Models\JenisTiket;
 use App\Models\AgendaImage;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class Agenda extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'penyelenggara',
+        'user_id',
         'judul',
         'deskripsi',
         'jenis',
@@ -42,6 +43,10 @@ class Agenda extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function agenda_images(){

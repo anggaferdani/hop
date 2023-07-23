@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Throwable;
 use Carbon\Carbon;
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Agenda;
 use App\Models\Pendaftar;
 use App\Models\JenisTiket;
@@ -17,22 +18,24 @@ use Illuminate\Support\Facades\Crypt;
 class AgendaController extends Controller
 {
     public function index(){
-        $agendas = Agenda::with('agenda_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $agendas = Agenda::with('agenda_images', 'users')->where('status_aktif', 'Aktif')->latest()->paginate(10);
         return view('agenda.index', compact(
             'agendas',
         ));
     }
 
     public function create(){
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         return view('agenda.create', compact(
+            'users',
             'types',
         ));
     }
 
     public function store(Request $request){
         $request->validate([
-            'penyelenggara' => 'required',
+            'user_id' => 'required',
             'judul' => 'required',
             'deskripsi' => 'required',
             'jenis' => 'required',
@@ -44,12 +47,10 @@ class AgendaController extends Controller
             'tiket' => 'required',
             'image.*' => 'required',
             'type.*' => 'required',
-            'jenis_tiket.*' => 'required',
-            'harga.*' => 'required',
         ]);
 
         $array = array(
-            'penyelenggara' => $request['penyelenggara'],
+            'user_id' => $request['user_id'],
             'judul' => $request['judul'],
             'deskripsi' => $request['deskripsi'],
             'jenis' => $request['jenis'],
@@ -108,33 +109,37 @@ class AgendaController extends Controller
     }
 
     public function show($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'users', 'jenis_tikets')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         return view('agenda.show', compact(
             'agenda',
             'type_id',
             'types',
+            'users',
         ));
     }
 
     public function edit($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'users', 'jenis_tikets')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         return view('agenda.edit', compact(
             'agenda',
             'type_id',
             'types',
+            'users',
         ));
     }
 
     public function update(Request $request, $id){
-        $agenda = Agenda::with('agenda_images', 'types', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'users', 'types', 'jenis_tikets')->find(Crypt::decrypt($id));
         JenisTiket::where('agenda_id', Crypt::decrypt($id))->delete();
 
         $request->validate([
-            'penyelenggara' => 'required',
+            'user_id' => 'required',
             'judul' => 'required',
             'deskripsi' => 'required',
             'jenis' => 'required',
@@ -144,15 +149,13 @@ class AgendaController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
             'tiket' => 'required',
-            'jenis_tiket.*' => 'required',
-            'harga.*' => 'required',
         ]);
 
         try{
             DB::beginTransaction();
 
             $agenda->update([
-                'penyelenggara' => $request['penyelenggara'],
+                'user_id' => $request['user_id'],
                 'judul' => $request['judul'],
                 'deskripsi' => $request['deskripsi'],
                 'jenis' => $request['jenis'],

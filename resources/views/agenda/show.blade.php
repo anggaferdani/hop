@@ -15,8 +15,13 @@
           @csrf
           <div class="form-group">
             <label for="">Penyelenggara</label>
-            <input disabled type="text" class="form-control" name="penyelenggara" value="{{ $agenda->penyelenggara }}">
-            @error('penyelenggara')<div class="text-danger">{{ $message }}</div>@enderror
+            <select disabled class="form-control select2" name="user_id">
+              <option disabled selected>Select</option>
+              @foreach($users as $user)
+                <option value="{{ $user->id }}" @if($agenda->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
+              @endforeach
+            </select>
+            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Judul</label>

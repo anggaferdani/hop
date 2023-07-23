@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->string('penyelenggara');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('judul');
             $table->longText('deskripsi');
             $table->enum('jenis', ['Online', 'Offline', 'Hybird']);
