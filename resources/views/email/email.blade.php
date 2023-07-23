@@ -13,7 +13,6 @@
   <div>{!! $judul !!}</div>
   <div>{!! $deskripsi !!}</div>
   <div>{!! $lokasi !!}</div>
-  <div>{!! $jenis_tiket !!}</div>
   <div>{!! $tanggal_mulai_dan_berakhir !!}</div>
 </body>
 </html>

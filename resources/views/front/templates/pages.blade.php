@@ -77,6 +77,16 @@
   .image2 .slick-slide img{
     height: 200px;
   }
+  div#social-links ul{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 10px;
+  }          
+  div#social-links ul li a{
+    font-size: 30px;
+    color: #222;
+  }
 </style>
 <body style="margin-top: 80px;">
   @include('front.templates.subtemplates.navbar')
@@ -90,6 +100,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js" integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="{{ asset('js/share.js') }}"></script>
 
   <script type="text/javascript">
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

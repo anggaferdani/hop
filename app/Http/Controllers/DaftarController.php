@@ -18,8 +18,6 @@ class DaftarController extends Controller
             'jenis_kelamin' => 'required',
             'no_telepon' => 'required',
             'email' => 'required',
-            'jenis_tiket_id' => 'required',
-            'bukti_transfer' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
@@ -51,13 +49,11 @@ class DaftarController extends Controller
         $pendaftar = Pendaftar::create($array);
     
         $agenda = Agenda::find($request->agenda_id);
-        $jenis_tiket = JenisTiket::where('agenda_id', $pendaftar->id)->first();
 
         $nama_panjang = 'Nama panjang : '.$pendaftar->nama_panjang;
         $judul = 'Judul : '.$agenda->judul;
         $deskripsi = 'Deskripsi : Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta enim fugiat mollitia sit cupiditate, ea quisquam impedit qui ipsa est, tenetur eligendi ipsam labore reiciendis ullam non dolorem? Nesciunt, doloremque.';
         $lokasi = 'Lokasi : '.$agenda->provinsi.', '.$agenda->kabupaten_kota.', '.$agenda->kecamatan;
-        $jenis_tiket = 'Jenis Tiket : Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3)));
         $tanggal_mulai_dan_berakhir = 'Tanggal mulai dan berakhir : '.$agenda->tanggal_mulai.' sampai '.$agenda->tanggal_berakhir;
 
         $mail = [
@@ -69,7 +65,6 @@ class DaftarController extends Controller
             'judul' => $judul,
             'deskripsi' => $deskripsi,
             'lokasi' => $lokasi,
-            'jenis_tiket' => $jenis_tiket,
             'tanggal_mulai_dan_berakhir' => $tanggal_mulai_dan_berakhir,
             'token' => $pendaftar->token,
         ];

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('no_telepon');
             $table->string('email');
-            $table->foreignId('jenis_tiket_id')->references('id')->on('jenis_tikets')->onDelete('cascade');
-            $table->string('bukti_transfer');
+            $table->foreignId('jenis_tiket_id')->nullable()->references('id')->on('jenis_tikets')->onDelete('cascade');
+            $table->string('bukti_transfer')->nullable();
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');

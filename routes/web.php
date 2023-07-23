@@ -6,10 +6,12 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ShareController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\LodgingController;
 use App\Http\Controllers\SeatingController;
 use App\Http\Controllers\KategoriController;
@@ -17,7 +19,6 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\FoodAndBeverageController;
 use App\Http\Controllers\ActivityManajemenController;
-use App\Http\Controllers\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::middleware(['web', 'disableBackButton'])->group(function(){
         Route::post('post-login', [Controller::class, 'postLogin'])->name('post-login');
         Route::get('register', [Controller::class, 'register'])->name('register');
         Route::post('post-register2', [Controller::class, 'postRegister'])->name('post-register2');
+
+        Route::get('share/udpate/{id}', [FrontController::class, 'udpate'])->name('share.udpate');
     });
     
     Route::get('confirmation/{email}', [Controller::class, 'confirmation'])->name('confirmation');

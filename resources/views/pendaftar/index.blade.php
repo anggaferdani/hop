@@ -115,20 +115,22 @@
             <label>Email <span class="text-danger">*</span></label>
             <input disabled type="email" class="form-control" name="email" value="{{ $pendaftar2->email }}">
           </div>
-          <div class="form-group">
-            <label for="">Jenis Tiket</label>
-            <div class="form-row mb-2">
-              <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $pendaftar2->jenis_tikets->tiket }}" placeholder="Jenis Tiket" required></div>
-              <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $pendaftar2->jenis_tikets->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
+          @if($agenda->tiket == 'Berbayar')
+            <div class="form-group">
+              <label for="">Jenis Tiket</label>
+              <div class="form-row mb-2">
+                <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $pendaftar2->jenis_tikets->tiket }}" placeholder="Jenis Tiket" required></div>
+                <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $pendaftar2->jenis_tikets->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
+              </div>
+              @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
+              @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
-            @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
-            @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label>Bukti Transfer</label>
-            <input disabled type="file" class="form-control" name="bukti_transfer" value="{{ $pendaftar2->bukti_transfer }}">
-            <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank">{{ $pendaftar2->bukti_transfer }}</a></div>
-          </div>
+            <div class="form-group">
+              <label>Bukti Transfer</label>
+              <input disabled type="file" class="form-control" name="bukti_transfer" value="{{ $pendaftar2->bukti_transfer }}">
+              <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank">{{ $pendaftar2->bukti_transfer }}</a></div>
+            </div>
+          @endif
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Provinsi <span class="text-danger">*</span></label>

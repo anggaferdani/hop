@@ -44,9 +44,17 @@ class FrontController extends Controller
     public function update($id){
         $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
         $updates = Update::with('users', 'update_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $share = \Share::page(
+            'http://hop.co.id/update/'.$id, $update->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.update', compact(
             'update',
             'updates',
+            'share',
         ));
     }
 
@@ -87,9 +95,17 @@ class FrontController extends Controller
     public function agenda($id){
         $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
         $agendas = Agenda::with('agenda_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $share = \Share::page(
+            'http://hop.co.id/agenda/'.$id, $agenda->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.agenda', compact(
             'agenda',
             'agendas',
+            'share',
         ));
     }
 
