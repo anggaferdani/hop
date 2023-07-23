@@ -70,7 +70,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
-        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
+        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index2'])->name('pendaftar.index2');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::resource('seating', SeatingController::class);
@@ -94,7 +94,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
-        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
+        Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index2'])->name('pendaftar.index2');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::resource('seating', SeatingController::class);
