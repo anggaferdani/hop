@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Agenda;
 use App\Models\Update;
 use App\Models\Verifikasi;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,6 +53,10 @@ class User extends Authenticatable
 
     public function updates(){
         return $this->hasMany(Update::class);
+    }
+
+    public function agendas(){
+        return $this->hasMany(Agenda::class);
     }
 
     public function verifikasis(){
