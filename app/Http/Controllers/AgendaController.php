@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\Agenda;
-use App\Models\AgendaImage;
-use App\Models\JenisTiket;
 use App\Models\Pendaftar;
+use App\Models\JenisTiket;
+use App\Models\AgendaImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 
@@ -37,18 +39,14 @@ class AgendaController extends Controller
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
+            'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
             'tiket' => 'required',
             'image.*' => 'required',
             'type.*' => 'required',
-            'addMoreInputFields.*.jenis_tiket' => 'required'
+            'jenis_tiket.*' => 'required',
+            'harga.*' => 'required',
         ]);
-
-        $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
-        $harga_mulai2 = trim($harga_mulai);
-
-        $harga_akhir = preg_replace('/\D/', '', $request->harga_akhir);
-        $harga_akhir2 = trim($harga_akhir);
 
         $array = array(
             'penyelenggara' => $request['penyelenggara'],
@@ -59,30 +57,48 @@ class AgendaController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'tiket' => $request['tiket'],
-            'harga_mulai' => $harga_mulai2,
-            'harga_akhir' => $harga_akhir2,
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
         );
 
-        $agenda = Agenda::create($array);
+        try{
+            DB::beginTransaction();
 
-        if($request->has('image')){
-            foreach($request->file('image') as $image){
-                $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
-                $image->move(public_path('agenda/image/'), $image2);
-                AgendaImage::create([
-                    'agenda_id' => $agenda->id,
-                    'image' => $image2,
-                ]);
+            $agenda = Agenda::create($array);
+
+            if($request->jenis_tiket){
+                foreach($request['jenis_tiket'] as $a => $b){
+                    $harga = preg_replace('/\D/', '', $request['harga']);
+                    $harga2 = array_map('trim', $harga);
+
+                    $array2 = array(
+                        'agenda_id' => $agenda->id,
+                        'tiket' => $request['jenis_tiket'][$a],
+                        'harga' => $harga2[$a],
+                    );
+
+                    JenisTiket::create($array2);
+                }
             }
-        }
 
-        foreach($request->addMoreInputFields as $key => $jenis_tiket){
-            JenisTiket::create($jenis_tiket);
-        }
+            if($request->has('image')){
+                foreach($request->file('image') as $image){
+                    $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
+                    $image->move(public_path('agenda/image/'), $image2);
+                    AgendaImage::create([
+                        'agenda_id' => $agenda->id,
+                        'image' => $image2,
+                    ]);
+                }
+            }
 
-        $agenda->types()->attach($request->type);
+            $agenda->types()->attach($request->type);
+
+            DB::commit();
+        }catch(Throwable $th){
+            DB::rollback();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
 
         if(auth()->user()->level == 'Superadmin'){
             return redirect()->route('superadmin.agenda.index')->with('success', 'Data has been created at '.$agenda->created_at);
@@ -92,7 +108,7 @@ class AgendaController extends Controller
     }
 
     public function show($id){
-        $agenda = Agenda::with('agenda_images')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         return view('agenda.show', compact(
@@ -103,7 +119,7 @@ class AgendaController extends Controller
     }
 
     public function edit($id){
-        $agenda = Agenda::with('agenda_images')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         return view('agenda.edit', compact(
@@ -114,7 +130,8 @@ class AgendaController extends Controller
     }
 
     public function update(Request $request, $id){
-        $agenda = Agenda::with('agenda_images', 'types')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'types', 'jenis_tikets')->find(Crypt::decrypt($id));
+        JenisTiket::where('agenda_id', Crypt::decrypt($id))->delete();
 
         $request->validate([
             'penyelenggara' => 'required',
@@ -127,41 +144,59 @@ class AgendaController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
             'tiket' => 'required',
+            'jenis_tiket.*' => 'required',
+            'harga.*' => 'required',
         ]);
 
-        $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
-        $harga_mulai2 = trim($harga_mulai);
+        try{
+            DB::beginTransaction();
 
-        $harga_akhir = preg_replace('/\D/', '', $request->harga_akhir);
-        $harga_akhir2 = trim($harga_akhir);
+            $agenda->update([
+                'penyelenggara' => $request['penyelenggara'],
+                'judul' => $request['judul'],
+                'deskripsi' => $request['deskripsi'],
+                'jenis' => $request['jenis'],
+                'provinsi' => $request['provinsi'],
+                'kabupaten_kota' => $request['kabupaten_kota'],
+                'kecamatan' => $request['kecamatan'],
+                'tiket' => $request['tiket'],
+                'tanggal_mulai' => $request['tanggal_mulai'],
+                'tanggal_berakhir' => $request['tanggal_berakhir'],
+            ]);
 
-        $agenda->update([
-            'penyelenggara' => $request['penyelenggara'],
-            'judul' => $request['judul'],
-            'deskripsi' => $request['deskripsi'],
-            'jenis' => $request['jenis'],
-            'provinsi' => $request['provinsi'],
-            'kabupaten_kota' => $request['kabupaten_kota'],
-            'kecamatan' => $request['kecamatan'],
-            'tiket' => $request['tiket'],
-            'harga_mulai' => $harga_mulai2,
-            'harga_akhir' => $harga_akhir2,
-            'tanggal_mulai' => $request['tanggal_mulai'],
-            'tanggal_berakhir' => $request['tanggal_berakhir'],
-        ]);
-
-        if($request->has('image')){
-            foreach($request->file('image') as $image){
-                $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
-                $image->move(public_path('agenda/image/'), $image2);
-                AgendaImage::create([
-                    'agenda_id' => $agenda->id,
-                    'image' => $image2,
-                ]);
+            if($request->jenis_tiket){
+                foreach($request['jenis_tiket'] as $a => $b){
+                    $harga = preg_replace('/\D/', '', $request['harga']);
+                    $harga2 = array_map('trim', $harga);
+    
+                    $array2 = array(
+                        'agenda_id' => $agenda->id,
+                        'tiket' => $request['jenis_tiket'][$a],
+                        'harga' => $harga2[$a],
+                    );
+    
+                    JenisTiket::create($array2);
+                }
             }
-        }
+    
+            if($request->has('image')){
+                foreach($request->file('image') as $image){
+                    $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
+                    $image->move(public_path('agenda/image/'), $image2);
+                    AgendaImage::create([
+                        'agenda_id' => $agenda->id,
+                        'image' => $image2,
+                    ]);
+                }
+            }
+    
+            $agenda->types()->sync($request->type);
 
-        $agenda->types()->sync($request->type);
+            DB::commit();
+        }catch(Throwable $th){
+            DB::rollback();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
 
         if(auth()->user()->level == 'Superadmin'){
             return redirect()->route('superadmin.agenda.index')->with('success', 'Data has been updated at '.$agenda->updated_at);

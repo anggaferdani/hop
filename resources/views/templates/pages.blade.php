@@ -90,6 +90,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js" integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js" integrity="sha512-9e9rr82F9BPzG81+6UrwWLFj8ZLf59jnuIA/tIf8dEGoQVu7l5qvr02G/BiAabsFOYrIUTMslVN+iDYuszftVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <script type="text/javascript">
+    $('.add').on('click', function(){
+        add();
+    });
+
+    function add(){
+      var jenis_tiket =
+        '<div><div class="form-row mb-2"><div class="col"><input type="text" class="form-control" name="jenis_tiket[]" placeholder="Jenis Tiket" required></div><div class="col"><input type="text" class="form-control" name="harga[]" placeholder="Harga" required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2" style="text-decoration: none;">Delete</a></div></div></div>';
+      $('.jenis_tiket').append(jenis_tiket);
+    };
+
+    $("body").on("click",".delete2",function(){ 
+        $(this).parents(".form-row").remove();
+    });
+  </script>
+
   <!-- Page Specific JS File -->
   <script type="text/javascript">
     $('.delete').click(function(){

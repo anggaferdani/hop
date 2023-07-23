@@ -51,8 +51,12 @@ Route::middleware(['web', 'disableBackButton'])->group(function(){
     Route::middleware(['disableRedirectToLoginPage'])->group(function(){
         Route::get('login', [Controller::class, 'login'])->name('login');
         Route::post('post-login', [Controller::class, 'postLogin'])->name('post-login');
+        Route::get('register', [Controller::class, 'register'])->name('register');
+        Route::post('post-register2', [Controller::class, 'postRegister'])->name('post-register2');
     });
     
+    Route::get('confirmation/{email}', [Controller::class, 'confirmation'])->name('confirmation');
+    Route::get('verifikasi/{user_id}', [Controller::class, 'verifikasi'])->name('verifikasi');
     Route::post('post-register', [DaftarController::class, 'postRegister'])->name('post-register');
     Route::get('logout', [Controller::class, 'logout'])->name('logout');
 });

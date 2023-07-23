@@ -81,17 +81,16 @@
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Harga Mulai</label>
-              <input disabled type="text" class="form-control" name="harga_mulai" value="{{ $agenda->harga_mulai }}" onkeyup="formatNumber(this)">
-              @error('harga_mulai')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Harga Akhir</label>
-              <input disabled type="text" class="form-control" name="harga_akhir" value="{{ $agenda->harga_akhir }}" onkeyup="formatNumber(this)">
-              @error('harga_akhir')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
+          <div class="form-group">
+            <label for="">Jenis Tiket</label>
+            @foreach($agenda->jenis_tikets as $jenis_tiket)
+              <div class="form-row mb-2">
+                <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $jenis_tiket->tiket }}" placeholder="Jenis Tiket" required></div>
+                <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $jenis_tiket->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
+              </div>
+            @endforeach
+            @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">

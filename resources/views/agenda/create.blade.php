@@ -6,6 +6,13 @@
 @section('content')
 <div class="row">
   <div class="col-12">
+
+    @if(Session('error'))
+      <div class="alert alert-important alert-primary" role="alert">
+        {{ Session('error') }}
+      </div>
+    @endif
+
     <div class="card">
       <div class="card-header">
         <h4>Create</h4>
@@ -82,17 +89,12 @@
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Harga Mulai</label>
-              <input type="text" class="form-control" name="harga_mulai" onkeyup="formatNumber(this)">
-              @error('harga_mulai')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Harga Akhir</label>
-              <input type="text" class="form-control" name="harga_akhir" onkeyup="formatNumber(this)">
-              @error('harga_akhir')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
+          <div class="form-group">
+            <label for="">Jenis Tiket</label>
+            <button type="button" class="d-block mb-2 btn btn-icon btn-primary add"><i class="fas fa-plus"></i></button>
+            <div class="jenis_tiket"></div>
+            @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
