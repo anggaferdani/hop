@@ -110,7 +110,17 @@
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 11px;">
+                        @foreach($provinsis as $provinsi)
+                          @if($agenda->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                        @endforeach
+                        @foreach($kabupatens as $kabupaten)
+                          @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                        @endforeach
+                        @foreach($kecamatans as $kecamatan)
+                          @if($agenda->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                        @endforeach
+                      </div>
                       <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>
@@ -151,7 +161,17 @@
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 color2" style="font-size: 11px;">
+                        @foreach($provinsis as $provinsi)
+                          @if($agenda->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                        @endforeach
+                        @foreach($kabupatens as $kabupaten)
+                          @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                        @endforeach
+                        @foreach($kecamatans as $kecamatan)
+                          @if($agenda->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                        @endforeach
+                      </div>
                       <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>

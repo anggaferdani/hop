@@ -91,7 +91,14 @@
                     <img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
                   </div>
                   @endforeach
-                  <div class="fw-bold text-dark py-2">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
+                  <div class="d-flex justify-content-between align-items-center mt-1">
+                    <div class="fw-bold text-dark">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
+                    @if(!empty($food_and_beverage->logo))
+                    <div style="height: 20px; aspect-ratio: 1;">
+                      <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                    </div>
+                    @endif
+                  </div>
                   <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
                   <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
                     @foreach($provinsis as $provinsi)

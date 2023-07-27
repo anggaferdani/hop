@@ -17,8 +17,15 @@
       <div class="col-md-9">
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $food_and_beverage->nama_tempat }}</h5>
         <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $food_and_beverage->deskripsi_tempat !!}</div>
+        {!! $share !!}
         <div class="fs-5 fw-bold">Lokasi</div>
-        <div class="fs-5 text-muted lh-sm">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
+        <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
+        <div class="fs-5 fw-bold">Public Viewing</div>
+        @if(!empty($food_and_beverage->logo))
+          <div style="height: 50px; aspect-ratio: 1;">
+            <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+          </div>
+        @endif
       </div>
       <div class="col-md-3">
         <div class="card" style="border-radius: 15px;">
@@ -44,7 +51,14 @@
                 <img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
               </div>
               @endforeach
-              <div class="fw-bold text-dark py-2">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
+              <div class="d-flex justify-content-between align-items-center mt-1">
+                <div class="fw-bold text-dark">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
+                @if(!empty($food_and_beverage->logo))
+                <div style="height: 20px; aspect-ratio: 1;">
+                  <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
+                @endif
+              </div>
               <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
               <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
                 @foreach($provinsis as $provinsi)

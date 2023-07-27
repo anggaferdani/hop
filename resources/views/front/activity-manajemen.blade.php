@@ -26,7 +26,8 @@
         <hr class="text-secondary">
         <div>
           <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
-          <div class="text-muted lh-sm mt-1 mb-4" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
+          <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
+          {!! $share !!}
         </div>
         <hr class="text-secondary">
         <div class="row">

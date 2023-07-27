@@ -23,7 +23,7 @@
       <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
       {!! $share !!}
       <div class="fs-5 fw-bold">Penyelenggara</div>
-      <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->users->nama_panjang }}</div>
+      <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->activity_manajemens->users->nama_panjang }}</div>
       <div class="fs-5 fw-bold">Event Type</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->jenis }}, 
         @foreach($agenda->types as $type)
@@ -31,7 +31,7 @@
         @endforeach
       </div>
       <div class="fs-5 fw-bold">Lokasi</div>
-      <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->provinsi }}, {{ $agenda->kabupaten_kota }}, {{ $agenda->kecamatan }}</div>
+      <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
       <div class="fs-5 fw-bold">Start End Date</div>
       @if($agenda->tiket == 'Berbayar')
         <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
@@ -88,7 +88,17 @@
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 11px;">
+                        @foreach($provinsis as $provinsi)
+                          @if($agenda->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                        @endforeach
+                        @foreach($kabupatens as $kabupaten)
+                          @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                        @endforeach
+                        @foreach($kecamatans as $kecamatan)
+                          @if($agenda->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                        @endforeach
+                      </div>
                       <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda2->id)) }}" class="stretched-link"></a>
                     </div>
@@ -129,7 +139,17 @@
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2">{{ Str::limit($lokasi, 30) }}</div>
+                      <div class="small mb-0 color2" style="font-size: 11px;">
+                        @foreach($provinsis as $provinsi)
+                          @if($agenda->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                        @endforeach
+                        @foreach($kabupatens as $kabupaten)
+                          @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                        @endforeach
+                        @foreach($kecamatans as $kecamatan)
+                          @if($agenda->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                        @endforeach
+                      </div>
                       <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda2->id)) }}" class="stretched-link"></a>
                     </div>
@@ -203,15 +223,24 @@
           <div class="row g-3">
             <div class="mb-3 col-md-4">
               <label class="form-label">Provinsi <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="provinsi" required>
+              <select class="form-select select2" name="provinsi" id="provinsi" required>
+                <option disabled selected>Select</option>
+                @foreach($provinsis as $provinsi)
+                  <option value="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+                @endforeach
+              </select>
             </div>
             <div class="mb-3 col-md-4">
               <label class="form-label">Kabupaten/Kota <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="kabupaten_kota" required>
+              <select class="form-select select2" name="kabupaten_kota" id="kabupaten" required>
+                <option disabled selected>Select</option>
+              </select>
             </div>
             <div class="mb-3 col-md-4">
               <label class="form-label">Kecamatan <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="kecamatan" required>
+              <select class="form-select select2" name="kecamatan" id="kecamatan" required>
+                <option disabled selected>Select</option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
