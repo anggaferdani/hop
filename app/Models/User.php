@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Agenda;
 use App\Models\Update;
 use App\Models\Verifikasi;
+use App\Models\ActivityManajemen;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
@@ -61,5 +62,9 @@ class User extends Authenticatable
 
     public function verifikasis(){
         return $this->hasMany(Verifikasi::class);
+    }
+
+    public function activity_manajemens(){
+        return $this->hasMany(ActivityManajemen::class);
     }
 }
