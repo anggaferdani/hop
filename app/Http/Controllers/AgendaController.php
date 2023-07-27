@@ -7,10 +7,14 @@ use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Agenda;
+use App\Models\Lodging;
 use App\Models\Pendaftar;
 use App\Models\JenisTiket;
 use App\Models\AgendaImage;
 use Illuminate\Http\Request;
+use App\Models\FoodAndBeverage;
+use App\Models\ActivityManajemen;
+use App\Models\PublicArea;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
@@ -18,7 +22,7 @@ use Illuminate\Support\Facades\Crypt;
 class AgendaController extends Controller
 {
     public function index(){
-        $agendas = Agenda::with('agenda_images', 'users')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $agendas = Agenda::with('agenda_images', 'food_and_beverages', 'lodgings', 'public_areas')->where('status_aktif', 'Aktif')->latest()->paginate(10);
         return view('agenda.index', compact(
             'agendas',
         ));
@@ -26,10 +30,16 @@ class AgendaController extends Controller
 
     public function create(){
         $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
+        $food_and_beverages = FoodAndBeverage::where('status_aktif', 'Aktif')->get();
+        $lodgings = Lodging::where('status_aktif', 'Aktif')->get();
+        $public_areas = PublicArea::where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         return view('agenda.create', compact(
             'users',
             'types',
+            'food_and_beverages',
+            'lodgings',
+            'public_areas',
         ));
     }
 
@@ -39,9 +49,6 @@ class AgendaController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'jenis' => 'required',
-            'provinsi' => 'required',
-            'kabupaten_kota' => 'required',
-            'kecamatan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
             'tiket' => 'required',
@@ -49,14 +56,16 @@ class AgendaController extends Controller
             'type.*' => 'required',
         ]);
 
+        $activity_manajemens = ActivityManajemen::find($request->activity_manajemen_id)->get();
+
         $array = array(
             'user_id' => $request['user_id'],
             'judul' => $request['judul'],
             'deskripsi' => $request['deskripsi'],
             'jenis' => $request['jenis'],
-            'provinsi' => $request['provinsi'],
-            'kabupaten_kota' => $request['kabupaten_kota'],
-            'kecamatan' => $request['kecamatan'],
+            'provinsi' => $activity_manajemens->provinsi,
+            'kabupaten_kota' => $activity_manajemens->kabupaten_kota,
+            'kecamatan' => $activity_manajemens->kecamatan,
             'tiket' => $request['tiket'],
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
@@ -109,37 +118,37 @@ class AgendaController extends Controller
     }
 
     public function show($id){
-        $agenda = Agenda::with('agenda_images', 'users', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'activity_manajemens', 'jenis_tikets')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
-        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
+        $activity_manajemens = ActivityManajemen::where('status_aktif', 'Aktif')->get();
         return view('agenda.show', compact(
             'agenda',
             'type_id',
             'types',
-            'users',
+            'activity_manajemens',
         ));
     }
 
     public function edit($id){
-        $agenda = Agenda::with('agenda_images', 'users', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'activity_manajemens', 'jenis_tikets')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
-        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
+        $activity_manajemens = ActivityManajemen::where('status_aktif', 'Aktif')->get();
         return view('agenda.edit', compact(
             'agenda',
             'type_id',
             'types',
-            'users',
+            'activity_manajemens',
         ));
     }
 
     public function update(Request $request, $id){
-        $agenda = Agenda::with('agenda_images', 'users', 'types', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'activity_manajemens', 'types', 'jenis_tikets')->find(Crypt::decrypt($id));
         JenisTiket::where('agenda_id', Crypt::decrypt($id))->delete();
 
         $request->validate([
-            'user_id' => 'required',
+            'activity_manajemen_id' => 'required',
             'judul' => 'required',
             'deskripsi' => 'required',
             'jenis' => 'required',
@@ -155,7 +164,7 @@ class AgendaController extends Controller
             DB::beginTransaction();
 
             $agenda->update([
-                'user_id' => $request['user_id'],
+                'activity_manajemen_id' => $request['activity_manajemen_id'],
                 'judul' => $request['judul'],
                 'deskripsi' => $request['deskripsi'],
                 'jenis' => $request['jenis'],

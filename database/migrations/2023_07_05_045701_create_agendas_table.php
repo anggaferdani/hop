@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('food_and_beverage_id')->nullable();
+            $table->foreign('food_and_beverage_id')->references('id')->on('food_and_beverages');
+            $table->unsignedBigInteger('lodging_id')->nullable();
+            $table->foreign('lodging_id')->references('id')->on('lodgings');
+            $table->unsignedBigInteger('public_area_id')->nullable();
+            $table->foreign('public_area_id')->references('id')->on('public_areas');
             $table->string('judul');
             $table->longText('deskripsi');
             $table->enum('jenis', ['Online', 'Offline', 'Hybird']);

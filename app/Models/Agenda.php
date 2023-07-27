@@ -4,8 +4,11 @@ namespace App\Models;
 
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Lodging;
 use App\Models\JenisTiket;
+use App\Models\PublicArea;
 use App\Models\AgendaImage;
+use App\Models\FoodAndBeverage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +22,9 @@ class Agenda extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_id',
+        'food_and_beverage_id',
+        'lodging_id',
+        'public_area_id',
         'judul',
         'deskripsi',
         'jenis',
@@ -45,8 +50,16 @@ class Agenda extends Model
         });
     }
 
-    public function users(){
-        return $this->belongsTo(User::class, 'user_id');
+    public function food_and_beverages(){
+        return $this->belongsTo(FoodAndBeverage::class, 'food_and_beverage_id');
+    }
+
+    public function lodgings(){
+        return $this->belongsTo(Lodging::class, 'lodging_id');
+    }
+
+    public function public_areas(){
+        return $this->belongsTo(PublicArea::class, 'public_area_id');
     }
 
     public function agenda_images(){

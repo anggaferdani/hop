@@ -26,14 +26,14 @@
           @csrf
           @method('PUT')
           <div class="form-group">
-            <label for="">Penyelenggara</label>
-            <select class="form-control select2" name="user_id">
+            <label for="">Community & Penyelenggara</label>
+            <select class="form-control select2" name="activity_manajemen_id">
               <option disabled selected>Select</option>
-              @foreach($users as $user)
-                <option value="{{ $user->id }}" @if($agenda->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
+              @foreach($activity_manajemens as $activity_manajemen)
+                <option value="{{ $activity_manajemen->id }}" @if($agenda->activity_manajemen_id == $activity_manajemen->id)@selected(true)@endif>{{ $activity_manajemen->judul }} - {{ $activity_manajemen->users->nama_panjang }}</option>
               @endforeach
             </select>
-            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('activity_manajemen_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Judul</label>

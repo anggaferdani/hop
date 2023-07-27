@@ -25,14 +25,14 @@
         @endif
           @csrf
           <div class="form-group">
-            <label for="">Penyelenggara</label>
-            <select class="form-control select2" name="user_id">
+            <label for="">Hangout Places</label>
+            <select class="form-control select2" name="activity_manajemen_id">
               <option disabled selected>Select</option>
-              @foreach($users as $user)
-                <option value="{{ $user->id }}">{{ $user->nama_panjang }}</option>
+              @foreach($activity_manajemens as $activity_manajemen)
+                <option value="{{ $activity_manajemen->id }}">{{ $activity_manajemen->judul }} - {{ $activity_manajemen->users->nama_panjang }}</option>
               @endforeach
             </select>
-            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('activity_manajemen_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Judul</label>
@@ -67,23 +67,6 @@
               @endforeach
             </select>
             @error('type[]')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="">Provinsi</label>
-              <input type="text" class="form-control" name="provinsi">
-              @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-4">
-              <label for="">Kabupaten/Kota</label>
-              <input type="text" class="form-control" name="kabupaten_kota">
-              @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-4">
-              <label for="">Kecamatan</label>
-              <input type="text" class="form-control" name="kecamatan">
-              @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
           </div>
           <div class="form-group">
             <label for="">Tiket</label>
