@@ -54,7 +54,17 @@
                 <tr>
                   <td>{{ $id }}</td>
                   <td>{{ $food_and_beverage->nama_tempat }}</td>
-                  <td>{{ $food_and_beverage->provinsi }}, {{ $food_and_beverage->kabupaten_kota }}, {{ $food_and_beverage->kecamatan }}</td>
+                  <td>
+                    @foreach($provinsis as $provinsi)
+                      @if($food_and_beverage->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                    @endforeach
+                    @foreach($kabupatens as $kabupaten)
+                      @if($food_and_beverage->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                    @endforeach
+                    @foreach($kecamatans as $kecamatan)
+                      @if($food_and_beverage->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                    @endforeach
+                  </td>
                   <td>
                     @foreach($food_and_beverage->food_and_beverage_images->take(1) as $food_and_beverage_image)
                       <div class="image2"><img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="image3"></div>

@@ -9,7 +9,10 @@ use App\Models\Banner;
 use App\Models\Update;
 use App\Models\Lodging;
 use App\Models\Kategori;
+use App\Models\Provinsi;
 use App\Models\Fasilitas;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
@@ -129,18 +132,36 @@ class FrontController extends Controller
         }
 
         $food_and_beverages = $query->with('food_and_beverage_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
 
         return view('front.food-and-beverages', compact(
             'food_and_beverages',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
     public function food_and_beverage($id){
         $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
         $food_and_beverages = FoodAndBeverage::with('food_and_beverage_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $provinsi = Provinsi::find($food_and_beverage->provinsi);
+        $kabupaten = Kabupaten::find($food_and_beverage->kabupaten_kota);
+        $kecamatan = Kecamatan::find($food_and_beverage->kecamatan);
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
         return view('front.food-and-beverage', compact(
             'food_and_beverage',
             'food_and_beverages',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 

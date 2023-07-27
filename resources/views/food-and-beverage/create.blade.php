@@ -32,20 +32,34 @@
             <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          <div class="form-group">
+            <label for="">Lokasi</label>
+            <input type="text" class="form-control" name="lokasi">
+            @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="">Provinsi</label>
-              <input type="text" class="form-control" name="provinsi">
+              <select class="form-control select2" name="provinsi" id="provinsi">
+                <option disabled selected>Select</option>
+                @foreach($provinsis as $provinsi)
+                  <option value="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+                @endforeach
+              </select>
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kabupaten/Kota</label>
-              <input type="text" class="form-control" name="kabupaten_kota">
+              <select class="form-control select2" name="kabupaten_kota" id="kabupaten">
+                <option disabled selected>Select</option>
+              </select>
               @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kecamatan</label>
-              <input type="text" class="form-control" name="kecamatan">
+              <select class="form-control select2" name="kecamatan" id="kecamatan">
+                <option disabled selected>Select</option>
+              </select>
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>

@@ -23,6 +23,16 @@
         width: 50% !important;
     }
   }
+  .parent2{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+  .parent2 iframe{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
   .banner4{
     height: 100%;
   }

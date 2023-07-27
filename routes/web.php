@@ -19,6 +19,8 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\FoodAndBeverageController;
 use App\Http\Controllers\ActivityManajemenController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ScannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,10 @@ Route::get('/kategoris/{id}', [FrontController::class, 'kategoris'])->name('kate
 Route::get('/about-us', [FrontController::class, 'about_us'])->name('about-us');
 Route::get('/autocomplete', [FrontController::class, 'autocomplete'])->name('autocomplete');
 Route::post('/search', [FrontController::class, 'search'])->name('search');
+Route::get('/pendaftar/search', [ScannerController::class, 'search'])->name('pendaftar.search');
+
+Route::get('/kabupaten/{id}', [LokasiController::class, 'kabupaten'])->name('kabupaten');
+Route::get('/kecamatan/{id}', [LokasiController::class, 'kecamatan'])->name('kecamatan');
 
 Route::middleware(['web', 'disableBackButton'])->group(function(){
     Route::middleware(['disableRedirectToLoginPage'])->group(function(){
@@ -88,6 +94,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
         Route::resource('banner', BannerController::class);
         Route::get('banner/kosongkan/{id}', [BannerController::class, 'kosongkan'])->name('banner.kosongkan');
+        Route::get('scanner', [ScannerController::class, 'scanner'])->name('scanner');
     });
 });
 
@@ -113,6 +120,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
         Route::resource('banner', BannerController::class);
         Route::get('banner/kosongkan/{id}', [BannerController::class, 'kosongkan'])->name('banner.kosongkan');
+        Route::get('scanner', [ScannerController::class, 'scanner'])->name('scanner');
     });
 });
 
