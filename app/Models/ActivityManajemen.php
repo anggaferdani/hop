@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Type;
+use App\Models\User;
+use App\Models\Agenda;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ActivityManajemenImage;
@@ -18,6 +20,7 @@ class ActivityManajemen extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'user_id',
         'kategori_id',
         'judul',
         'deskripsi',
@@ -46,6 +49,10 @@ class ActivityManajemen extends Model
         });
     }
 
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function kategoris(){
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
@@ -56,5 +63,9 @@ class ActivityManajemen extends Model
 
     public function types(){
         return $this->belongsToMany(Type::class, 'activity_manajemen_types', 'activity_manajemen_id', 'type_id');
+    }
+
+    public function agendas(){
+        return $this->hasMany(Agenda::class);
     }
 }

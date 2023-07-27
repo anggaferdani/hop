@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\ActivityManajemen;
@@ -28,10 +29,12 @@ class ActivityManajemenController extends Controller
     }
 
     public function create(){
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         return view('activity-manajemen.create', compact(
+            'users',
             'kategoris',
             'types',
             'provinsis',
@@ -40,6 +43,7 @@ class ActivityManajemenController extends Controller
 
     public function store(Request $request){
         $request->validate([
+            'user_id' => 'required',
             'kategori_id' => 'required',
             'judul' => 'required',
             'deskripsi' => 'required',
@@ -56,6 +60,7 @@ class ActivityManajemenController extends Controller
         $harga_mulai2 = trim($harga_mulai);
 
         $array = array(
+            'user_id' => $request['user_id'],
             'kategori_id' => $request['kategori_id'],
             'judul' => $request['judul'],
             'deskripsi' => $request['deskripsi'],
@@ -95,6 +100,7 @@ class ActivityManajemenController extends Controller
     public function show($id){
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -102,6 +108,7 @@ class ActivityManajemenController extends Controller
         return view('activity-manajemen.show', compact(
             'activity_manajemen',
             'kategoris',
+            'users',
             'types',
             'provinsis',
             'kabupatens',
@@ -112,6 +119,7 @@ class ActivityManajemenController extends Controller
     public function edit($id){
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -119,6 +127,7 @@ class ActivityManajemenController extends Controller
         return view('activity-manajemen.edit', compact(
             'activity_manajemen',
             'kategoris',
+            'users',
             'types',
             'provinsis',
             'kabupatens',
@@ -130,6 +139,7 @@ class ActivityManajemenController extends Controller
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images', 'types')->find(Crypt::decrypt($id));
 
         $request->validate([
+            'user_id' => 'required',
             'kategori_id' => 'required',
             'judul' => 'required',
             'deskripsi' => 'required',
@@ -143,6 +153,7 @@ class ActivityManajemenController extends Controller
         $harga_mulai2 = trim($harga_mulai);
 
         $activity_manajemen->update([
+            'user_id' => $request['user_id'],
             'kategori_id' => $request['kategori_id'],
             'judul' => $request['judul'],
             'deskripsi' => $request['deskripsi'],

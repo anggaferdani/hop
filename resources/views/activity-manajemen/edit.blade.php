@@ -26,6 +26,16 @@
           @csrf
           @method('PUT')
           <div class="form-group">
+            <label for="">Vendor <span class="text-danger">*</span></label>
+            <select class="form-control select2" name="user_id">
+              <option disabled selected>Select</option>
+              @foreach($users as $user)
+                <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
+              @endforeach
+            </select>
+            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
             <label for="">Kategori <span class="text-danger">*</span></label>
             <select class="form-control select2" name="kategori_id">
               <option disabled selected>Select</option>
@@ -33,7 +43,7 @@
                 <option value="{{ $kategori->id }}" @if($activity_manajemen->kategori_id == $kategori->id)@selected(true)@endif>{{ $kategori->kategori }}</option>
               @endforeach
             </select>
-            @error('kategori')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('kategori_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Judul <span class="text-danger">*</span></label>

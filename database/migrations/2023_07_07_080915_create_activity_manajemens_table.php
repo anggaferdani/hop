@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('activity_manajemens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('kategori_id')->references('id')->on('kategoris')->onDelete('cascade');
             $table->string('judul');
             $table->longText('deskripsi');

@@ -26,7 +26,17 @@
         <hr class="text-secondary">
         <div>
           <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
-          <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
+          <div class="text-muted lh-sm mt-1 mb-4" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
+        </div>
+        <hr class="text-secondary">
+        <div class="row">
+          <div class="col-md-2 col-4">
+            <div style="width: 100%; aspect-ratio: 1;"><img src="{{ asset('front/img/1.png') }}" class="rounded-circle" style="object-fit: cover; width: 100%; height: 100%;" alt=""></div>
+          </div>
+          <div class="col-md-10 col-8 align-items-center">
+            <div class="fs-5 fw-bold">{{ $activity_manajemen->users->nama_panjang }}</div>
+            <div class="text-muted">{{ $activity_manajemen->users->email }}</div>
+          </div>
         </div>
       </div>
       <div class="col-md-3 py-3 py-md-0">

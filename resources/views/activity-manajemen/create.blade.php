@@ -18,6 +18,16 @@
         @endif
           @csrf
           <div class="form-group">
+            <label for="">Vendor <span class="text-danger">*</span></label>
+            <select class="form-control select2" name="user_id">
+              <option disabled selected>Select</option>
+              @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->nama_panjang }}</option>
+              @endforeach
+            </select>
+            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
             <label for="">Kategori <span class="text-danger">*</span></label>
             <select class="form-control select2" name="kategori_id">
               <option disabled selected>Select</option>

@@ -14,6 +14,16 @@
         <form action="" method="POST" class="needs-validation" novalidate="">
           @csrf
           <div class="form-group">
+            <label for="">Vendor</label>
+            <select disabled class="form-control select2" name="user_id">
+              <option disabled selected>Select</option>
+              @foreach($users as $user)
+                <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
+              @endforeach
+            </select>
+            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
             <label for="">Kategori</label>
             <select disabled class="form-control select2" name="kategori_id">
               <option disabled selected>Select</option>

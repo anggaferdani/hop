@@ -42,6 +42,7 @@
             <tbody>
               <tr>
                 <th>No.</th>
+                <th>Vendor</th>
                 <th>Kategori</th>
                 <th>Judul</th>
                 <th>Image</th>
@@ -53,6 +54,7 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
+                  <td>{{ $activity_manajemen->users->nama_panjang }}</td>
                   <td>{{ $activity_manajemen->kategoris->kategori }}</td>
                   <td>{{ $activity_manajemen->judul }}</td>
                   <td>
