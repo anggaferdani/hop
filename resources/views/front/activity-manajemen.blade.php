@@ -21,7 +21,7 @@
         <hr class="text-secondary">
         <div>
           <?php $lokasi = $activity_manajemen->provinsi.", ".$activity_manajemen->kabupaten_kota.", ".$activity_manajemen->kecamatan ?>
-          <h5 class="fw-bold">Lokasi : <a href="{{ $activity_manajemen->lokasi }}" class="color">{{ $lokasi }}</a></h5>
+          <h5 class="fw-bold">Lokasi : <a href="{{ $activity_manajemen->lokasi }}" class="color">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</a></h5>
         </div>
         <hr class="text-secondary">
         <div>
@@ -32,24 +32,34 @@
       <div class="col-md-3 py-3 py-md-0">
         <div class="row row-cols-1 gap-2">
           <div class="col">
-            <div class="card p-0">
+            <div class="card p-0" style="border-radius: 15px;">
               <div class="card-body">
                 <div class="text-muted mb-1 fw-bold">Harga Mulai Dari</div>
                 <div class="fs-5 p-1 px-3 tagging2">{{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($activity_manajemen->harga_mulai)), 3))) }}</div>
               </div>
             </div>
           </div>
+          @if(!empty($activity_manajemen->whatsapp || $activity_manajemen->instagram || $activity_manajemen->twitter))
+            <div class="col">
+              <div class="card p-0" style="border-radius: 15px;">
+                <div class="card-body">
+                  <div class="card-title d-flex align-items-center gap-2">
+                    <h5 class="text-muted small fw-bold m-0">Kontak</h5>
+                  </div>
+                  <div class="d-flex gap-3">
+                    @if(!empty($activity_manajemen->whatsapp))<a href="{{ $activity_manajemen->whatsapp }}" class="business"><i class="fa-brands fa-whatsapp fs-2"></i></a>@endif
+                    @if(!empty($activity_manajemen->instagram))<a href="{{ $activity_manajemen->instagram }}" class="business"><i class="fa-brands fa-instagram fs-2"></i></a>@endif
+                    @if(!empty($activity_manajemen->twitter))<a href="{{ $activity_manajemen->twitter }}" class="business"><i class="fa-brands fa-twitter fs-2"></i></a>@endif
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
           <div class="col">
-            <div class="card p-0">
+            <div class="card" style="border-radius: 15px;">
               <div class="card-body">
-                <div class="card-title d-flex align-items-center gap-2">
-                  <h5 class="text-muted small fw-bold m-0">Kontak</h5>
-                </div>
-                <div class="d-flex gap-3">
-                  @if(!empty($activity_manajemen->whatsapp))<a href="{{ $activity_manajemen->whatsapp }}" class="business"><i class="fa-brands fa-whatsapp fs-2"></i></a>@endif
-                  @if(!empty($activity_manajemen->instagram))<a href="{{ $activity_manajemen->instagram }}" class="business"><i class="fa-brands fa-instagram fs-2"></i></a>@endif
-                  @if(!empty($activity_manajemen->twitter))<a href="{{ $activity_manajemen->twitter }}" class="business"><i class="fa-brands fa-twitter fs-2"></i></a>@endif
-                </div>
+                <div class="fs-5 fw-bold mb-2">Lokasi</div>
+                <div class="parent2">{!! $activity_manajemen->lokasi !!}</div>
               </div>
             </div>
           </div>

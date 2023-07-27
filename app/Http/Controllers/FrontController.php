@@ -227,9 +227,21 @@ class FrontController extends Controller
     public function activity_manajemen($id){
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query) use ($id){ $query->where('id', '<>', Crypt::decrypt($id)); }])->whereHas("activity_manajemens", function($query){ $query->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->latest()->get();
+        $provinsi = Provinsi::find($activity_manajemen->provinsi);
+        $kabupaten = Kabupaten::find($activity_manajemen->kabupaten_kota);
+        $kecamatan = Kecamatan::find($activity_manajemen->kecamatan);
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
         return view('front.activity-manajemen', compact(
             'activity_manajemen',
             'kategoris',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
     

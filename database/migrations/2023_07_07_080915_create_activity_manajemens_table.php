@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('judul');
             $table->longText('deskripsi');
             $table->date('tanggal_publikasi');
+            $table->longText('lokasi');
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');
-            $table->string('lokasi')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();

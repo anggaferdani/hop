@@ -7,6 +7,7 @@ use App\Models\Type;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\ActivityManajemen;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\ActivityManajemenImage;
@@ -15,17 +16,25 @@ class ActivityManajemenController extends Controller
 {
     public function index(){
         $activity_manajemens = ActivityManajemen::with('activity_manajemen_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('activity-manajemen.index', compact(
             'activity_manajemens',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
     public function create(){
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
         return view('activity-manajemen.create', compact(
             'kategoris',
             'types',
+            'provinsis',
         ));
     }
 
@@ -35,6 +44,7 @@ class ActivityManajemenController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'tanggal_publikasi' => 'required',
+            'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
@@ -50,10 +60,10 @@ class ActivityManajemenController extends Controller
             'judul' => $request['judul'],
             'deskripsi' => $request['deskripsi'],
             'tanggal_publikasi' => $request['tanggal_publikasi'],
+            'lokasi' => $request['lokasi'],
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
-            'lokasi' => $request['lokasi'],
             'whatsapp' => $request['whatsapp'],
             'instagram' => $request['instagram'],
             'twitter' => $request['twitter'],
@@ -86,10 +96,16 @@ class ActivityManajemenController extends Controller
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('activity-manajemen.show', compact(
             'activity_manajemen',
             'kategoris',
             'types',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
@@ -97,10 +113,16 @@ class ActivityManajemenController extends Controller
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('activity-manajemen.edit', compact(
             'activity_manajemen',
             'kategoris',
             'types',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 

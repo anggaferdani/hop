@@ -77,27 +77,43 @@
             </select>
             @error('type[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          <div class="form-group">
+            <label for="">Lokasi</label>
+            <input type="text" class="form-control" name="lokasi" value="{{ $activity_manajemen->lokasi }}">
+            <div class="parent2">{!! $activity_manajemen->lokasi !!}</div>
+            @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="">Provinsi <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="provinsi" value="{{ $activity_manajemen->provinsi }}">
+              <label for="">Provinsi</label>
+              <select class="form-control select2" name="provinsi" id="provinsi">
+                <option disabled selected>Select</option>
+                @foreach($provinsis as $provinsi)
+                  <option value="{{ $provinsi->id_provinsi }}" @if($activity_manajemen->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ $provinsi->nama_provinsi }}</option>
+                @endforeach
+              </select>
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
-              <label for="">Kabupaten/Kota <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="kabupaten_kota" value="{{ $activity_manajemen->kabupaten_kota }}">
+              <label for="">Kabupaten/Kota</label>
+              <select class="form-control select2" name="kabupaten_kota" id="kabupaten">
+                <option disabled selected>Select</option>
+                @foreach($kabupatens as $kabupaten)
+                  <option value="{{ $activity_manajemen->kabupaten_kota }}" @if($activity_manajemen->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ $kabupaten->nama_kabupaten }}</option>
+                @endforeach
+              </select>
               @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
-              <label for="">Kecamatan <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="kecamatan" value="{{ $activity_manajemen->kecamatan }}">
+              <label for="">Kecamatan</label>
+              <select class="form-control select2" name="kecamatan" id="kecamatan">
+                <option disabled selected>Select</option>
+                @foreach($kecamatans as $kecamatan)
+                  <option value="{{ $activity_manajemen->kecamatan }}" @if($activity_manajemen->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ $kecamatan->nama_kecamatan }}</option>
+                @endforeach
+              </select>
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
-          </div>
-          <div class="form-group">
-            <label for="">Lokasi</label>
-            <input type="text" class="form-control" name="lokasi" value="{{ $activity_manajemen->lokasi }}" placeholder="Paste link disini">
-            @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">WhatsApp</label>
