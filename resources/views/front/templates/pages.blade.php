@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+  <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 </head>
 <style>
   @media (min-width:768px) {
@@ -111,6 +114,80 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js" integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="{{ asset('js/share.js') }}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.select2').select2({});
+    });
+  </script>
+
+<script type="text/javascript">
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+  $(document).ready(function() {
+    $('#provinsi').on('change', function() {
+       var id_provinsi = $(this).val();
+       if(id_provinsi) {
+           $.ajax({
+               url: '/kabupaten/'+id_provinsi,
+               type: "GET",
+               data: {
+                _token: CSRF_TOKEN,
+              },
+               dataType: "json",
+               success:function(data)
+               {
+                 if(data){
+                    $('#kabupaten').empty();
+                    $('#kabupaten').append('<option disabled selected>Select</option>'); 
+                    $.each(data, function(key, kabupatens){
+                        $('select[name="kabupaten_kota"]').append('<option value="'+ kabupatens.id_kabupaten +'">' + kabupatens.nama_kabupaten+ '</option>');
+                    });
+                }else{
+                    $('#kabupaten').empty();
+                }
+             }
+           });
+       }else{
+         $('#kabupaten').empty();
+       }
+      });
+    });
+</script>
+
+  <script type="text/javascript">
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $(document).ready(function() {
+      $('#kabupaten').on('change', function() {
+         var id_kabupaten = $(this).val();
+         if(id_kabupaten) {
+             $.ajax({
+                 url: '/kecamatan/'+id_kabupaten,
+                 type: "GET",
+                 data: {
+                  _token: CSRF_TOKEN,
+                },
+                 dataType: "json",
+                 success:function(data)
+                 {
+                   if(data){
+                      $('#kecamatan').empty();
+                      $('#kecamatan').append('<option disabled selected>Select</option>'); 
+                      $.each(data, function(key, kecamatans){
+                          $('select[name="kecamatan"]').append('<option value="'+ kecamatans.id_kecamatan +'">' + kecamatans.nama_kecamatan+ '</option>');
+                      });
+                  }else{
+                      $('#kecamatan').empty();
+                  }
+               }
+             });
+        }else{
+           $('#kecamatan').empty();
+        }
+      });
+    });
+  </script>
 
   <script type="text/javascript">
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -488,7 +565,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.deskripsi2').each(function(f){
-        var newstr = $(this).text().substring(0, 90) + "...";
+        var newstr = $(this).text().substring(0, 70) + "...";
         $(this).text(newstr);
       });
     });

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
 
   <!-- General CSS Files -->
@@ -30,6 +31,16 @@
   </script>
 
   <style>
+    .parent2{
+      position: relative;
+      width: 25%;
+      aspect-ratio: 1;
+    }
+    .parent2 iframe{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
     .image2{
       display: block;
       width: 250px;
@@ -89,6 +100,85 @@
   <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js" integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js" integrity="sha512-9e9rr82F9BPzG81+6UrwWLFj8ZLf59jnuIA/tIf8dEGoQVu7l5qvr02G/BiAabsFOYrIUTMslVN+iDYuszftVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script type="text/javascript">
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $(document).ready(function() {
+      $('#provinsi').on('change', function() {
+         var id_provinsi = $(this).val();
+         if(id_provinsi) {
+             $.ajax({
+                 url: '/kabupaten/'+id_provinsi,
+                 type: "GET",
+                 data: {
+                  _token: CSRF_TOKEN,
+                },
+                 dataType: "json",
+                 success:function(data)
+                 {
+                   if(data){
+                      $('#kabupaten').empty();
+                      $('#kabupaten').append('<option disabled selected>Select</option>'); 
+                      $.each(data, function(key, kabupatens){
+                          $('select[name="kabupaten_kota"]').append('<option value="'+ kabupatens.id_kabupaten +'">' + kabupatens.nama_kabupaten+ '</option>');
+                      });
+                  }else{
+                      $('#kabupaten').empty();
+                  }
+               }
+             });
+         }else{
+           $('#kabupaten').empty();
+         }
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $(document).ready(function() {
+      $('#kabupaten').on('change', function() {
+         var id_kabupaten = $(this).val();
+         if(id_kabupaten) {
+             $.ajax({
+                 url: '/kecamatan/'+id_kabupaten,
+                 type: "GET",
+                 data: {
+                  _token: CSRF_TOKEN,
+                },
+                 dataType: "json",
+                 success:function(data)
+                 {
+                   if(data){
+                      $('#kecamatan').empty();
+                      $('#kecamatan').append('<option disabled selected>Select</option>'); 
+                      $.each(data, function(key, kecamatans){
+                          $('select[name="kecamatan"]').append('<option value="'+ kecamatans.id_kecamatan +'">' + kecamatans.nama_kecamatan+ '</option>');
+                      });
+                  }else{
+                      $('#kecamatan').empty();
+                  }
+               }
+             });
+        }else{
+           $('#kecamatan').empty();
+        }
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
+    var lokasi = document.getElementById('lokasi').value;
+
+    var latlong = /\/\@(.*),(.*),/.exec(lokasi);
+    var lat = longlat[2];
+    var long = longlat[1];
+    
+    $('input[name="latitude"]').val(lat);
+    $('input[name="longitude"]').val(long);
+  </script>
 
   <script type="text/javascript">
     $('.add').on('click', function(){
