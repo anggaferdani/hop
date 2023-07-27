@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Agenda;
 use App\Models\Fasilitas;
 use App\Models\LodgingImage;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,10 @@ class Lodging extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function agendas(){
+        return $this->hasMany(Agenda::class);
     }
 
     public function lodging_images(){
