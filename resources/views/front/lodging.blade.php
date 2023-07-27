@@ -18,7 +18,7 @@
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $lodging->nama_tempat }}</h5>
         <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $lodging->deskripsi_tempat !!}</div>
         <div class="fs-5 fw-bold">Lokasi</div>
-        <div class="fs-5 text-muted lh-sm">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
+        <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
         <div class="fs-5 fw-bold">Fasilitas</div>
         <div class="fs-5 text-muted lh-sm">
           @foreach($lodging->fasilitas as $fasilitas)
