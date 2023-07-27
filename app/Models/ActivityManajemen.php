@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Type;
 use App\Models\User;
-use App\Models\Agenda;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ActivityManajemenImage;
@@ -63,9 +62,5 @@ class ActivityManajemen extends Model
 
     public function types(){
         return $this->belongsToMany(Type::class, 'activity_manajemen_types', 'activity_manajemen_id', 'type_id');
-    }
-
-    public function agendas(){
-        return $this->hasMany(Agenda::class);
     }
 }
