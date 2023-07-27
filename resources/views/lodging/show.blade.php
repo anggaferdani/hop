@@ -31,20 +31,41 @@
             @endforeach
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          <div class="form-group">
+            <label for="">Lokasi</label>
+            <input disabled type="text" class="form-control" name="lokasi" value="{{ $lodging->lokasi }}">
+            <div class="parent2">{!! $lodging->lokasi !!}</div>
+            @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="">Provinsi</label>
-              <input disabled type="text" class="form-control" name="provinsi" value="{{ $lodging->provinsi }}">
+              <select disabled class="form-control select2" name="provinsi" id="provinsi">
+                <option disabled selected>Select</option>
+                @foreach($provinsis as $provinsi)
+                  <option value="{{ $provinsi->id_provinsi }}" @if($lodging->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ $provinsi->nama_provinsi }}</option>
+                @endforeach
+              </select>
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kabupaten/Kota</label>
-              <input disabled type="text" class="form-control" name="kabupaten_kota" value="{{ $lodging->kabupaten_kota }}">
+              <select disabled class="form-control select2" name="kabupaten_kota" id="kabupaten">
+                <option disabled selected>Select</option>
+                @foreach($kabupatens as $kabupaten)
+                  <option value="{{ $lodging->kabupaten_kota }}" @if($lodging->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ $kabupaten->nama_kabupaten }}</option>
+                @endforeach
+              </select>
               @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kecamatan</label>
-              <input disabled type="text" class="form-control" name="kecamatan" value="{{ $lodging->kecamatan }}">
+              <select disabled class="form-control select2" name="kecamatan" id="kecamatan">
+                <option disabled selected>Select</option>
+                @foreach($kecamatans as $kecamatan)
+                  <option value="{{ $lodging->kecamatan }}" @if($lodging->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ $kecamatan->nama_kecamatan }}</option>
+                @endforeach
+              </select>
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>

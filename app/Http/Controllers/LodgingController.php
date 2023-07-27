@@ -7,6 +7,7 @@ use App\Models\Lodging;
 use App\Models\Fasilitas;
 use App\Models\LodgingImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 
@@ -14,15 +15,23 @@ class LodgingController extends Controller
 {
     public function index(){
         $lodgings = Lodging::with('lodging_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('lodging.index', compact(
             'lodgings',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
     public function create(){
         $fasilitasies = Fasilitas::select('id', 'fasilitas')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
         return view('lodging.create', compact(
             'fasilitasies',
+            'provinsis',
         ));
     }
 
@@ -31,6 +40,7 @@ class LodgingController extends Controller
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
             'image.*' => 'required',
+            'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
@@ -41,6 +51,7 @@ class LodgingController extends Controller
         $array = array(
             'nama_tempat' => $request['nama_tempat'],
             'deskripsi_tempat' => $request['deskripsi_tempat'],
+            'lokasi' => $request['lokasi'],
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
@@ -73,10 +84,16 @@ class LodgingController extends Controller
         $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
         $fasilitas_id = $lodging->fasilitas->pluck('id');
         $fasilitasies = Fasilitas::select('id', 'fasilitas')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('lodging.show', compact(
             'lodging',
             'fasilitas_id',
             'fasilitasies',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
@@ -84,10 +101,16 @@ class LodgingController extends Controller
         $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
         $fasilitas_id = $lodging->fasilitas->pluck('id');
         $fasilitasies = Fasilitas::select('id', 'fasilitas')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('lodging.edit', compact(
             'lodging',
             'fasilitas_id',
             'fasilitasies',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 

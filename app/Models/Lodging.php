@@ -19,6 +19,7 @@ class Lodging extends Model
     protected $fillable = [
         'nama_tempat',
         'deskripsi_tempat',
+        'lokasi',
         'provinsi',
         'kabupaten_kota',
         'kecamatan',

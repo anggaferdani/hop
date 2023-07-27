@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_tempat');
             $table->longText('deskripsi_tempat');
+            $table->longText('lokasi');
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');

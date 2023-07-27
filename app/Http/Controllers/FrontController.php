@@ -183,19 +183,37 @@ class FrontController extends Controller
         }
 
         $lodgings = $query->with('lodging_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
 
         return view('front.lodgings', compact(
             'fasilitasies',
             'lodgings',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
     public function lodging($id){
         $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
         $lodgings = Lodging::with('lodging_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $provinsi = Provinsi::find($lodging->provinsi);
+        $kabupaten = Kabupaten::find($lodging->kabupaten_kota);
+        $kecamatan = Kecamatan::find($lodging->kecamatan);
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
         return view('front.lodging', compact(
             'lodging',
             'lodgings',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 

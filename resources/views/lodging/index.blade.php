@@ -54,7 +54,17 @@
                 <tr>
                   <td>{{ $id }}</td>
                   <td>{{ $lodging->nama_tempat }}</td>
-                  <td>{{ $lodging->provinsi }}, {{ $lodging->kabupaten_kota }}, {{ $lodging->kecamatan }}</td>
+                  <td>
+                    @foreach($provinsis as $provinsi)
+                      @if($lodging->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                    @endforeach
+                    @foreach($kabupatens as $kabupaten)
+                      @if($lodging->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                    @endforeach
+                    @foreach($kecamatans as $kecamatan)
+                      @if($lodging->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                    @endforeach
+                  </td>
                   <td>
                     @foreach($lodging->lodging_images->take(1) as $lodging_image)
                       <div class="image2"><img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="image3"></div>
