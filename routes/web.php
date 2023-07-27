@@ -20,6 +20,7 @@ use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\FoodAndBeverageController;
 use App\Http\Controllers\ActivityManajemenController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PublicAreaController;
 use App\Http\Controllers\ScannerController;
 
 /*
@@ -44,6 +45,8 @@ Route::get('/food-and-beverages', [FrontController::class, 'food_and_beverages']
 Route::get('/food-and-beverage/{id}', [FrontController::class, 'food_and_beverage'])->name('food-and-beverage');
 Route::get('/lodgings', [FrontController::class, 'lodgings'])->name('lodgings');
 Route::get('/lodging/{id}', [FrontController::class, 'lodging'])->name('lodging');
+Route::get('/public-areas', [FrontController::class, 'public_areas'])->name('public-areas');
+Route::get('/public-area/{id}', [FrontController::class, 'public_area'])->name('public-area');
 Route::get('/activity-manajemens', [FrontController::class, 'activity_manajemens'])->name('activity-manajemens');
 Route::get('/activity-manajemen/{id}', [FrontController::class, 'activity_manajemen'])->name('activity-manajemen');
 Route::get('/kategoris/{id}', [FrontController::class, 'kategoris'])->name('kategoris');
@@ -92,6 +95,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::resource('kategori', KategoriController::class);
         Route::resource('activity-manajemen', ActivityManajemenController::class);
         Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
+        Route::resource('public-area', PublicAreaController::class);
+        Route::get('public-area/delete-image/{id}', [PublicAreaController::class, 'deleteImage'])->name('public-area.delete-image');
         Route::resource('banner', BannerController::class);
         Route::get('banner/kosongkan/{id}', [BannerController::class, 'kosongkan'])->name('banner.kosongkan');
         Route::get('scanner', [ScannerController::class, 'scanner'])->name('scanner');
@@ -118,6 +123,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('kategori', KategoriController::class);
         Route::resource('activity-manajemen', ActivityManajemenController::class);
         Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
+        Route::resource('public-area', PublicAreaController::class);
+        Route::get('public-area/delete-image/{id}', [PublicAreaController::class, 'deleteImage'])->name('public-area.delete-image');
         Route::resource('banner', BannerController::class);
         Route::get('banner/kosongkan/{id}', [BannerController::class, 'kosongkan'])->name('banner.kosongkan');
         Route::get('scanner', [ScannerController::class, 'scanner'])->name('scanner');

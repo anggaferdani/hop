@@ -33,6 +33,12 @@
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
+            <label for="">Logo Public Viewing <span class="text-danger"> *disarankan 250x250</span></label>
+            <input type="file" class="form-control" name="logo" onchange="file(event)">
+            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
+            <div><img src="#" id="image" alt="" width="200px"></div>
+          </div>
+          <div class="form-group">
             <label for="">Lokasi</label>
             <input type="text" class="form-control" name="lokasi">
             @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror

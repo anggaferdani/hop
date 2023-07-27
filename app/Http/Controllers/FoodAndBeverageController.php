@@ -58,6 +58,13 @@ class FoodAndBeverageController extends Controller
             'harga' => $request['harga'],
         );
 
+        if($logo = $request->file('logo')){
+            $destination_path = 'food-and-beverage/logo/';
+            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+            $logo->move($destination_path, $logo2);
+            $array['logo'] = $logo2;
+        }
+
         $food_and_beverage = FoodAndBeverage::create($array);
 
         if($request->has('image')){
@@ -125,6 +132,13 @@ class FoodAndBeverageController extends Controller
             'kecamatan' => 'required',
             'harga' => 'required',
         ]);
+
+        if($logo = $request->file('logo')){
+            $destination_path = 'food-and-beverage/logo/';
+            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+            $logo->move($destination_path, $logo2);
+            $food_and_beverage['logo'] = $logo2;
+        }
 
         $food_and_beverage->update([
             'nama_tempat' => $request['nama_tempat'],

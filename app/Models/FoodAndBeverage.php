@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Agenda;
 use App\Models\Seating;
 use App\Models\FoodAndBeverageImage;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ class FoodAndBeverage extends Model
         'kabupaten_kota',
         'kecamatan',
         'harga',
+        'logo',
         'status_aktif',
         'created_by',
         'updated_by',
@@ -38,6 +40,10 @@ class FoodAndBeverage extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function agendas(){
+        return $this->hasMany(Agenda::class);
     }
 
     public function food_and_beverage_images(){
