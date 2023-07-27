@@ -13,6 +13,7 @@ use App\Models\Provinsi;
 use App\Models\Fasilitas;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
+use App\Models\PublicArea;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
@@ -26,10 +27,16 @@ class FrontController extends Controller
         $updates = Update::with('update_images')->where('status_aktif', 'Aktif')->latest()->get();
         $agendas = Agenda::with('agenda_images')->where('status_aktif', 'Aktif')->latest()->get();
         $banners = Banner::where('status_aktif', 'Aktif')->latest()->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('front.index', compact(
             'updates',
             'agendas',
             'banners',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
@@ -90,14 +97,26 @@ class FrontController extends Controller
         }
 
         $agendas = $query->with('agenda_images')->where('status_aktif', 'Aktif')->latest()->paginate(9);
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('front.agendas', compact(
             'agendas',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
     public function agenda($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'activity_manajemens')->find(Crypt::decrypt($id));
         $agendas = Agenda::with('agenda_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $provinsi = Provinsi::find($agenda->provinsi);
+        $kabupaten = Kabupaten::find($agenda->kabupaten_kota);
+        $kecamatan = Kecamatan::find($agenda->kecamatan);
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
         $share = \Share::page(
             'http://hop.co.id/agenda/'.$id, $agenda->judul,
         )
@@ -109,6 +128,12 @@ class FrontController extends Controller
             'agenda',
             'agendas',
             'share',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
@@ -153,6 +178,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = \Share::page(
+            'http://hop.co.id/food-and-beverage/'.$id, $food_and_beverage->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.food-and-beverage', compact(
             'food_and_beverage',
             'food_and_beverages',
@@ -162,6 +194,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
 
@@ -205,6 +238,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = \Share::page(
+            'http://hop.co.id/lodging/'.$id, $lodging->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.lodging', compact(
             'lodging',
             'lodgings',
@@ -214,6 +254,62 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
+        ));
+    }
+
+    public function public_areas(Request $request){
+        $query = PublicArea::query();
+
+        if(isset($request->provinsi) && ($request->provinsi != null)){
+            $query->where('provinsi', $request->provinsi);
+        }
+        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
+            $query->where('kabupaten_kota', $request->kabupaten_kota);
+        }
+        if(isset($request->kecamatan) && ($request->kecamatan != null)){
+            $query->where('kecamatan', $request->kecamatan);
+        }
+
+        $public_areas = $query->with('public_area_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
+
+        return view('front.public-areas', compact(
+            'public_areas',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
+        ));
+    }
+
+    public function public_area($id){
+        $public_area = PublicArea::with('public_area_images')->find(Crypt::decrypt($id));
+        $public_areas = PublicArea::with('public_area_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $provinsi = Provinsi::find($public_area->provinsi);
+        $kabupaten = Kabupaten::find($public_area->kabupaten_kota);
+        $kecamatan = Kecamatan::find($public_area->kecamatan);
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
+        $share = \Share::page(
+            'http://hop.co.id/public-area/'.$id, $public_area->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
+        return view('front.public-area', compact(
+            'public_area',
+            'public_areas',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
+            'share',
         ));
     }
 
@@ -233,6 +329,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = \Share::page(
+            'http://hop.co.id/activity-manajemen/'.$id, $activity_manajemen->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.activity-manajemen', compact(
             'activity_manajemen',
             'kategoris',
@@ -242,6 +345,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
     
