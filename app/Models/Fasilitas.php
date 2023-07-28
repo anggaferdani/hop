@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Lodging;
+use App\Models\HangoutPlace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +33,7 @@ class Fasilitas extends Model
         });
     }
 
-    public function lodgings(){
-        return $this->belongsToMany(Lodging::class, 'lodging_fasilitas', 'fasilitas_id', 'lodging_id');
+    public function hangout_places(){
+        return $this->belongsToMany(HangoutPlace::class, 'hangout_place_fasilitas', 'fasilitas_id', 'hangout_place_id');
     }
 }

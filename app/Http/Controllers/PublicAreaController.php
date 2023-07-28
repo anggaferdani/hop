@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\PublicArea;
+use App\Models\HangoutPlace;
 use Illuminate\Http\Request;
 use App\Models\PublicAreaImage;
+use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 class PublicAreaController extends Controller
 {
     public function index(){
-        $public_areas = PublicArea::with('public_area_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->latest()->paginate(10);
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -50,16 +52,17 @@ class PublicAreaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
+            'status' => 'Public Area',
         );
 
-        $public_area = PublicArea::create($array);
+        $public_area = HangoutPlace::create($array);
 
         if($request->has('image')){
             foreach($request->file('image') as $image){
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('public-area/image/'), $image2);
-                PublicAreaImage::create([
-                    'public_area_id' => $public_area->id,
+                HangoutPlaceImage::create([
+                    'hangout_place_id' => $public_area->id,
                     'image' => $image2,
                 ]);
             }
@@ -73,7 +76,7 @@ class PublicAreaController extends Controller
     }
 
     public function show($id){
-        $public_area = PublicArea::with('public_area_images')->find(Crypt::decrypt($id));
+        $public_area = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -86,7 +89,7 @@ class PublicAreaController extends Controller
     }
 
     public function edit($id){
-        $public_area = PublicArea::with('public_area_images')->find(Crypt::decrypt($id));
+        $public_area = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -99,7 +102,7 @@ class PublicAreaController extends Controller
     }
 
     public function update(Request $request, $id){
-        $public_area = PublicArea::with('public_area_images')->find(Crypt::decrypt($id));
+        $public_area = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
 
         $request->validate([
             'nama_tempat' => 'required',
@@ -124,8 +127,8 @@ class PublicAreaController extends Controller
             foreach($request->file('image') as $image){
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('public-area/image/'), $image2);
-                PublicAreaImage::create([
-                    'public_area_id' => $public_area->id,
+                HangoutPlaceImage::create([
+                    'hangout_place_id' => $public_area->id,
                     'image' => $image2,
                 ]);
             }
@@ -139,7 +142,7 @@ class PublicAreaController extends Controller
     }
 
     public function destroy($id){
-        $public_area = PublicArea::find(Crypt::decrypt($id));
+        $public_area = HangoutPlace::find(Crypt::decrypt($id));
         
         $public_area->update([
             'status_aktif' => 'Tidak Aktif',
@@ -153,7 +156,7 @@ class PublicAreaController extends Controller
     }
 
     public function deleteImage($id){
-        $image = PublicAreaImage::find(Crypt::decrypt($id));
+        $image = HangoutPlaceImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("public-area/image/".$image->image))){
             File::delete("public-area/image/".$image->image);

@@ -34,7 +34,7 @@ class Type extends Model
         });
     }
 
-    public function agenadas(){
+    public function agendas(){
         return $this->belongsToMany(Agenda::class, 'agenda_types', 'type_id', 'agenda_id');
     }
 

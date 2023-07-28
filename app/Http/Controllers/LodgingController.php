@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Lodging;
 use App\Models\Fasilitas;
+use App\Models\HangoutPlace;
 use App\Models\LodgingImage;
 use Illuminate\Http\Request;
+use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Crypt;
 class LodgingController extends Controller
 {
     public function index(){
-        $lodgings = Lodging::with('lodging_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->latest()->paginate(10);
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -56,16 +58,17 @@ class LodgingController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'harga' => $request['harga'],
+            'status' => 'Lodging',
         );
 
-        $lodging = Lodging::create($array);
+        $lodging = HangoutPlace::create($array);
 
         if($request->has('image')){
             foreach($request->file('image') as $image){
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('lodging/image/'), $image2);
-                LodgingImage::create([
-                    'lodging_id' => $lodging->id,
+                HangoutPlaceImage::create([
+                    'hangout_place_id' => $lodging->id,
                     'image' => $image2,
                 ]);
             }
@@ -81,7 +84,7 @@ class LodgingController extends Controller
     }
 
     public function show($id){
-        $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
+        $lodging = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $fasilitas_id = $lodging->fasilitas->pluck('id');
         $fasilitasies = Fasilitas::select('id', 'fasilitas')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
@@ -98,7 +101,7 @@ class LodgingController extends Controller
     }
 
     public function edit($id){
-        $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
+        $lodging = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $fasilitas_id = $lodging->fasilitas->pluck('id');
         $fasilitasies = Fasilitas::select('id', 'fasilitas')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
@@ -115,7 +118,7 @@ class LodgingController extends Controller
     }
 
     public function update(Request $request, $id){
-        $lodging = Lodging::with('lodging_images', 'fasilitas')->find(Crypt::decrypt($id));
+        $lodging = HangoutPlace::with('hangout_place_images', 'fasilitas')->find(Crypt::decrypt($id));
 
         $request->validate([
             'nama_tempat' => 'required',
@@ -157,7 +160,7 @@ class LodgingController extends Controller
     }
 
     public function destroy($id){
-        $lodging = Lodging::find(Crypt::decrypt($id));
+        $lodging = HangoutPlace::find(Crypt::decrypt($id));
         
         $lodging->update([
             'status_aktif' => 'Tidak Aktif',
@@ -171,7 +174,7 @@ class LodgingController extends Controller
     }
 
     public function deleteImage($id){
-        $image = LodgingImage::find(Crypt::decrypt($id));
+        $image = HangoutPlaceImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("lodging/image/".$image->image))){
             File::delete("lodging/image/".$image->image);

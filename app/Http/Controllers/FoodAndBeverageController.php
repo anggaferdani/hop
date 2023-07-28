@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Seating;
 use Illuminate\Http\Request;
-use App\Models\FoodAndBeverage;
+use App\Models\HangoutPlace;
 use Illuminate\Support\Facades\DB;
-use App\Models\FoodAndBeverageImage;
+use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 
 class FoodAndBeverageController extends Controller
 {
     public function index(){
-        $food_and_beverages = FoodAndBeverage::with('food_and_beverage_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->latest()->paginate(10);
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -56,6 +56,7 @@ class FoodAndBeverageController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'harga' => $request['harga'],
+            'status' => 'Food And Beverage',
         );
 
         if($logo = $request->file('logo')){
@@ -65,14 +66,14 @@ class FoodAndBeverageController extends Controller
             $array['logo'] = $logo2;
         }
 
-        $food_and_beverage = FoodAndBeverage::create($array);
+        $food_and_beverage = HangoutPlace::create($array);
 
         if($request->has('image')){
             foreach($request->file('image') as $image){
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('food-and-beverage/image/'), $image2);
-                FoodAndBeverageImage::create([
-                    'food_and_beverage_id' => $food_and_beverage->id,
+                HangoutPlaceImage::create([
+                    'hangout_place_id' => $food_and_beverage->id,
                     'image' => $image2,
                 ]);
             }
@@ -88,7 +89,7 @@ class FoodAndBeverageController extends Controller
     }
 
     public function show($id){
-        $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $seating_id = $food_and_beverage->seatings->pluck('id');
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -104,7 +105,7 @@ class FoodAndBeverageController extends Controller
 
     public function edit($id){
         $seatings = Seating::select('id', 'seating')->where('status_aktif', 'Aktif')->get();
-        $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $seating_id = $food_and_beverage->seatings->pluck('id');
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -120,7 +121,7 @@ class FoodAndBeverageController extends Controller
     }
 
     public function update(Request $request, $id){
-        $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
 
         $request->validate([
             'nama_tempat' => 'required',
@@ -154,7 +155,7 @@ class FoodAndBeverageController extends Controller
             foreach($request->file('image') as $image){
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('food-and-beverage/image/'), $image2);
-                FoodAndBeverageImage::create([
+                HangoutPlaceImage::create([
                     'food_and_beverage_id' => $food_and_beverage->id,
                     'image' => $image2,
                 ]);
@@ -171,7 +172,7 @@ class FoodAndBeverageController extends Controller
     }
 
     public function destroy($id){
-        $food_and_beverage = FoodAndBeverage::find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::find(Crypt::decrypt($id));
         
         $food_and_beverage->update([
             'status_aktif' => 'Tidak Aktif',
@@ -185,7 +186,7 @@ class FoodAndBeverageController extends Controller
     }
 
     public function deleteImage($id){
-        $image = FoodAndBeverageImage::find(Crypt::decrypt($id));
+        $image = HangoutPlaceImage::find(Crypt::decrypt($id));
         
         if(file_exists(public_path("food-and-beverage/image/".$image->image))){
             File::delete("food-and-beverage/image/".$image->image);

@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
 use App\Models\ActivityManajemen;
+use App\Models\HangoutPlace;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
@@ -109,7 +110,7 @@ class FrontController extends Controller
     }
 
     public function agenda($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'activity_manajemens')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'hangout_places')->find(Crypt::decrypt($id));
         $agendas = Agenda::with('agenda_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($agenda->provinsi);
         $kabupaten = Kabupaten::find($agenda->kabupaten_kota);
@@ -138,25 +139,7 @@ class FrontController extends Controller
     }
 
     public function food_and_beverages(Request $request){
-        $query = FoodAndBeverage::query();
-
-        if(isset($request->provinsi) && ($request->provinsi != null)){
-            $query->where('provinsi', $request->provinsi);
-        }
-        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
-            $query->where('kabupaten_kota', $request->kabupaten_kota);
-        }
-        if(isset($request->kecamatan) && ($request->kecamatan != null)){
-            $query->where('kecamatan', $request->kecamatan);
-        }
-        if(isset($request->seating) && ($request->seating != null)){
-            $query->where('seating', $request->seating);
-        }
-        if(isset($request->harga) && ($request->harga != null)){
-            $query->where('harga', $request->harga);
-        }
-
-        $food_and_beverages = $query->with('food_and_beverage_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->latest()->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -170,8 +153,8 @@ class FrontController extends Controller
     }
 
     public function food_and_beverage($id){
-        $food_and_beverage = FoodAndBeverage::with('food_and_beverage_images')->find(Crypt::decrypt($id));
-        $food_and_beverages = FoodAndBeverage::with('food_and_beverage_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($food_and_beverage->provinsi);
         $kabupaten = Kabupaten::find($food_and_beverage->kabupaten_kota);
         $kecamatan = Kecamatan::find($food_and_beverage->kecamatan);
@@ -199,23 +182,8 @@ class FrontController extends Controller
     }
 
     public function lodgings(Request $request){
-        $query = Lodging::query();
         $fasilitasies = Fasilitas::where('status_aktif', 'Aktif')->get();
-
-        if(isset($request->provinsi) && ($request->provinsi != null)){
-            $query->where('provinsi', $request->provinsi);
-        }
-        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
-            $query->where('kabupaten_kota', $request->kabupaten_kota);
-        }
-        if(isset($request->kecamatan) && ($request->kecamatan != null)){
-            $query->where('kecamatan', $request->kecamatan);
-        }
-        if(isset($request->harga) && ($request->harga != null)){
-            $query->where('harga', $request->harga);
-        }
-
-        $lodgings = $query->with('lodging_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->latest()->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -230,8 +198,8 @@ class FrontController extends Controller
     }
 
     public function lodging($id){
-        $lodging = Lodging::with('lodging_images')->find(Crypt::decrypt($id));
-        $lodgings = Lodging::with('lodging_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $lodging = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $lodgings = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Lodging')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($lodging->provinsi);
         $kabupaten = Kabupaten::find($lodging->kabupaten_kota);
         $kecamatan = Kecamatan::find($lodging->kecamatan);
@@ -259,19 +227,7 @@ class FrontController extends Controller
     }
 
     public function public_areas(Request $request){
-        $query = PublicArea::query();
-
-        if(isset($request->provinsi) && ($request->provinsi != null)){
-            $query->where('provinsi', $request->provinsi);
-        }
-        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
-            $query->where('kabupaten_kota', $request->kabupaten_kota);
-        }
-        if(isset($request->kecamatan) && ($request->kecamatan != null)){
-            $query->where('kecamatan', $request->kecamatan);
-        }
-
-        $public_areas = $query->with('public_area_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->latest()->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -285,8 +241,8 @@ class FrontController extends Controller
     }
 
     public function public_area($id){
-        $public_area = PublicArea::with('public_area_images')->find(Crypt::decrypt($id));
-        $public_areas = PublicArea::with('public_area_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $public_area = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $public_areas = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Public Area')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($public_area->provinsi);
         $kabupaten = Kabupaten::find($public_area->kabupaten_kota);
         $kecamatan = Kecamatan::find($public_area->kecamatan);

@@ -7,17 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Seating extends Model
+class HangoutPlaceImage extends Model
 {
     use HasFactory;
 
-    protected $table = 'seatings';
+    protected $table = 'hangout_place_images';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'seating',
-        'status_aktif',
+        'hangout_place_id',
+        'image',
         'created_by',
         'updated_by',
     ];
@@ -34,6 +34,6 @@ class Seating extends Model
     }
 
     public function hangout_places(){
-        return $this->belongsToMany(HangoutPlace::class, 'hangout_place_seatings', 'seating_id', 'hangout_place_id');
+        return $this->belongsTo(HangoutPlace::class, 'hangout_place_id');
     }
 }
