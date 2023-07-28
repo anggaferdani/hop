@@ -42,7 +42,6 @@
             <tbody>
               <tr>
                 <th>No.</th>
-                <th>Community & Penyelenggara</th>
                 <th>Judul</th>
                 <th>Image</th>
                 <th>Created At</th>
@@ -53,7 +52,6 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
-                  <td>{{ $agenda->activity_manajemens->judul }} - {{ $agenda->activity_manajemens->users->nama_panjang }}</td>
                   <td>{{ $agenda->judul }}</td>
                   <td>
                     @foreach($agenda->agenda_images->take(1) as $agenda_image)

@@ -26,14 +26,14 @@
           @csrf
           @method('PUT')
           <div class="form-group">
-            <label for="">Community & Penyelenggara</label>
-            <select class="form-control select2" name="activity_manajemen_id">
+            <label for="">Hangout Places</label>
+            <select class="form-control select2" name="hangout_place_id">
               <option disabled selected>Select</option>
-              @foreach($activity_manajemens as $activity_manajemen)
-                <option value="{{ $activity_manajemen->id }}" @if($agenda->activity_manajemen_id == $activity_manajemen->id)@selected(true)@endif>{{ $activity_manajemen->judul }} - {{ $activity_manajemen->users->nama_panjang }}</option>
+              @foreach($hangout_places as $hangout_place)
+                <option value="{{ $hangout_place->id }}" @if($agenda->hangout_place_id == $hangout_place->id)@selected(true)@endif>{{ $hangout_place->nama_tempat }}</option>
               @endforeach
             </select>
-            @error('activity_manajemen_id')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('hangout_place_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Judul</label>
@@ -85,17 +85,32 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="">Provinsi</label>
-              <input type="text" class="form-control" name="provinsi" value="{{ $agenda->provinsi }}">
+              <select class="form-control select2" name="provinsi" id="provinsi">
+                <option disabled selected>Select</option>
+                @foreach($provinsis as $provinsi)
+                  <option value="{{ $provinsi->id_provinsi }}" @if($agenda->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ $provinsi->nama_provinsi }}</option>
+                @endforeach
+              </select>
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kabupaten/Kota</label>
-              <input type="text" class="form-control" name="kabupaten_kota" value="{{ $agenda->kabupaten_kota }}">
+              <select class="form-control select2" name="kabupaten_kota" id="kabupaten">
+                <option disabled selected>Select</option>
+                @foreach($kabupatens as $kabupaten)
+                  <option value="{{ $agenda->kabupaten_kota }}" @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ $kabupaten->nama_kabupaten }}</option>
+                @endforeach
+              </select>
               @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kecamatan</label>
-              <input type="text" class="form-control" name="kecamatan" value="{{ $agenda->kecamatan }}">
+              <select class="form-control select2" name="kecamatan" id="kecamatan">
+                <option disabled selected>Select</option>
+                @foreach($kecamatans as $kecamatan)
+                  <option value="{{ $agenda->kecamatan }}" @if($agenda->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ $kecamatan->nama_kecamatan }}</option>
+                @endforeach
+              </select>
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>

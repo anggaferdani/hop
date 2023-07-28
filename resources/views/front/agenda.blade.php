@@ -22,8 +22,6 @@
       <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
       <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
       {!! $share !!}
-      <div class="fs-5 fw-bold">Penyelenggara</div>
-      <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->activity_manajemens->users->nama_panjang }}</div>
       <div class="fs-5 fw-bold">Event Type</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->jenis }}, 
         @foreach($agenda->types as $type)
@@ -181,7 +179,7 @@
             <label class="form-label">Nama Panjang <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="nama_panjang" required>
           </div>
-          <div class="row g-3">
+          <div class="row g-2">
             <div class="mb-3 col-md-6">
               <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
               <input type="date" class="form-control" name="tanggal_lahir" required>
@@ -220,7 +218,7 @@
             </div>
           @elseif($agenda->tiket == 'Gratis')
           @endif
-          <div class="row g-3">
+          <div class="row g-2">
             <div class="mb-3 col-md-4">
               <label class="form-label">Provinsi <span class="text-danger">*</span></label>
               <select class="form-select select2" name="provinsi" id="provinsi" required>

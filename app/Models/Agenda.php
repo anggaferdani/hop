@@ -8,6 +8,7 @@ use App\Models\Lodging;
 use App\Models\JenisTiket;
 use App\Models\PublicArea;
 use App\Models\AgendaImage;
+use App\Models\HangoutPlace;
 use App\Models\FoodAndBeverage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -22,9 +23,7 @@ class Agenda extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'food_and_beverage_id',
-        'lodging_id',
-        'public_area_id',
+        'hangout_place_id',
         'judul',
         'deskripsi',
         'jenis',
@@ -50,16 +49,8 @@ class Agenda extends Model
         });
     }
 
-    public function food_and_beverages(){
-        return $this->belongsTo(FoodAndBeverage::class, 'food_and_beverage_id');
-    }
-
-    public function lodgings(){
-        return $this->belongsTo(Lodging::class, 'lodging_id');
-    }
-
-    public function public_areas(){
-        return $this->belongsTo(PublicArea::class, 'public_area_id');
+    public function hangout_places(){
+        return $this->belongsTo(HangoutPlace::class, 'hangout_place_id');
     }
 
     public function agenda_images(){
