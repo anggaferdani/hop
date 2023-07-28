@@ -38,7 +38,7 @@
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
             <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($food_and_beverage->food_and_beverage_images as $image)
+            @foreach($food_and_beverage->hangout_place_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('food-and-beverage/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
                 @if(auth()->user()->level == 'Superadmin')
                   <a href="{{ route('superadmin.food-and-beverage.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>

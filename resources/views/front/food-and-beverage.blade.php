@@ -5,9 +5,9 @@
   <div class="container">
     <div class="row pt-0 pt-md-4">
       <div class="banner3">
-        @foreach($food_and_beverage->food_and_beverage_images as $food_and_beverage_image)
+        @foreach($food_and_beverage->hangout_place_images as $hangout_place_image)
           <div style="height: 400px;">
-            <img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover; border-radius: 30px;">
+            <img src="{{ asset('food-and-beverage/image/'.$hangout_place_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover; border-radius: 30px;">
           </div>
         @endforeach
       </div>
@@ -46,9 +46,9 @@
         <div class="col-md-3">
           <a href="{{ route('food-and-beverage', Crypt::encrypt($food_and_beverage->id)) }}">
             <div class="card h-100 border-0" style="height: 230px">
-              @foreach($food_and_beverage->food_and_beverage_images->take(1) as $food_and_beverage_image)
+              @foreach($food_and_beverage->hangout_place_images->take(1) as $hangout_place_image)
               <div style="height: 150px">
-                <img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                <img src="{{ asset('food-and-beverage/image/'.$hangout_place_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
               </div>
               @endforeach
               <div class="d-flex justify-content-between align-items-center mt-1">

@@ -66,7 +66,7 @@
                     @endforeach
                   </td>
                   <td>
-                    @foreach($food_and_beverage->food_and_beverage_images->take(1) as $food_and_beverage_image)
+                    @foreach($food_and_beverage->hangout_place_images->take(1) as $food_and_beverage_image)
                       <div class="image2"><img src="{{ asset('food-and-beverage/image/'.$food_and_beverage_image["image"]) }}" alt="" class="image3"></div>
                     @endforeach
                   </td>

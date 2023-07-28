@@ -26,7 +26,7 @@
           <div class="form-group">
             <label for="">Image</label>
             <input disabled type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($food_and_beverage->food_and_beverage_images as $image)
+            @foreach($food_and_beverage->hangout_place_images as $image)
               <div class="image2"><img src="{{ asset('food-and-beverage/image/'.$image["image"]) }}" alt="" class="image3"></div>
             @endforeach
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
