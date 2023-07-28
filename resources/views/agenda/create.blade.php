@@ -26,13 +26,13 @@
           @csrf
           <div class="form-group">
             <label for="">Hangout Places</label>
-            <select class="form-control select2" name="activity_manajemen_id">
+            <select class="form-control select2" name="hangout_place_id">
               <option disabled selected>Select</option>
-              @foreach($activity_manajemens as $activity_manajemen)
-                <option value="{{ $activity_manajemen->id }}">{{ $activity_manajemen->judul }} - {{ $activity_manajemen->users->nama_panjang }}</option>
+              @foreach($hangout_places as $hangout_place)
+                <option value="{{ $hangout_place->id }}">{{ $hangout_place->nama_tempat }}</option>
               @endforeach
             </select>
-            @error('activity_manajemen_id')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('hangout_place_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Judul</label>
