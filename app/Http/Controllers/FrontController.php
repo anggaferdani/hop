@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Tag;
+use App\Models\ActivityManajemen;
 use App\Models\Agenda;
 use App\Models\Banner;
-use App\Models\Update;
-use App\Models\Lodging;
-use App\Models\Kategori;
-use App\Models\Provinsi;
 use App\Models\Fasilitas;
-use App\Models\Kabupaten;
-use App\Models\Kecamatan;
-use App\Models\PublicArea;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
-use App\Models\ActivityManajemen;
 use App\Models\HangoutPlace;
+use App\Models\Kabupaten;
+use App\Models\Kategori;
+use App\Models\Kecamatan;
+use App\Models\Lodging;
+use App\Models\Provinsi;
+use App\Models\PublicArea;
+use App\Models\Seating;
+use App\Models\Tag;
+use App\Models\Update;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -138,13 +140,53 @@ class FrontController extends Controller
         ));
     }
 
-    public function food_and_beverages(Request $request){
-        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->latest()->get();
+    public function food_and_beverages (Request $request) {
+        $seatings = Seating::where('status_aktif', 'Aktif')->get();
+
+        $food_and_beverages = HangoutPlace::with('hangout_place_images', 'Provinsi', 'Kabupaten', 'Kecamatan')->where([['status', 'Food And Beverage'], ['status_aktif', 'Aktif']])
+            ->when(isset($request->provinsi), function ($query) use ($request) {
+                return $query->where('provinsi', $request->provinsi);
+            })->when(isset($request->kabupaten_kota), function ($query) use ($request) {
+                return $query->where('kabupaten_kota', $request->kabupaten_kota);
+            })->when(isset($request->kecamatan), function ($query) use ($request) {
+                return $query->where('kecamatan', $request->kecamatan);
+            })->when(isset($request->price), function ($query) use ($request) {
+                return $query->where('harga', $request->price);
+            })->when(isset($request->seating), function ($query) use ($request) {
+                return $query->whereHas('seatings', function ($query) use ($request) {
+                    $query->whereIn('seating', $request->seating);
+                });
+            })->get();
+
+
         $provinsis = DB::table('m_provinsi')->get();
-        $kabupatens = DB::table('m_kabupaten')->get();
-        $kecamatans = DB::table('m_kecamatan')->get();
+
+        $kabupatens = [];
+        $kecamatans = [];
+
+        if (isset($request->kabupaten_kota)) {
+            $kabupatens = DB::table('m_kabupaten')
+            ->when(isset($request->kabupaten_kota), function ($query) use ($request) {
+                $query->where('id_kabupaten', $request->kabupaten_kota);
+            })->get();
+        }
+        if (isset($request->kecamatan)) {
+            $kecamatans = DB::table('m_kecamatan')
+            ->when(isset($request->kecamatan), function ($query) use ($request) {
+                $query->where('id_kecamatan', $request->kecamatan);
+            })->get();
+        }
+        if (isset($request->seating)) {
+            $seatings = DB::table('seatings')
+            ->when(isset($request->seating), function ($query) use ($request) {
+                $query->where('id', $request->seating);
+            })->get();
+        }
+
+        session()->flashInput($request->input());
 
         return view('front.food-and-beverages', compact(
+            'seatings',
             'food_and_beverages',
             'provinsis',
             'kabupatens',

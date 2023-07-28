@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Agenda;
 use App\Models\Fasilitas;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +43,18 @@ class HangoutPlace extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function Provinsi(){
+        return $this->belongsTo(Provinsi::class, 'provinsi');
+    }
+
+    public function Kabupaten(){
+        return $this->belongsTo(Kabupaten::class, 'kabupaten_kota');
+    }
+
+    public function Kecamatan(){
+        return $this->belongsTo(Kecamatan::class, 'kecamatan');
     }
 
     public function agendas(){
