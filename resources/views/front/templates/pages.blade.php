@@ -565,7 +565,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.deskripsi2').each(function(f){
-        var newstr = $(this).text().substring(0, 70) + "...";
+        var newstr = $(this).text().substring(0, 50) + "...";
         $(this).text(newstr);
       });
     });
