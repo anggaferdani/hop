@@ -50,22 +50,6 @@
               </div>
             </div>
           </div>
-          @if(!empty($activity_manajemen->whatsapp || $activity_manajemen->instagram || $activity_manajemen->twitter))
-            <div class="col">
-              <div class="card p-0" style="border-radius: 15px;">
-                <div class="card-body">
-                  <div class="card-title d-flex align-items-center gap-2">
-                    <h5 class="text-muted small fw-bold m-0">Kontak</h5>
-                  </div>
-                  <div class="d-flex gap-3">
-                    @if(!empty($activity_manajemen->whatsapp))<a href="{{ $activity_manajemen->whatsapp }}" class="business"><i class="fa-brands fa-whatsapp fs-2"></i></a>@endif
-                    @if(!empty($activity_manajemen->instagram))<a href="{{ $activity_manajemen->instagram }}" class="business"><i class="fa-brands fa-instagram fs-2"></i></a>@endif
-                    @if(!empty($activity_manajemen->twitter))<a href="{{ $activity_manajemen->twitter }}" class="business"><i class="fa-brands fa-twitter fs-2"></i></a>@endif
-                  </div>
-                </div>
-              </div>
-            </div>
-          @endif
           <div class="col">
             <div class="card" style="border-radius: 15px;">
               <div class="card-body">
