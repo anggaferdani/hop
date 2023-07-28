@@ -86,7 +86,7 @@
             <div class="col-md-3">
               <a href="{{ route('lodging', Crypt::encrypt($lodging->id)) }}">
                 <div class="card h-100 border-0" style="height: 230px">
-                  @foreach($lodging->lodging_images->take(1) as $lodging_image)
+                  @foreach($lodging->hangout_place_images->take(1) as $lodging_image)
                   <div style="height: 150px">
                     <img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
                   </div>

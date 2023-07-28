@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row pt-0 pt-md-4">
       <div class="banner3">
-        @foreach($lodging->lodging_images as $lodging_image)
+        @foreach($lodging->hangout_place_images as $lodging_image)
           <div style="height: 400px;">
             <img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover; border-radius: 30px;">
           </div>
@@ -46,7 +46,7 @@
         <div class="col-md-3">
           <a href="{{ route('lodging', Crypt::encrypt($lodging->id)) }}">
             <div class="card h-100 border-0" style="height: 230px">
-              @foreach($lodging->lodging_images->take(1) as $lodging_image)
+              @foreach($lodging->hangout_place_images->take(1) as $lodging_image)
               <div style="height: 150px">
                 <img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
               </div>
