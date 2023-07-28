@@ -64,7 +64,7 @@
                     @endforeach
                   </td>
                   <td>
-                    @foreach($public_area->public_area_images->take(1) as $public_area_image)
+                    @foreach($public_area->hangout_place_images->take(1) as $public_area_image)
                       <div class="image2"><img src="{{ asset('public-area/image/'.$public_area_image["image"]) }}" alt="" class="image3"></div>
                     @endforeach
                   </td>

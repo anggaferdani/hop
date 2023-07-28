@@ -26,7 +26,7 @@
           <div class="form-group">
             <label for="">Image</label>
             <input disabled type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($public_area->public_area_images as $image)
+            @foreach($public_area->hangout_place_images as $image)
               <div class="image2"><img src="{{ asset('public-area/image/'.$image["image"]) }}" alt="" class="image3"></div>
             @endforeach
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
