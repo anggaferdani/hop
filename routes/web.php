@@ -19,6 +19,8 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\FoodAndBeverageController;
 use App\Http\Controllers\ActivityManajemenController;
+use App\Http\Controllers\EntertaimentController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PublicAreaController;
 use App\Http\Controllers\ScannerController;
@@ -88,6 +90,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::resource('seating', SeatingController::class);
+        Route::resource('feature', FeatureController::class);
+        Route::resource('entertaiment', EntertaimentController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
@@ -116,6 +120,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::resource('seating', SeatingController::class);
+        Route::resource('feature', FeatureController::class);
+        Route::resource('entertaiment', EntertaimentController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
