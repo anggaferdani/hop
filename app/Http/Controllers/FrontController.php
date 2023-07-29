@@ -61,7 +61,6 @@ class FrontController extends Controller
         return view('front.update', compact(
             'update',
             'updates',
-            'share',
         ));
     }
 
@@ -91,7 +90,6 @@ class FrontController extends Controller
         return view('front.agenda', compact(
             'agenda',
             'agendas',
-            'share',
             'provinsi',
             'kabupaten',
             'kecamatan',
@@ -173,7 +171,6 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
-            'share',
         ));
     }
 
@@ -211,7 +208,6 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
-            'share',
         ));
     }
 
@@ -247,7 +243,6 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
-            'share',
         ));
     }
 
@@ -276,7 +271,6 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
-            'share',
         ));
     }
     
