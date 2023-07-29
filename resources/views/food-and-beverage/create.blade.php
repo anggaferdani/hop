@@ -79,6 +79,24 @@
             @error('seating[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
+            <label for="">Features</label>
+            <select class="form-control select2" name="feature[]" multiple>
+              @foreach($features as $feature)
+                <option value="{{ $feature->id }}">{{ $feature->feature }}</option>
+              @endforeach
+            </select>
+            @error('feature[]')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
+            <label for="">Entertaiment</label>
+            <select class="form-control select2" name="entertaiment[]" multiple>
+              @foreach($entertaiments as $entertaiment)
+                <option value="{{ $entertaiment->id }}">{{ $entertaiment->entertaiment }}</option>
+              @endforeach
+            </select>
+            @error('entertaiment[]')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
             <label for="">Harga</label>
             <select class="form-control select2" name="harga">
               <option disabled selected>Select</option>

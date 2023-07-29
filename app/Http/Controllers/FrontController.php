@@ -79,35 +79,9 @@ class FrontController extends Controller
     }
 
     public function agendas(Request $request){
-        $query = Agenda::query();
-
-        if(isset($request->provinsi) && ($request->provinsi != null)){
-            $query->where('provinsi', $request->provinsi);
-        }
-        if(isset($request->kabupaten_kota) && ($request->kabupaten_kota != null)){
-            $query->where('kabupaten_kota', $request->kabupaten_kota);
-        }
-        if(isset($request->kecamatan) && ($request->kecamatan != null)){
-            $query->where('kecamatan', $request->kecamatan);
-        }
-        if((isset($request->tanggal_mulai) && ($request->tanggal_mulai != null) && isset($request->tanggal_berakhir) && ($request->tanggal_berakhir != null))){
-            $tanggal_mulai = Carbon::parse($request->tanggal_mulai);
-            $tanggal_berakhir = Carbon::parse($request->tanggal_berakhir);
-
-            $query->where([['tanggal_mulai', '<=', $tanggal_mulai], ['tanggal_berakhir', '>=', $tanggal_berakhir]])
-            ->orwhereBetween('tanggal_mulai', array($tanggal_mulai, $tanggal_berakhir))
-            ->orWhereBetween('tanggal_berakhir', array($tanggal_mulai, $tanggal_berakhir))->get();
-        }
-
-        $agendas = $query->with('agenda_images')->where('status_aktif', 'Aktif')->latest()->paginate(9);
-        $provinsis = DB::table('m_provinsi')->get();
-        $kabupatens = DB::table('m_kabupaten')->get();
-        $kecamatans = DB::table('m_kecamatan')->get();
+        $agendas = Agenda::with('agenda_images', 'Provinsi', 'Kabupaten', 'Kecamatan')->where('status_aktif', 'Aktif')->paginate(9);
         return view('front.agendas', compact(
             'agendas',
-            'provinsis',
-            'kabupatens',
-            'kecamatans',
         ));
     }
 

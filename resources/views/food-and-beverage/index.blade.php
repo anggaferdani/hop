@@ -18,10 +18,14 @@
         <div class="float-left">
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.food-and-beverage.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('superadmin.seating.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i></a>
+            <a href="{{ route('superadmin.seating.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i> Seating</a>
+            <a href="{{ route('superadmin.feature.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-table-tennis"></i> Feature</a>
+            <a href="{{ route('superadmin.entertaiment.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-star"></i> Entertaiment</a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.food-and-beverage.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('superadmin.seating.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i></a>
+            <a href="{{ route('superadmin.seating.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i> Seating</a>
+            <a href="{{ route('superadmin.feature.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-table-tennis"></i> Feature</a>
+            <a href="{{ route('superadmin.entertaiment.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-star"></i> Entertaiment</a>
           @endif
         </div>
         <div class="float-right">

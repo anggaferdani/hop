@@ -85,6 +85,24 @@
             @error('seating[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
+            <label for="">Features</label>
+            <select disabled class="form-control select2" name="feature[]" multiple>
+              @foreach($food_and_beverage->features as $feature)
+                <option value="{{ $feature->id }}" @if($feature_id->contains($feature->id))@selected(true)@endif>{{ $feature->feature }}</option>
+              @endforeach
+            </select>
+            @error('feature[]')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
+            <label for="">Entertaiment</label>
+            <select disabled class="form-control select2" name="entertaiment[]" multiple>
+              @foreach($food_and_beverage->entertaiments as $entertaiment)
+                <option value="{{ $entertaiment->id }}" @if($entertaiment_id->contains($entertaiment->id))@selected(true)@endif>{{ $entertaiment->entertaiment }}</option>
+              @endforeach
+            </select>
+            @error('entertaiment[]')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
             <label for="">Harga</label>
             <select disabled class="form-control select2" name="harga">
               <option disabled selected>Select</option>
