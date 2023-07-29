@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActivityManajemen;
+use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Agenda;
 use App\Models\Banner;
-use App\Models\Fasilitas;
-use App\Models\FoodAndBeverage;
-use App\Models\HangoutPlace;
-use App\Models\Kabupaten;
-use App\Models\Kategori;
-use App\Models\Kecamatan;
-use App\Models\Lodging;
-use App\Models\Provinsi;
-use App\Models\PublicArea;
-use App\Models\Seating;
-use App\Models\Tag;
 use App\Models\Update;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Models\Lodging;
+use App\Models\Seating;
+use App\Models\Kategori;
+use App\Models\Provinsi;
+use App\Models\Fasilitas;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use Illuminate\View\View;
+use App\Models\PublicArea;
+use Illuminate\Support\Str;
+use App\Models\HangoutPlace;
+use Illuminate\Http\Request;
+use Jorenvh\Share\ShareFacade;
+use App\Models\FoodAndBeverage;
+use App\Models\ActivityManajemen;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -57,7 +58,7 @@ class FrontController extends Controller
     public function update($id){
         $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
         $updates = Update::with('users', 'update_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
-        $share = \Share::page(
+        $share = ShareFacade::page(
             'http://hop.co.id/update/'.$id, $update->judul,
         )
         ->facebook()
@@ -94,7 +95,7 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
-        $share = \Share::page(
+        $share = ShareFacade::page(
             'http://hop.co.id/agenda/'.$id, $agenda->judul,
         )
         ->facebook()
@@ -177,7 +178,7 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
-        $share = \Share::page(
+        $share = ShareFacade::page(
             'http://hop.co.id/food-and-beverage/'.$id, $food_and_beverage->judul,
         )
         ->facebook()
@@ -222,7 +223,7 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
-        $share = \Share::page(
+        $share = ShareFacade::page(
             'http://hop.co.id/lodging/'.$id, $lodging->judul,
         )
         ->facebook()
@@ -265,7 +266,7 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
-        $share = \Share::page(
+        $share = ShareFacade::page(
             'http://hop.co.id/public-area/'.$id, $public_area->judul,
         )
         ->facebook()
@@ -301,7 +302,7 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
-        $share = \Share::page(
+        $share = ShareFacade::page(
             'http://hop.co.id/activity-manajemen/'.$id, $activity_manajemen->judul,
         )
         ->facebook()
