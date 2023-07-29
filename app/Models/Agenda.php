@@ -49,6 +49,18 @@ class Agenda extends Model
         });
     }
 
+    public function Provinsi(){
+        return $this->belongsTo(Provinsi::class, 'provinsi');
+    }
+
+    public function Kabupaten(){
+        return $this->belongsTo(Kabupaten::class, 'kabupaten_kota');
+    }
+
+    public function Kecamatan(){
+        return $this->belongsTo(Kecamatan::class, 'kecamatan');
+    }
+
     public function hangout_places(){
         return $this->belongsTo(HangoutPlace::class, 'hangout_place_id');
     }

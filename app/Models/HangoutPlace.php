@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Models\Agenda;
+use App\Models\Feature;
 use App\Models\Fasilitas;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
+use App\Models\Entertaiment;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -67,6 +69,14 @@ class HangoutPlace extends Model
 
     public function seatings(){
         return $this->belongsToMany(Seating::class, 'hangout_place_seatings', 'hangout_place_id', 'seating_id');
+    }
+
+    public function features(){
+        return $this->belongsToMany(Feature::class, 'hangout_place_features', 'hangout_place_id', 'feature_id');
+    }
+
+    public function entertaiments(){
+        return $this->belongsToMany(Entertaiment::class, 'hangout_place_entertaiments', 'hangout_place_id', 'entertaiment_id');
     }
 
     public function fasilitas(){
