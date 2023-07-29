@@ -18,10 +18,10 @@
         <div class="float-left">
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.lodging.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('superadmin.fasilitas.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i></a>
+            <a href="{{ route('superadmin.fasilitas.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i> Seating</a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.lodging.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('admin.fasilitas.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i></a>
+            <a href="{{ route('admin.fasilitas.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-couch"></i> Seating</a>
           @endif
         </div>
         <div class="float-right">
