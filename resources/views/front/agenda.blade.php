@@ -21,7 +21,6 @@
     <div class="row">
       <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
       <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
-      {!! $share !!}
       <div class="fs-5 fw-bold">Event Type</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->jenis }}, 
         @foreach($agenda->types as $type)
