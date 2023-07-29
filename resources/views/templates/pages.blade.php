@@ -17,6 +17,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/components.css') }}">
+  @livewireStyles
 
   @stack('style')
 
@@ -95,6 +96,7 @@
   <script src="{{ asset('stisla/assets/js/stisla.js') }}"></script>
 
   <!-- JS Libraies -->
+  @livewireScripts
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.5/sweetalert2.all.js" integrity="sha512-AINSNy+d2WG9ts1uJvi8LZS42S8DT52ceWey5shLQ9ArCmIFVi84nXNrvWyJ6bJ+qIb1MnXR46+A4ic/AUcizQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
