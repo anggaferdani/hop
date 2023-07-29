@@ -220,7 +220,7 @@
           <div class="row g-2">
             <div class="mb-3 col-md-4">
               <label class="form-label">Provinsi <span class="text-danger">*</span></label>
-              <select class="form-select select2" name="provinsi" id="provinsi" required>
+              <select class="form-select" name="provinsi" id="provinsi" required>
                 <option disabled selected>Select</option>
                 @foreach($provinsis as $provinsi)
                   <option value="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
@@ -229,13 +229,13 @@
             </div>
             <div class="mb-3 col-md-4">
               <label class="form-label">Kabupaten/Kota <span class="text-danger">*</span></label>
-              <select class="form-select select2" name="kabupaten_kota" id="kabupaten" required>
+              <select class="form-select" name="kabupaten_kota" id="kabupaten" required>
                 <option disabled selected>Select</option>
               </select>
             </div>
             <div class="mb-3 col-md-4">
               <label class="form-label">Kecamatan <span class="text-danger">*</span></label>
-              <select class="form-select select2" name="kecamatan" id="kecamatan" required>
+              <select class="form-select" name="kecamatan" id="kecamatan" required>
                 <option disabled selected>Select</option>
               </select>
             </div>
