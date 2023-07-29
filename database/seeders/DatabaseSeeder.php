@@ -6,9 +6,11 @@ namespace Database\Seeders;
 use App\Models\Tag;
 use App\Models\Type;
 use App\Models\User;
-use App\Models\Fasilitas;
-use App\Models\Kategori;
+use App\Models\Feature;
 use App\Models\Seating;
+use App\Models\Kategori;
+use App\Models\Fasilitas;
+use App\Models\Entertaiment;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -38,13 +40,11 @@ class DatabaseSeeder extends Seeder
             [
                 'tag' => 'Seminar',
             ], [
-                'tag' => 'Konser/Pertunjukan',
+                'tag' => 'Konser',
             ], [
                 'tag' => 'Workshop',
             ], [
                 'tag' => 'Talkshow',
-            ], [
-                'tag' => 'Bazaar',
             ],
         ];
 
@@ -54,23 +54,13 @@ class DatabaseSeeder extends Seeder
             [
                 'type' => 'Seminar',
             ], [
-                'type' => 'Konferensi',
-            ], [
-                'type' => 'Simposium',
-            ], [
-                'type' => 'Konser/Pertunjukan',
+                'type' => 'Konser',
             ], [
                 'type' => 'Workshop',
-            ], [
-                'type' => 'Talkshow',
-            ], [
-                'type' => 'Pameran',
             ], [
                 'type' => 'Bazaar',
             ], [
                 'type' => 'Festival',
-            ], [
-                'type' => 'Kompetisi/Lomba',
             ], [
                 'type' => 'Kegiatan Sosial',
             ], [
@@ -82,15 +72,19 @@ class DatabaseSeeder extends Seeder
         
         $fasilitasies = [
             [
-                'fasilitas' => 'Kasur',
+                'fasilitas' => 'Restoran',
             ], [
-                'fasilitas' => 'Meja',
-            ], [
-                'fasilitas' => 'Lemari',
-            ], [
-                'fasilitas' => 'Kursi',
+                'fasilitas' => 'Pusat Kebugaran',
             ], [
                 'fasilitas' => 'AC',
+            ], [
+                'fasilitas' => 'Kolam Renang',
+            ], [
+                'fasilitas' => 'Layanan Resepsionis 24 Jam',
+            ], [
+                'fasilitas' => 'Bathtub',
+            ], [
+                'fasilitas' => 'WIFI',
             ],
         ];
 
@@ -110,17 +104,44 @@ class DatabaseSeeder extends Seeder
 
         Seating::insert($seatings);
 
+        $features = [
+            [
+                'feature' => 'QRIS',
+            ], [
+                'feature' => 'Stop Kontak',
+            ], [
+                'feature' => 'AC',
+            ], [
+                'feature' => 'WIFI',
+            ],
+        ];
+
+        Feature::insert($features);
+
+
+        $entertaiments = [
+            [
+                'entertaiment' => 'Live Music',
+            ], [
+                'entertaiment' => 'Public Viewing',
+            ], [
+                'entertaiment' => 'Sport Area',
+            ], [
+                'entertaiment' => 'Games Area',
+            ], [
+                'entertaiment' => 'Kids Area',
+            ],
+        ];
+
+        Entertaiment::insert($entertaiments);
+
         $kategoris = [
             [
                 'kategori' => 'Seminar',
             ], [
-                'kategori' => 'Konser/Pertunjukan',
-            ], [
                 'kategori' => 'Workshop',
             ], [
                 'kategori' => 'Talkshow',
-            ], [
-                'kategori' => 'Bazaar',
             ],
         ];
 
