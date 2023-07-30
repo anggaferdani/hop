@@ -19,7 +19,7 @@ class FoodAndBeverage extends Component
     public $kecamatan;
     public $selectedSeating = [];
     public $selectedFeature = [];
-    public $selectedEntertaimanet = [];
+    public $selectedEntertaiment = [];
     public $harga;
 
     public function mount()
