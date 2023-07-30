@@ -14,14 +14,15 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Provinsi</label>
-          <input type="text" class="form-control" name="" wire:model="provinsi">
+          <input type="text" class="form-control" name="" wire:model="provinsi" placeholder="Provinsi">
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kabupaten/Kota</label>
-          <input type="text" class="form-control" name="" wire:model="kabupaten">
+          <input type="text" class="form-control" name="" wire:model="kabupaten" placeholder="Kabupaten/Kota">
+        </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan">
+          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Provinsi">
         </div>
         <button class="btn btn-primary w-100" style="background-color: #5AA4C2 !important">Apply</button>
       </form>

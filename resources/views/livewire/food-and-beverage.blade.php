@@ -15,15 +15,15 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Provinsi</label>
-          <input type="text" class="form-control" name="" wire:model="provinsi" value="">
+          <input type="text" class="form-control" name="" wire:model="provinsi" placeholder="Provinsi">
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kabupaten/Kota</label>
-          <input type="text" class="form-control" name="" wire:model="kabupaten">
+          <input type="text" class="form-control" name="" wire:model="kabupaten" placeholder="Kabupaten/Kota">
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan">
+          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Provinsi">
         </div>
         <div class="row">
           <div class="py-2">
@@ -35,6 +35,32 @@
             <div class="form-check">
               <input class="form-check-input" type="checkbox" wire:model.defer="selectedSeating" value="{{ $seating->id }}">
               <label class="form-check-label">{{ $seating->seating }}</label>
+            </div>
+          @endforeach
+        </div>
+        <div class="row">
+          <div class="py-2">
+            <h4 class="fw-bold color2 m-0">Feature</h4>
+          </div>
+        </div>
+        <div class="pt-1 pb-3">
+          @foreach($features as $feature)
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" wire:model.defer="selectedFeature" value="{{ $feature->id }}">
+              <label class="form-check-label">{{ $feature->feature }}</label>
+            </div>
+          @endforeach
+        </div>
+        <div class="row">
+          <div class="py-2">
+            <h4 class="fw-bold color2 m-0">Entertaiment</h4>
+          </div>
+        </div>
+        <div class="pt-1 pb-3">
+          @foreach($entertaiments as $entertaiment)
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" wire:model.defer="selectedEntertaiment" value="{{ $entertaiment->id }}">
+              <label class="form-check-label">{{ $entertaiment->entertaiment }}</label>
             </div>
           @endforeach
         </div>
