@@ -43,6 +43,7 @@ Route::get('/update/{id}', [FrontController::class, 'update'])->name('update');
 Route::get('/tags/{id}', [FrontController::class, 'tags'])->name('tags');
 Route::get('/agendas', [FrontController::class, 'agendas'])->name('agendas');
 Route::get('/agenda/{id}', [FrontController::class, 'agenda'])->name('agenda');
+Route::get('/sportainments', [FrontController::class, 'sportainments'])->name('sportainments');
 Route::get('/food-and-beverages', [FrontController::class, 'food_and_beverages'])->name('food-and-beverages');
 Route::get('/food-and-beverage/{id}', [FrontController::class, 'food_and_beverage'])->name('food-and-beverage');
 Route::get('/lodgings', [FrontController::class, 'lodgings'])->name('lodgings');
