@@ -39,14 +39,14 @@
     <div class="row pb-4">
       <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
-    <div class="row" style="height: 400px">
+    <div class="row">
       <div class="col-md-8">
         <div class="banner4">
           @foreach($updates->take(3) as $update3)
           @foreach($update3->update_images->take(1) as $update_image2)
           <div class="h-100 px-4 pb-4" style="background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('update/image/'.$update_image2["image"]) }}');">
           @endforeach
-            <div class="w-md-50 p-4 h-100 text-white" style="text-align: justify; background: rgba(0, 0, 0, 0.7)">{!! Str::limit($update3->deskripsi, 500) !!} <a href="" class="color">Read More.</a></div>
+            <div class="w-md-50 p-4 h-100 text-white" style="text-align: justify; background: rgba(0, 0, 0, 0.7)">{!! Str::limit($update3->deskripsi, 400) !!} <a href="" class="color">Read More.</a></div>
           </div>
             @endforeach
         </div>

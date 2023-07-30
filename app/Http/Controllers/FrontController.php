@@ -153,6 +153,10 @@ class FrontController extends Controller
         ));
     }
 
+    public function sportainments(){
+        return view('front.sportainments');
+    }
+
     public function food_and_beverage($id){
         $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
         $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();

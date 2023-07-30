@@ -13,10 +13,10 @@
             <a class="nav-link {{ str_contains(Route::currentRouteName(), 'index') ? 'active2' : '' }}" href="{{ route('index') }}">Home</a>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link {{ str_contains(Route::currentRouteName(), 'updates') ? 'active2' : '' }}" href="{{ route('updates') }}">Updates</a>
+            <a class="nav-link {{ str_contains(Route::currentRouteName(), 'updates') || str_contains(Route::currentRouteName(), 'update') ? 'active2' : '' }}" href="{{ route('updates') }}">Updates</a>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link {{ str_contains(Route::currentRouteName(), 'agendas') ? 'active2' : '' }}" href="{{ route('agendas') }}">Agendas</a>
+            <a class="nav-link {{ str_contains(Route::currentRouteName(), 'agendas') || str_contains(Route::currentRouteName(), 'agenda') ? 'active2' : '' }}" href="{{ route('agendas') }}">Agendas</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link {{ str_contains(Route::currentRouteName(), 'food-and-beverages') ||
@@ -28,12 +28,12 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'food-and-beverages') || str_contains(Route::currentRouteName(), 'food-and-beverage') ? 'active2' : '' }}" href="{{ route('food-and-beverages') }}">Resto & Cafe</a></li>
               <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'lodgings') || str_contains(Route::currentRouteName(), 'lodging') ? 'active2' : '' }}" href="{{ route('lodgings') }}">Penginapan</a></li>
-              <li><a class="dropdown-item my-1">Sportainment</a></li>
+              <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'sportainments') ? 'active2' : '' }}" href="{{ route('sportainments') }}">Sportainment</a></li>
               <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'public-areas') || str_contains(Route::currentRouteName(), 'public-area') ? 'active2' : '' }}" href="{{ route('public-areas') }}">Public Area</a></li>
             </ul>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link {{ str_contains(Route::currentRouteName(), 'activity-manajemens') ? 'active2' : '' }}" href="{{ route('activity-manajemens') }}">Community</a>
+            <a class="nav-link {{ str_contains(Route::currentRouteName(), 'activity-manajemens') || str_contains(Route::currentRouteName(), 'activity-manajemen') ? 'active2' : '' }}" href="{{ route('activity-manajemens') }}">Community</a>
           </li>
           <li class="nav-item mx-1">
             <a class="nav-link {{ str_contains(Route::currentRouteName(), 'about-us') ? 'active2' : '' }}" href="{{ route('about-us') }}">About Us</a>

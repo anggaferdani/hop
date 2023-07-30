@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Entertaiment;
+use App\Models\Feature;
 use App\Models\Seating;
 use Livewire\Component;
 use App\Models\HangoutPlace;
@@ -9,16 +11,22 @@ use App\Models\HangoutPlace;
 class FoodAndBeverage extends Component
 {
     public $seatings;
+    public $features;
+    public $entertaiments;
     public $food_and_beverages;
     public $provinsi;
     public $kabupaten;
     public $kecamatan;
     public $selectedSeating = [];
+    public $selectedFeature = [];
+    public $selectedEntertaimanet = [];
     public $harga;
 
     public function mount()
     {
         $this->seatings = Seating::where('status_aktif', 'Aktif')->get();
+        $this->features = Feature::where('status_aktif', 'Aktif')->get();
+        $this->entertaiments = Entertaiment::where('status_aktif', 'Aktif')->get();
         $this->food_and_beverages = HangoutPlace::where([['status', 'Food And Beverage'], ['status_aktif', 'Aktif']])->get();
     }
 
@@ -49,6 +57,16 @@ class FoodAndBeverage extends Component
         if(!empty($this->selectedSeating)){
             $food_and_beverage = $food_and_beverage->whereHas('seatings', function($query){
                 $query->whereIn('seating_id', $this->selectedSeating);
+            });
+        }
+        if(!empty($this->selectedFeature)){
+            $food_and_beverage = $food_and_beverage->whereHas('features', function($query){
+                $query->whereIn('feature_id', $this->selectedFeature);
+            });
+        }
+        if(!empty($this->selectedEntertaiment)){
+            $food_and_beverage = $food_and_beverage->whereHas('entertaiments', function($query){
+                $query->whereIn('entertaiment_id', $this->selectedEntertaiment);
             });
         }
         if(!empty($this->harga)){
