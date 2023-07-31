@@ -73,8 +73,14 @@ class FrontController extends Controller
 
     public function agendas(Request $request){
         $agendas = Agenda::with('agenda_images', 'Provinsi', 'Kabupaten', 'Kecamatan')->where('status_aktif', 'Aktif')->paginate(9);
+        $provinsis = DB::table('m_provinsi')->get();
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
         return view('front.agendas', compact(
             'agendas',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
         ));
     }
 
@@ -102,47 +108,10 @@ class FrontController extends Controller
     public function food_and_beverages (Request $request) {
         $seatings = Seating::where('status_aktif', 'Aktif')->get();
 
-        $food_and_beverages = HangoutPlace::with('hangout_place_images', 'Provinsi', 'Kabupaten', 'Kecamatan')->where([['status', 'Food And Beverage'], ['status_aktif', 'Aktif']])
-            ->when(isset($request->provinsi), function ($query) use ($request) {
-                return $query->where('provinsi', $request->provinsi);
-            })->when(isset($request->kabupaten_kota), function ($query) use ($request) {
-                return $query->where('kabupaten_kota', $request->kabupaten_kota);
-            })->when(isset($request->kecamatan), function ($query) use ($request) {
-                return $query->where('kecamatan', $request->kecamatan);
-            })->when(isset($request->price), function ($query) use ($request) {
-                return $query->where('harga', $request->price);
-            })->when(isset($request->seating), function ($query) use ($request) {
-                return $query->whereHas('seatings', function ($query) use ($request) {
-                    $query->whereIn('seating', $request->seating);
-                });
-            })->get();
-
-
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
-
-        $kabupatens = [];
-        $kecamatans = [];
-
-        if (isset($request->kabupaten_kota)) {
-            $kabupatens = DB::table('m_kabupaten')
-            ->when(isset($request->kabupaten_kota), function ($query) use ($request) {
-                $query->where('id_kabupaten', $request->kabupaten_kota);
-            })->get();
-        }
-        if (isset($request->kecamatan)) {
-            $kecamatans = DB::table('m_kecamatan')
-            ->when(isset($request->kecamatan), function ($query) use ($request) {
-                $query->where('id_kecamatan', $request->kecamatan);
-            })->get();
-        }
-        if (isset($request->seating)) {
-            $seatings = DB::table('seatings')
-            ->when(isset($request->seating), function ($query) use ($request) {
-                $query->where('id', $request->seating);
-            })->get();
-        }
-
-        session()->flashInput($request->input());
+        $kabupatens = DB::table('m_kabupaten')->get();
+        $kecamatans = DB::table('m_kecamatan')->get();
 
         return view('front.food-and-beverages', compact(
             'seatings',
