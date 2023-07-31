@@ -7,7 +7,7 @@
   <title></title>
 </head>
 <body>
-  <div>{!! DNS2D::getBarcodeHTML("$token", 'QRCODE') !!}</div>
+  <div>{!! '<img src="data:image/png;base64,' . DNS2D::getBarcodePNG("$token", 'QRCODE') . '" alt="barcode" />' !!}</div>
   <br>
   <div>{!! $nama_panjang !!}</div>
   <div>{!! $judul !!}</div>

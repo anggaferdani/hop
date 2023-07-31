@@ -3,12 +3,13 @@
 @push('style')
 <style>
   #myInput {
-    background-image: url('/css/searchicon.png');
-    background-position: 10px 12px;
+    background-image: url('/front/img/search.png');
+    background-position: 15px 15px;
+    background-size: 25px;
     background-repeat: no-repeat;
     width: 100%;
     font-size: 16px;
-    padding: 12px 20px 12px 40px;
+    padding: 12px 20px 12px 50px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
   }

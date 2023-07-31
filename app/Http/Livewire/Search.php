@@ -54,9 +54,7 @@ class Search extends Component
 
     public function updatedQuery()
     {
-        $this->agendas = Agenda::where('judul', 'like', '%' . $this->query . '%')
-            ->get()
-            ->toArray();
+        $this->agendas = Agenda::where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->get()->toArray();
     }
 
     public function render()
