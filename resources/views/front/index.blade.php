@@ -1,5 +1,39 @@
 @extends('front.templates.pages')
 @section('title', 'Index')
+@push('style')
+<style>
+  #myInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+  #myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  #myUL li a {
+    border: 1px solid #ddd;
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block
+  }
+  #myUL li a:hover:not(.header) {
+    background-color: #eee;
+  }
+  .color4{
+    background-color: #eee !important;
+  }
+</style>
+@endpush
 @section('content')
 <section class="py-0 pt-md-4" style="position: relative;">
   <div class="banner2 mt-0" style="width: 100%; height: 400px;">
@@ -8,7 +42,9 @@
     @endforeach
   </div>
   <div class="text-white w-100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
-    @livewire('search')
+    <div class="position-realtive">
+      @livewire('search')
+    </div>
   </div>
 </section>
 
