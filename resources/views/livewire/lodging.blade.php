@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Provinsi">
+          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Kecamatan">
         </div>
         <div class="row">
           <div class="py-2">
@@ -77,7 +77,6 @@
                 </div>
                 @endforeach
                 <div class="fs-5 py-2 text-dark fw-bold">{{ Str::limit($lodging->nama_tempat, 20) }}</div>
-                <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
                 <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ $lodging->Provinsi->nama_provinsi }}, {{ $lodging->Kabupaten->nama_kabupaten }}, {{ $lodging->Kecamatan->nama_kecamatan }}</p>
               </div>
             </a>

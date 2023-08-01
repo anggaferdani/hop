@@ -23,7 +23,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Provinsi">
+          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Kecamatan">
         </div>
         <div class="row">
           <div class="py-2">
@@ -111,7 +111,6 @@
                   </div>
                   @endif
                 </div>
-                <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
                 <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ $food_and_beverage->Provinsi->nama_provinsi }}, {{ $food_and_beverage->Kabupaten->nama_kabupaten }}, {{ $food_and_beverage->Kecamatan->nama_kecamatan }}</p>
               </div>
             </a>

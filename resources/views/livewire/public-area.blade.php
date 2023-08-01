@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Provinsi">
+          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Kecamatan">
         </div>
         <button class="btn btn-primary w-100" style="background-color: #5AA4C2 !important">Apply</button>
       </form>
@@ -46,7 +46,6 @@
                 </div>
                 @endforeach
                 <div class="fs-5 py-2 text-dark fw-bold">{{ Str::limit($public_area->nama_tempat, 20) }}</div>
-                <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
                 <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
                   @foreach($provinsis as $provinsi)
                     @if($public_area->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
