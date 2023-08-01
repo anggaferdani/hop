@@ -90,7 +90,6 @@
       <div class="row">
         <div class="pt-4 pb-3">
           <div class="fs-3 fw-bold color m-0">Resto & Cafe</div>
-          <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
       </div>
       <div class="row g-4 g-md-2">

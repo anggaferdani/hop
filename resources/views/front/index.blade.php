@@ -51,12 +51,9 @@
 
 <section class="pt-5 mb-4">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex mb-2 justify-content-between align-items-center">
       <div class="fs-3 fw-bold color m-0">Updates</div>
       <div class="fs-5 fw-bold m-0"><a href="{{ route('updates') }}" class="color">View All</a></div>
-    </div>
-    <div class="row mb-2">
-      <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
     <div class="row">
       <div class="card2">
@@ -97,12 +94,9 @@
 
 <section class="pb-2 pb-md-5">
   <div class="container position-relative">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex mb-2 justify-content-between align-items-center">
       <div class="fs-3 fw-bold color m-0">Agendas</div>
       <div class="fs-5 fw-bold m-0"><a href="{{ route('agendas') }}" class="color">View All</a></div>
-    </div>
-    <div class="row mb-2">
-      <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
     <div class="row">
       <div class="card2">
