@@ -17,6 +17,7 @@
       <div class="col-md-9">
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $food_and_beverage->nama_tempat }}</h5>
         <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $food_and_beverage->deskripsi_tempat !!}</div>
+        {!! $share !!}
         <div class="fs-5 fw-bold">Lokasi</div>
         <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
         <div class="fs-5 fw-bold">Public Viewing</div>

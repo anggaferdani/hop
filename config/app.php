@@ -166,6 +166,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
@@ -185,6 +186,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ])->toArray(),
 
 ];

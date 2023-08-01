@@ -58,9 +58,17 @@ class FrontController extends Controller
     public function update($id){
         $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
         $updates = Update::with('users', 'update_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+        $share = ShareFacade::page(
+            'http://hop.co.id/update/'.$id, $update->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.update', compact(
             'update',
             'updates',
+            'share',
         ));
     }
 
@@ -93,6 +101,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = ShareFacade::page(
+            'http://hop.co.id/agenda/'.$id, $agenda->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.agenda', compact(
             'agenda',
             'agendas',
@@ -102,6 +117,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
 
@@ -135,6 +151,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = ShareFacade::page(
+            'http://hop.co.id/food-and-beverage/'.$id, $food_and_beverage->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.food-and-beverage', compact(
             'food_and_beverage',
             'food_and_beverages',
@@ -144,6 +167,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
 
@@ -172,6 +196,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = ShareFacade::page(
+            'http://hop.co.id/lodging/'.$id, $lodging->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.lodging', compact(
             'lodging',
             'lodgings',
@@ -181,6 +212,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
 
@@ -207,6 +239,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = ShareFacade::page(
+            'http://hop.co.id/public-area/'.$id, $public_area->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.public-area', compact(
             'public_area',
             'public_areas',
@@ -216,6 +255,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
 
@@ -235,6 +275,13 @@ class FrontController extends Controller
         $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
+        $share = ShareFacade::page(
+            'http://hop.co.id/activity-manajemen/'.$id, $activity_manajemen->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
         return view('front.activity-manajemen', compact(
             'activity_manajemen',
             'kategoris',
@@ -244,6 +291,7 @@ class FrontController extends Controller
             'provinsis',
             'kabupatens',
             'kecamatans',
+            'share',
         ));
     }
     
