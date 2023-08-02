@@ -46,7 +46,7 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 1116x400</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
@@ -70,14 +70,14 @@
           </div>
           <div class="form-group">
             <label for="">Tiket</label>
-            <select class="form-control select2" name="tiket">
+            <select class="form-control select2" name="tiket" id="Menu1">
               <option disabled selected>Select</option>
               <option value="Berbayar">Berbayar</option>
               <option value="Gratis">Gratis</option>
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          <div class="form-group">
+          <div class="form-group" id="Menu2Container">
             <label for="">Jenis Tiket</label>
             <button type="button" class="d-block mb-2 btn btn-icon btn-primary add"><i class="fas fa-plus"></i></button>
             <div class="jenis_tiket"></div>
@@ -109,3 +109,15 @@
   </div>
 </div>
 @endsection
+@push('script')
+<script type="text/javascript">
+  $("#Menu2Container").hide();
+ 
+  $("#Menu1").on("change", function(){  
+    if ($(this).val()=="Berbayar")
+      $("#Menu2Container").show();
+    else
+      $("#Menu2Container").hide();
+  });
+</script>
+@endpush

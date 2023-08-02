@@ -47,7 +47,7 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 1116x400</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @foreach($agenda->agenda_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('agenda/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
                 @if(auth()->user()->level == 'Superadmin')
@@ -123,6 +123,7 @@
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          @if($agenda->tiket == 'Berbayar')
           <div class="form-group">
             <label for="">Jenis Tiket</label>
             @foreach($agenda->jenis_tikets as $jenis_tiket)
@@ -137,6 +138,7 @@
             @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
             @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          @endif
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Tanggal Mulai</label>
@@ -162,3 +164,15 @@
   </div>
 </div>
 @endsection
+@push('script')
+<script type="text/javascript">
+  $("#Menu2Container").hide();
+ 
+  $("#Menu1").on("change", function(){  
+    if ($(this).val()=="Berbayar")
+      $("#Menu2Container").show();
+    else
+      $("#Menu2Container").hide();
+  });
+</script>
+@endpush

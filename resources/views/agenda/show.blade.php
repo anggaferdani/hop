@@ -101,17 +101,19 @@
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          <div class="form-group">
-            <label for="">Jenis Tiket</label>
-            @foreach($agenda->jenis_tikets as $jenis_tiket)
-              <div class="form-row mb-2">
-                <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $jenis_tiket->tiket }}" placeholder="Jenis Tiket" required></div>
-                <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $jenis_tiket->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
-              </div>
-            @endforeach
-            @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
-            @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
+          @if($agenda->tiket == 'Berbayar')
+            <div class="form-group">
+              <label for="">Jenis Tiket</label>
+              @foreach($agenda->jenis_tikets as $jenis_tiket)
+                <div class="form-row mb-2">
+                  <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $jenis_tiket->tiket }}" placeholder="Jenis Tiket" required></div>
+                  <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $jenis_tiket->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
+                </div>
+              @endforeach
+              @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
+              @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          @endif
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Tanggal Mulai</label>

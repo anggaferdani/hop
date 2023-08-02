@@ -21,7 +21,12 @@
     <div class="row">
       <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
       <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
-      {!! $share !!}
+      <div class="btn-group dropend">
+        <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+        <ul class="dropdown-menu px-4">
+          {!! $share !!}
+        </ul>
+      </div>
       <div class="fs-5 fw-bold">Event Type</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ $agenda->jenis }}, 
         @foreach($agenda->types as $type)
