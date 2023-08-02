@@ -104,6 +104,13 @@
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
       <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->email }}</div></a>
       <div class="dropdown-menu dropdown-menu-right">
+        @if(auth()->user()->level == 'Superadmin')
+          <a href="{{ route('superadmin.profile') }}" class="dropdown-item">PROFILE</a>
+        @elseif(auth()->user()->level == 'Admin')
+          <a href="{{ route('admin.profile') }}" class="dropdown-item">PROFILE</a>
+        @elseif(auth()->user()->level == 'Vendor')
+          <a href="{{ route('vendor.profile') }}" class="dropdown-item">PROFILE</a>
+        @endif
         <a href="{{ route('logout') }}" class="dropdown-item text-danger">LOGOUT</a>
       </div>
     </li>

@@ -104,6 +104,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js" integrity="sha512-9e9rr82F9BPzG81+6UrwWLFj8ZLf59jnuIA/tIf8dEGoQVu7l5qvr02G/BiAabsFOYrIUTMslVN+iDYuszftVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script type="text/javascript">
+    $(function() {
+        $("button[type='submit']").click(function(event) {
+            var $fileUpload = $(".multiple-image");
+            if (parseInt($fileUpload.get(0).files.length) > 5) {
+                alert("You are only allowed to upload a maximum of 5 images");
+                event.preventDefault();
+            }
+        });
+    });
+  </script>
+  
+  <script type="text/javascript">
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     $(document).ready(function() {
@@ -169,17 +181,6 @@
         }
       });
     });
-  </script>
-
-  <script type="text/javascript">
-    var lokasi = document.getElementById('lokasi').value;
-
-    var latlong = /\/\@(.*),(.*),/.exec(lokasi);
-    var lat = longlat[2];
-    var long = longlat[1];
-    
-    $('input[name="latitude"]').val(lat);
-    $('input[name="longitude"]').val(long);
   </script>
 
   <script type="text/javascript">
