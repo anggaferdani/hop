@@ -34,7 +34,7 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 349x120</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
