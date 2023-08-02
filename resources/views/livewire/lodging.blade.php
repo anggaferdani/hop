@@ -45,11 +45,11 @@
         <div class="pt-1 pb-3">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="price" value="< = Rp.50.000" wire:model.defer="harga">
-            <label class="form-check-label">< = Rp.50.000</label>
+            <label class="form-check-label">< = Rp.500.000</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="price" value="Rp.50.000 - Rp.1000.000" wire:model.defer="harga">
-            <label class="form-check-label">Rp.50.000 - Rp.1000.000</label>
+            <label class="form-check-label">Rp.500.000 - Rp.1000.000</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="price" value="> = Rp.1000.000" wire:model.defer="harga">
