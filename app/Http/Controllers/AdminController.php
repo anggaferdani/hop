@@ -23,6 +23,7 @@ class AdminController extends Controller
         $request->validate([
             'nama_panjang' => 'required',
             'email' => 'required|email|unique:users,email',
+            'level_admin' => 'required',
             'password' => 'required',
         ]);
 
@@ -30,6 +31,7 @@ class AdminController extends Controller
             'nama_panjang' => $request['nama_panjang'],
             'email' => $request['email'],
             'password' => $request['password'],
+            'level_admin' => $request['level_admin'],
             'level' => 'Admin',
         );
 
@@ -58,10 +60,12 @@ class AdminController extends Controller
         $request->validate([
             'nama_panjang' => 'required',
             'email' => 'required|email|unique:users,email,'.$admin->id.",id",
+            'level_admin' => 'required',
         ]);
 
         $admin->update([
             'nama_panjang' => $request['nama_panjang'],
+            'level_admin' => $request['level_admin'],
             'email' => $request['email'],
         ]);
 

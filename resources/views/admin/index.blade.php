@@ -37,6 +37,7 @@
               <tr>
                 <th>No.</th>
                 <th>Nama Panjang</th>
+                <th>Level Admin</th>
                 <th>Email</th>
                 <th>Created At</th>
                 <th>Action</th>
@@ -47,6 +48,19 @@
                 <tr>
                   <td>{{ $id }}</td>
                   <td>{{ $admin->nama_panjang }}</td>
+                  <td>
+                    @if($admin->level_admin == 'Admin')
+                      <div class="badge badge-danger">Admin</div>
+                    @elseif($admin->level_admin == 'Food And Beverage')
+                      <div class="badge badge-primary">Admin Cafe & Resto</div>
+                    @elseif($admin->level_admin == 'Lodging')
+                      <div class="badge badge-warning">Admin Penginapan</div>
+                    @elseif($admin->level_admin == 'Public Area')
+                      <div class="badge badge-success">Admin Public Area</div>
+                    @elseif($admin->level_admin == 'Activity Manajemen')
+                      <div class="badge badge-info">Admin Community</div>
+                    @endif
+                  </td>
                   <td>{{ $admin->email }}</td>
                   <td>{{ $admin->created_at }}</td>
                   <td style="white-space: nowrap">

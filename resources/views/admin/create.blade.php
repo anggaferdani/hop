@@ -19,6 +19,18 @@
             @error('nama_panjang')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
+            <label for="">Level Admin</label>
+            <select class="form-control select2" name="level_admin">
+              <option disabled selected>Select</option>
+              <option value="Admin">Admin Biasa</option>
+              <option value="Food And Beverage">Admin Resto & Cafe</option>
+              <option value="Lodging">Admin Penginapan</option>
+              <option value="Public Area">Admin Public Area</option>
+              <option value="Activity Manajemen">Admin Community</option>
+            </select>
+            @error('level_admin')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
             <label for="">Email</label>
             <input type="email" class="form-control" name="email">
             @error('email')<div class="text-danger">{{ $message }}</div>@enderror

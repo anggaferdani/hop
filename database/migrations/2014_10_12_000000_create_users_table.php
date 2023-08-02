@@ -18,7 +18,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('logo')->nullable();
             $table->enum('level', ['Superadmin', 'Admin', 'Vendor']);
+            $table->enum('level_admin', ['Admin', 'Food And Beverage', 'Lodging', 'Public Area', 'Activity Manajemen'])->nullable();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
