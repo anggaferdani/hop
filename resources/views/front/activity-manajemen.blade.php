@@ -20,21 +20,26 @@
         </div>
         <hr class="text-secondary">
         <div>
-          <?php $lokasi = $activity_manajemen->provinsi.", ".$activity_manajemen->kabupaten_kota.", ".$activity_manajemen->kecamatan ?>
-          <h5 class="fw-bold">Lokasi : <a href="{{ $activity_manajemen->lokasi }}" class="color">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</a></h5>
+          <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
+          <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
+          <div class="btn-group dropend">
+            <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+            <ul class="dropdown-menu px-4">
+              {!! $share !!}
+            </ul>
+          </div>
         </div>
         <hr class="text-secondary">
         <div>
-          <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
-          <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
-          {!! $share !!}
+          <?php $lokasi = $activity_manajemen->provinsi.", ".$activity_manajemen->kabupaten_kota.", ".$activity_manajemen->kecamatan ?>
+          <div class="fw-bold"><span class="fs-5">Lokasi : </span><span class="text-muted">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</span></div>
         </div>
         <hr class="text-secondary">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-md-2 col-4">
-            <div style="width: 100%; aspect-ratio: 1;"><img src="{{ asset('front/img/1.png') }}" class="rounded-circle" style="object-fit: cover; width: 100%; height: 100%;" alt=""></div>
+            <div style="width: 100%; aspect-ratio: 1;"><img src="{{ asset('user/logo/'.$activity_manajemen->users["logo"]) }}" class="rounded-circle" style="object-fit: cover; width: 100%; height: 100%;" alt=""></div>
           </div>
-          <div class="col-md-10 col-8 align-items-center">
+          <div class="col-md-10 col-8 h-100 align-items-center">
             <div class="fs-5 fw-bold">{{ $activity_manajemen->users->nama_panjang }}</div>
             <div class="text-muted">{{ $activity_manajemen->users->email }}</div>
           </div>
@@ -50,6 +55,26 @@
               </div>
             </div>
           </div>
+          @if(!empty($activity_manajemen->instagram) || !empty($activity_manajemen->whatsapp) || !empty($activity_manajemen->tiktok))
+            <div class="col">
+              <div class="card p-0" style="border-radius: 15px;">
+                <div class="card-body">
+                  <div class="text-muted mb-1 fw-bold">Our Social Media</div>
+                  <div class="d-flex gap-2">
+                    @if(!empty($activity_manajemen->instagram))
+                      <a href="{{ $activity_manajemen->instagram }}" class="text-muted fs-3"><div class="fa-brands fa-instagram"></div></a>
+                    @endif
+                    @if(!empty($activity_manajemen->whatsapp))
+                      <a href="{{ $activity_manajemen->whatsapp }}" class="text-muted fs-3"><div class="fa-brands fa-whatsapp"></div></a>
+                    @endif
+                    @if(!empty($activity_manajemen->tiktok))
+                      <a href="{{ $activity_manajemen->tiktok }}" class="text-muted fs-3"><div class="fa-brands fa-tiktok"></div></a>
+                    @endif
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
           <div class="col">
             <div class="card" style="border-radius: 15px;">
               <div class="card-body">

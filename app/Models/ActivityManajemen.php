@@ -30,7 +30,7 @@ class ActivityManajemen extends Model
         'kecamatan',
         'whatsapp',
         'instagram',
-        'twitter',
+        'tiktok',
         'harga_mulai',
         'status_aktif',
         'created_by',

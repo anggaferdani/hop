@@ -22,19 +22,23 @@
           <form action="{{ route('superadmin.activity-manajemen.update', Crypt::encrypt($activity_manajemen->id)) }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @elseif(auth()->user()->level == 'Admin')
           <form action="{{ route('admin.activity-manajemen.update', Crypt::encrypt($activity_manajemen->id)) }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+        @elseif(auth()->user()->level == 'Vendor')
+          <form action="{{ route('vendor.activity-manajemen.update', Crypt::encrypt($activity_manajemen->id)) }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           @method('PUT')
-          <div class="form-group">
-            <label for="">Vendor <span class="text-danger">*</span></label>
-            <select class="form-control select2" name="user_id">
-              <option disabled selected>Select</option>
-              @foreach($users as $user)
-                <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
-              @endforeach
-            </select>
-            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
+          @if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin')
+            <div class="form-group">
+              <label for="">Vendor <span class="text-danger">*</span></label>
+              <select class="form-control select2" name="user_id">
+                <option disabled selected>Select</option>
+                @foreach($users as $user)
+                  <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
+                @endforeach
+              </select>
+              @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          @endif
           <div class="form-group">
             <label for="">Kategori <span class="text-danger">*</span></label>
             <select class="form-control select2" name="kategori_id">
@@ -46,7 +50,7 @@
             @error('kategori_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Judul <span class="text-danger">*</span></label>
+            <label for="">Nama Community <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="judul" value="{{ $activity_manajemen->judul }}">
             @error('judul')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
@@ -62,13 +66,15 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 271x200</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @foreach($activity_manajemen->activity_manajemen_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('activity-manajemen/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
                 @if(auth()->user()->level == 'Superadmin')
                   <a href="{{ route('superadmin.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
                 @elseif(auth()->user()->level == 'Admin')
                   <a href="{{ route('admin.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
+                @elseif(auth()->user()->level == 'Vendor')
+                  <a href="{{ route('vendor.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
                 @endif
               </div>
             @endforeach
@@ -136,9 +142,9 @@
             @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Twitter</label>
-            <input type="text" class="form-control" name="twitter" value="{{ $activity_manajemen->twitter }}" placeholder="Paste link disini">
-            @error('twitter')<div class="text-danger">{{ $message }}</div>@enderror
+            <label for="">Tiktok</label>
+            <input type="text" class="form-control" name="tiktok" value="{{ $activity_manajemen->tiktok }}" placeholder="Paste link disini">
+            @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Harga Mulai</label>
@@ -149,6 +155,8 @@
             <a href="{{ route('superadmin.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
+          @elseif(auth()->user()->level == 'Vendor')
+            <a href="{{ route('vendor.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
           @endif
           <button type="button" class="btn btn-secondary" onclick="window.location.reload();">Clear</button>
           <button type="submit" class="btn btn-primary">Submit</button>

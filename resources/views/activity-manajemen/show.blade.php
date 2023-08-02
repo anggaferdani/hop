@@ -13,16 +13,18 @@
       <div class="card-body">
         <form action="" method="POST" class="needs-validation" novalidate="">
           @csrf
-          <div class="form-group">
-            <label for="">Vendor</label>
-            <select disabled class="form-control select2" name="user_id">
-              <option disabled selected>Select</option>
-              @foreach($users as $user)
-                <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
-              @endforeach
-            </select>
-            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
+          @if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin')
+            <div class="form-group">
+              <label for="">Vendor</label>
+              <select disabled class="form-control select2" name="user_id">
+                <option disabled selected>Select</option>
+                @foreach($users as $user)
+                  <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
+                @endforeach
+              </select>
+              @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          @endif
           <div class="form-group">
             <label for="">Kategori</label>
             <select disabled class="form-control select2" name="kategori_id">
@@ -34,7 +36,7 @@
             @error('kategori')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Judul</label>
+            <label for="">Nama Community</label>
             <input disabled type="text" class="form-control" name="judul" value="{{ $activity_manajemen->judul }}">
             @error('judul')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
@@ -128,9 +130,9 @@
             @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Twitter</label>
-            <input disabled type="text" class="form-control" name="twitter" value="{{ $activity_manajemen->twitter }}">
-            @error('twitter')<div class="text-danger">{{ $message }}</div>@enderror
+            <label for="">Tiktok</label>
+            <input disabled type="text" class="form-control" name="tiktok" value="{{ $activity_manajemen->tiktok }}">
+            @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Harga Mulai</label>
@@ -165,6 +167,8 @@
             <a href="{{ route('superadmin.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
+          @elseif(auth()->user()->level == 'Vendor')
+            <a href="{{ route('vendor.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
           @endif
         </form>
       </div>

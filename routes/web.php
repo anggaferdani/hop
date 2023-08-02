@@ -80,11 +80,14 @@ Route::middleware(['web', 'disableBackButton'])->group(function(){
 Route::prefix('superadmin')->name('superadmin.')->group(function(){
     Route::middleware(['auth:web', 'disableBackButton', 'superadmin'])->group(function(){
         Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
+        Route::get('profile', [Controller::class, 'profile'])->name('profile');
+        Route::put('post-profile', [Controller::class, 'postProfile'])->name('post-profile');
         Route::resource('admin', AdminController::class);
         Route::resource('vendor', VendorController::class);
+        Route::get('vendor/pulihkan/{id}', [VendorController::class, 'pulihkan'])->name('vendor.pulihkan');
         Route::resource('tag', TagController::class);
         Route::resource('update', UpdateController::class);
-        Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
+        Route::get('update/delete-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
         Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
@@ -111,10 +114,13 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::middleware(['auth:web', 'disableBackButton', 'admin'])->group(function(){
         Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
+        Route::get('profile', [Controller::class, 'profile'])->name('profile');
+        Route::put('post-profile', [Controller::class, 'postProfile'])->name('post-profile');
         Route::resource('vendor', VendorController::class);
+        Route::get('vendor/pulihkan/{id}', [VendorController::class, 'pulihkan'])->name('vendor.pulihkan');
         Route::resource('tag', TagController::class);
         Route::resource('update', UpdateController::class);
-        Route::get('update/dalata-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
+        Route::get('update/delete-image/{id}', [UpdateController::class, 'deleteImage'])->name('update.delete-image');
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
         Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
@@ -141,5 +147,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
 Route::prefix('vendor')->name('vendor.')->group(function(){
     Route::middleware(['auth:web', 'disableBackButton', 'vendor'])->group(function(){
         Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
+        Route::get('profile', [Controller::class, 'profile'])->name('profile');
+        Route::put('post-profile', [Controller::class, 'postProfile'])->name('post-profile');
+        Route::resource('activity-manajemen', ActivityManajemenController::class);
+        Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
     });
 });

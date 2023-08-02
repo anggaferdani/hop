@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('whatsapp')->nullable();
             $table->string('instagram')->nullable();
-            $table->string('twitter')->nullable();
+            $table->string('tiktok')->nullable();
             $table->string('harga_mulai')->nullable();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();

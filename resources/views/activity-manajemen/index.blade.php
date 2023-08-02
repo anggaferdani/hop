@@ -22,6 +22,8 @@
           @elseif(auth()->user()->level == 'Admin')
             <a href="{{ route('admin.activity-manajemen.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
             <a href="{{ route('admin.kategori.index') }}" class="btn btn-icon btn-primary"><i class="fas fa-tag"></i> Input Community</a>
+          @elseif(auth()->user()->level == 'Vendor')
+            <a href="{{ route('vendor.activity-manajemen.create') }}" class="btn btn-icon btn-primary"><i class="fas fa-plus"></i></a>
           @endif
         </div>
         <div class="float-right">
@@ -42,9 +44,11 @@
             <tbody>
               <tr>
                 <th>No.</th>
-                <th>Vendor</th>
+                @if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin')
+                  <th>Vendor</th>
+                @endif
                 <th>Kategori</th>
-                <th>Judul</th>
+                <th>Nama Community</th>
                 <th>Image</th>
                 <th>Created At</th>
                 <th>Action</th>
@@ -54,7 +58,9 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
-                  <td>{{ $activity_manajemen->users->nama_panjang }}</td>
+                  @if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin')
+                    <td>{{ $activity_manajemen->users->nama_panjang }}</td>
+                  @endif
                   <td>{{ $activity_manajemen->kategoris->kategori }}</td>
                   <td>{{ $activity_manajemen->judul }}</td>
                   <td>
@@ -78,6 +84,14 @@
                         @method('DELETE')
                         <a href="{{ route('admin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
                         <a href="{{ route('admin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                      </form>
+                    @elseif(auth()->user()->level == 'Vendor')
+                      <form action="{{ route('vendor.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('vendor.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                        <a href="{{ route('vendor.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
                         <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
                       </form>
                     @endif

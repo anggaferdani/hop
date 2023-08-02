@@ -15,18 +15,22 @@
           <form action="{{ route('superadmin.activity-manajemen.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @elseif(auth()->user()->level == 'Admin')
           <form action="{{ route('admin.activity-manajemen.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+        @elseif(auth()->user()->level == 'Vendor')
+          <form action="{{ route('vendor.activity-manajemen.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
-          <div class="form-group">
-            <label for="">Vendor <span class="text-danger">*</span></label>
-            <select class="form-control select2" name="user_id">
-              <option disabled selected>Select</option>
-              @foreach($users as $user)
-                <option value="{{ $user->id }}">{{ $user->nama_panjang }}</option>
-              @endforeach
-            </select>
-            @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
+          @if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin')
+            <div class="form-group">
+              <label for="">Vendor <span class="text-danger">*</span></label>
+              <select class="form-control select2" name="user_id">
+                <option disabled selected>Select</option>
+                @foreach($users as $user)
+                  <option value="{{ $user->id }}">{{ $user->nama_panjang }}</option>
+                @endforeach
+              </select>
+              @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          @endif
           <div class="form-group">
             <label for="">Kategori <span class="text-danger">*</span></label>
             <select class="form-control select2" name="kategori_id">
@@ -38,7 +42,7 @@
             @error('kategori_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Judul <span class="text-danger">*</span></label>
+            <label for="">Nama Community <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="judul">
             @error('judul')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
@@ -54,7 +58,7 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 271x200</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
@@ -108,9 +112,9 @@
             @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Twitter</label>
-            <input type="text" class="form-control" name="twitter" placeholder="Paste link disini">
-            @error('twitter')<div class="text-danger">{{ $message }}</div>@enderror
+            <label for="">Tiktok</label>
+            <input type="text" class="form-control" name="tiktok" placeholder="Paste link disini">
+            @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Harga Mulai</label>
