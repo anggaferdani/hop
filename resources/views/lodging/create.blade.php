@@ -29,7 +29,7 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
@@ -68,8 +68,8 @@
             <select class="form-control select2" name="harga">
               <option disabled selected>Select</option>
               <option value="< = Rp.50.000">< = Rp.50.000</option>
-              <option value="Rp.50.000 - Rp.100.000">Rp.50.000 - Rp.100.000</option>
-              <option value="> = Rp.100.000">> = Rp.100.000</option>
+              <option value="Rp.50.000 - Rp.1000.000">Rp.50.000 - Rp.1000.000</option>
+              <option value="> = Rp.1000.000">> = Rp.1000.000</option>
             </select>
             @error('harga')<div class="text-danger">{{ $message }}</div>@enderror
           </div>

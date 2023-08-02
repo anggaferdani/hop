@@ -10,13 +10,19 @@ use App\Models\LodgingImage;
 use Illuminate\Http\Request;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 
 class LodgingController extends Controller
 {
     public function index(){
-        $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        if(!empty(auth()->user()->level_admin == 'Lodging')){
+            $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        }else{
+            $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        }
+        
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();

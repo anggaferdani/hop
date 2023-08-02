@@ -37,7 +37,7 @@
           </div>
           <div class="form-group">
             <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
-            <input type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
+            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
             @foreach($lodging->hangout_place_images as $image)
               <div style="width: 250px; height: 200px; background-image: url({{ asset('lodging/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
                 @if(auth()->user()->level == 'Superadmin')
@@ -92,8 +92,8 @@
             <select class="form-control select2" name="harga">
               <option disabled selected>Select</option>
               <option value="< = Rp.50.000" @if($lodging->harga == '< = Rp.50.000')@selected(true)@endif>< = Rp.50.000</option>
-              <option value="Rp.50.000 - Rp.100.000" @if($lodging->harga == 'Rp.50.000 - Rp.100.000')@selected(true)@endif>Rp.50.000 - Rp.100.000</option>
-              <option value="> = Rp.100.000" @if($lodging->harga == '> = Rp.100.000')@selected(true)@endif>> = Rp.100.000</option>
+              <option value="Rp.50.000 - Rp.100.000" @if($lodging->harga == 'Rp.50.000 - Rp.1000.000')@selected(true)@endif>Rp.50.000 - Rp.1000.000</option>
+              <option value="> = Rp.100.000" @if($lodging->harga == '> = Rp.1000.000')@selected(true)@endif>> = Rp.1000.000</option>
             </select>
             @error('harga')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
