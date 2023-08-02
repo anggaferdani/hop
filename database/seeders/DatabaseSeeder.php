@@ -25,12 +25,38 @@ class DatabaseSeeder extends Seeder
                 'nama_panjang' => 'Superadmin',
                 'email' => 'superadmin@gmail.com',
                 'password' => bcrypt(12345678),
-                'level' => 'superadmin',
+                'level' => 'Superadmin',
+                'level_admin' => NULL,
             ], [
                 'nama_panjang' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt(12345678),
-                'level' => 'admin',
+                'level' => 'Admin',
+                'level_admin' => 'Admin',
+            ], [
+                'nama_panjang' => 'Admin Resto & Cafe',
+                'email' => 'admin-resto-and-cafe@gmail.com',
+                'password' => bcrypt(12345678),
+                'level' => 'Admin',
+                'level_admin' => 'Food And Beverage',
+            ], [
+                'nama_panjang' => 'Admin Penginapan',
+                'email' => 'admin-penginapan@gmail.com',
+                'password' => bcrypt(12345678),
+                'level' => 'Admin',
+                'level_admin' => 'Lodging',
+            ], [
+                'nama_panjang' => 'Admin Public Area',
+                'email' => 'admin-public-area@gmail.com',
+                'password' => bcrypt(12345678),
+                'level' => 'Admin',
+                'level_admin' => 'Public Area',
+            ], [
+                'nama_panjang' => 'Admin Community',
+                'email' => 'admin-community@gmail.com',
+                'password' => bcrypt(12345678),
+                'level' => 'Admin',
+                'level_admin' => 'Activity Manajemen',
             ],
         ];
 
@@ -106,13 +132,13 @@ class DatabaseSeeder extends Seeder
 
         $features = [
             [
-                'feature' => 'QRIS',
+                'feature' => 'Debit/Kredit/QRIS',
             ], [
-                'feature' => 'Stop Kontak',
+                'feature' => 'Cash Only',
             ], [
-                'feature' => 'AC',
+                'feature' => 'Free Wifi',
             ], [
-                'feature' => 'WIFI',
+                'feature' => 'Serves Alcohol',
             ],
         ];
 

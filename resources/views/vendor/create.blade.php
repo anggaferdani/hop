@@ -18,17 +18,23 @@
         @endif
           @csrf
           <div class="form-group">
-            <label for="">Nama Vendor</label>
+            <label for="">Logo</label>
+            <input type="file" class="form-control-file" name="logo" onchange="file(event)">
+            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
+            <div><img src="" id="image" alt=""></div>
+          </div>
+          <div class="form-group">
+            <label for="">Nama Vendor <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="nama_panjang">
             @error('nama_panjang')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Email</label>
+            <label for="">Email <span class="text-danger">*</span></label>
             <input type="email" class="form-control" name="email">
             @error('email')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Password</label>
+            <label for="">Password <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="password">
             @error('password')<div class="text-danger">{{ $message }}</div>@enderror
           </div>

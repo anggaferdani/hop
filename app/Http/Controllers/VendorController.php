@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 class VendorController extends Controller
 {
     public function index(){
-        $vendors = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        $vendors = User::where('level', 'Vendor')->latest()->paginate(10);
         return view('vendor.index', compact(
             'vendors',
         ));
@@ -27,12 +27,29 @@ class VendorController extends Controller
             'password' => 'required',
         ]);
 
-        $array = array(
-            'nama_panjang' => $request['nama_panjang'],
-            'email' => $request['email'],
-            'password' => $request['password'],
-            'level' => 'Vendor',
-        );
+        if($request->logo){
+            $array = array(
+                'nama_panjang' => $request['nama_panjang'],
+                'email' => $request['email'],
+                'password' => $request['password'],
+                'logo' => 'DEFAULT.jpeg',
+                'level' => 'Vendor',
+            );
+        }else{
+            $array = array(
+                'nama_panjang' => $request['nama_panjang'],
+                'email' => $request['email'],
+                'password' => $request['password'],
+                'level' => 'Vendor',
+            );
+    
+            if($logo = $request->file('logo')){
+                $destination_path = 'user/logo/';
+                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                $logo->move($destination_path, $logo2);
+                $array['logo'] = $logo2;
+            }
+        }
 
         $vendor = User::create($array);
 
@@ -57,38 +74,25 @@ class VendorController extends Controller
         ));
     }
 
-    public function edit($id){
-        $vendor = User::find(Crypt::decrypt($id));
-        return view('vendor.edit', compact(
-            'vendor',
-        ));
-    }
-
-    public function update(Request $request, $id){
-        $vendor = User::find(Crypt::decrypt($id));
-
-        $request->validate([
-            'nama_panjang' => 'required',
-            'email' => 'required|email|unique:users,email,'.$vendor->id.",id",
-        ]);
-
-        $vendor->update([
-            'nama_panjang' => $request['nama_panjang'],
-            'email' => $request['email'],
-        ]);
-
-        if(auth()->user()->level == 'Superadmin'){
-            return redirect()->route('superadmin.vendor.index')->with('success', 'Data has been updated at '.$vendor->updated_at);
-        }if(auth()->user()->level == 'Admin'){
-            return redirect()->route('admin.vendor.index')->with('success', 'Data has been updated at '.$vendor->updated_at);
-        }
-    }
-
     public function destroy($id){
         $vendor = User::find(Crypt::decrypt($id));
         
         $vendor->update([
             'status_aktif' => 'Tidak Aktif',
+        ]);
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.vendor.index')->with('success', 'Data has been deleted at '.$vendor->updated_at);
+        }if(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.vendor.index')->with('success', 'Data has been deleted at '.$vendor->updated_at);
+        }
+    }
+
+    public function pulihkan($id){
+        $vendor = User::find(Crypt::decrypt($id));
+        
+        $vendor->update([
+            'status_aktif' => 'Aktif',
         ]);
 
         if(auth()->user()->level == 'Superadmin'){

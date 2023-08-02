@@ -14,6 +14,12 @@
         <form action="" method="POST" class="needs-validation" novalidate="">
           @csrf
           <div class="form-group">
+            <label for="">Logo</label>
+            <input disabled type="file" class="form-control-file" name="logo" value="{{ $vendor->logo }}" onchange="file(event)">
+            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
+            <div style="width: 250px; height: 250px;"><img src="{{ asset('user/logo/'.$vendor['logo']) }}" id="image" alt="" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          </div>
+          <div class="form-group">
             <label for="">Nama Panjang</label>
             <input disabled type="text" class="form-control" name="nama_panjang" value="{{ $vendor->nama_panjang }}">
             @error('nama_panjang')<div class="text-danger">{{ $message }}</div>@enderror

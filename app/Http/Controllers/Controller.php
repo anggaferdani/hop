@@ -76,6 +76,7 @@ class Controller extends BaseController
             'nama_panjang' => $request['nama_panjang'],
             'email' => $request['email'],
             'password' => $request['password'],
+            'logo' => 'DEFAULT.jpeg',
             'level' => 'Vendor',
         );
 
@@ -128,5 +129,43 @@ class Controller extends BaseController
     public function logout(){
         Auth::guard('web')->logout();
         return redirect()->route('login');
+    }
+
+    public function profile(){
+        $profile = User::where('id', auth()->user()->id)->first();
+        return view('profile', compact('profile'));
+    }
+
+    public function postProfile(Request $request){
+        $profile = User::where('id', auth()->user()->id)->first();
+
+        $request->validate([
+            'nama_panjang' => 'required',
+            'email' => 'required|email|unique:users,email,'.$profile->id.",id",
+            'password' => 'nullable',
+        ]);
+
+        if($logo = $request->file('logo')){
+            $destination_path = 'vendor/logo/';
+            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+            $logo->move($destination_path, $logo2);
+            $profile['logo'] = $logo2;
+        }
+
+        if($request->password){
+            $profile->email = $request->email;
+            $profile->password = bcrypt($request->password);
+            $profile->save();
+        }else{
+            $profile->email = $request->email;
+            $profile->save();
+        }
+        
+        $profile->update([
+            'nama_panjang' => $request->nama_panjang,
+            'email' => $request->email,
+        ]);
+
+        return back()->with('success', 'Data has been updated at '.$profile->updated_at);
     }
 }
