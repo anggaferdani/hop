@@ -45,17 +45,7 @@
                 </div>
                 @endforeach
                 <div class="fs-5 py-2 text-dark fw-bold">{{ Str::limit($public_area->nama_tempat, 20) }}</div>
-                <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
-                  @foreach($provinsis as $provinsi)
-                    @if($public_area->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
-                  @endforeach
-                  @foreach($kabupatens as $kabupaten)
-                    @if($public_area->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
-                  @endforeach
-                  @foreach($kecamatans as $kecamatan)
-                    @if($public_area->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
-                  @endforeach
-                </p>
+                <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ $public_area->Provinsi->nama_provinsi }}, {{ $public_area->Kabupaten->nama_kabupaten }}, {{ $public_area->Kecamatan->nama_kecamatan }}</p>
               </div>
             </a>
           </div>
