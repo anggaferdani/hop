@@ -17,7 +17,12 @@
       <div class="col-md-9">
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $public_area->nama_tempat }}</h5>
         <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $public_area->deskripsi_tempat !!}</div>
-        {!! $share !!}
+        <div class="btn-group dropend">
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+          <ul class="dropdown-menu px-4">
+            {!! $share !!}
+          </ul>
+        </div>
         <div class="fs-5 fw-bold">Lokasi</div>
         <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
       </div>

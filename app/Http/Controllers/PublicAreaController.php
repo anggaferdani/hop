@@ -9,13 +9,18 @@ use Illuminate\Http\Request;
 use App\Models\PublicAreaImage;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 
 class PublicAreaController extends Controller
 {
     public function index(){
-        $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        if(!empty(auth()->user()->level_admin == 'Public Area')){
+            $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        }else{
+            $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+        }
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
