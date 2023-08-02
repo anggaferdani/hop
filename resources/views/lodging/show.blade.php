@@ -74,8 +74,8 @@
             <select disabled class="form-control select2" name="harga">
               <option disabled selected>Select</option>
               <option value="< = Rp.500.000" @if($lodging->harga == '< = Rp.500.000')@selected(true)@endif>< = Rp.500.000</option>
-              <option value="Rp.500.000 - Rp.100.000" @if($lodging->harga == 'Rp.500.000 - Rp.1000.000')@selected(true)@endif>Rp.500.000 - Rp.1000.000</option>
-              <option value="> = Rp.100.000" @if($lodging->harga == '> = Rp.1000.000')@selected(true)@endif>> = Rp.1000.000</option>
+              <option value="Rp.500.000 - Rp.1.000.000" @if($lodging->harga == 'Rp.500.000 - Rp.1.000.000')@selected(true)@endif>Rp.500.000 - Rp.1.000.000</option>
+              <option value="> = Rp.1.000.000" @if($lodging->harga == '> = Rp.1.000.000')@selected(true)@endif>> = Rp.1.000.000</option>
             </select>
             @error('harga')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
