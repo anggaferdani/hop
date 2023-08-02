@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kabupaten_kota');
             $table->string('kecamatan');
             $table->string('logo')->nullable();
-            $table->enum('harga', ['< = Rp.50.000', 'Rp.50.000 - Rp.100.000', '> = Rp.100.000'])->nullable();
+            $table->enum('harga', ['< = Rp.500.000', 'Rp.500.000 - Rp.1.000.000', '> = Rp.1.000.000'])->nullable();
             $table->enum('status', ['Food And Beverage', 'Lodging', 'Public Area']);
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
