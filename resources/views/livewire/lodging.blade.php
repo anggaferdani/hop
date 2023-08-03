@@ -48,11 +48,11 @@
             <label class="form-check-label">< = Rp.500.000</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="price" value="Rp.50.000 - Rp.1.000.000" wire:model.defer="harga">
+            <input class="form-check-input" type="radio" name="price" value="Rp.50.000 - Rp.100.000" wire:model.defer="harga">
             <label class="form-check-label">Rp.500.000 - Rp.1.000.000</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="price" value="> = Rp.1.000.000" wire:model.defer="harga">
+            <input class="form-check-input" type="radio" name="price" value="> = Rp.100.000" wire:model.defer="harga">
             <label class="form-check-label">> = Rp.1.000.000</label>
           </div>
         </div>

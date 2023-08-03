@@ -67,9 +67,9 @@
             <label for="">Harga</label>
             <select class="form-control select2" name="harga">
               <option disabled selected>Select</option>
-              <option value="< = Rp.500.000">< = Rp.500.000</option>
-              <option value="Rp.500.000 - Rp.1.000.000">Rp.500.000 - Rp.1.000.000</option>
-              <option value="> = Rp.1.000.000">> = Rp.1.000.000</option>
+              <option value="< = Rp.50.000">< = Rp.500.000</option>
+              <option value="Rp.50.000 - Rp.100.000">Rp.500.000 - Rp.1.000.000</option>
+              <option value="> = Rp.100.000">> = Rp.1.000.000</option>
             </select>
             @error('harga')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
