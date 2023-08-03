@@ -16,21 +16,21 @@
     <div class="row">
       <div class="col-md-9">
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $food_and_beverage->nama_tempat }}</h5>
-        <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $food_and_beverage->deskripsi_tempat !!}</div>
+        <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $food_and_beverage->deskripsi_tempat !!}</div>
+        <div class="fs-5 fw-bold">Lokasi</div>
+        <div class="text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
+        @if(!empty($food_and_beverage->logo))
+          <div class="fs-5 fw-bold mb-2">Public Viewing</div>
+          <div class="mb-3" style="height: 50px; aspect-ratio: 1;">
+            <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+          </div>
+        @endif
         <div class="btn-group dropend">
-          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
           <ul class="dropdown-menu px-4">
             {!! $share !!}
           </ul>
         </div>
-        <div class="fs-5 fw-bold">Lokasi</div>
-        <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
-        <div class="fs-5 fw-bold">Public Viewing</div>
-        @if(!empty($food_and_beverage->logo))
-          <div style="height: 50px; aspect-ratio: 1;">
-            <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
-          </div>
-        @endif
       </div>
       <div class="col-md-3">
         <div class="card" style="border-radius: 15px;">
@@ -41,9 +41,9 @@
         </div>
       </div>
     </div>
-    <div class="pt-4 mb-2 d-flex justify-content-between align-items-center">
+    <div class="pt-5 mb-2 d-flex justify-content-between align-items-center">
       <div class="fs-4 fw-bold color m-0">Pilihan Lainnya</div>
-      <div class="fs-5 fw-bold m-0"><a href="{{ route('agendas') }}" class="color">View All</a></div>
+      <div class="fs-5 fw-bold m-0"><a href="{{ route('food-and-beverages') }}" class="color">View All</a></div>
     </div>
     <div class="row g-4 g-md-2">
       @foreach($food_and_beverages as $food_and_beverage)
@@ -64,7 +64,6 @@
                 </div>
                 @endif
               </div>
-              <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
               <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
                 @foreach($provinsis as $provinsi)
                   @if($food_and_beverage->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif

@@ -190,7 +190,7 @@ class FoodAndBeverageController extends Controller
         }
 
         $food_and_beverage->seatings()->sync($request->seating);
-        $food_and_beverage->faetures()->sync($request->faeture);
+        $food_and_beverage->features()->sync($request->feature);
         $food_and_beverage->entertaiments()->sync($request->entertaiment);
 
         if(auth()->user()->level == 'Superadmin'){

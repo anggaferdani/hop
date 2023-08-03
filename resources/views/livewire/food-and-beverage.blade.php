@@ -15,15 +15,30 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Provinsi</label>
-          <input type="text" class="form-control" name="" wire:model="provinsi" placeholder="Provinsi">
+          <select class="form-select" name="provinsi" wire:model="selectedProvinsi" wire:model.defer="provinsi">
+            <option value="">Provinsi</option>
+            @foreach($provinsis as $provinsi)
+              <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+            @endforeach
+          </select>
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kabupaten/Kota</label>
-          <input type="text" class="form-control" name="" wire:model="kabupaten" placeholder="Kabupaten/Kota">
+          <select class="form-select" name="kabupaten" wire:model="selectedKabupaten" wire:model.defer="kabupaten">
+            <option value="">Kabupaten/Kota</option>
+            @foreach($kabupatens as $kabupaten)
+              <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ $kabupaten->nama_kabupaten }}</option>
+            @endforeach
+          </select>
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Kecamatan">
+          <select class="form-select" name="kecamatan" wire:model.defer="kecamatan">
+            <option value="">Kecamatan</option>
+            @foreach($kecamatans as $kecamatan)
+              <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ $kecamatan->nama_kecamatan }}</option>
+            @endforeach
+          </select>
         </div>
         <div class="row">
           <div class="py-2">
