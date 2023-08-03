@@ -27,7 +27,7 @@ class VendorController extends Controller
             'password' => 'required',
         ]);
 
-        if($request->logo){
+        if($request['logo'] == null){
             $array = array(
                 'nama_panjang' => $request['nama_panjang'],
                 'email' => $request['email'],

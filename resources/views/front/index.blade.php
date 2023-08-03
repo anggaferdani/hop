@@ -101,18 +101,18 @@
     <div class="row">
       <div class="card2">
         @foreach($agendas as $agenda)
-        <?php $lokasi = $agenda->provinsi.", ".$agenda->kabupaten_kota.", ".$agenda->kecamatan ?>
+        <?php $lokasi = $agenda->hangout_places->Provinsi->nama_provinsi.", ".$agenda->hangout_places->Kabupaten->nama_kabupaten.", ".$agenda->hangout_places->Kecamatan->nama_kecamatan ?>
           <div class="col-md-4">
             @if($agenda->tiket == 'Berbayar')
             <div class="card" style="background-color: #EC5D71;">
               <div class="row g-0">
                 @foreach($agenda->agenda_images->take(1) as $agenda_image)
-                <div class="col-4 col-md-4">
+                <div class="col-4 col-md-4" style="max-height: 210px;">
                   <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="rounded-start" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
                 @endforeach
                 <div class="col-8 col-md-8">
-                  <div class="card-body" style="height: 200px; display: flex; justify-content: space-between; flex-direction: column;">
+                  <div class="card-body" style="height: 210px; display: flex; justify-content: space-between; flex-direction: column;">
                     <div>
                       <div class="d-flex mb-2 justify-content-between">
                         <div class="col-md-10">
@@ -135,17 +135,7 @@
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 11px;">
-                        @foreach($provinsis as $provinsi)
-                          @if($agenda->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
-                        @endforeach
-                        @foreach($kabupatens as $kabupaten)
-                          @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
-                        @endforeach
-                        @foreach($kecamatans as $kecamatan)
-                          @if($agenda->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
-                        @endforeach
-                      </div>
+                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
                       <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>
@@ -158,12 +148,12 @@
             <div class="card">
               <div class="row g-0">
                 @foreach($agenda->agenda_images->take(1) as $agenda_image)
-                <div class="col-4 col-md-4">
+                <div class="col-4 col-md-4" style="max-height: 210px;">
                   <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="rounded-start" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
                 @endforeach
                 <div class="col-8 col-md-8">
-                  <div class="card-body" style="height: 200px; display: flex; justify-content: space-between; flex-direction: column;">
+                  <div class="card-body" style="height: 210px; display: flex; justify-content: space-between; flex-direction: column;">
                     <div>
                       <div class="d-flex mb-2 justify-content-between">
                         <div class="col-md-10">
@@ -186,17 +176,7 @@
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 11px;">
-                        @foreach($provinsis as $provinsi)
-                          @if($agenda->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
-                        @endforeach
-                        @foreach($kabupatens as $kabupaten)
-                          @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
-                        @endforeach
-                        @foreach($kecamatans as $kecamatan)
-                          @if($agenda->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
-                        @endforeach
-                      </div>
+                      <div class="small mb-0 color2" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
                       <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>

@@ -5,6 +5,9 @@ namespace App\Http\Livewire;
 use App\Models\Feature;
 use App\Models\Seating;
 use Livewire\Component;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\Entertaiment;
 use App\Models\HangoutPlace;
 
@@ -22,6 +25,11 @@ class Sportainment extends Component
     public $selectedEntertaimanet = [];
     public $harga;
 
+    public $selectedProvinsi;
+    public $kabupatens = [];
+    public $selectedKabupaten;
+    public $kecamatans = [];
+
     public function mount()
     {
         $this->seatings = Seating::where('status_aktif', 'Aktif')->get();
@@ -32,7 +40,18 @@ class Sportainment extends Component
 
     public function render()
     {
-        return view('livewire.sportainment');
+        if(!empty($this->selectedProvinsi)){
+            $this->kabupatens = Kabupaten::where('id_provinsi', $this->selectedProvinsi)->get();
+        }
+        if(!empty($this->selectedKabupaten)){
+            $this->kecamatans = Kecamatan::where('id_kabupaten', $this->selectedKabupaten)->get();
+        }
+
+        $provinsis = Provinsi::all();
+        
+        return view('livewire.sportainment')->with([
+            'provinsis' => $provinsis,
+        ]);
     }
 
     public function searching()
@@ -41,17 +60,20 @@ class Sportainment extends Component
 
         if(!empty($this->provinsi)){
             $food_and_beverage = $food_and_beverage->whereHas('Provinsi', function($query){
-                $query->where('nama_provinsi', 'like', '%'.$this->provinsi.'%');
+                $query->where('id_provinsi', 'like', '%'.$this->provinsi.'%');
             });
+        }
+        if(empty($this->provinsi)){
+            $food_and_beverage = $food_and_beverage->where('status_aktif', 'Aktif');
         }
         if(!empty($this->kabupaten)){
             $food_and_beverage = $food_and_beverage->whereHas('Kabupaten', function($query){
-                $query->where('nama_kabupaten', 'like', '%'.$this->kabupaten.'%');
+                $query->where('id_kabupaten', 'like', '%'.$this->kabupaten.'%');
             });
         }
         if(!empty($this->kecamatan)){
             $food_and_beverage = $food_and_beverage->whereHas('Kecamatan', function($query){
-                $query->where('nama_kecamatan', 'like', '%'.$this->kecamatan.'%');
+                $query->where('id_kecamatan', 'like', '%'.$this->kecamatan.'%');
             });
         }
         if(!empty($this->selectedSeating)){

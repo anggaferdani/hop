@@ -18,8 +18,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <style>
+  *{
+    font-family: 'Inter', sans-serif;
+  }
   @media (min-width:768px) {
     .w-md-50 {
         width: 50% !important;
@@ -566,7 +572,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.deskripsi2').each(function(f){
-        var newstr = $(this).text().substring(0, 50) + "...";
+        var newstr = $(this).text().substring(0, 45) + "...";
         $(this).text(newstr);
       });
     });

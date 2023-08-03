@@ -80,7 +80,7 @@ class FrontController extends Controller
     }
 
     public function agendas(Request $request){
-        $agendas = Agenda::with('agenda_images', 'Provinsi', 'Kabupaten', 'Kecamatan')->where('status_aktif', 'Aktif')->paginate(9);
+        $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->paginate(9);
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -140,6 +140,35 @@ class FrontController extends Controller
 
     public function sportainments(){
         return view('front.sportainments');
+    }
+
+    public function sportainment($id){
+        $sportainment = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $sportainments = HangoutPlace::with('hangout_place_images')->whereNotNull('logo')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
+        $provinsi = Provinsi::find($sportainment->provinsi);
+        $kabupaten = Kabupaten::find($sportainment->kabupaten_kota);
+        $kecamatan = Kecamatan::find($sportainment->kecamatan);
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
+        $share = ShareFacade::page(
+            'http://hop.co.id/sportainment/'.$id, $sportainment->judul,
+        )
+        ->facebook()
+        ->twitter()
+        ->telegram()
+        ->whatsapp();
+        return view('front.sportainment', compact(
+            'sportainment',
+            'sportainments',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'provinsis',
+            'kabupatens',
+            'kecamatans',
+            'share',
+        ));
     }
 
     public function food_and_beverage($id){

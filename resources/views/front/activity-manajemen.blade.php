@@ -88,7 +88,7 @@
     </div>
     <div class="pt-4 mb-2 d-flex justify-content-between align-items-center">
       <div class="fs-4 fw-bold color m-0">Pilihan Lainnya</div>
-      <div class="fs-5 fw-bold m-0"><a href="{{ route('agendas') }}" class="color">View All</a></div>
+      <div class="fs-5 fw-bold m-0"><a href="{{ route('activity-manajemens') }}" class="color">View All</a></div>
     </div>
     <div class="row pt-3">
       <div class="card3">

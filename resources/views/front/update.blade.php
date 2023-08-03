@@ -13,12 +13,14 @@
       </div>
       <h5 class="pt-4 fs-4 fw-bold" style="text-align: justify;">{{ $update->judul }}</h5>
       <div class="fs-5 text-muted lh-sm" style="text-align: justify;">{!! $update->deskripsi !!}</div>
-      <div class="btn-group dropend">
-        <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
-        <ul class="dropdown-menu px-4">
-          {!! $share !!}
-        </ul>
-      </div>
+    </div>
+    <div class="btn-group dropend mb-2">
+      <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+      <ul class="dropdown-menu px-4">
+        {!! $share !!}
+      </ul>
+    </div>
+    <div class="row">
       <div class="fs-5 fw-bold">Tanggal Publikasi</div>
       <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</div>
       <div class="fs-5 fw-bold">Penulis</div>

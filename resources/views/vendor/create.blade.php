@@ -12,16 +12,16 @@
       </div>
       <div class="card-body">
         @if(auth()->user()->level == 'Superadmin')
-          <form action="{{ route('superadmin.vendor.store') }}" method="POST" class="needs-validation" novalidate="">
+          <form action="{{ route('superadmin.vendor.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @elseif(auth()->user()->level == 'Admin')
-          <form action="{{ route('admin.vendor.store') }}" method="POST" class="needs-validation" novalidate="">
+          <form action="{{ route('admin.vendor.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           <div class="form-group">
             <label for="">Logo</label>
             <input type="file" class="form-control-file" name="logo" onchange="file(event)">
             @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
-            <div><img src="" id="image" alt=""></div>
+            <div style="width: 250px; height: 250px;"><img src="" id="image" style="width: 100%; object-fit: cover; height: 100%;" alt=""></div>
           </div>
           <div class="form-group">
             <label for="">Nama Vendor <span class="text-danger">*</span></label>
