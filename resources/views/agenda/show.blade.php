@@ -63,34 +63,25 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="">Provinsi</label>
-              <select disabled class="form-control select2" name="provinsi" id="provinsi">
-                <option disabled selected>Select</option>
-                @foreach($provinsis as $provinsi)
-                  <option value="{{ $provinsi->id_provinsi }}" @if($agenda->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ $provinsi->nama_provinsi }}</option>
-                @endforeach
-              </select>
+              <input disabled type="text" class="form-control" name="provinsi" value="{{ $agenda->hangout_places->Provinsi->nama_provinsi }}">
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
-              <label for="">Kabupaten/Kota</label>
-              <select disabled class="form-control select2" name="kabupaten_kota" id="kabupaten">
-                <option disabled selected>Select</option>
-                @foreach($kabupatens as $kabupaten)
-                  <option value="{{ $agenda->kabupaten_kota }}" @if($agenda->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ $kabupaten->nama_kabupaten }}</option>
-                @endforeach
-              </select>
-              @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
+              <label for="">Kabupaten</label>
+              <input disabled type="text" class="form-control" name="updated_by" value="{{ $agenda->hangout_places->Kabupaten->nama_kabupaten }}">
+              @error('updated_by')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kecamatan</label>
-              <select disabled class="form-control select2" name="kecamatan" id="kecamatan">
-                <option disabled selected>Select</option>
-                @foreach($kecamatans as $kecamatan)
-                  <option value="{{ $agenda->kecamatan }}" @if($agenda->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ $kecamatan->nama_kecamatan }}</option>
-                @endforeach
-              </select>
-              @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
+              <input disabled type="text" class="form-control" name="updated_by" value="{{ $agenda->hangout_places->Kecamatan->nama_kecamatan }}">
+              @error('updated_by')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
+          </div>
+          <div class="form-group">
+            <label for="">Lokasi</label>
+            <input disabled type="text" class="form-control" name="lokasi" value="{{ $agenda->hangout_places->lokasi }}">
+            <div class="parent2">{!! $agenda->hangout_places->lokasi !!}</div>
+            @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Tiket</label>
@@ -126,6 +117,23 @@
               @error('tanggal_berakhir')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>
+          <div class="form-group">
+            <label for="">Redirect Link Pendaftaran</label>
+            <select disabled class="form-control select2" name="redirect_link_pendaftaran">
+              <option disabled selected>Select</option>
+              <option value="Aktif" @if($agenda->redirect_link_pendaftaran == 'Aktif')@selected(true)@endif>Aktif</option>
+              <option value="Tidak Aktif" @if($agenda->redirect_link_pendaftaran == 'Tidak Aktif')@selected(true)@endif>Tidak Aktif</option>
+            </select>
+            @error('redirect_link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          @if($agenda->redirect_link_pendaftaran == 'Aktif')
+            <div class="form-group">
+              <label for="">Link Pendaftaran</label>
+              <input disabled type="text" class="form-control" name="link_pendaftaran" value="{{ $agenda->link_pendaftaran }}">
+              @error('link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
+              <p><a href="{{ $agenda->link_pendaftaran }}" target="_blank">{{ $agenda->link_pendaftaran }}</a></p>
+            </div>
+          @endif
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Created By</label>

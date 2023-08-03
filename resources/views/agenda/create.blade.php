@@ -96,6 +96,20 @@
               @error('tanggal_berakhir')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>
+          <div class="form-group">
+            <label for="">Redirect Link Pendaftaran</label>
+            <select class="form-control select2" name="redirect_link_pendaftaran" id="Menu3">
+              <option disabled selected>Select</option>
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
+            @error('redirect_link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group" id="Menu4Container">
+            <label for="">Link Pendaftaran</label>
+            <input type="text" class="form-control" name="link_pendaftaran">
+            @error('link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.agenda.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
@@ -118,6 +132,16 @@
       $("#Menu2Container").show();
     else
       $("#Menu2Container").hide();
+  });
+</script>
+<script type="text/javascript">
+  $("#Menu4Container").hide();
+ 
+  $("#Menu3").on("change", function(){  
+    if ($(this).val()=="Aktif")
+      $("#Menu4Container").show();
+    else
+      $("#Menu4Container").hide();
   });
 </script>
 @endpush

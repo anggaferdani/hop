@@ -7,9 +7,30 @@
       </div>
     </div>
     <form wire:submit.prevent="searching" class="row g-3 mb-3">
-      <div class="col-md-2"><input type="text" class="form-control" name="" wire:model="provinsi" placeholder="Provinsi"></div>
-      <div class="col-md-2"><input type="text" class="form-control" name="" wire:model="kabupaten" placeholder="Kabupaten/Kota"></div>
-      <div class="col-md-2"><input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Kecamatan"></div>
+      <div class="col-md-2">
+        <select class="form-select" name="provinsi" wire:model="selectedProvinsi" wire:model.defer="provinsi">
+          <option value="">Provinsi</option>
+          @foreach($provinsis as $provinsi)
+            <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select class="form-select" name="kabupaten" wire:model="selectedKabupaten" wire:model.defer="kabupaten">
+          <option value="">Kabupaten/Kota</option>
+          @foreach($kabupatens as $kabupaten)
+            <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ $kabupaten->nama_kabupaten }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select class="form-select" name="kecamatan" wire:model.defer="kecamatan">
+          <option value="">Kecamatan</option>
+          @foreach($kecamatans as $kecamatan)
+            <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ $kecamatan->nama_kecamatan }}</option>
+          @endforeach
+        </select>
+      </div>
       <div class="col-md-2"><input type="date" class="form-control" name="" wire:model="tanggal_mulai" placeholder="Start Date"></div>
       <div class="col-md-2"><input type="date" class="form-control" name="" wire:model="tanggal_berakhir" placeholder="End Date"></div>
       <div class="col-md-2">
@@ -18,18 +39,18 @@
     </form>
     <div class="row g-2 mb-4">
       @foreach($agendas as $agenda)
-        <?php $lokasi = $agenda->Provinsi->nama_provinsi.", ".$agenda->Kabupaten->nama_kabupaten.", ".$agenda->Kecamatan->nama_kecamatan ?>
+        <?php $lokasi = $agenda->hangout_places->Provinsi->nama_provinsi.", ".$agenda->hangout_places->Kabupaten->nama_kabupaten.", ".$agenda->hangout_places->Kecamatan->nama_kecamatan ?>
           <div class="col-md-4">
             @if($agenda->tiket == 'Berbayar')
             <div class="card" style="background-color: #EC5D71;">
               <div class="row g-0">
                 @foreach($agenda->agenda_images->take(1) as $agenda_image)
-                <div class="col-4 col-md-4">
+                <div class="col-4 col-md-4" style="height: 210px">
                   <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="rounded-start" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
                 @endforeach
                 <div class="col-8 col-md-8">
-                  <div class="card-body" style="height: 220px; display: flex; justify-content: space-between; flex-direction: column;">
+                  <div class="card-body" style="height: 210px; display: flex; justify-content: space-between; flex-direction: column;">
                     <div>
                       <div class="d-flex mb-2 justify-content-between">
                         <div class="col-md-10">
@@ -65,12 +86,12 @@
             <div class="card">
               <div class="row g-0">
                 @foreach($agenda->agenda_images->take(1) as $agenda_image)
-                <div class="col-4 col-md-4">
+                <div class="col-4 col-md-4" style="height: 210px">
                   <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="rounded-start" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
                 @endforeach
                 <div class="col-8 col-md-8">
-                  <div class="card-body" style="height: 220px; display: flex; justify-content: space-between; flex-direction: column;">
+                  <div class="card-body" style="height: 210px; display: flex; justify-content: space-between; flex-direction: column;">
                     <div>
                       <div class="d-flex mb-2 justify-content-between">
                         <div class="col-md-10">

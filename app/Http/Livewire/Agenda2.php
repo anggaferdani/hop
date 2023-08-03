@@ -3,43 +3,67 @@
 namespace App\Http\Livewire;
 
 use App\Models\Agenda;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Livewire\Component;
+use App\Models\Kecamatan;
 
 class Agenda2 extends Component
 {
     public $agendas;
-    public $provinsi;
-    public $kabupaten;
-    public $kecamatan;
+    public $provinsi = [];
+    public $kabupaten = [];
+    public $kecamatan = [];
     public $tanggal_mulai;
     public $tanggal_berakhir;
+
+    public $selectedProvinsi;
+    public $kabupatens = [];
+    public $selectedKabupaten;
+    public $kecamatans = [];
+
+    public $null = '';
     
     public function mount()
     {
-        $this->agendas = Agenda::with('Provinsi')->where('status_aktif', 'Aktif')->get();
+        $this->agendas = Agenda::with('hangout_places')->where('status_aktif', 'Aktif')->get();
     }
 
     public function render()
     {
-        return view('livewire.agenda2');
+        if(!empty($this->selectedProvinsi)){
+            $this->kabupatens = Kabupaten::where('id_provinsi', $this->selectedProvinsi)->get();
+        }
+        if(!empty($this->selectedKabupaten)){
+            $this->kecamatans = Kecamatan::where('id_kabupaten', $this->selectedKabupaten)->get();
+        }
+
+        $provinsis = Provinsi::all();
+
+        return view('livewire.agenda2')->with([
+            'provinsis' => $provinsis,
+        ]);
     }
 
     public function searching(){
         $agenda = Agenda::query();
 
         if(!empty($this->provinsi)){
-            $agenda = $agenda->whereHas('Provinsi', function($query){
-                $query->where('nama_provinsi', 'like', '%'.$this->provinsi.'%');
+            $agenda = $agenda->whereHas('hangout_places', function($query){
+                $query->where('provinsi', 'like', '%'.$this->provinsi.'%');
             });
         }
+            if(empty($this->provinsi)){
+                $agenda = $agenda->where('status_aktif', 'Aktif');
+            }
         if(!empty($this->kabupaten)){
-            $agenda = $agenda->whereHas('Kabupaten', function($query){
-                $query->where('nama_kabupaten', 'like', '%'.$this->kabupaten.'%');
+            $agenda = $agenda->whereHas('hangout_places', function($query){
+                $query->where('kabupaten_kota', 'like', '%'.$this->kabupaten.'%');
             });
         }
         if(!empty($this->kecamatan)){
-            $agenda = $agenda->whereHas('Kecamatan', function($query){
-                $query->where('nama_kecamatan', 'like', '%'.$this->kecamatan.'%');
+            $agenda = $agenda->whereHas('hangout_places', function($query){
+                $query->where('kecamatan', 'like', '%'.$this->kecamatan.'%');
             });
         }
         if(!empty($this->tanggal_mulai) && !empty($this->tanggal_berakhir)){

@@ -27,12 +27,11 @@ class Agenda extends Model
         'judul',
         'deskripsi',
         'jenis',
-        'provinsi',
-        'kabupaten_kota',
-        'kecamatan',
         'tiket',
         'tanggal_mulai',
         'tanggal_berakhir',
+        'redirect_link_pendaftaran',
+        'link_pendaftaran',
         'status_aktif',
         'created_by',
         'updated_by',
@@ -47,18 +46,6 @@ class Agenda extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
-    }
-
-    public function Provinsi(){
-        return $this->belongsTo(Provinsi::class, 'provinsi');
-    }
-
-    public function Kabupaten(){
-        return $this->belongsTo(Kabupaten::class, 'kabupaten_kota');
-    }
-
-    public function Kecamatan(){
-        return $this->belongsTo(Kecamatan::class, 'kecamatan');
     }
 
     public function hangout_places(){

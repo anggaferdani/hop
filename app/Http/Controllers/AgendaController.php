@@ -10,23 +10,35 @@ use App\Models\Agenda;
 use App\Models\Lodging;
 use App\Models\Pendaftar;
 use App\Models\JenisTiket;
+use App\Models\PublicArea;
 use App\Models\AgendaImage;
+use App\Models\HangoutPlace;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
 use App\Models\ActivityManajemen;
-use App\Models\HangoutPlace;
-use App\Models\PublicArea;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 
 class AgendaController extends Controller
 {
     public function index(){
-        $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->latest()->paginate(10);
-        return view('agenda.index', compact(
-            'agendas',
-        ));
+        if(auth()->user()->level == 'Admin'){
+            if(!empty(auth()->user()->level_admin == 'Activity Manajemen' || auth()->user()->level_admin == 'Food And Beverage' || auth()->user()->level_admin == 'Lodging' || auth()->user()->level_admin == 'Public Area')){
+                $agendas = Agenda::with('agenda_images', 'hangout_places')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            }else{
+                $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            }
+            return view('agenda.index', compact(
+                'agendas',
+            ));
+        }elseif(auth()->user()->level == 'Superadmin'){
+            $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            return view('agenda.index', compact(
+                'agendas',
+            ));
+        }
     }
 
     public function create(){
@@ -49,6 +61,7 @@ class AgendaController extends Controller
             'tiket' => 'required',
             'image.*' => 'required',
             'type.*' => 'required',
+            'redirect_link_pendaftaran' => 'required',
         ]);
 
         $hangout_place = HangoutPlace::find($request->hangout_place_id);
@@ -58,12 +71,11 @@ class AgendaController extends Controller
             'judul' => $request['judul'],
             'deskripsi' => $request['deskripsi'],
             'jenis' => $request['jenis'],
-            'provinsi' => $hangout_place->provinsi,
-            'kabupaten_kota' => $hangout_place->kabupaten_kota,
-            'kecamatan' => $hangout_place->kecamatan,
             'tiket' => $request['tiket'],
             'tanggal_mulai' => $request['tanggal_mulai'],
             'tanggal_berakhir' => $request['tanggal_berakhir'],
+            'redirect_link_pendaftaran' => $request['redirect_link_pendaftaran'],
+            'link_pendaftaran' => $request['link_pendaftaran'],
         );
 
         try{
@@ -159,12 +171,10 @@ class AgendaController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'jenis' => 'required',
-            'provinsi' => 'required',
-            'kabupaten_kota' => 'required',
-            'kecamatan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
             'tiket' => 'required',
+            'redirect_link_pendaftaran' => 'required',
         ]);
 
         try{
@@ -175,12 +185,11 @@ class AgendaController extends Controller
                 'judul' => $request['judul'],
                 'deskripsi' => $request['deskripsi'],
                 'jenis' => $request['jenis'],
-                'provinsi' => $request['provinsi'],
-                'kabupaten_kota' => $request['kabupaten_kota'],
-                'kecamatan' => $request['kecamatan'],
                 'tiket' => $request['tiket'],
                 'tanggal_mulai' => $request['tanggal_mulai'],
                 'tanggal_berakhir' => $request['tanggal_berakhir'],
+                'redirect_link_pendaftaran' => $request['redirect_link_pendaftaran'],
+                'link_pendaftaran' => $request['link_pendaftaran'],
             ]);
 
             if($request->jenis_tiket){

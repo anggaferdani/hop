@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('judul');
             $table->longText('deskripsi');
             $table->enum('jenis', ['Online', 'Offline', 'Hybird']);
-            $table->string('provinsi');
-            $table->string('kabupaten_kota');
-            $table->string('kecamatan');
-            $table->enum('tiket', ['Berbayar', 'Gratis'])->default('Berbayar');
+            $table->enum('tiket', ['Berbayar', 'Gratis']);
             $table->string('tanggal_mulai');
             $table->string('tanggal_berakhir');
+            $table->enum('redirect_link_pendaftaran', ['Aktif', 'Tidak Aktif']);
+            $table->string('link_pendaftaran')->nullable();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
