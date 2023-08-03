@@ -14,15 +14,30 @@
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Provinsi</label>
-          <input type="text" class="form-control" name="" wire:model="provinsi" placeholder="Provinsi">
+          <select class="form-select" name="provinsi" wire:model="selectedProvinsi" wire:model.defer="provinsi">
+            <option value="">Provinsi</option>
+            @foreach($provinsis as $provinsi)
+              <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+            @endforeach
+          </select>
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kabupaten/Kota</label>
-          <input type="text" class="form-control" name="" wire:model="kabupaten" placeholder="Kabupaten/Kota">
+          <select class="form-select" name="kabupaten" wire:model="selectedKabupaten" wire:model.defer="kabupaten">
+            <option value="">Kabupaten/Kota</option>
+            @foreach($kabupatens as $kabupaten)
+              <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ $kabupaten->nama_kabupaten }}</option>
+            @endforeach
+          </select>
         </div>
         <div class="mb-3">
           <label class="form-label fs-5">Kecamatan</label>
-          <input type="text" class="form-control" name="" wire:model="kecamatan" placeholder="Kecamatan">
+          <select class="form-select" name="kecamatan" wire:model.defer="kecamatan">
+            <option value="">Kecamatan</option>
+            @foreach($kecamatans as $kecamatan)
+              <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ $kecamatan->nama_kecamatan }}</option>
+            @endforeach
+          </select>
         </div>
         <button class="btn btn-primary w-100" style="background-color: #5AA4C2 !important">Apply</button>
       </form>
@@ -44,7 +59,7 @@
                   <img src="{{ asset('public-area/image/'.$public_area_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
                 @endforeach
-                <div class="fs-5 py-2 text-dark fw-bold">{{ Str::limit($public_area->nama_tempat, 20) }}</div>
+                <div class="mt-1 text-dark fw-bold">{{ Str::limit($public_area->nama_tempat, 25) }}</div>
                 <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ $public_area->Provinsi->nama_provinsi }}, {{ $public_area->Kabupaten->nama_kabupaten }}, {{ $public_area->Kecamatan->nama_kecamatan }}</p>
               </div>
             </a>

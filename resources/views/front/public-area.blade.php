@@ -16,15 +16,15 @@
     <div class="row">
       <div class="col-md-9">
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $public_area->nama_tempat }}</h5>
-        <div class="fs-5 text-muted lh-sm mt-1" style="text-align: justify;">{!! $public_area->deskripsi_tempat !!}</div>
+        <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $public_area->deskripsi_tempat !!}</div>
+        <div class="fs-5 fw-bold">Lokasi</div>
+        <div class="text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
         <div class="btn-group dropend">
-          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
           <ul class="dropdown-menu px-4">
             {!! $share !!}
           </ul>
         </div>
-        <div class="fs-5 fw-bold">Lokasi</div>
-        <div class="fs-5 text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
       </div>
       <div class="col-md-3">
         <div class="card" style="border-radius: 15px;">
@@ -50,8 +50,7 @@
                 <img src="{{ asset('public-area/image/'.$public_area_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
               </div>
               @endforeach
-              <div class="fs-5 py-2 text-dark fw-bold">{{ Str::limit($public_area->nama_tempat, 20) }}</div>
-              <p class="small fw-bold m-0 text-muted"><i class="fa-solid fa-location-dot"></i> 1.0 km</p>
+              <div class="mt-1 text-dark fw-bold">{{ Str::limit($public_area->nama_tempat, 20) }}</div>
               <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
                 @foreach($provinsis as $provinsi)
                   @if($public_area->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
