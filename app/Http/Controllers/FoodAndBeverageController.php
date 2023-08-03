@@ -183,7 +183,7 @@ class FoodAndBeverageController extends Controller
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('food-and-beverage/image/'), $image2);
                 HangoutPlaceImage::create([
-                    'food_and_beverage_id' => $food_and_beverage->id,
+                    'hangout_place_id' => $food_and_beverage->id,
                     'image' => $image2,
                 ]);
             }
