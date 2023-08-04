@@ -27,7 +27,7 @@
             str_contains(Route::currentRouteName(), 'public-area') ? 'active2' : '' }} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hangout Places</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'food-and-beverages') || str_contains(Route::currentRouteName(), 'food-and-beverage') ? 'active2' : '' }}" href="{{ route('food-and-beverages') }}">Resto & Cafe</a></li>
-              <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'lodgings') || str_contains(Route::currentRouteName(), 'lodging') ? 'active2' : '' }}" href="{{ route('lodgings') }}">Penginapan</a></li>
+            <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'lodgings') || str_contains(Route::currentRouteName(), 'lodging') ? 'active2' : '' }}" href="{{ route('lodgings') }}">Hotel</a></li>
               <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'sportainments') ? 'active2' : '' }}" href="{{ route('sportainments') }}">Sportainment</a></li>
               <li><a class="dropdown-item my-1 {{ str_contains(Route::currentRouteName(), 'public-areas') || str_contains(Route::currentRouteName(), 'public-area') ? 'active2' : '' }}" href="{{ route('public-areas') }}">Public Area</a></li>
             </ul>

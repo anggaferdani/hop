@@ -26,9 +26,20 @@
   *{
     font-family: 'Inter', sans-serif;
   }
+  .footer-background{
+    width: 100%; height: 100%; background: linear-gradient(to right, #5AA4C2 0%, #5AA4C2 78%, white 78%, white 100%);"
+  }
   @media (min-width:768px) {
     .w-md-50 {
         width: 50% !important;
+    }
+  }
+  @media (max-width:768px) {
+    .footer-background{
+      width: 100%; height: 100%; background: linear-gradient(to bottom, #5AA4C2 0%, #5AA4C2 55%, white 55%, white 100%);"
+    }
+    .terms-and-condition{
+      color: black
     }
   }
   .parent2{

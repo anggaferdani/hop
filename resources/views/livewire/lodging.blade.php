@@ -77,7 +77,7 @@
     <div class="col-sm-9 py-4">
       <div class="row">
         <div class="pt-4 pb-3">
-          <div class="fs-3 fw-bold color m-0">Penginapan</div>
+          <div class="fs-3 fw-bold color m-0">Hotel</div>
         </div>
       </div>
       <div class="row g-4 g-md-2">

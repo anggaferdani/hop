@@ -1,7 +1,7 @@
 @extends('templates.pages')
-@section('title', 'Penginapan')
+@section('title', 'Hotel')
 @section('header')
-<h1>Penginapan</h1>
+<h1>Hotel</h1>
 @endsection
 @section('content')
 <div class="row">

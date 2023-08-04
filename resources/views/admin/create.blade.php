@@ -24,7 +24,7 @@
               <option disabled selected>Select</option>
               <option value="Admin">Admin Biasa</option>
               <option value="Food And Beverage">Admin Resto & Cafe</option>
-              <option value="Lodging">Admin Penginapan</option>
+              <option value="Lodging">Admin Hotel</option>
               <option value="Public Area">Admin Public Area</option>
               <option value="Activity Manajemen">Admin Community</option>
             </select>

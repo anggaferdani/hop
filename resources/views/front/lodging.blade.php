@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Lodging')
+@section('title', 'Hotel')
 @section('content')
 <section class="pb-3 pb-md-5">
   <div class="container">

@@ -24,7 +24,7 @@
               <option disabled selected>Select</option>
               <option value="Admin" @if($admin->level_admin == 'Admin')@selected(true)@endif>Admin Biasa</option>
               <option value="Food And Beverage" @if($admin->level_admin == 'Food And Beverage')@selected(true)@endif>Admin Resto & Cafe</option>
-              <option value="Lodging" @if($admin->level_admin == 'Lodging')@selected(true)@endif>Admin Penginapan</option>
+              <option value="Lodging" @if($admin->level_admin == 'Lodging')@selected(true)@endif>Admin Hotel</option>
               <option value="Public Area" @if($admin->level_admin == 'Public Area')@selected(true)@endif>Admin Public Area</option>
               <option value="Activity Manajemen" @if($admin->level_admin == 'Activity Manajemen')@selected(true)@endif>Admin Community</option>
             </select>

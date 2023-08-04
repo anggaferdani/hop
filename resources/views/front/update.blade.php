@@ -13,6 +13,10 @@
       </div>
       <h5 class="pt-4 fs-4 fw-bold" style="text-align: justify;">{{ $update->judul }}</h5>
       <div class="fs-5 text-muted lh-sm" style="text-align: justify;">{!! $update->deskripsi !!}</div>
+      <div class="fs-5 fw-bold">Tanggal Publikasi</div>
+      <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</div>
+      <div class="fs-5 fw-bold">Penulis</div>
+      <div class="fs-5 text-muted lh-sm mb-3">{{ $update->users->nama_panjang }}</div>
     </div>
     <div class="btn-group dropend mb-2">
       <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
@@ -21,10 +25,6 @@
       </ul>
     </div>
     <div class="row">
-      <div class="fs-5 fw-bold">Tanggal Publikasi</div>
-      <div class="fs-5 text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</div>
-      <div class="fs-5 fw-bold">Penulis</div>
-      <div class="fs-5 text-muted lh-sm mb-3">{{ $update->users->nama_panjang }}</div>
       <div class="d-flex flex-wrap gap-2">
         @foreach($update->tags as $tag)
           <a href="{{ route('tags', Crypt::encrypt($tag->id)) }}" class="p-1 px-3 tagging2">{{ $tag->tag }}</a>
