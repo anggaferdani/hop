@@ -22,7 +22,7 @@
       </div>
       <div class="col-md-2">
         <img src="{{ asset('front/img/logo2.png') }}" class="img-fluid w-100" alt="">
-        <div class="fs-5 fw-bold text-center mb-md-1 mb-3">Part of</div>
+        <div class="fs-5 text-center mb-md-1 mb-3">Part of</div>
         <img src="{{ asset('front/img/MIX.png') }}" class="img-fluid" alt="">
       </div>
     </div>
