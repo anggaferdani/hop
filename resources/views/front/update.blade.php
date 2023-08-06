@@ -19,7 +19,7 @@
       <div class="fs-5 text-muted lh-sm mb-3">{{ $update->users->nama_panjang }}</div>
     </div>
     <div class="btn-group dropend mb-2">
-      <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+      <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
       <ul class="dropdown-menu px-4">
         {!! $share !!}
       </ul>
