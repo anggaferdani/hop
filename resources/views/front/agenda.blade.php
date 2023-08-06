@@ -42,7 +42,7 @@
           <div class="text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
         @endif
         <div class="btn-group dropend mt-3">
-          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
           <ul class="dropdown-menu px-4">
             {!! $share !!}
           </ul>
