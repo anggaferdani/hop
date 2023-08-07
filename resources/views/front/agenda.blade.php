@@ -29,7 +29,7 @@
           @endforeach
         </div>
         <div class="fs-5 fw-bold">Lokasi</div>
-        <div class="text-muted lh-sm mb-3">{{ $agenda->hangout_places->Provinsi->nama_provinsi }}, {{ $agenda->hangout_places->Kabupaten->nama_kabupaten }}, {{ $agenda->hangout_places->Kecamatan->nama_kecamatan }}</div>
+        <div class="text-muted lh-sm mb-3">{{ Str::title(strtolower($agenda->hangout_places->Provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($agenda->hangout_places->Kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($agenda->hangout_places->Kecamatan->nama_kecamatan)) }}</div>
         <div class="fs-5 fw-bold">Start End Date</div>
         @if($agenda->tiket == 'Berbayar')
           <div class="text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
@@ -42,7 +42,7 @@
           <div class="text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
         @endif
         <div class="btn-group dropend mt-3">
-          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
           <ul class="dropdown-menu px-4">
             {!! $share !!}
           </ul>
@@ -105,7 +105,7 @@
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
                       <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda2->id)) }}" class="stretched-link"></a>
                     </div>
@@ -146,7 +146,7 @@
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
+                      <div class="small mb-0 color2" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
                       <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda2->id)) }}" class="stretched-link"></a>
                     </div>
@@ -210,7 +210,7 @@
                 @endforeach
               </select>
             </div>
-            <img src="{{ asset('front/img/qr.jpeg') }}" class="mb-2" width="200" alt="">
+            <img src="{{ asset('front/qris.jpeg') }}" class="mb-2" width="200" alt="">
             <div class="mb-3">
               <label class="form-label">Bukti Transfer <span class="text-danger">*</span></label>
               <input type="file" class="form-control" name="bukti_transfer" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
@@ -223,7 +223,7 @@
               <select class="form-select" name="provinsi" id="provinsi" required>
                 <option disabled selected>Select</option>
                 @foreach($provinsis as $provinsi)
-                  <option value="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+                  <option value="{{ $provinsi->id_provinsi }}">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}</option>
                 @endforeach
               </select>
             </div>

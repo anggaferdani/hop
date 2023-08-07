@@ -18,7 +18,7 @@
             <select class="form-select" name="provinsi" wire:model="selectedProvinsi" wire:model.defer="provinsi">
               <option value="">Provinsi</option>
               @foreach($provinsis as $provinsi)
-                <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+                <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}</option>
               @endforeach
             </select>
           </div>
@@ -27,7 +27,7 @@
             <select class="form-select" name="kabupaten" wire:model="selectedKabupaten" wire:model.defer="kabupaten">
               <option value="">Kabupaten/Kota</option>
               @foreach($kabupatens as $kabupaten)
-                <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ $kabupaten->nama_kabupaten }}</option>
+                <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}</option>
               @endforeach
             </select>
           </div>
@@ -36,7 +36,7 @@
             <select class="form-select" name="kecamatan" wire:model.defer="kecamatan">
               <option value="">Kecamatan</option>
               @foreach($kecamatans as $kecamatan)
-                <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ $kecamatan->nama_kecamatan }}</option>
+                <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</option>
               @endforeach
             </select>
           </div>
@@ -104,7 +104,7 @@
       <div class="col-sm-9 py-4">
         <div class="row">
           <div class="pt-4 pb-3">
-            <div class="fs-3 fw-bold color m-0">Sportainment</div>
+            <div class="fs-3 fw-bold color m-0">Sportstainment</div>
           </div>
         </div>
         <div class="row g-4 g-md-2">
@@ -125,7 +125,7 @@
                     </div>
                     @endif
                   </div>
-                  <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ $food_and_beverage->Provinsi->nama_provinsi }}, {{ $food_and_beverage->Kabupaten->nama_kabupaten }}, {{ $food_and_beverage->Kecamatan->nama_kecamatan }}</p>
+                  <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ Str::title(strtolower($food_and_beverage->Provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($food_and_beverage->Kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($food_and_beverage->Kecamatan->nama_kecamatan)) }}</p>
                 </div>
               </a>
             </div>
