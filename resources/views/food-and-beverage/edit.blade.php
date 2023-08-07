@@ -67,7 +67,7 @@
               <select class="form-control select2" name="provinsi" id="provinsi">
                 <option disabled selected>Select</option>
                 @foreach($provinsis as $provinsi)
-                  <option value="{{ $provinsi->id_provinsi }}" @if($food_and_beverage->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ $provinsi->nama_provinsi }}</option>
+                  <option value="{{ $provinsi->id_provinsi }}" @if($food_and_beverage->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ Str::title(strtolower($provinsi->nama_provinsi)) }}</option>
                 @endforeach
               </select>
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
@@ -77,7 +77,7 @@
               <select class="form-control select2" name="kabupaten_kota" id="kabupaten">
                 <option disabled selected>Select</option>
                 @foreach($kabupatens as $kabupaten)
-                  <option value="{{ $food_and_beverage->kabupaten_kota }}" @if($food_and_beverage->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ $kabupaten->nama_kabupaten }}</option>
+                  <option value="{{ $food_and_beverage->kabupaten_kota }}" @if($food_and_beverage->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}</option>
                 @endforeach
               </select>
               @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
@@ -87,7 +87,7 @@
               <select class="form-control select2" name="kecamatan" id="kecamatan">
                 <option disabled selected>Select</option>
                 @foreach($kecamatans as $kecamatan)
-                  <option value="{{ $food_and_beverage->kecamatan }}" @if($food_and_beverage->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ $kecamatan->nama_kecamatan }}</option>
+                  <option value="{{ $food_and_beverage->kecamatan }}" @if($food_and_beverage->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</option>
                 @endforeach
               </select>
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror

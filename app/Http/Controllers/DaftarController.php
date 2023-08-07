@@ -50,11 +50,8 @@ class DaftarController extends Controller
     
         $agenda = Agenda::find($request->agenda_id);
 
-        $nama_panjang = 'Nama panjang : '.$pendaftar->nama_panjang;
-        $judul = 'Judul : '.$agenda->judul;
-        $deskripsi = 'Deskripsi : Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta enim fugiat mollitia sit cupiditate, ea quisquam impedit qui ipsa est, tenetur eligendi ipsam labore reiciendis ullam non dolorem? Nesciunt, doloremque.';
-        $lokasi = 'Lokasi : '.$agenda->provinsi.', '.$agenda->kabupaten_kota.', '.$agenda->kecamatan;
-        $tanggal_mulai_dan_berakhir = 'Tanggal mulai dan berakhir : '.$agenda->tanggal_mulai.' sampai '.$agenda->tanggal_berakhir;
+        $nama_panjang = $pendaftar->nama_panjang;
+        $judul = $agenda->judul;
 
         $mail = [
             'kepada' => $pendaftar->email,
@@ -63,9 +60,6 @@ class DaftarController extends Controller
             'subject' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             'nama_panjang' => $nama_panjang,
             'judul' => $judul,
-            'deskripsi' => $deskripsi,
-            'lokasi' => $lokasi,
-            'tanggal_mulai_dan_berakhir' => $tanggal_mulai_dan_berakhir,
             'token' => $pendaftar->token,
         ];
 

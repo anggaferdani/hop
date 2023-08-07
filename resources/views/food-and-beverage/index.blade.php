@@ -60,13 +60,13 @@
                   <td>{{ $food_and_beverage->nama_tempat }}</td>
                   <td>
                     @foreach($provinsis as $provinsi)
-                      @if($food_and_beverage->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                      @if($food_and_beverage->provinsi == $provinsi->id_provinsi){{ Str::title(strtolower($provinsi->nama_provinsi)) }}, @endif
                     @endforeach
                     @foreach($kabupatens as $kabupaten)
-                      @if($food_and_beverage->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                      @if($food_and_beverage->kabupaten_kota == $kabupaten->id_kabupaten){{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, @endif
                     @endforeach
                     @foreach($kecamatans as $kecamatan)
-                      @if($food_and_beverage->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                      @if($food_and_beverage->kecamatan == $kecamatan->id_kecamatan){{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}@endif
                     @endforeach
                   </td>
                   <td>
