@@ -23,7 +23,7 @@
           <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
           <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
           <div class="btn-group dropend">
-            <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
+            <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
             <ul class="dropdown-menu px-4">
               {!! $share !!}
             </ul>
@@ -32,7 +32,7 @@
         <hr class="text-secondary">
         <div>
           <?php $lokasi = $activity_manajemen->provinsi.", ".$activity_manajemen->kabupaten_kota.", ".$activity_manajemen->kecamatan ?>
-          <div class="fw-bold"><span class="fs-5">Lokasi : </span><span class="text-muted">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</span></div>
+          <div class="fw-bold"><span class="fs-5">Lokasi : </span><span class="text-muted">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</span></div>
         </div>
         <hr class="text-secondary">
         <div class="row align-items-center">

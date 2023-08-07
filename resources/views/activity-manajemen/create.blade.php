@@ -81,7 +81,7 @@
               <select class="form-control select2" name="provinsi" id="provinsi">
                 <option disabled selected>Select</option>
                 @foreach($provinsis as $provinsi)
-                  <option value="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+                  <option value="{{ $provinsi->id_provinsi }}">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}</option>
                 @endforeach
               </select>
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
