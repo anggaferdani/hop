@@ -54,13 +54,13 @@
                   <td>{{ $public_area->nama_tempat }}</td>
                   <td>
                     @foreach($provinsis as $provinsi)
-                      @if($public_area->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                      @if($public_area->provinsi == $provinsi->id_provinsi){{ Str::title(strtolower($provinsi->nama_provinsi)) }}, @endif
                     @endforeach
                     @foreach($kabupatens as $kabupaten)
-                      @if($public_area->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                      @if($public_area->kabupaten_kota == $kabupaten->id_kabupaten){{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, @endif
                     @endforeach
                     @foreach($kecamatans as $kecamatan)
-                      @if($public_area->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                      @if($public_area->kecamatan == $kecamatan->id_kecamatan){{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}@endif
                     @endforeach
                   </td>
                   <td>

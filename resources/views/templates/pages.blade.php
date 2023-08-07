@@ -119,6 +119,15 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     $(document).ready(function() {
+      function capitalize(str) {
+        strVal = '';
+        str = str.split(' ');
+        for (var chr = 0; chr < str.length; chr++) {
+          strVal += str[chr].substring(0, 1).toUpperCase() + str[chr].substring(1, str[chr].length) + ' '
+        }
+        return strVal
+      }
+
       $('#provinsi').on('change', function() {
          var id_provinsi = $(this).val();
          if(id_provinsi) {
@@ -135,7 +144,7 @@
                       $('#kabupaten').empty();
                       $('#kabupaten').append('<option disabled selected>Select</option>'); 
                       $.each(data, function(key, kabupatens){
-                          $('select[name="kabupaten_kota"]').append('<option value="'+ kabupatens.id_kabupaten +'">' + kabupatens.nama_kabupaten+ '</option>');
+                          $('select[name="kabupaten_kota"]').append('<option value="'+ kabupatens.id_kabupaten +'">' + capitalize((kabupatens.nama_kabupaten).toLowerCase()) + '</option>');
                       });
                   }else{
                       $('#kabupaten').empty();
@@ -153,6 +162,15 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     $(document).ready(function() {
+      function capitalize(str) {
+        strVal = '';
+        str = str.split(' ');
+        for (var chr = 0; chr < str.length; chr++) {
+          strVal += str[chr].substring(0, 1).toUpperCase() + str[chr].substring(1, str[chr].length) + ' '
+        }
+        return strVal
+      }
+
       $('#kabupaten').on('change', function() {
          var id_kabupaten = $(this).val();
          if(id_kabupaten) {
@@ -169,7 +187,7 @@
                       $('#kecamatan').empty();
                       $('#kecamatan').append('<option disabled selected>Select</option>'); 
                       $.each(data, function(key, kecamatans){
-                          $('select[name="kecamatan"]').append('<option value="'+ kecamatans.id_kecamatan +'">' + kecamatans.nama_kecamatan+ '</option>');
+                          $('select[name="kecamatan"]').append('<option value="'+ kecamatans.id_kecamatan +'">' + capitalize((kecamatans.nama_kecamatan).toLowerCase()) + '</option>');
                       });
                   }else{
                       $('#kecamatan').empty();

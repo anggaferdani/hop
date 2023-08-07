@@ -116,6 +116,7 @@
             <input disabled type="email" class="form-control" name="email" value="{{ $pendaftar2->email }}">
           </div>
           @if($agenda->tiket == 'Berbayar')
+            @if(!empty($pendaftar2->jenis_tiket_id))
             <div class="form-group">
               <label for="">Jenis Tiket</label>
               <div class="form-row mb-2">
@@ -130,6 +131,7 @@
               <input disabled type="file" class="form-control" name="bukti_transfer" value="{{ $pendaftar2->bukti_transfer }}">
               <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank">{{ $pendaftar2->bukti_transfer }}</a></div>
             </div>
+            @endif
           @endif
           <div class="form-row">
             <div class="form-group col-md-4">
