@@ -1,4 +1,4 @@
-<footer class="pt-5 pb-3 footer-background">
+<footer class="pt-5 pb-3" style="background-color: #5AA4C2;">
   <div class="container">
     <div class="row">
       <div class="col-md-5">
@@ -12,6 +12,8 @@
         <ul class="list-unstyled ps-0 ps-md-5">
           <li><a href="#" class="text-white">Resto & Cafe</a></li>
           <li><a href="#" class="text-white">Hotel</a></li>
+          <li><a href="#" class="text-white">Sportstainment</a></li>
+          <li><a href="#" class="text-white">Public Area</a></li>
         </ul>
       </div>
       <div class="col-md-2">
@@ -21,9 +23,13 @@
         </ul>
       </div>
       <div class="col-md-2">
-        <img src="{{ asset('front/img/logo2.png') }}" class="img-fluid w-100" alt="">
-        <div class="fs-5 text-center mb-md-1 mb-3">Part of</div>
-        <img src="{{ asset('front/img/MIX.png') }}" class="img-fluid" alt="">
+        <div class="col-6 col-md-12 mx-auto">
+          <img src="{{ asset('front/logo2.png') }}" style="filter: drop-shadow(0.3px 0 0 white) drop-shadow(0 0.3px 0 white) drop-shadow(-0.3px 0 0 white) drop-shadow(0 -0.3px 0 white)" class="img-fluid w-100" alt="">
+        </div>
+        <div class="small text-center mb-md-1 mb-2 mb-md-0 text-white">Part of</div>
+        <div class="col-4 col-md-6 mx-auto mb-1">
+          <a href=""><img src="{{ asset('front/img/MIX.png') }}" style="filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white)" class="img-fluid mb-3" alt=""></a>
+        </div>
       </div>
     </div>
     <div class="row align-items-center">

@@ -26,18 +26,18 @@
   *{
     font-family: 'Inter', sans-serif;
   }
-  .footer-background{
+  /* .footer-background{
     width: 100%; height: 100%; background: linear-gradient(to right, #5AA4C2 0%, #5AA4C2 78%, white 78%, white 100%);"
-  }
+  } */
   @media (min-width:768px) {
     .w-md-50 {
         width: 50% !important;
     }
   }
   @media (max-width:768px) {
-    .footer-background{
+    /* .footer-background{
       width: 100%; height: 100%; background: linear-gradient(to bottom, #5AA4C2 0%, #5AA4C2 55%, white 55%, white 100%);"
-    }
+    } */
     .terms-and-condition{
       color: black
     }
@@ -143,6 +143,15 @@
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
   $(document).ready(function() {
+    function capitalize(str) {
+      strVal = '';
+      str = str.split(' ');
+      for (var chr = 0; chr < str.length; chr++) {
+        strVal += str[chr].substring(0, 1).toUpperCase() + str[chr].substring(1, str[chr].length) + ' '
+      }
+      return strVal
+    }
+
     $('#provinsi').on('change', function() {
        var id_provinsi = $(this).val();
        if(id_provinsi) {
@@ -159,7 +168,7 @@
                     $('#kabupaten').empty();
                     $('#kabupaten').append('<option disabled selected>Select</option>'); 
                     $.each(data, function(key, kabupatens){
-                        $('select[name="kabupaten_kota"]').append('<option value="'+ kabupatens.id_kabupaten +'">' + kabupatens.nama_kabupaten+ '</option>');
+                        $('select[name="kabupaten_kota"]').append('<option value="'+ kabupatens.id_kabupaten +'">' + capitalize((kabupatens.nama_kabupaten).toLowerCase())  + '</option>');
                     });
                 }else{
                     $('#kabupaten').empty();
@@ -177,6 +186,15 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     $(document).ready(function() {
+      function capitalize(str) {
+        strVal = '';
+        str = str.split(' ');
+        for (var chr = 0; chr < str.length; chr++) {
+          strVal += str[chr].substring(0, 1).toUpperCase() + str[chr].substring(1, str[chr].length) + ' '
+        }
+        return strVal
+      }
+
       $('#kabupaten').on('change', function() {
          var id_kabupaten = $(this).val();
          if(id_kabupaten) {
@@ -193,7 +211,7 @@
                       $('#kecamatan').empty();
                       $('#kecamatan').append('<option disabled selected>Select</option>'); 
                       $.each(data, function(key, kecamatans){
-                          $('select[name="kecamatan"]').append('<option value="'+ kecamatans.id_kecamatan +'">' + kecamatans.nama_kecamatan+ '</option>');
+                          $('select[name="kecamatan"]').append('<option value="'+ kecamatans.id_kecamatan +'">' + capitalize((kecamatans.nama_kecamatan).toLowerCase()) + '</option>');
                       });
                   }else{
                       $('#kecamatan').empty();
@@ -210,6 +228,14 @@
   <script type="text/javascript">
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function(){
+      function capitalize(str) {
+        strVal = '';
+        str = str.split(' ');
+        for (var chr = 0; chr < str.length; chr++) {
+          strVal += str[chr].substring(0, 1).toUpperCase() + str[chr].substring(1, str[chr].length) + ' '
+        }
+        return strVal
+      }
 
       $("#search").autocomplete({
         source: function(request, response){
@@ -232,7 +258,7 @@
         }
       }).autocomplete( "instance" )._renderItem = function( ul, item ) {
         return $( "<li>" )
-          .append( "<div><span class='fw-bold'>" + item.judul + "</span><br><span>" + item.deskripsi + "</span><br><span class='small fw-light'>" + item.provinsi + "</span>, <span class='small fw-light'>" + item.kabupaten_kota + "</span>, <span class='small fw-light'>" + item.kecamatan + "</span></div>" )
+          .append( "<div><span class='fw-bold'>" + item.judul + "</span><br><span>" + item.deskripsi + "</span><br><span class='small fw-light'>" + capitalize((item.provinsi).toLowerCase()) + "</span>, <span class='small fw-light'>" + item.kabupaten_kota + "</span>, <span class='small fw-light'>" + item.kecamatan + "</span></div>" )
           .appendTo( ul );
       };
       $("#search").autocomplete("widget").attr('style', 'max-height: 250px; overflow-y: auto; overflow-x: hidden;');

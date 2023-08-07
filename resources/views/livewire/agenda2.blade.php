@@ -11,7 +11,7 @@
         <select class="form-select" name="provinsi" wire:model="selectedProvinsi" wire:model.defer="provinsi">
           <option value="">Provinsi</option>
           @foreach($provinsis as $provinsi)
-            <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ $provinsi->nama_provinsi }}</option>
+            <option value="{{ $provinsi->id_provinsi }}" wire:key="{{ $provinsi->id_provinsi }}">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}</option>
           @endforeach
         </select>
       </div>
@@ -19,7 +19,7 @@
         <select class="form-select" name="kabupaten" wire:model="selectedKabupaten" wire:model.defer="kabupaten">
           <option value="">Kabupaten/Kota</option>
           @foreach($kabupatens as $kabupaten)
-            <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ $kabupaten->nama_kabupaten }}</option>
+            <option value="{{ $kabupaten->id_kabupaten }}" wire:key="{{ $kabupaten->id_kabupaten }}">{{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}</option>
           @endforeach
         </select>
       </div>
@@ -27,7 +27,7 @@
         <select class="form-select" name="kecamatan" wire:model.defer="kecamatan">
           <option value="">Kecamatan</option>
           @foreach($kecamatans as $kecamatan)
-            <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ $kecamatan->nama_kecamatan }}</option>
+            <option value="{{ $kecamatan->id_kecamatan }}" wire:key="{{ $kecamatan->id_kecamatan }}">{{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</option>
           @endforeach
         </select>
       </div>
@@ -73,7 +73,7 @@
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
                       <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>
@@ -114,7 +114,7 @@
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
+                      <div class="small mb-0 color2" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
                       <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>

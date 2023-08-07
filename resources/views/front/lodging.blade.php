@@ -17,8 +17,8 @@
       <div class="col-md-9">
         <h5 class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $lodging->nama_tempat }}</h5>
         <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $lodging->deskripsi_tempat !!}</div>
-        <div class="fs-5 fw-bold">Lokasi</div>
-        <div class="text-muted lh-sm mb-3">{{ $provinsi->nama_provinsi }}, {{ $kabupaten->nama_kabupaten }}, {{ $kecamatan->nama_kecamatan }}</div>
+        <div class="fs-5 fw-bold">Lokasi</div>Str::title(strtolower(
+        <div class="text))-muted lh-sm mb-3">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</div>
         <div class="fs-5 fw-bold">Fasilitas</div>
         <div class="text-muted lh-sm">
           @foreach($lodging->fasilitas as $fasilitas)
@@ -26,7 +26,7 @@
           @endforeach
         </div>
         <div class="btn-group dropend mt-3">
-          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div></button>
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
           <ul class="dropdown-menu px-4">
             {!! $share !!}
           </ul>
@@ -57,15 +57,15 @@
               </div>
               @endforeach
               <div class="mt-1 text-dark fw-bold">{{ Str::limit($lodging->nama_tempat, 20) }}</div>
-              <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">
+              <p class="small fw-bold m-0 text-muted" style="font-size: 12px;">
                 @foreach($provinsis as $provinsi)
-                  @if($lodging->provinsi == $provinsi->id_provinsi){{ $provinsi->nama_provinsi }}, @endif
+                  @if($lodging->provinsi == $provinsi->id_provinsi){{ Str::title(strtolower($provinsi->nama_provinsi)) }}, @endif
                 @endforeach
                 @foreach($kabupatens as $kabupaten)
-                  @if($lodging->kabupaten_kota == $kabupaten->id_kabupaten){{ $kabupaten->nama_kabupaten }}, @endif
+                  @if($lodging->kabupaten_kota == $kabupaten->id_kabupaten){{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, @endif
                 @endforeach
                 @foreach($kecamatans as $kecamatan)
-                  @if($lodging->kecamatan == $kecamatan->id_kecamatan){{ $kecamatan->nama_kecamatan }}@endif
+                  @if($lodging->kecamatan == $kecamatan->id_kecamatan){{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}@endif
                 @endforeach
               </p>
             </div>

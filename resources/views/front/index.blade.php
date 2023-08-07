@@ -135,7 +135,7 @@
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
                       <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>
@@ -176,7 +176,7 @@
                           <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 11px;">{{ Str::limit($lokasi, 65) }}</div>
+                      <div class="small mb-0 color2" style="font-size: 11px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
                       <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
                       <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
                     </div>
