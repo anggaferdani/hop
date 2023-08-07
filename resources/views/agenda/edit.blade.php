@@ -84,15 +84,14 @@
           </div>
           <div class="form-group">
             <label for="">Tiket</label>
-            <select class="form-control select2" name="tiket">
+            <select class="form-control select2" name="tiket" id="Menu1">
               <option disabled selected>Select</option>
               <option value="Berbayar" @if($agenda->tiket == 'Berbayar')@selected(true)@endif>Berbayar</option>
               <option value="Gratis" @if($agenda->tiket == 'Gratis')@selected(true)@endif>Gratis</option>
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          @if($agenda->tiket == 'Berbayar')
-          <div class="form-group">
+          <div class="form-group" id="Menu2Container">
             <label for="">Jenis Tiket</label>
             @foreach($agenda->jenis_tikets as $jenis_tiket)
               <div class="form-row mb-2">
@@ -106,6 +105,7 @@
             @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
             @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          @if($agenda->tiket == 'Berbayar')
           @endif
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -152,9 +152,14 @@
 @push('script')
 <script type="text/javascript">
   $("#Menu2Container").hide();
- 
+  $("#Menu1").each(function(){  
+    if($(this).val()=="Berbayar")
+      $("#Menu2Container").show();
+    else
+      $("#Menu2Container").hide();
+  });
   $("#Menu1").on("change", function(){  
-    if ($(this).val()=="Berbayar")
+    if($(this).val()=="Berbayar")
       $("#Menu2Container").show();
     else
       $("#Menu2Container").hide();
