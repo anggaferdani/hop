@@ -54,6 +54,18 @@
       object-fit: cover;
       cursor: pointer;
     }
+    .logo2{
+      display: block;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1%;
+    }
+    .logo3{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
     .modal-backdrop{
       display: none;
     }
@@ -289,6 +301,27 @@
             fileReader.onload = (function(e){
               var file = e.target;
               $("<span class=\"image2\">" + "<img class=\"image3\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" + "</span>").insertAfter("#image2");
+            });
+            fileReader.readAsDataURL(f);
+          }
+        });
+      }else{
+        alert("Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus amet dolore ex saepe, incidunt accusamus distinctio voluptatum esse recusandae. Beatae dicta tempora culpa libero suscipit quam vero ad, corporis soluta.");
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      if(window.File && window.FileList && window.FileReader){
+        $("#logo2").on("change", function(e){
+          var files = e.target.files,
+          filesLength = files.length;
+          for(var i = 0; i < filesLength; i++){
+            var f = files[i]
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e){
+              var file = e.target;
+              $("<span class=\"logo2\">" + "<img class=\"logo3\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" + "</span>").insertAfter("#logo2");
             });
             fileReader.readAsDataURL(f);
           }

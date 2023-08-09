@@ -98,6 +98,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::resource('feature', FeatureController::class);
         Route::resource('entertaiment', EntertaimentController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
+        Route::get('food-and-beverage/delete-logo/{id}', [FoodAndBeverageController::class, 'deleteLogo'])->name('food-and-beverage.delete-logo');
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
         Route::get('lodging/delete-image/{id}', [LodgingController::class, 'deleteImage'])->name('lodging.delete-image');
@@ -131,6 +132,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('feature', FeatureController::class);
         Route::resource('entertaiment', EntertaimentController::class);
         Route::get('food-and-beverage/delete-image/{id}', [FoodAndBeverageController::class, 'deleteImage'])->name('food-and-beverage.delete-image');
+        Route::get('food-and-beverage/delete-logo/{id}', [FoodAndBeverageController::class, 'deleteLogo'])->name('food-and-beverage.delete-logo');
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
         Route::get('lodging/delete-image/{id}', [LodgingController::class, 'deleteImage'])->name('lodging.delete-image');

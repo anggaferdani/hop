@@ -19,10 +19,14 @@
         <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $food_and_beverage->deskripsi_tempat !!}</div>
         <div class="fs-5 fw-bold">Lokasi</div>
         <div class="text-muted lh-sm mb-3">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</div>
-        @if(!empty($food_and_beverage->logo))
-          <div class="fs-5 fw-bold mb-2">Public Viewing</div>
-          <div class="mb-3" style="height: 50px; aspect-ratio: 1;">
-            <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+        @if(!empty($food_and_beverage->hangout_place_logos))
+        <div class="fs-5 fw-bold mb-2">Public Viewing</div>
+          <div class="d-flex gap-2">
+            @foreach($food_and_beverage->hangout_place_logos as $hangout_place_logo)
+            <div class="mb-3" style="height: 50px; aspect-ratio: 1;">
+              <img src="{{ asset('food-and-beverage/logo/'.$hangout_place_logo["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+            </div>
+            @endforeach
           </div>
         @endif
         <div class="btn-group dropend">
@@ -56,14 +60,7 @@
                 <img src="{{ asset('food-and-beverage/image/'.$hangout_place_image["image"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
               </div>
               @endforeach
-              <div class="d-flex justify-content-between align-items-center mt-1">
-                <div class="fw-bold text-dark">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
-                @if(!empty($food_and_beverage->logo))
-                <div style="height: 20px; aspect-ratio: 1;">
-                  <img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
-                </div>
-                @endif
-              </div>
+              <div class="fw-bold text-dark">{{ Str::limit($food_and_beverage->nama_tempat, 25) }}</div>
               <p class="small fw-bold m-0 text-muted" style="font-size: 12px;">
                 @foreach($provinsis as $provinsi)
                   @if($food_and_beverage->provinsi == $provinsi->id_provinsi){{ Str::title(strtolower($provinsi->nama_provinsi)) }}, @endif
@@ -75,6 +72,15 @@
                   @if($food_and_beverage->kecamatan == $kecamatan->id_kecamatan){{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}@endif
                 @endforeach
               </p>
+              <div class="d-flex gap-2">
+                @if(!empty($food_and_beverage->hangout_place_logos))
+                  @foreach($food_and_beverage->hangout_place_logos as $hangout_place_logo)
+                  <div style="height: 20px; aspect-ratio: 1;">
+                    <img src="{{ asset('food-and-beverage/logo/'.$hangout_place_logo["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
+                  </div>
+                  @endforeach
+                @endif
+              </div>
             </div>
           </a>
         </div>

@@ -50,10 +50,18 @@
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Logo Public Viewing <span class="text-danger"> *disarankan 250x250</span></label>
-            <input type="file" class="form-control-file" name="logo" value="{{ $food_and_beverage->logo }}" onchange="file(event)">
-            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
-            <div><img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage['logo']) }}" id="image" alt="" width="200px"></div>
+            <label for="">Logo Sportstainment <span class="text-danger"> *disarankan 250x250</span></label>
+            <input type="file" class="form-control multiple-image" id="logo2" name="logo[]" accept="logo/*" multiple>
+            @foreach($food_and_beverage->hangout_place_logos as $logo)
+              <div style="width: 100px; height: 100px; background-image: url({{ asset('food-and-beverage/logo/'.$image["logo"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
+                @if(auth()->user()->level == 'Superadmin')
+                  <a href="{{ route('superadmin.food-and-beverage.delete-logo', Crypt::encrypt($logo->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
+                @elseif(auth()->user()->level == 'Admin')
+                  <a href="{{ route('admin.food-and-beverage.delete-logo', Crypt::encrypt($logo->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
+                @endif
+              </div>
+            @endforeach
+            @error('logo[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>

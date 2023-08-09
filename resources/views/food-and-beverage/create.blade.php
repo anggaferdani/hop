@@ -33,10 +33,9 @@
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Logo Public Viewing <span class="text-danger"> *disarankan 250x250</span></label>
-            <input type="file" class="form-control" name="logo" onchange="file(event)">
-            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
-            <div><img src="#" id="image" alt="" width="200px"></div>
+            <label for="">Logo Sportstainment <span class="text-danger"> *disarankan 250x250</span></label>
+            <input type="file" class="form-control multiple-image" id="logo2" name="logo[]" accept="logo/*" multiple>
+            @error('logo[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>

@@ -8,6 +8,7 @@ use App\Models\Seating;
 use App\Models\Entertaiment;
 use App\Models\HangoutPlace;
 use Illuminate\Http\Request;
+use App\Models\HangoutPlaceLogo;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -72,13 +73,6 @@ class FoodAndBeverageController extends Controller
             'status' => 'Food And Beverage',
         );
 
-        if($logo = $request->file('logo')){
-            $destination_path = 'food-and-beverage/logo/';
-            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
-            $logo->move($destination_path, $logo2);
-            $array['logo'] = $logo2;
-        }
-
         $food_and_beverage = HangoutPlace::create($array);
 
         if($request->has('image')){
@@ -88,6 +82,16 @@ class FoodAndBeverageController extends Controller
                 HangoutPlaceImage::create([
                     'hangout_place_id' => $food_and_beverage->id,
                     'image' => $image2,
+                ]);
+            }
+        }
+        if($request->has('logo')){
+            foreach($request->file('logo') as $logo){
+                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                $logo->move(public_path('food-and-beverage/logo/'), $logo2);
+                HangoutPlaceLogo::create([
+                    'hangout_place_id' => $food_and_beverage->id,
+                    'logo' => $logo2,
                 ]);
             }
         }
@@ -104,7 +108,7 @@ class FoodAndBeverageController extends Controller
     }
 
     public function show($id){
-        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->find(Crypt::decrypt($id));
         $seating_id = $food_and_beverage->seatings->pluck('id');
         $feature_id = $food_and_beverage->features->pluck('id');
         $entertaiment_id = $food_and_beverage->entertaiments->pluck('id');
@@ -126,7 +130,7 @@ class FoodAndBeverageController extends Controller
         $seatings = Seating::select('id', 'seating')->where('status_aktif', 'Aktif')->get();
         $features = Feature::select('id', 'feature')->where('status_aktif', 'Aktif')->get();
         $entertaiments = Entertaiment::select('id', 'entertaiment')->where('status_aktif', 'Aktif')->get();
-        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->find(Crypt::decrypt($id));
         $seating_id = $food_and_beverage->seatings->pluck('id');
         $feature_id = $food_and_beverage->features->pluck('id');
         $entertaiment_id = $food_and_beverage->entertaiments->pluck('id');
@@ -148,7 +152,7 @@ class FoodAndBeverageController extends Controller
     }
 
     public function update(Request $request, $id){
-        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
+        $food_and_beverage = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->find(Crypt::decrypt($id));
 
         $request->validate([
             'nama_tempat' => 'required',
@@ -160,13 +164,6 @@ class FoodAndBeverageController extends Controller
             'kecamatan' => 'required',
             'harga' => 'required',
         ]);
-
-        if($logo = $request->file('logo')){
-            $destination_path = 'food-and-beverage/logo/';
-            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
-            $logo->move($destination_path, $logo2);
-            $food_and_beverage['logo'] = $logo2;
-        }
 
         $food_and_beverage->update([
             'nama_tempat' => $request['nama_tempat'],
@@ -185,6 +182,17 @@ class FoodAndBeverageController extends Controller
                 HangoutPlaceImage::create([
                     'hangout_place_id' => $food_and_beverage->id,
                     'image' => $image2,
+                ]);
+            }
+        }
+
+        if($request->has('logo')){
+            foreach($request->file('logo') as $logo){
+                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                $logo->move(public_path('food-and-beverage/logo/'), $logo2);
+                HangoutPlaceLogo::create([
+                    'hangout_place_id' => $food_and_beverage->id,
+                    'logo' => $logo2,
                 ]);
             }
         }
@@ -222,6 +230,18 @@ class FoodAndBeverageController extends Controller
         }
 
         $image->delete();
+        
+        return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
+    }
+
+    public function deleteLogo($id){
+        $logo = HangoutPlaceLogo::find(Crypt::decrypt($id));
+        
+        if(file_exists(public_path("food-and-beverage/logo/".$logo->logo))){
+            File::delete("food-and-beverage/logo/".$logo->logo);
+        }
+
+        $logo->delete();
         
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
     }

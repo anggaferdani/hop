@@ -8,6 +8,7 @@ use App\Models\Fasilitas;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\Entertaiment;
+use App\Models\HangoutPlaceLogo;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,6 @@ class HangoutPlace extends Model
         'kabupaten_kota',
         'kecamatan',
         'harga',
-        'logo',
         'status',
         'status_aktif',
         'created_by',
@@ -65,6 +65,10 @@ class HangoutPlace extends Model
 
     public function hangout_place_images(){
         return $this->hasMany(HangoutPlaceImage::class);
+    }
+
+    public function hangout_place_logos(){
+        return $this->hasMany(HangoutPlaceLogo::class);
     }
 
     public function seatings(){

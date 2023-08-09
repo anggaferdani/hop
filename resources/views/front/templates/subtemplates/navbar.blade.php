@@ -23,6 +23,8 @@
             str_contains(Route::currentRouteName(), 'food-and-beverage') ||
             str_contains(Route::currentRouteName(), 'lodgings') ||
             str_contains(Route::currentRouteName(), 'lodging') ||
+            str_contains(Route::currentRouteName(), 'sportainments') ||
+            str_contains(Route::currentRouteName(), 'sportainment') ||
             str_contains(Route::currentRouteName(), 'public-areas') ||
             str_contains(Route::currentRouteName(), 'public-area') ? 'active2' : '' }} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hangout Places</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

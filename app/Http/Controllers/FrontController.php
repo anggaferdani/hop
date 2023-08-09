@@ -143,8 +143,8 @@ class FrontController extends Controller
     }
 
     public function sportainment($id){
-        $sportainment = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
-        $sportainments = HangoutPlace::with('hangout_place_images')->whereNotNull('logo')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
+        $sportainment = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->find(Crypt::decrypt($id));
+        $sportainments = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->whereHas('hangout_place_logos')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($sportainment->provinsi);
         $kabupaten = Kabupaten::find($sportainment->kabupaten_kota);
         $kecamatan = Kecamatan::find($sportainment->kecamatan);

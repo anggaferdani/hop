@@ -32,10 +32,12 @@
             @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Logo Public Viewing <span class="text-danger"> *disarankan 250x250</span></label>
-            <input disabled type="file" class="form-control-file" name="logo" value="{{ $food_and_beverage->logo }}" onchange="file(event)">
-            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
-            <div><img src="{{ asset('food-and-beverage/logo/'.$food_and_beverage['logo']) }}" id="image" alt="" width="200px"></div>
+            <label for="">Logo Sportstainment</label>
+            <input disabled type="file" class="form-control" id="logo2" name="logo[]" accept="logo/*" multiple>
+            @foreach($food_and_beverage->hangout_place_logos as $logo)
+              <div class="logo2"><img src="{{ asset('food-and-beverage/logo/'.$logo["logo"]) }}" alt="" class="logo3"></div>
+            @endforeach
+            @error('logo[]')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>
