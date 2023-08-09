@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background: white;box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);">
     <div class="container">
       <a href="{{ route('index') }}">
-        <img src="{{ asset('front/img/logo2.png') }}" alt="" width="190" class="d-inline-block align-text-top">
+        <img src="{{ asset('front/logo.png') }}" alt="" width="140" class="d-inline-block align-text-top">
       </a>
       <button class="mx-4 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
           <li class="nav-item mx-1">
             <a class="nav-link {{ str_contains(Route::currentRouteName(), 'agendas') || str_contains(Route::currentRouteName(), 'agenda') ? 'active2' : '' }}" href="{{ route('agendas') }}">Agendas</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown mx-1">
             <a class="nav-link {{ str_contains(Route::currentRouteName(), 'food-and-beverages') ||
             str_contains(Route::currentRouteName(), 'food-and-beverage') ||
             str_contains(Route::currentRouteName(), 'lodgings') ||

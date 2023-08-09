@@ -863,14 +863,13 @@ line-height: 15px;
   line-height: 12px;
   color: #5B5B5B;
 }
-/* .card3{
-  background: url('../img/15.png');
+.card12{
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  height: 391.8px;
+  height: 391px;
   border-radius: 5px;
-} */
+}
 .black{
   width: 337px;
   height: 317.54px;
@@ -900,21 +899,6 @@ color: #FFFFFF;
 .amet{
   font-family: 'Inter';
 font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 18px;
-text-align: justify;
-
-color: #FFFFFF;
-
-}
-
-.amet{
-  font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
 
 color: #FFFFFF;
 }

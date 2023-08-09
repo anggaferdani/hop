@@ -37,25 +37,26 @@
       <div class="fs-3 fw-bold color m-0">Updates</div>
     </div>
     <div class="row">
-      <div class="col-md-8">
-        <div class="banner4">
+      <div class="col-md-8 px-auto pe-md-2" style="height: 400px">
+        <div class="banner4 rounded"> 
           @foreach($updates->take(3) as $update3)
           @foreach($update3->update_images->take(1) as $update_image2)
-          <div class="h-100 px-4 pb-4" style="background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('update/image/'.$update_image2["image"]) }}');">
-          @endforeach
-            <div class="w-md-50 p-4 h-100 text-white" style="text-align: justify; background: rgba(0, 0, 0, 0.7)">{!! Str::limit($update3->deskripsi, 400) !!} <a href="" class="color">Read More.</a></div>
+          <div class="position-relative h-100">
+            <img class="position-relative" src="{{ asset('update/image/'.$update_image2["image"]) }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="w-md-50 ms-0 ms-md-5 p-4 text-white position-absolute small top-0 left-0" style="text-align: justify; height: 100%; background: rgba(0, 0, 0, 0.7)">{!! Str::limit($update3->deskripsi, 350) !!} <a href="" class="color">Read More.</a></div>
           </div>
+              @endforeach
             @endforeach
         </div>
       </div>
-      <div class="col-md-4 pe-4">
+      <div class="col-md-4 pe-4 ps-4 ps-md-3 pt-md-0 pt-2">
         <div class="row justify-content-between h-100 gap-2">
           @foreach($updates->take(3) as $update2)
             <div class="card" style="background-color: #D9D9D9;">
               <div class="card-body" style="height: 100px; display: flex; justify-content: space-between; flex-direction: column;">
                 <div class="small">{{ \Carbon\Carbon::parse($update2->tanggal_publikasi)->format('l, d M Y') }}</div>
-                <h5 class="card-title m-0 fw-bold">{{ Str::limit($update2->judul, 55) }}</h5>
-                <div class="card-text small"><a href="{{ route('update', Crypt::encrypt($update2->id)) }}" class="color stretched-link">Read Article</a></div>
+                <div class="card-title m-0 fw-bold">{{ Str::limit($update2->judul, 30) }}</div>
+                <div class="small small"><a href="{{ route('update', Crypt::encrypt($update2->id)) }}" class="color stretched-link">Read Article</a></div>
               </div>
             </div>
           @endforeach
