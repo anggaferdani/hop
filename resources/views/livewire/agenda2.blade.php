@@ -31,8 +31,8 @@
           @endforeach
         </select>
       </div>
-      <div class="col-md-2"><input type="date" class="form-control" name="" wire:model="tanggal_mulai" placeholder="Start Date"></div>
-      <div class="col-md-2"><input type="date" class="form-control" name="" wire:model="tanggal_berakhir" placeholder="End Date"></div>
+      <div class="col-md-2"><input type="text" class="form-control" name="" wire:model="tanggal_mulai" placeholder="Start Date" onfocus="(this.type='date')"></div>
+      <div class="col-md-2"><input type="text" class="form-control" name="" wire:model="tanggal_berakhir" placeholder="End Date" onfocus="(this.type='date')"></div>
       <div class="col-md-2">
         <button class="btn btn-primary w-100" style="background-color: #5AA4C2 !important">Apply</button>
       </div>

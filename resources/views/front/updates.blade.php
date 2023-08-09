@@ -11,7 +11,7 @@
         <div class="row h-100 justify-content-center align-items-end py-4 px-md-0 py-md-5 px-4">
           <div class="col-md-10">
             <h1 class="text-white fw-bold">{!! Str::limit($update_banner->deskripsi, 60) !!}</h1>
-            <div class="text-white fs-5 deskripsi mb-2" style="text-align: justify">{!! $update_banner->deskripsi !!}</div>
+            <div class="text-white lh-sm deskripsi mb-2" style="text-align: justify">{!! $update_banner->deskripsi !!}</div>
             <div class="text-white">{{ \Carbon\Carbon::parse($update_banner->tanggal_publikasi)->format('l, d M Y') }}</div>
           </div>
         </div>
