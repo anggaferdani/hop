@@ -200,23 +200,6 @@
             <label class="form-label">Email <span class="text-danger">*</span></label>
             <input type="email" class="form-control" name="email" required>
           </div>
-          @if($agenda->tiket == 'Berbayar')
-            <div class="mb-3">
-              <label class="form-label">Jenis Tiket <span class="text-danger">*</span></label>
-              <select class="form-select" name="jenis_tiket_id" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
-                <option selected disabled value="">Select</option>
-                @foreach($agenda->jenis_tikets as $jenis_tiket)
-                  <option value="{{ $jenis_tiket->id }}">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</option>
-                @endforeach
-              </select>
-            </div>
-            <img src="{{ asset('front/qris.jpeg') }}" class="mb-2" width="200" alt="">
-            <div class="mb-3">
-              <label class="form-label">Bukti Transfer <span class="text-danger">*</span></label>
-              <input type="file" class="form-control" name="bukti_transfer" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
-            </div>
-          @elseif($agenda->tiket == 'Gratis')
-          @endif
           <div class="row g-2">
             <div class="mb-3 col-md-4">
               <label class="form-label">Provinsi <span class="text-danger">*</span></label>
@@ -244,6 +227,24 @@
             <label class="form-label">Pekerjaan</label>
             <input type="text" class="form-control" name="pekerjaan">
           </div>
+          @if($agenda->tiket == 'Berbayar')
+          <div class="alert alert-danger">Pembayaran tiket bisa melalui QRIS</div>
+            <div class="mb-3">
+              <label class="form-label">Jenis Tiket <span class="text-danger">*</span></label>
+              <select class="form-select" name="jenis_tiket_id" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
+                <option selected disabled value="">Select</option>
+                @foreach($agenda->jenis_tikets as $jenis_tiket)
+                  <option value="{{ $jenis_tiket->id }}">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</option>
+                @endforeach
+              </select>
+            </div>
+            <img src="{{ asset('front/qris.jpeg') }}" class="mb-2" width="200" alt="">
+            <div class="mb-3">
+              <label class="form-label">Bukti Transfer <span class="text-danger">*</span></label>
+              <input type="file" class="form-control" name="bukti_transfer" @if($agenda->tiket == 'Berbayar')@required(true)@endif>
+            </div>
+          @elseif($agenda->tiket == 'Gratis')
+          @endif
           <div class="text-end">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Pesan</button>
