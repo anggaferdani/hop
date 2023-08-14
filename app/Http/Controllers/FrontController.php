@@ -59,7 +59,7 @@ class FrontController extends Controller
         $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
         $updates = Update::with('users', 'update_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
         $share = ShareFacade::page(
-            'http://hop.co.id/update/'.$id, $update->judul,
+            'http://hangoutproject.id/update/'.$id, $update->judul,
         )
         ->facebook()
         ->twitter()
@@ -102,7 +102,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hop.co.id/agenda/'.$id, $agenda->judul,
+            'http://hangoutproject.id/agenda/'.$id, $agenda->judul,
         )
         ->facebook()
         ->twitter()
@@ -152,7 +152,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hop.co.id/sportainment/'.$id, $sportainment->judul,
+            'http://hangoutproject.id/sportainment/'.$id, $sportainment->judul,
         )
         ->facebook()
         ->twitter()
@@ -181,7 +181,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hop.co.id/food-and-beverage/'.$id, $food_and_beverage->judul,
+            'http://hangoutproject.id/food-and-beverage/'.$id, $food_and_beverage->judul,
         )
         ->facebook()
         ->twitter()
@@ -226,7 +226,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hop.co.id/lodging/'.$id, $lodging->judul,
+            'http://hangoutproject.id/lodging/'.$id, $lodging->judul,
         )
         ->facebook()
         ->twitter()
@@ -269,7 +269,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hop.co.id/public-area/'.$id, $public_area->judul,
+            'http://hangoutproject.id/public-area/'.$id, $public_area->judul,
         )
         ->facebook()
         ->twitter()
@@ -305,7 +305,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hop.co.id/activity-manajemen/'.$id, $activity_manajemen->judul,
+            'http://hangoutproject.id/activity-manajemen/'.$id, $activity_manajemen->judul,
         )
         ->facebook()
         ->twitter()
