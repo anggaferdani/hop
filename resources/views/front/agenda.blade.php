@@ -19,7 +19,7 @@
       </div>
     @endif
     <div class="row">
-      <div class="col-md-9 mb-5 mb-md-0">
+      <div class="col-md-9 mb-4 mb-md-0">
         <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
         <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
         <div class="fs-5 fw-bold">Event Type</div>
