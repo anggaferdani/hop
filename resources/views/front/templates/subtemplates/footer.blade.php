@@ -4,7 +4,7 @@
       <div class="col-md-5">
         <div class="text-white fs-4 fw-bold mb-2">About Us</div>
         <ul class="list-unstyled">
-          <li class="text-white" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aperiam commodi eveniet asperiores repellendus iusto totam ullam itaque? Quod veritatis id in commodi illo repudiandae ratione hic repellendus provident iusto.</li>
+          <li class="text-white" style="text-align: justify;">Hangout Project atau lebih dikenal dengan HOP adalah wadah untuk menyapa audiens, brands, sponsors, dan penyelenggara dengan informasi dan aktivitas di jaringan Horeca (Hotel, Resto, Cafe).</li>
         </ul>
       </div>
       <div class="col-md-3">

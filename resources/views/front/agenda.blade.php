@@ -32,14 +32,14 @@
         <div class="text-muted lh-sm mb-3">{{ Str::title(strtolower($agenda->hangout_places->Provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($agenda->hangout_places->Kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($agenda->hangout_places->Kecamatan->nama_kecamatan)) }}</div>
         <div class="fs-5 fw-bold">Start End Date</div>
         @if($agenda->tiket == 'Berbayar')
-          <div class="text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
+          <div class="text-muted lh-sm mb-3">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('l, d M Y') }}</div>
           <div class="fs-5 fw-bold">Tickets</div>
           @foreach($agenda->jenis_tikets as $jenis_tiket)
             <div class="text-muted lh-sm">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</div>
           @endforeach
         @endif
         @if($agenda->tiket == 'Gratis')
-          <div class="text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_akhir)->format('l, d M Y') }}</div>
+          <div class="text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('l, d M Y') }}</div>
         @endif
         <div class="btn-group dropend mt-3">
           <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
