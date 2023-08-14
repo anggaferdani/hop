@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Index')
+@section('title', 'Hangout Project')
 @push('style')
 <style>
   #myInput {
