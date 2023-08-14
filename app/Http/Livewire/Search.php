@@ -67,14 +67,67 @@ class Search extends Component
 
     public function updatedQuery()
     {
-        $agenda2 = Agenda::selectRaw(' *, "agenda" as from_table')->where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->where('status_aktif', 'Aktif')->get();
-        $update2 = Update::selectRaw(' *, "update" as from_table')->where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->where('status_aktif', 'Aktif')->get();
-        $food_and_beverage2 = HangoutPlace::selectRaw(' *, "food-and-beverage" as from_table')->where('nama_tempat', 'like', '%' . $this->query . '%')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->get();
-        $lodging2 = HangoutPlace::selectRaw(' *, "lodging" as from_table')->where('nama_tempat', 'like', '%' . $this->query . '%')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->get();
-        $public_area2 = HangoutPlace::selectRaw(' *, "public-area" as from_table')->where('nama_tempat', 'like', '%' . $this->query . '%')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->get();
-        $activity_manajemen2 = ActivityManajemen::selectRaw(' *, "activity-manajemen" as from_table')->where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->where('status_aktif', 'Aktif')->get();
+        // $agenda2 = Agenda::selectRaw(' *, "agenda" as from_table')->where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->where('status_aktif', 'Aktif')->get();
+        // $update2 = Update::selectRaw(' *, "update" as from_table')->where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->where('status_aktif', 'Aktif')->get();
+        // $food_and_beverage2 = HangoutPlace::selectRaw(' *, "food-and-beverage" as from_table')->where('nama_tempat', 'like', '%' . $this->query . '%')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->get();
+        // $lodging2 = HangoutPlace::selectRaw(' *, "lodging" as from_table')->where('nama_tempat', 'like', '%' . $this->query . '%')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->get();
+        // $public_area2 = HangoutPlace::selectRaw(' *, "public-area" as from_table')->where('nama_tempat', 'like', '%' . $this->query . '%')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->get();
+        // $activity_manajemen2 = ActivityManajemen::selectRaw(' *, "activity-manajemen" as from_table')->where('judul', 'like', '%' . $this->query . '%')->orWhere('deskripsi', 'like', '%' . $this->query . '%')->where('status_aktif', 'Aktif')->get();
 
-        $this->agendas = $agenda2->union($update2)->union($food_and_beverage2)->union($lodging2)->union($public_area2)->union($activity_manajemen2);
+        // $this->agendas = $agenda2->union($update2)->union($food_and_beverage2)->union($lodging2)->union($public_area2)->union($activity_manajemen2);
+
+        $agenda2 = Agenda::selectRaw(' *, "agenda" as from_table')
+            ->where('judul', 'like', '%' . $this->query . '%')
+            ->orWhere('deskripsi', 'like', '%' . $this->query . '%')
+            ->where('status_aktif', 'Aktif')
+            ->get()
+            ->toArray();
+
+        $update2 = Update::selectRaw(' *, "update" as from_table')
+            ->where('judul', 'like', '%' . $this->query . '%')
+            ->orWhere('deskripsi', 'like', '%' . $this->query . '%')
+            ->where('status_aktif', 'Aktif')
+            ->get()
+            ->toArray();
+
+        $food_and_beverage2 = HangoutPlace::selectRaw(' *, "food-and-beverage" as from_table')
+            ->where('nama_tempat', 'like', '%' . $this->query . '%')
+            ->where('status', 'Food And Beverage')
+            ->where('status_aktif', 'Aktif')
+            ->get()
+            ->toArray();
+
+        $lodging2 = HangoutPlace::selectRaw(' *, "lodging" as from_table')
+            ->where('nama_tempat', 'like', '%' . $this->query . '%')
+            ->where('status', 'Lodging')
+            ->where('status_aktif', 'Aktif')
+            ->get()
+            ->toArray();
+
+        $public_area2 = HangoutPlace::selectRaw(' *, "public-area" as from_table')
+            ->where('nama_tempat', 'like', '%' . $this->query . '%')
+            ->where('status', 'Public Area')
+            ->where('status_aktif', 'Aktif')
+            ->get()
+            ->toArray();
+
+        $activity_manajemen2 = ActivityManajemen::selectRaw(' *, "activity-manajemen" as from_table')
+            ->where('judul', 'like', '%' . $this->query . '%')
+            ->orWhere('deskripsi', 'like', '%' . $this->query . '%')
+            ->where('status_aktif', 'Aktif')
+            ->get()
+            ->toArray();
+
+        $combinedResults = array_merge(
+            $agenda2,
+            $update2,
+            $food_and_beverage2,
+            $lodging2,
+            $public_area2,
+            $activity_manajemen2
+        );
+
+        $this->agendas = collect($combinedResults);
     }
 
     public function render()
