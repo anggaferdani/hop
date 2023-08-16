@@ -28,7 +28,7 @@
         </div>
         <div class="small text-center mb-2 text-white">Part of</div>
         <div class="col-4 col-md-6 mx-auto mb-1">
-          <a href="https://www.mixnetwork.id/"><img src="{{ asset('front/img/MIX.png') }}" style="filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white)" class="img-fluid mb-3" alt=""></a>
+          <a href="https://www.mixnetwork.id/" target="_blank"><img src="{{ asset('front/img/MIX.png') }}" style="filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white)" class="img-fluid mb-3" alt=""></a>
         </div>
       </div>
     </div>
