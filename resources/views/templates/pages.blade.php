@@ -17,6 +17,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/components.css') }}">
+  <link rel="stylesheet" href="{{ asset('drag-drop-image-uploader/dist/image-uploader.min.css') }}">
   @livewireStyles
 
   @stack('style')
@@ -106,7 +107,7 @@
   <script src="{{ asset('stisla/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
   <script src="{{ asset('stisla/assets/modules/moment.min.js') }}"></script>
   <script src="{{ asset('stisla/assets/js/stisla.js') }}"></script>
-
+  
   <!-- JS Libraies -->
   @livewireScripts
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -114,7 +115,9 @@
   <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js" integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js" integrity="sha512-9e9rr82F9BPzG81+6UrwWLFj8ZLf59jnuIA/tIf8dEGoQVu7l5qvr02G/BiAabsFOYrIUTMslVN+iDYuszftVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+  <script type="text/javascript" src="{{ asset('drag-drop-image-uploader/dist/image-uploader.min.js') }}"></script>
+  @stack('scripts')
+  
   <script type="text/javascript">
     $(function() {
         $("button[type='submit']").click(function(event) {

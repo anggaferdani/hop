@@ -30,11 +30,16 @@
           </div>
           <div class="form-group">
             <label for="">Image</label>
-            <input disabled type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($update->update_images as $image)
-              <div class="image2"><img src="{{ asset('update/image/'.$image["image"]) }}" alt="" class="image3"></div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($update->update_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('update/image/'.$image["image"]) }}" alt="">
+                  </div>
+                @endforeach
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">Tag</label>

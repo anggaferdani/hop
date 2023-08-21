@@ -36,18 +36,23 @@
             @error('deskripsi_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
-            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($public_area->hangout_place_images as $image)
-              <div style="width: 250px; height: 200px; background-image: url({{ asset('public-area/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
-                @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.public-area.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.public-area.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @endif
+            <label for="">Image</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($public_area->hangout_place_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('public-area/image/'.$image["image"]) }}" alt="">
+                    @if(auth()->user()->level == 'Superadmin')
+                      <a href="{{ route('superadmin.public-area.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @elseif(auth()->user()->level == 'Admin')
+                      <a href="{{ route('admin.public-area.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @endif
+                  </div>
+                @endforeach
               </div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>
@@ -87,6 +92,18 @@
               @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="">Link Instagram</label>
+              <input type="text" class="form-control" name="instagram" value="{{ $public_area->instagram }}">
+              @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Link Tiktok</label>
+              <input type="text" class="form-control" name="tiktok" value="{{ $public_area->tiktok }}">
+              @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          </div>
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.public-area.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
@@ -100,3 +117,14 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+@endpush
