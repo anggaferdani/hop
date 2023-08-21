@@ -12,11 +12,13 @@ use App\Models\HangoutPlaceLogo;
 use App\Models\HangoutPlaceImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class HangoutPlace extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     protected $table = 'hangout_places';
 
@@ -31,6 +33,9 @@ class HangoutPlace extends Model
         'kecamatan',
         'harga',
         'status',
+        'instagram',
+        'tiktok',
+        'slug',
         'status_aktif',
         'created_by',
         'updated_by',
@@ -45,6 +50,15 @@ class HangoutPlace extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'nama_tempat'
+            ]
+        ];
     }
 
     public function Provinsi(){

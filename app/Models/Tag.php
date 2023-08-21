@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Models\Update;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tag extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     protected $table = 'tags';
 
@@ -17,6 +19,7 @@ class Tag extends Model
 
     protected $fillable = [
         'tag',
+        'slug',
         'status_aktif',
         'created_by',
         'updated_by',
@@ -31,6 +34,15 @@ class Tag extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'tag'
+            ]
+        ];
     }
 
     public function updates(){
