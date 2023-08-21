@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Agenda')
+@section('title', $agenda->judul)
 @push('style')
 <style>
   .slick-slider .slick-list{

@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Community')
+@section('title', $activity_manajemen->judul)
 @section('content')
 <section class="py-md-5 pb-2">
   <div class="container">

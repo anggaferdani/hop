@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', 'Hotel')
+@section('title', $lodging->nama_tempat)
 @push('style')
 <style>
   .slick-slider .slick-list{
@@ -49,7 +49,7 @@
       </div>
     </div> --}}
     <div class="row pt-0 pt-md-5">
-      <div class="col-md-4">
+      <div class="col-md-4 mb-md-0">
         <div class="banner3">
           @foreach($lodging->hangout_place_images as $lodging_image)
             <div style="height: 400px;">
@@ -58,7 +58,7 @@
           @endforeach
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5 mb-md-0">
         <h5 class="fs-5 fw-bold lh-sm" style="text-align: justify;">{{ $lodging->nama_tempat }}</h5>
         <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $lodging->deskripsi_tempat !!}</div>
         <div class="fw-bold">Lokasi</div>
