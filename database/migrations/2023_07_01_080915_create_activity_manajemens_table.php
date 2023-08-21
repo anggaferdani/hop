@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('tiktok')->nullable();
             $table->string('harga_mulai')->nullable();
+            $table->string('slug')->unique();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
