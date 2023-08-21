@@ -56,37 +56,33 @@
       <div class="fs-5 fw-bold m-0"><a href="{{ route('updates') }}" class="color">View All</a></div>
     </div>
     <div class="row">
-      <div class="card2">
-        @foreach($updates as $update)
-        <div class="col-md-4">
-          <div class="card h-100">
-            @foreach($update->update_images->take(1) as $update_image)
-            <div style="height: 120px;">
-              <img src="{{ asset('update/image/'.$update_image["image"]) }}" alt="" class="card-img-top" style="height: 100%; object-fit: cover;">
-            </div>
+      <div class="col-md-8 px-auto pe-md-2" style="height: 400px">
+        <div class="banner4"> 
+          @foreach($updates->take(10) as $update3)
+            @foreach($update3->update_images->take(1) as $update_image2)
+              <div class="position-relative">
+                <img class="h-100" src="{{ asset('update/image/'.$update_image2["image"]) }}" alt="" style="width: 100%; object-fit: cover;">
+                <div class="w-md-50 w-100 ms-0 ms-md-5 p-4 h-100 text-white position-absolute small top-0 left-0" style="text-align: justify; background: rgba(0, 0, 0, 0.7)">
+                  <span class="deskripsi6">{!! $update3->deskripsi !!}</span><br>
+                  <a href="" class="color">Read More.</a>
+                </div>
+              </div>
             @endforeach
-            <div class="card-body" style="height: 170px; display: flex; justify-content: space-between; flex-direction: column;">
-              <div>
-                <div class="fw-bold text-dark mb-2" style="text-align: justify; word-break: break-all;">{{ Str::limit($update->judul, 35) }}</div>
-                <div class="card-text small text-muted lh-sm deskripsi mb-2" style="text-align: justify; word-break: break-all;">{!! $update->deskripsi !!}</div>
-              </div>
-              <div class="row align-items-center">
-                <div class="col-md-6 my-auto"> 
-                  <p class="small text-muted m-0">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}</p>
-                </div>
-                <div class="col-md-6 my-auto">
-                  <div class="d-flex justify-content-end ms-auto gap-1">
-                    @foreach($update->tags->take(2) as $tag)
-                      <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($tag->tag, 15) }}</div>
-                    @endforeach
-                  </div>
-                </div>
+          @endforeach
+        </div>
+      </div>
+      <div class="col-md-4 pe-4 ps-4 ps-md-3 pt-md-0 pt-2">
+        <div class="vertical row justify-content-between h-100 gap-2" style="min-height: 130px">
+          @foreach($updates->take(10) as $update2)
+            <div class="card" style="min-height: 125px">
+              <div class="card-body" style="display: flex; justify-content: space-between; flex-direction: column;">
+                <div class="small" style="font-size: 12px">{{ \Carbon\Carbon::parse($update2->tanggal_publikasi)->format('l, d M Y') }}</div>
+                <div class="card-title m-0 judul3">{{ $update2->judul }}</div>
+                <div class="small"><a href="{{ route('update', $update2->slug) }}" class="color stretched-link">Read Article</a></div>
               </div>
             </div>
-            <a href="{{ route('update', Crypt::encrypt($update->id)) }}" class="stretched-link"></a>
-          </div>
+          @endforeach
         </div>
-        @endforeach
       </div>
     </div>
   </div>
@@ -116,7 +112,7 @@
                     <div>
                       <div class="d-flex mb-2 justify-content-between">
                         <div class="col-md-10">
-                          <div class="fw-bold lh-sm text-white">{{ Str::limit($agenda->judul, 35) }}</div>
+                          <div class="fw-bold lh-sm text-white">{{ Str::limit($agenda->judul, 25) }}</div>
                         </div>
                         <div class="col-md-2">
                           @if($agenda->tiket == 'Berbayar')
@@ -130,14 +126,14 @@
                       <div class="small text-white lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda->deskripsi !!}</div>
                     </div>
                     <div>
-                      <div class="d-flex gap-1 mb-2">
+                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="d-flex gap-1 mt-2">
                         @foreach($agenda->types->take(2) as $type)
-                          <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                          <div class="tagging3 rounded-2 py-1 px-2" style="white-space: nowrap;">{{ Str::limit($type->type, 10) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 11px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
-                      <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
-                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
+                      <a href="{{ route('agenda', $agenda->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>
@@ -157,7 +153,7 @@
                     <div>
                       <div class="d-flex mb-2 justify-content-between">
                         <div class="col-md-10">
-                          <div class="fw-bold lh-sm color">{{ Str::limit($agenda->judul, 35) }}</div>
+                          <div class="fw-bold lh-sm color">{{ Str::limit($agenda->judul, 25) }}</div>
                         </div>
                         <div class="col-md-2">
                           @if($agenda->tiket == 'Berbayar')
@@ -171,14 +167,14 @@
                       <div class="small color lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda->deskripsi !!}</div>
                     </div>
                     <div>
-                      <div class="d-flex gap-1 mb-2">
+                      <div class="small mb-0 color" style="font-size: 11px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
+                      <div class="small mb-0 color" style="font-size: 11px;">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="d-flex gap-1 mt-2">
                         @foreach($agenda->types->take(2) as $type)
-                          <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                          <div class="tagging4 rounded-2 py-1 px-2" style="white-space: nowrap;">{{ Str::limit($type->type, 10) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 11px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
-                      <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
-                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
+                      <a href="{{ route('agenda', $agenda->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>

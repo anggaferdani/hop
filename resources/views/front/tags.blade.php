@@ -30,13 +30,13 @@
               <div class="col-md-6 my-auto">
                 <div class="d-flex justify-content-end ms-auto gap-1">
                   @foreach($update->tags->take(2) as $tag)
-                    <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($tag->tag, 15) }}</div>
+                    <div class="tagging rounded-2 py-1 px-2" style="white-space: nowrap;">{{ Str::limit($tag->tag, 10) }}</div>
                   @endforeach
                 </div>
               </div>
             </div>
           </div>
-          <a href="{{ route('update', Crypt::encrypt($update->id)) }}" class="stretched-link"></a>
+          <a href="{{ route('update', $update->slug) }}" class="stretched-link"></a>
         </div>
       </div>
       @endforeach

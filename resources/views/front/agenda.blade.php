@@ -1,13 +1,20 @@
 @extends('front.templates.pages')
 @section('title', 'Agenda')
+@push('style')
+<style>
+  .slick-slider .slick-list{
+    border-radius: 10px;
+  }
+</style>
+@endpush
 @section('content')
 <section class="pt-md-4 pb-md-2 pt-1 pb-2">
   <div class="container">
-    <div class="row mb-md-4">
+    {{-- <div class="row mb-md-4">
       <div class="banner3">
         @foreach($agenda->agenda_images as $agenda_image)
           <div style="height: 400px;">
-            <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover; border-radius: 30px;">
+            <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover; border-radius: 10px;">
           </div>
         @endforeach
       </div>
@@ -47,15 +54,70 @@
             {!! $share !!}
           </ul>
         </div>
-        <div class="d-block text-center text-md-start mt-4">
+        <div class="d-block text-center text-md-start mt-3">
           @if($agenda->redirect_link_pendaftaran == 'Aktif')
             <a href="{{ $agenda->link_pendaftaran }}" target="_blank" class="text-white border-0 rounded-pill fs-5 px-5 py-2" style="background-color: #5AA4C2;">PESAN</a>
           @elseif($agenda->redirect_link_pendaftaran == 'Tidak Aktif')
-            <button class="text-white border-0 rounded-pill fs-5 px-5 py-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
+            <button class="text-white border-0 rounded-2 fs-5 px-5 py-1 w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
           @endif
         </div>
       </div>
       <div class="col-md-3">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body">
+            <div class="fs-5 fw-bold mb-2">Lokasi</div>
+            <div class="parent2">{!! $agenda->hangout_places->lokasi !!}</div>
+          </div>
+        </div>
+      </div>
+    </div> --}}
+    <div class="row mt-0 mt-md-2">
+      <div class="col-md-4">
+        <div class="banner3">
+          @foreach($agenda->agenda_images as $agenda_image)
+            <div style="height: 400px;">
+              <img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover;">
+            </div>
+          @endforeach
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
+        <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
+        <div class="fw-bold">Event Type</div>
+        <div class="text-muted lh-sm mb-2">{{ $agenda->jenis }}, 
+          @foreach($agenda->types as $type)
+            {{ $type->type }},
+          @endforeach
+        </div>
+        <div class="fw-bold">Lokasi</div>
+        <div class="text-muted lh-sm mb-2">{{ Str::title(strtolower($agenda->hangout_places->Provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($agenda->hangout_places->Kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($agenda->hangout_places->Kecamatan->nama_kecamatan)) }}</div>
+        <div class="fw-bold">Start End Date</div>
+        @if($agenda->tiket == 'Berbayar')
+          <div class="text-muted lh-sm mb-2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('l, d M Y') }}</div>
+          <div class="fw-bold">Tickets</div>
+          @foreach($agenda->jenis_tikets as $jenis_tiket)
+            <div class="text-muted lh-sm">{{ $jenis_tiket->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($jenis_tiket->harga)), 3))) }}</div>
+          @endforeach
+        @endif
+        @if($agenda->tiket == 'Gratis')
+          <div class="text-muted lh-sm">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('l, d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('l, d M Y') }}</div>
+        @endif
+        <div class="btn-group dropend mt-2">
+          <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
+          <ul class="dropdown-menu px-4">
+            {!! $share !!}
+          </ul>
+        </div>
+        <div class="d-block text-center text-md-start mt-3">
+          @if($agenda->redirect_link_pendaftaran == 'Aktif')
+            <a href="{{ $agenda->link_pendaftaran }}" target="_blank" class="text-white border-0 rounded-pill fs-5 px-5 py-2" style="background-color: #5AA4C2;">PESAN</a>
+          @elseif($agenda->redirect_link_pendaftaran == 'Tidak Aktif')
+            <button class="text-white border-0 rounded-2 fs-5 px-5 py-1 w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
+          @endif
+        </div>
+      </div>
+      <div class="col-md-3 mt-3 mt-md-0">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
             <div class="fs-5 fw-bold mb-2">Lokasi</div>
@@ -100,14 +162,14 @@
                       <div class="small text-white lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda2->deskripsi !!}</div>
                     </div>
                     <div>
-                      <div class="d-flex gap-1 mb-2">
+                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="d-flex gap-1 mt-2">
                         @foreach($agenda2->types->take(2) as $type)
                           <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
-                      <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
-                      <a href="{{ route('agenda', Crypt::encrypt($agenda2->id)) }}" class="stretched-link"></a>
+                      <a href="{{ route('agenda', $agenda2->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>
@@ -141,14 +203,14 @@
                       <div class="small color lh-sm deskripsi2 mb-2" style="text-align: justify; word-break: break-all;">{!! $agenda2->deskripsi !!}</div>
                     </div>
                     <div>
-                      <div class="d-flex gap-1 mb-2">
+                      <div class="small mb-0 color" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
+                      <div class="small mb-0 color" style="font-size: 12px;">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="d-flex gap-1 mt-2">
                         @foreach($agenda2->types->take(2) as $type)
-                          <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                          <div class="tagging4 rounded-2 py-1 px-2">{{ Str::limit($type->type, 10) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
-                      <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda2->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda2->tanggal_berakhir)->format('d M Y') }}</div>
-                      <a href="{{ route('agenda', Crypt::encrypt($agenda2->id)) }}" class="stretched-link"></a>
+                      <a href="{{ route('agenda', $agenda2->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>
