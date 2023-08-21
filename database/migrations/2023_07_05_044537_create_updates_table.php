@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->date('tanggal_publikasi');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('slug')->unique();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

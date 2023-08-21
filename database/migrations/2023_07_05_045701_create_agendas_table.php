@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('tanggal_berakhir');
             $table->enum('redirect_link_pendaftaran', ['Aktif', 'Tidak Aktif']);
             $table->longText('link_pendaftaran')->nullable();
+            $table->string('slug')->unique();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
