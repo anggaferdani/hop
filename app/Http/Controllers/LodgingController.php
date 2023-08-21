@@ -64,6 +64,8 @@ class LodgingController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'harga' => $request['harga'],
+            'instagram' => $request['instagram'],
+            'tiktok' => $request['tiktok'],
             'status' => 'Lodging',
         );
 
@@ -143,6 +145,8 @@ class LodgingController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'harga' => $request['harga'],
+            'instagram' => $request['instagram'],
+            'tiktok' => $request['tiktok'],
         ]);
 
         if($request->has('image')){

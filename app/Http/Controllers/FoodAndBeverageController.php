@@ -70,6 +70,8 @@ class FoodAndBeverageController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'harga' => $request['harga'],
+            'instagram' => $request['instagram'],
+            'tiktok' => $request['tiktok'],
             'status' => 'Food And Beverage',
         );
 
@@ -173,6 +175,8 @@ class FoodAndBeverageController extends Controller
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
             'harga' => $request['harga'],
+            'instagram' => $request['instagram'],
+            'tiktok' => $request['tiktok'],
         ]);
 
         if($request->has('image')){

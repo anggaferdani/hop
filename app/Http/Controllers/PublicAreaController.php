@@ -57,6 +57,8 @@ class PublicAreaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
+            'instagram' => $request['instagram'],
+            'tiktok' => $request['tiktok'],
             'status' => 'Public Area',
         );
 
@@ -126,6 +128,8 @@ class PublicAreaController extends Controller
             'provinsi' => $request['provinsi'],
             'kabupaten_kota' => $request['kabupaten_kota'],
             'kecamatan' => $request['kecamatan'],
+            'instagram' => $request['instagram'],
+            'tiktok' => $request['tiktok'],
         ]);
 
         if($request->has('image')){
