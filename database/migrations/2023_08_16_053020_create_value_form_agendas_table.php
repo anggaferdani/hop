@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('public_area_images', function (Blueprint $table) {
+        Schema::create('value_form_agendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('public_area_id')->references('id')->on('public_areas')->onDelete('cascade');
-            $table->string('image');
+            $table->unsignedBigInteger('form_agenda_id')->nullable();
+            $table->foreign('form_agenda_id')->references('id')->on('form_agendas');
+            $table->string('value');
+            $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('public_area_images');
+        Schema::dropIfExists('value_form_agendas');
     }
 };

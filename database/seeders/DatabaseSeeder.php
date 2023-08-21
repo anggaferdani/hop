@@ -65,12 +65,16 @@ class DatabaseSeeder extends Seeder
         $tags = [
             [
                 'tag' => 'Seminar',
+                'slug' => 'seminar',
             ], [
                 'tag' => 'Konser',
+                'slug' => 'konser',
             ], [
                 'tag' => 'Workshop',
+                'slug' => 'workshop',
             ], [
                 'tag' => 'Talkshow',
+                'slug' => 'talkshow',
             ],
         ];
 
@@ -164,10 +168,13 @@ class DatabaseSeeder extends Seeder
         $kategoris = [
             [
                 'kategori' => 'Seminar',
+                'slug' => 'seminar',
             ], [
                 'kategori' => 'Workshop',
+                'slug' => 'workshop',
             ], [
                 'kategori' => 'Talkshow',
+                'slug' => 'talkshow',
             ],
         ];
 

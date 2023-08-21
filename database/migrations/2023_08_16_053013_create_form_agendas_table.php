@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('public_areas', function (Blueprint $table) {
+        Schema::create('form_agendas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_tempat');
-            $table->longText('deskripsi_tempat');
-            $table->longText('lokasi');
-            $table->string('provinsi');
-            $table->string('kabupaten_kota');
-            $table->string('kecamatan');
+            $table->unsignedBigInteger('agenda_id')->nullable();
+            $table->foreign('agenda_id')->references('id')->on('agendas');
+            $table->string('title');
+            $table->string('type');
+            $table->string('value');
+            $table->string('placeholder')->nullable();
+            $table->enum('required', ['Required', 'Tidak Required'])->default('Required');
+            $table->string('hint')->nullable();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('public_areas');
+        Schema::dropIfExists('form_agendas');
     }
 };
