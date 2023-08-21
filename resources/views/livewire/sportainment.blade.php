@@ -110,7 +110,7 @@
         <div class="row g-4 g-md-2">
           @foreach($food_and_beverages as $food_and_beverage)
             <div class="col-md-3">
-              <a href="{{ route('sportainment', Crypt::encrypt($food_and_beverage->id)) }}">
+              <a href="{{ route('sportainment', $food_and_beverage->slug) }}">
                 <div class="card h-100 border-0" style="height: 230px">
                   @foreach($food_and_beverage->hangout_place_images->take(1) as $hangout_place_image)
                   <div style="height: 150px">
@@ -121,7 +121,7 @@
                   <p class="small fw-bold m-0 text-muted" style="font-size: 10px;">{{ Str::title(strtolower($food_and_beverage->Provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($food_and_beverage->Kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($food_and_beverage->Kecamatan->nama_kecamatan)) }}</p>
                   <div class="d-flex gap-2">
                     @if(!empty($food_and_beverage->hangout_place_logos))
-                      @foreach($food_and_beverage->hangout_place_logos as $hangout_place_logo)
+                      @foreach($food_and_beverage->hangout_place_logos->take(8) as $hangout_place_logo)
                       <div style="height: 20px; aspect-ratio: 1;">
                         <img src="{{ asset('food-and-beverage/logo/'.$hangout_place_logo["logo"]) }}" alt="" class="card-img-top rounded-2" style="height: 100%; width: 100%; object-fit: cover;">
                       </div>

@@ -68,14 +68,14 @@
                       <div class="small text-white lh-sm mb-2" style="text-align: justify; word-break: break-all;">{!! Str::limit($agenda->deskripsi, 50) !!}</div>
                     </div>
                     <div>
-                      <div class="d-flex gap-1 mb-2">
+                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
+                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="d-flex gap-1 mt-2">
                         @foreach($agenda->types->take(2) as $type)
-                          <div class="tagging3 rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                          <div class="tagging3 rounded-2 py-1 px-2" style="white-space: nowrap;">{{ Str::limit($type->type, 10) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 text-white" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
-                      <div class="small mb-0 text-white">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
-                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
+                      <a href="{{ route('agenda', $agenda->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>
@@ -109,14 +109,14 @@
                       <div class="small color lh-sm mb-2" style="text-align: justify; word-break: break-all;">{!! Str::limit($agenda->deskripsi, 50) !!}</div>
                     </div>
                     <div>
-                      <div class="d-flex gap-1 mb-2">
+                      <div class="small mb-0 color" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
+                      <div class="small mb-0 color" style="font-size: 12px;">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
+                      <div class="d-flex gap-1 mt-2">
                         @foreach($agenda->types->take(2) as $type)
-                          <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
+                          <div class="tagging4 rounded-2 py-1 px-2" style="white-space: nowrap;">{{ Str::limit($type->type, 10) }}</div>
                         @endforeach
                       </div>
-                      <div class="small mb-0 color2" style="font-size: 12px;">{{ Str::limit(Str::title(strtolower($lokasi)), 65) }}</div>
-                      <div class="small mb-0 color2">{{ \Carbon\Carbon::parse($agenda->tanggal_mulai)->format('d M Y') }} - {{ \Carbon\Carbon::parse($agenda->tanggal_berakhir)->format('d M Y') }}</div>
-                      <a href="{{ route('agenda', Crypt::encrypt($agenda->id)) }}" class="stretched-link"></a>
+                      <a href="{{ route('agenda', $agenda->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>

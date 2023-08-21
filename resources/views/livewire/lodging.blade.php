@@ -83,7 +83,7 @@
       <div class="row g-4 g-md-2">
         @foreach($lodgings as $lodging)
           <div class="col-md-3">
-            <a href="{{ route('lodging', Crypt::encrypt($lodging->id)) }}">
+            <a href="{{ route('lodging', $lodging->slug) }}">
               <div class="card h-100 border-0" style="height: 230px">
                 @foreach($lodging->hangout_place_images->take(1) as $lodging_image)
                 <div style="height: 150px">

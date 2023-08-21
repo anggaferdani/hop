@@ -52,7 +52,7 @@
         @foreach($public_areas as $public_area)
         <?php $lokasi = $public_area->provinsi.", ".$public_area->kabupaten_kota.", ".$public_area->kecamatan ?>
           <div class="col-md-3">
-            <a href="{{ route('public-area', Crypt::encrypt($public_area->id)) }}">
+            <a href="{{ route('public-area', $public_area->slug) }}">
               <div class="card h-100 border-0" style="height: 230px">
                 @foreach($public_area->hangout_place_images->take(1) as $public_area_image)
                 <div style="height: 150px">

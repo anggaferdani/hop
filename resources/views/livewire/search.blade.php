@@ -17,7 +17,7 @@
         <ul class="position-absolute" id="myUL" style="width: 50%; height: 50%; height: 210px; overflow: auto;">
           @foreach($agendas as $i => $agenda)
             <li>
-              <a href="{{ route($agenda['from_table'], Crypt::encrypt($agenda['id'])) }}" class="{{ $highlightIndex === $i ? 'color4' : '' }}">{{ $agenda['judul'] ?? $agenda['nama_tempat'] ?? 'judul' }}</a>
+              <a href="{{ route($agenda['from_table'], $agenda['slug']) }}" class="{{ $highlightIndex === $i ? 'color4' : '' }}">{{ $agenda['judul'] ?? $agenda['nama_tempat'] ?? 'judul' }}</a>
             </li>
           @endforeach
         </ul>

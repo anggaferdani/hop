@@ -46,6 +46,13 @@ content:""!important;
       color: black
     }
   }
+  .banner3 .slick-slide{
+    height: 360px !important;
+  }
+  .banner3 .slick-slide img{
+    height: 360px !important;
+    max-width: 360px !important;
+  }
   .parent2{
     position: relative;
     width: 100%;
@@ -92,6 +99,13 @@ content:""!important;
   .card2 .slick-slide > div{
     margin: 0 5px !important;
   }
+  .vertical .slick-list{
+    margin: -5px 0px !important;
+    height: 140px;
+  }
+  .vertical .slick-slide > div{
+    margin: 5px  0px!important;
+  }
   .card3 .slick-list{
     margin: 0 -5px !important;
   }
@@ -135,6 +149,7 @@ content:""!important;
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
   <script src="{{ asset('js/share.js') }}"></script>
+  <script src="{{ asset('truncate-multi-line-text-jquery-read-more/readMore.jquery.js') }}"></script>
   @livewireScripts
   
   <script type="text/javascript">
@@ -142,6 +157,22 @@ content:""!important;
       $('.select2').select2({});
     });
   </script>
+
+<script type="text/javascript">
+  $(".judul3").readMore({
+    numberOfLines: 2,
+  });
+</script>
+<script type="text/javascript">
+  $(".deskripsi2").readMore({
+    numberOfLines: 2,
+  });
+</script>
+<script type="text/javascript">
+  $(".deskripsi6").readMore({
+    numberOfLines: 9,
+  });
+</script>
 
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -406,6 +437,45 @@ content:""!important;
   </script>
 
   <script type="text/javascript">
+    $('.banner-update').slick({
+      arrows: false,
+      autoplay: true,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        }
+      ]
+    });
+  </script>
+  <script type="text/javascript">
     $('.banner4').slick({
       arrows: false,
       autoplay: true,
@@ -448,6 +518,7 @@ content:""!important;
   <script type="text/javascript">
     $('.image2').slick({
       arrows: false,
+      autoplay: true,
       infinite: true,
       speed: 300,
       slidesToShow: 3,
@@ -524,9 +595,52 @@ content:""!important;
   </script>
 
   <script type="text/javascript">
+    $('.vertical').slick({
+      arrows: false,
+      infinite: true,
+      speed: 300,
+      autoplay: true,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      vertical: true,
+      verticalSwiping: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: true,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        }
+      ]
+    });
+  </script>
+
+  <script type="text/javascript">
     $('.card2').slick({
       arrows: false,
       infinite: true,
+      autoplay: true,
       speed: 300,
       slidesToShow: 3,
       slidesToScroll: 3,
@@ -610,14 +724,14 @@ content:""!important;
     });
   </script>
 
-  <script type="text/javascript">
+  {{-- <script type="text/javascript">
     $(document).ready(function(){
       $('.deskripsi2').each(function(f){
         var newstr = $(this).text().substring(0, 45) + "...";
         $(this).text(newstr);
       });
     });
-  </script>
+  </script> --}}
 
   <script type="text/javascript">
     $(document).ready(function(){
