@@ -46,18 +46,23 @@
             @error('deskripsi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger"> *disarankan 1116x400</span></label>
-            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($agenda->agenda_images as $image)
-              <div style="width: 250px; height: 200px; background-image: url({{ asset('agenda/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
-                @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.agenda.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.agenda.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @endif
+            <label for="">Image</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($agenda->agenda_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('agenda/image/'.$image["image"]) }}" alt="">
+                    @if(auth()->user()->level == 'Superadmin')
+                      <a href="{{ route('superadmin.agenda.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @elseif(auth()->user()->level == 'Admin')
+                      <a href="{{ route('admin.agenda.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @endif
+                  </div>
+                @endforeach
               </div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
           </div>
           <div class="form-group">
             <label for="">Jenis</label>
@@ -149,6 +154,17 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+@endpush
 @push('script')
 <script type="text/javascript">
   $("#Menu2Container").hide();

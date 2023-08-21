@@ -25,11 +25,16 @@
           </div>
           <div class="form-group">
             <label for="">Image</label>
-            <input disabled type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($food_and_beverage->hangout_place_images as $image)
-              <div class="image2"><img src="{{ asset('food-and-beverage/image/'.$image["image"]) }}" alt="" class="image3"></div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($food_and_beverage->hangout_place_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('food_and_beverage/image/'.$image["image"]) }}" alt="">
+                  </div>
+                @endforeach
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">Logo Sportstainment</label>
@@ -116,6 +121,18 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
+              <label for="">Link Instagram</label>
+              <input disabled type="text" class="form-control" name="instagram" value="{{ $food_and_beverage->instagram }}">
+              @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Link Tiktok</label>
+              <input disabled type="text" class="form-control" name="tiktok" value="{{ $food_and_beverage->tiktok }}">
+              @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
               <label for="">Created By</label>
               <input disabled type="text" class="form-control" name="created_by" value="{{ $food_and_beverage->created_by }}">
               @error('created_by')<div class="text-danger">{{ $message }}</div>@enderror
@@ -149,3 +166,22 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images2').imageUploader({
+      imagesInputName: 'logo',
+      maxSize: 1 * 1024 * 1024,
+    });
+  });
+</script>
+@endpush

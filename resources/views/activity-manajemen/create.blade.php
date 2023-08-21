@@ -57,18 +57,9 @@
             @error('tanggal_publikasi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger"> *disarankan 271x200</span></label>
-            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label for="">Type <span class="text-danger">*</span></label>
-            <select class="form-control select2" name="type[]" multiple>
-              @foreach($types as $type)
-                <option value="{{ $type->id }}">{{ $type->type }}</option>
-              @endforeach
-            </select>
-            @error('type[]')<div class="text-danger">{{ $message }}</div>@enderror
+            <label for="">Image</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images"></div>
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>
@@ -134,3 +125,14 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+@endpush

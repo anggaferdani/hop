@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-9">
         <div class="d-flex justify-content-between align-items-center">
-          <div class="fs-3 fw-bold color m-0">{{ $activity_manajemen->judul }}</div>
+          <div class="fs-5 fw-bold color m-0">{{ $activity_manajemen->judul }}</div>
         </div>
         <hr class="text-secondary">
         <div class="row">
@@ -20,8 +20,8 @@
         </div>
         <hr class="text-secondary">
         <div>
-          <h5 class="fw-bold" style="text-align: justify;">Deskripsi</h5>
-          <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
+          <div class="fw-bold" style="text-align: justify;">Deskripsi</div>
+          <div class="text-muted lh-sm" style="text-align: justify;">{!! $activity_manajemen->deskripsi !!}</div>
           <div class="btn-group dropend">
             <button type="button" class="btn tagging2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><div class="fas fa-share-alt"></div> Share</button>
             <ul class="dropdown-menu px-4">
@@ -32,7 +32,7 @@
         <hr class="text-secondary">
         <div>
           <?php $lokasi = $activity_manajemen->provinsi.", ".$activity_manajemen->kabupaten_kota.", ".$activity_manajemen->kecamatan ?>
-          <div class="fw-bold"><span class="fs-5">Lokasi : </span><span class="text-muted">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</span></div>
+          <div class="fw-bold"><span class="fw-bold">Lokasi : </span><span class="text-muted">{{ Str::title(strtolower($provinsi->nama_provinsi)) }}, {{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}, {{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</span></div>
         </div>
         <hr class="text-secondary">
         <div class="row align-items-center">
@@ -50,7 +50,7 @@
           <div class="col">
             <div class="card p-0" style="border-radius: 15px;">
               <div class="card-body">
-                <div class="text-muted mb-1 fw-bold">Harga Mulai Dari</div>
+                <div class="mb-1 fw-bold">Harga Mulai Dari</div>
                 <div class="fs-5 p-1 px-3 tagging2">{{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($activity_manajemen->harga_mulai)), 3))) }}</div>
               </div>
             </div>
@@ -59,16 +59,16 @@
             <div class="col">
               <div class="card p-0" style="border-radius: 15px;">
                 <div class="card-body">
-                  <div class="text-muted mb-1 fw-bold">Our Social Media</div>
+                  <div class="mb-1 fw-bold">Our Social Media</div>
                   <div class="d-flex gap-2">
                     @if(!empty($activity_manajemen->instagram))
-                      <a href="{{ $activity_manajemen->instagram }}" class="text-muted fs-3"><div class="fa-brands fa-instagram"></div></a>
+                      <a href="{{ $activity_manajemen->instagram }}" class="text-muted fs-4"><div class="fa-brands fa-instagram"></div></a>
                     @endif
                     @if(!empty($activity_manajemen->whatsapp))
-                      <a href="{{ $activity_manajemen->whatsapp }}" class="text-muted fs-3"><div class="fa-brands fa-whatsapp"></div></a>
+                      <a href="{{ $activity_manajemen->whatsapp }}" class="text-muted fs-4"><div class="fa-brands fa-whatsapp"></div></a>
                     @endif
                     @if(!empty($activity_manajemen->tiktok))
-                      <a href="{{ $activity_manajemen->tiktok }}" class="text-muted fs-3"><div class="fa-brands fa-tiktok"></div></a>
+                      <a href="{{ $activity_manajemen->tiktok }}" class="text-muted fs-4"><div class="fa-brands fa-tiktok"></div></a>
                     @endif
                   </div>
                 </div>
@@ -78,7 +78,7 @@
           <div class="col">
             <div class="card" style="border-radius: 15px;">
               <div class="card-body">
-                <div class="fs-5 fw-bold mb-2">Lokasi</div>
+                <div class="fw-bold mb-2">Lokasi</div>
                 <div class="parent2">{!! $activity_manajemen->lokasi !!}</div>
               </div>
             </div>
@@ -104,19 +104,12 @@
                   @endforeach
                   <div class="card-body" style="height: 170px; display: flex; justify-content: space-between; flex-direction: column;">
                     <div class="div">
-                      <div class="card-title text-dark fw-bold" style="text-align: justify; word-break: break-all;">{{ Str::limit($activity_manajemen->judul, 15) }}</div>
+                      <div class="card-title text-dark lh-sm fw-bold" style="text-align: justify; word-break: break-all;">{{ Str::limit($activity_manajemen->judul, 35) }}</div>
                       <div class="card-text small text-muted lh-sm deskripsi3 mb-2" style="text-align: justify; word-break: break-all;">{!! $activity_manajemen->deskripsi !!}</div>
                     </div>
-                    <div>
-                      <p class="text-muted mb-2" style="font-size: 12px;">{{ \Carbon\Carbon::parse($activity_manajemen->tanggal_publikasi)->format('l, d M Y') }}</p>
-                      <div class="d-flex gap-1">
-                        @foreach($activity_manajemen->types->take(2) as $type)
-                          <div class="tagging rounded-2 py-1 px-2">{{ Str::limit($type->type, 15) }}</div>
-                        @endforeach
-                      </div>
-                    </div>
+                    <p class="text-muted m-0" style="font-size: 12px;">{{ \Carbon\Carbon::parse($activity_manajemen->tanggal_publikasi)->format('l, d M Y') }}</p>
                   </div>
-                  <a href="{{ route('activity-manajemen', Crypt::encrypt($activity_manajemen->id)) }}" class="stretched-link"></a>
+                  <a href="{{ route('activity-manajemen', $activity_manajemen->slug) }}" class="stretched-link"></a>
                 </div>
               </div>
             @endforeach

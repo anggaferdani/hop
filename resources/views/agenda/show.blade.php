@@ -35,11 +35,16 @@
           </div>
           <div class="form-group">
             <label for="">Image</label>
-            <input disabled type="file" class="form-control" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($agenda->agenda_images as $image)
-              <div class="image2"><img src="{{ asset('agenda/image/'.$image["image"]) }}" alt="" class="image3"></div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($agenda->agenda_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('agenda/image/'.$image["image"]) }}" alt="">
+                  </div>
+                @endforeach
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">Jenis</label>
@@ -169,3 +174,14 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+@endpush

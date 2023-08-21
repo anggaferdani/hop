@@ -87,16 +87,6 @@
                         <p style="color: #666666;font-size: 16px;margin: 0; padding: 10px 0 10px;">{!! $nama_panjang !!}</p>
                       </td>
                     </tr>
-                    <tr>
-                      <td align="center">
-                        <p style="color: #666666; font-size: 16px;margin: 0; padding: 10px 0;">We thank you for your business and we look forward to providing you with continued service in the future.</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center">
-                        <h1 style="font-size: 20px;font-family: 'Oxygen', sans-serif;font-weight: 400;margin:0; padding:20px 0 10px;">Hangout Project</h1>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </td>

@@ -28,14 +28,14 @@
             @error('deskripsi_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
-            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            <label for="">Image</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images"></div>
           </div>
           <div class="form-group">
-            <label for="">Logo Sportstainment <span class="text-danger"> *disarankan 250x250</span></label>
-            <input type="file" class="form-control multiple-image" id="logo2" name="logo[]" accept="logo/*" multiple>
-            @error('logo[]')<div class="text-danger">{{ $message }}</div>@enderror
+            <label for="">Logo Sportstainment</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images2"></div>
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>
@@ -105,6 +105,18 @@
             </select>
             @error('harga')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="">Link Instagram</label>
+              <input type="text" class="form-control" name="instagram">
+              @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Link Tiktok</label>
+              <input type="text" class="form-control" name="tiktok">
+              @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          </div>
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.food-and-beverage.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
@@ -118,3 +130,22 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images2').imageUploader({
+      imagesInputName: 'logo',
+      maxSize: 1 * 1024 * 1024,
+    });
+  });
+</script>
+@endpush

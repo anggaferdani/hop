@@ -36,32 +36,42 @@
             @error('deskripsi_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger"> *disarankan 241x150</span></label>
-            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($food_and_beverage->hangout_place_images as $image)
-              <div style="width: 250px; height: 200px; background-image: url({{ asset('food-and-beverage/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
-                @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.food-and-beverage.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.food-and-beverage.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @endif
+            <label for="">Image</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($food_and_beverage->hangout_place_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('food-and-beverage/image/'.$image["image"]) }}" alt="">
+                    @if(auth()->user()->level == 'Superadmin')
+                      <a href="{{ route('superadmin.food-and-beverage.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @elseif(auth()->user()->level == 'Admin')
+                      <a href="{{ route('admin.food-and-beverage.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @endif
+                  </div>
+                @endforeach
               </div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
           </div>
           <div class="form-group">
-            <label for="">Logo Sportstainment <span class="text-danger"> *disarankan 250x250</span></label>
-            <input type="file" class="form-control multiple-image" id="logo2" name="logo[]" accept="logo/*" multiple>
-            @foreach($food_and_beverage->hangout_place_logos as $logo)
-              <div style="width: 100px; height: 100px; background-image: url({{ asset('food-and-beverage/logo/'.$image["logo"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
-                @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.food-and-beverage.delete-logo', Crypt::encrypt($logo->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.food-and-beverage.delete-logo', Crypt::encrypt($logo->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @endif
+            <label for="">Logo Sportstainment</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images2 mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($food_and_beverage->hangout_place_logos as $logo)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('food-and-beverage/logo/'.$logo["logo"]) }}" alt="">
+                    @if(auth()->user()->level == 'Superadmin')
+                      <a href="{{ route('superadmin.food-and-beverage.delete-logo', Crypt::encrypt($logo->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @elseif(auth()->user()->level == 'Admin')
+                      <a href="{{ route('admin.food-and-beverage.delete-logo', Crypt::encrypt($logo->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @endif
+                  </div>
+                @endforeach
               </div>
-            @endforeach
-            @error('logo[]')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>
@@ -150,6 +160,18 @@
             </select>
             @error('harga')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="">Link Instagram</label>
+              <input type="text" class="form-control" name="instagram" value="{{ $food_and_beverage->instagram }}">
+              @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Link Tiktok</label>
+              <input type="text" class="form-control" name="tiktok" value="{{ $food_and_beverage->tiktok }}">
+              @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+          </div>
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.food-and-beverage.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
@@ -163,3 +185,22 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images2').imageUploader({
+      imagesInputName: 'logo',
+      maxSize: 1 * 1024 * 1024,
+    });
+  });
+</script>
+@endpush

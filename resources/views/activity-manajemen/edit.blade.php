@@ -65,33 +65,23 @@
             @error('tanggal_publikasi')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image <span class="text-danger"> *disarankan 271x200</span></label>
-            <input type="file" class="form-control multiple-image" id="image2" name="image[]" accept="image/*" multiple>
-            @foreach($activity_manajemen->activity_manajemen_images as $image)
-              <div style="width: 250px; height: 200px; background-image: url({{ asset('activity-manajemen/image/'.$image["image"]) }}); background-position: center; object-fit: cover; margin-bottom: 1%; padding: 1%;">
-                @if(auth()->user()->level == 'Superadmin')
-                  <a href="{{ route('superadmin.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @elseif(auth()->user()->level == 'Admin')
-                  <a href="{{ route('admin.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @elseif(auth()->user()->level == 'Vendor')
-                  <a href="{{ route('vendor.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="text-white"><i class="fas fa-times"></i></a>
-                @endif
-              </div>
-            @endforeach
-            @error('image[]')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label for="">Type <span class="text-danger">*</span></label>
-            <select class="form-control select2" name="type[]" multiple>
-              @foreach($types as $type)
-                <option value="{{ $type->id }}"
-                @foreach($activity_manajemen->types as $type2)
-                  @if($type2->id == $type->id)@selected(true)@endif
+            <label for="">Image</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
+            <div class="input-images mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                @foreach($activity_manajemen->activity_manajemen_images as $image)
+                  <div class="uploaded-image">
+                    <img src="{{ asset('activity-manajemen/image/'.$image["image"]) }}" alt="">
+                    @if(auth()->user()->level == 'Superadmin')
+                      <a href="{{ route('superadmin.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @elseif(auth()->user()->level == 'Admin')
+                      <a href="{{ route('admin.activity-manajemen.delete-image', Crypt::encrypt($image->id)) }}" class="delete-image" style="text-decoration: none"><i class="iui-close text-white"></i></a>
+                    @endif
+                  </div>
                 @endforeach
-                >{{ $type->type }}</option>
-              @endforeach
-            </select>
-            @error('type[]')<div class="text-danger">{{ $message }}</div>@enderror
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">Lokasi</label>
@@ -166,3 +156,14 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'image',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 3,
+    });
+  });
+</script>
+@endpush
