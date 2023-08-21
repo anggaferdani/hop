@@ -51,6 +51,13 @@ content:""!important;
   }
   .banner3 .slick-slide img{
     height: 360px !important;
+    width: 100% !important;
+  }
+  .banner8 .slick-slide{
+    height: 360px !important;
+  }
+  .banner8 .slick-slide img{
+    height: 360px !important;
     max-width: 360px !important;
   }
   .parent2{
@@ -418,6 +425,45 @@ content:""!important;
           breakpoint: 600,
           settings: {
             slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        }
+      ]
+    });
+  </script>
+  <script type="text/javascript">
+    $('.banner8').slick({
+      arrows: false,
+      autoplay: true,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
             slidesToScroll: 1,
             infinite: true,
             arrows: false,

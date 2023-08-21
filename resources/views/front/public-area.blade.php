@@ -1,5 +1,5 @@
 @extends('front.templates.pages')
-@section('title', $food_and_beverage->nama_tempat)
+@section('title', $public_area->nama_tempat)
 @push('style')
 <style>
   .slick-slider .slick-list{

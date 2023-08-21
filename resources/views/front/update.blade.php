@@ -10,8 +10,8 @@
 @section('content')
 <section class="pb-3 pb-md-5 pt-md-4">
   <div class="container">
-    {{-- <div class="row">
-      <div class="banner3">
+    <div class="row">
+      <div class="banner8">
         @foreach($update->update_images as $update_image)
           <div style="height: 400px;">
             <img src="{{ asset('update/image/'.$update_image["image"]) }}" alt="" class="d-block w-100" style="height: 100%; object-fit: cover; border-radius: 10px;">
@@ -34,8 +34,8 @@
           <a href="{{ route('tags', $tag->slug) }}" class="p-1 px-3 tagging2">{{ $tag->tag }}</a>
         @endforeach
       </div>
-    </div> --}}
-    <div class="row pt-2">
+    </div>
+    {{-- <div class="row pt-2">
       <div class="col-md-4">
         <div class="banner3">
           @foreach($update->update_images as $update_image)
@@ -61,7 +61,7 @@
           @endforeach
         </div>
       </div>
-    </div>
+    </div> --}}
     <div class="pt-4 mb-2 d-flex justify-content-between align-items-center">
       <div class="fs-4 fw-bold color m-0">Pilihan Lainnya</div>
       <div class="fs-5 fw-bold m-0"><a href="{{ route('updates') }}" class="color">View All</a></div>
