@@ -64,7 +64,7 @@
                 <img class="h-100" src="{{ asset('update/image/'.$update_image2["image"]) }}" alt="" style="width: 100%; object-fit: cover;">
                 <div class="w-md-50 w-100 ms-0 ms-md-5 p-4 h-100 text-white position-absolute small top-0 left-0" style="text-align: justify; background: rgba(0, 0, 0, 0.7)">
                   <span class="deskripsi6">{!! $update3->deskripsi !!}</span><br>
-                  <a href="" class="color">Read More.</a>
+                  <a href="{{ route('update', $update3->slug) }}" class="color">Read More.</a>
                 </div>
               </div>
             @endforeach
