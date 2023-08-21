@@ -3,11 +3,8 @@
 @section('content')
 <section class="py-5">
   <div class="container">
-    <div class="pt-4 d-flex justify-content-between align-items-center">
+    <div class="pt-4 mb-2 d-flex justify-content-between align-items-center">
       <div class="fs-3 fw-bold color m-0">{{ $kategori->kategori }}</div>
-    </div>
-    <div class="row pb-4">
-      <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
     <div class="row row-cols-1 row-cols-md-5 g-2 pt-2">
       @foreach($kategori->activity_manajemens as $activity_manajemen)
