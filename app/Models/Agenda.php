@@ -3,20 +3,18 @@
 namespace App\Models;
 
 use App\Models\Type;
-use App\Models\User;
-use App\Models\Lodging;
 use App\Models\JenisTiket;
-use App\Models\PublicArea;
 use App\Models\AgendaImage;
 use App\Models\HangoutPlace;
-use App\Models\FoodAndBeverage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Agenda extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     protected $table = 'agendas';
 
@@ -32,6 +30,7 @@ class Agenda extends Model
         'tanggal_berakhir',
         'redirect_link_pendaftaran',
         'link_pendaftaran',
+        'slug',
         'status_aktif',
         'created_by',
         'updated_by',
@@ -46,6 +45,15 @@ class Agenda extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'judul'
+            ]
+        ];
     }
 
     public function hangout_places(){

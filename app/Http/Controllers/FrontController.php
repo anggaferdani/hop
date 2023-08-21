@@ -29,7 +29,7 @@ class FrontController extends Controller
 {
     public function index(){
         $updates = Update::with('update_images')->where('status_aktif', 'Aktif')->latest()->get();
-        $agendas = Agenda::with('agenda_images')->where('status_aktif', 'Aktif')->latest()->get();
+        $agendas = Agenda::with('agenda_images')->where('status_aktif', 'Aktif')->latest()->get()->take(10);
         $banners = Banner::where('status_aktif', 'Aktif')->latest()->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -55,11 +55,11 @@ class FrontController extends Controller
         ));
     }
 
-    public function update($id){
-        $update = Update::with('users', 'update_images')->find(Crypt::decrypt($id));
-        $updates = Update::with('users', 'update_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+    public function update($slug){
+        $update = Update::with('users', 'update_images')->where('slug', $slug)->first();
+        $updates = Update::with('users', 'update_images')->where('slug', '<>', $slug)->where("status_aktif", "Aktif")->latest()->get();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/update/'.$id, $update->judul,
+            'http://hangoutproject.id/update/'.$slug, $update->judul,
         )
         ->facebook()
         ->twitter()
@@ -72,8 +72,8 @@ class FrontController extends Controller
         ));
     }
 
-    public function tags($id){
-        $tag = Tag::with(["updates" => function($query){ $query->where("status_aktif", "Aktif"); }])->where('id', Crypt::decrypt($id))->where('status_aktif', 'Aktif')->find(Crypt::decrypt($id));
+    public function tags($slug){
+        $tag = Tag::with(["updates" => function($query){ $query->where("status_aktif", "Aktif"); }])->where('status_aktif', 'Aktif')->where('slug', $slug)->first();
         return view('front.tags', compact(
             'tag',
         ));
@@ -92,9 +92,9 @@ class FrontController extends Controller
         ));
     }
 
-    public function agenda($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'hangout_places')->find(Crypt::decrypt($id));
-        $agendas = Agenda::with('agenda_images')->where('id', '<>', Crypt::decrypt($id))->where("status_aktif", "Aktif")->latest()->get();
+    public function agenda($slug){
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'hangout_places')->where('slug', $slug)->first();
+        $agendas = Agenda::with('agenda_images')->where('slug', '<>', $slug)->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($agenda->provinsi);
         $kabupaten = Kabupaten::find($agenda->kabupaten_kota);
         $kecamatan = Kecamatan::find($agenda->kecamatan);
@@ -102,7 +102,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/agenda/'.$id, $agenda->judul,
+            'http://hangoutproject.id/agenda/'.$slug, $agenda->judul,
         )
         ->facebook()
         ->twitter()
@@ -142,9 +142,9 @@ class FrontController extends Controller
         return view('front.sportainments');
     }
 
-    public function sportainment($id){
-        $sportainment = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->find(Crypt::decrypt($id));
-        $sportainments = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->whereHas('hangout_place_logos')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
+    public function sportainment($slug){
+        $sportainment = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->where('slug', $slug)->first();
+        $sportainments = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->whereHas('hangout_place_logos')->where('slug', '<>', $slug)->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($sportainment->provinsi);
         $kabupaten = Kabupaten::find($sportainment->kabupaten_kota);
         $kecamatan = Kecamatan::find($sportainment->kecamatan);
@@ -152,7 +152,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/sportainment/'.$id, $sportainment->judul,
+            'http://hangoutproject.id/sportainment/'.$slug, $sportainment->judul,
         )
         ->facebook()
         ->twitter()
@@ -171,9 +171,9 @@ class FrontController extends Controller
         ));
     }
 
-    public function food_and_beverage($id){
-        $food_and_beverage = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
-        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
+    public function food_and_beverage($slug){
+        $food_and_beverage = HangoutPlace::with('hangout_place_images')->where('slug', $slug)->first();
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($food_and_beverage->provinsi);
         $kabupaten = Kabupaten::find($food_and_beverage->kabupaten_kota);
         $kecamatan = Kecamatan::find($food_and_beverage->kecamatan);
@@ -181,7 +181,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/food-and-beverage/'.$id, $food_and_beverage->judul,
+            'http://hangoutproject.id/food-and-beverage/'.$slug, $food_and_beverage->judul,
         )
         ->facebook()
         ->twitter()
@@ -216,9 +216,9 @@ class FrontController extends Controller
         ));
     }
 
-    public function lodging($id){
-        $lodging = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
-        $lodgings = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Lodging')->where("status_aktif", "Aktif")->latest()->get();
+    public function lodging($slug){
+        $lodging = HangoutPlace::with('hangout_place_images')->where('slug', $slug)->first();
+        $lodgings = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Lodging')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($lodging->provinsi);
         $kabupaten = Kabupaten::find($lodging->kabupaten_kota);
         $kecamatan = Kecamatan::find($lodging->kecamatan);
@@ -226,7 +226,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/lodging/'.$id, $lodging->judul,
+            'http://hangoutproject.id/lodging/'.$slug, $lodging->judul,
         )
         ->facebook()
         ->twitter()
@@ -259,9 +259,9 @@ class FrontController extends Controller
         ));
     }
 
-    public function public_area($id){
-        $public_area = HangoutPlace::with('hangout_place_images')->find(Crypt::decrypt($id));
-        $public_areas = HangoutPlace::with('hangout_place_images')->where('id', '<>', Crypt::decrypt($id))->where('status', 'Public Area')->where("status_aktif", "Aktif")->latest()->get();
+    public function public_area($slug){
+        $public_area = HangoutPlace::with('hangout_place_images')->where('slug', $slug)->first();
+        $public_areas = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Public Area')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($public_area->provinsi);
         $kabupaten = Kabupaten::find($public_area->kabupaten_kota);
         $kecamatan = Kecamatan::find($public_area->kecamatan);
@@ -269,7 +269,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/public-area/'.$id, $public_area->judul,
+            'http://hangoutproject.id/public-area/'.$slug, $public_area->judul,
         )
         ->facebook()
         ->twitter()
@@ -295,9 +295,9 @@ class FrontController extends Controller
         ));
     }
 
-    public function activity_manajemen($id){
-        $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
-        $kategoris = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query) use ($id){ $query->where('id', '<>', Crypt::decrypt($id)); }])->whereHas("activity_manajemens", function($query){ $query->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->latest()->get();
+    public function activity_manajemen($slug){
+        $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->where('slug', $slug)->first();
+        $kategoris = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query) use ($slug){ $query->where('slug', '<>', $slug); }])->whereHas("activity_manajemens", function($query){ $query->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->latest()->get();
         $provinsi = Provinsi::find($activity_manajemen->provinsi);
         $kabupaten = Kabupaten::find($activity_manajemen->kabupaten_kota);
         $kecamatan = Kecamatan::find($activity_manajemen->kecamatan);
@@ -305,7 +305,7 @@ class FrontController extends Controller
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $share = ShareFacade::page(
-            'http://hangoutproject.id/activity-manajemen/'.$id, $activity_manajemen->judul,
+            'http://hangoutproject.id/activity-manajemen/'.$slug, $activity_manajemen->judul,
         )
         ->facebook()
         ->twitter()
@@ -324,8 +324,8 @@ class FrontController extends Controller
         ));
     }
     
-    public function kategoris($id){
-        $kategori = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query){ $query->where("status_aktif", "Aktif"); }])->where('id', Crypt::decrypt($id))->where('status_aktif', 'Aktif')->find(Crypt::decrypt($id));
+    public function kategoris($slug){
+        $kategori = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query){ $query->where("status_aktif", "Aktif"); }])->where('slug', $slug)->where('status_aktif', 'Aktif')->where('slug', $slug)->first();
         return view('front.kategoris', compact(
             'kategori',
         ));

@@ -49,12 +49,10 @@ class ActivityManajemenController extends Controller
     public function create(){
         $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
-        $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         return view('activity-manajemen.create', compact(
             'users',
             'kategoris',
-            'types',
             'provinsis',
         ));
     }
@@ -106,8 +104,6 @@ class ActivityManajemenController extends Controller
                     ]);
                 }
             }
-
-            $activity_manajemen->types()->attach($request->type);
 
             if(auth()->user()->level == 'Superadmin'){
                 return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
@@ -161,8 +157,6 @@ class ActivityManajemenController extends Controller
                 }
             }
 
-            $activity_manajemen->types()->attach($request->type);
-
             return redirect()->route('vendor.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
         }
     }
@@ -171,7 +165,6 @@ class ActivityManajemenController extends Controller
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
         $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
-        $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -179,7 +172,6 @@ class ActivityManajemenController extends Controller
             'activity_manajemen',
             'kategoris',
             'users',
-            'types',
             'provinsis',
             'kabupatens',
             'kecamatans',
@@ -190,7 +182,6 @@ class ActivityManajemenController extends Controller
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
         $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
         $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
-        $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -198,7 +189,6 @@ class ActivityManajemenController extends Controller
             'activity_manajemen',
             'kategoris',
             'users',
-            'types',
             'provinsis',
             'kabupatens',
             'kecamatans',
@@ -207,7 +197,7 @@ class ActivityManajemenController extends Controller
 
     public function update(Request $request, $id){
         if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin'){
-            $activity_manajemen = ActivityManajemen::with('activity_manajemen_images', 'types')->find(Crypt::decrypt($id));
+            $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
 
             $request->validate([
                 'user_id' => 'required',
@@ -250,8 +240,6 @@ class ActivityManajemenController extends Controller
                 }
             }
 
-            $activity_manajemen->types()->sync($request->type);
-
             if(auth()->user()->level == 'Superadmin'){
                 return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been updated at '.$activity_manajemen->updated_at);
             }elseif(auth()->user()->level == 'Admin'){
@@ -259,7 +247,7 @@ class ActivityManajemenController extends Controller
             }
         
         }elseif(auth()->user()->level == 'Vendor')
-            {$activity_manajemen = ActivityManajemen::with('activity_manajemen_images', 'types')->find(Crypt::decrypt($id));
+            {$activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->find(Crypt::decrypt($id));
 
             $request->validate([
                 'kategori_id' => 'required',

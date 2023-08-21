@@ -149,7 +149,7 @@ class LodgingController extends Controller
             foreach($request->file('image') as $image){
                 $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
                 $image->move(public_path('lodging/image/'), $image2);
-                LodgingImage::create([
+                HangoutPlaceImage::create([
                     'hangout_place_id' => $lodging->id,
                     'image' => $image2,
                 ]);

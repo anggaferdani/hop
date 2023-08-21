@@ -51,17 +51,17 @@ class Search extends Component
     {
         $agendas = $this->agendas[$this->highlightIndex] ?? null;
         if ($agendas['from_table'] == 'agenda') {
-            $this->redirect(route('agenda', Crypt::encrypt($agendas['id'])));
+            $this->redirect(route('agenda', $agendas['slug']));
         } elseif ($agendas['from_table'] == 'update') {
-            $this->redirect(route('update', Crypt::encrypt($agendas['id'])));
+            $this->redirect(route('update', $agendas['slug']));
         } elseif ($agendas['from_table'] == 'food-and-beverage') {
-            $this->redirect(route('food-and-beverage', Crypt::encrypt($agendas['id'])));
+            $this->redirect(route('food-and-beverage', $agendas['slug']));
         } elseif ($agendas['from_table'] == 'lodging') {
-            $this->redirect(route('lodging', Crypt::encrypt($agendas['id'])));
+            $this->redirect(route('lodging', $agendas['slug']));
         } elseif ($agendas['from_table'] == 'public-area') {
-            $this->redirect(route('public-area', Crypt::encrypt($agendas['id'])));
+            $this->redirect(route('public-area', $agendas['slug']));
         } elseif ($agendas['from_table'] == 'activity-manajemen') {
-            $this->redirect(route('activity-manajemen', Crypt::encrypt($agendas['id'])));
+            $this->redirect(route('activity-manajemen', $agendas['slug']));
         }
     }
 

@@ -57,7 +57,7 @@ class DaftarController extends Controller
             'kepada' => $pendaftar->email,
             'email' => 'hangoutproject@gmail.com',
             'dari' => 'Hangout Project',
-            'subject' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+            'subject' => 'Terima kasih anda telah melakukan pemesanan tiket' .$judul,
             'nama_panjang' => $nama_panjang,
             'judul' => $judul,
             'token' => $pendaftar->token,
