@@ -26,6 +26,15 @@
     gtag('config', 'UA-94034622-3');
   </script>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KS0R358QZZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KS0R358QZZ');
+</script>
 <body>
   <div id="app">
     <section class="section">

@@ -75,6 +75,15 @@
     }
   </style>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KS0R358QZZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KS0R358QZZ');
+</script>
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
