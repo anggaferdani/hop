@@ -19,7 +19,7 @@
         @endforeach
       </div>
       <h5 class="pt-4 fs-4 fw-bold" style="text-align: justify;">{{ $update->judul }}</h5>
-      <div class="small text-muted mb-2">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}, {{ $update->users->nama_panjang }}</div>
+      <div class="small text-muted mb-4">{{ \Carbon\Carbon::parse($update->tanggal_publikasi)->format('l, d M Y') }}, {{ $update->users->nama_panjang }}</div>
       <div class="text-muted lh-sm" style="text-align: justify;">{!! $update->deskripsi !!}</div>
     </div>
     <div class="btn-group dropend mb-2">
