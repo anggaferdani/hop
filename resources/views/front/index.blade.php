@@ -2,6 +2,22 @@
 @section('title', 'Hangout Project')
 @push('style')
 <style>
+  @media(width < 600px){
+    .container-banner-index{
+      height: 100%;
+    }
+    .banner-index{
+      height: 100%;
+    }
+  }
+  @media(width >= 600px){
+    .container-banner-index{
+      height: 400px;
+    }
+    .banner-index{
+      height: 400px;
+    }
+  }
   #myInput {
     background-image: url('/front/img/search.png');
     background-position: 15px 15px;
@@ -37,9 +53,9 @@
 @endpush
 @section('content')
 <section class="py-0 pt-md-4" style="position: relative;">
-  <div class="banner2 mt-0" style="width: 100%; height: 400px;">
+  <div class="banner2 mt-0 container-banner-index" style="width: 100%;">
     @foreach($banners as $banner)
-      <a href="{{ $banner->link }}" style="width: 100%; height: 400px;"><img src="{{ asset('banner/thumbnail/'.$banner["thumbnail"]) }}" style="width: 100%; height: 400px; object-fit: cover;" alt=""></a>
+      <a href="{{ $banner->link }}" style="width: 100%;"><img src="{{ asset('banner/thumbnail/'.$banner["thumbnail"]) }}" class="banner-index" style="width: 100%; object-fit: cover;" alt=""></a>
     @endforeach
   </div>
   <div class="text-white w-100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">

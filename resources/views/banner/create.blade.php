@@ -18,10 +18,9 @@
         @endif
           @csrf
           <div class="form-group">
-            <label for="">Thumbnail <span class="text-danger"> *disarankan 1440x413</span></label>
-            <input type="file" class="form-control" name="thumbnail" onchange="file(event)">
-            @error('thumbnail')<div class="text-danger">{{ $message }}</div>@enderror
-            <div><img src="#" id="image" alt="" width="200px"></div>
+            <label for="">Thumbnail</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1440x413. Maksimum file upload 1 images</div>
+            <div class="input-images"></div>
           </div>
           <div class="form-group">
             <label for="">Link</label>
@@ -40,3 +39,14 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'thumbnail',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 1,
+    });
+  });
+</script>
+@endpush

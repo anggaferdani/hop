@@ -101,4 +101,8 @@ class VendorController extends Controller
             return redirect()->route('admin.vendor.index')->with('success', 'Data has been deleted at '.$vendor->updated_at);
         }
     }
+
+    public function vendor(){
+        return view('vendor.form');
+    }
 }

@@ -12,6 +12,7 @@
   <!-- CSS Libraries -->
 
   <!-- Template CSS -->
+  <link rel="stylesheet" href="{{ asset('stisla/assets/modules/select2/dist/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('stisla/assets/css/components.css') }}">
 
@@ -53,9 +54,15 @@
   <!-- JS Libraies -->
 
   <!-- Page Specific JS File -->
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.select2').select2({});
+    });
+  </script>
   
   <!-- Template JS File -->
   <script src="{{ asset('stisla/assets/js/scripts.js') }}"></script>
   <script src="{{ asset('stisla/assets/js/custom.js') }}"></script>
+  <script src="{{ asset('stisla/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
 </body>
 </html>

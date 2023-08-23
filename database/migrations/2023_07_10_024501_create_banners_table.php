@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('thumbnail');
-            $table->longText('link');
+            $table->longText('link')->nullable();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

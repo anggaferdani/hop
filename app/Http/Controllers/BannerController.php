@@ -22,18 +22,18 @@ class BannerController extends Controller
     public function store(Request $request){
         $request->validate([
             'thumbnail' => 'required',
-            'link' => 'required',
         ]);
 
         $array = array(
             'link' => $request['link'],
         );
 
-        if($thumbnail = $request->file('thumbnail')){
-            $destination_path = 'banner/thumbnail/';
-            $thumbnail2 = date('YmdHis').rand(999999999, 9999999999).$thumbnail->extension();
-            $thumbnail->move($destination_path, $thumbnail2);
-            $array['thumbnail'] = $thumbnail2;
+        if($request->has('thumbnail')){
+            foreach($request->file('thumbnail') as $thumbnail){
+                $thumbnail2 = date('YmdHis').rand(999999999, 9999999999).$thumbnail->getClientOriginalName();
+                $thumbnail->move(public_path('banner/thumbnail/'), $thumbnail2);
+                $array['thumbnail'] = $thumbnail2;
+            }
         }
 
         $banner = Banner::create($array);
@@ -63,14 +63,14 @@ class BannerController extends Controller
         $banner = Banner::find(Crypt::decrypt($id));
 
         $request->validate([
-            'link' => 'required',
         ]);
 
-        if($thumbnail = $request->file('thumbnail')){
-            $destination_path = 'banner/thumbnail/';
-            $thumbnail2 = date('YmdHis') . $thumbnail->getClientOriginalExtension();
-            $thumbnail->move($destination_path, $thumbnail2);
-            $banner['thumbnail'] = $thumbnail2;
+        if($request->has('thumbnail')){
+            foreach($request->file('thumbnail') as $thumbnail){
+                $thumbnail2 = date('YmdHis').rand(999999999, 9999999999).$thumbnail->getClientOriginalName();
+                $thumbnail->move(public_path('banner/thumbnail/'), $thumbnail2);
+                $banner['thumbnail'] = $thumbnail2;
+            }
         }
 
         $banner->update([

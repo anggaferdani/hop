@@ -62,6 +62,8 @@ Route::get('/pendaftar/search', [ScannerController::class, 'search'])->name('pen
 Route::get('/kabupaten/{id}', [LokasiController::class, 'kabupaten'])->name('kabupaten');
 Route::get('/kecamatan/{id}', [LokasiController::class, 'kecamatan'])->name('kecamatan');
 
+Route::get('/vendor', [VendorController::class, 'vendor'])->name('vendor');
+
 Route::middleware(['web', 'disableBackButton'])->group(function(){
     Route::middleware(['disableRedirectToLoginPage'])->group(function(){
         Route::get('login', [Controller::class, 'login'])->name('login');
