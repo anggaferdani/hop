@@ -113,7 +113,7 @@
           @if($agenda->redirect_link_pendaftaran == 'Aktif')
             <a href="{{ $agenda->link_pendaftaran }}" target="_blank" class="text-white border-0 rounded-pill fs-5 px-5 py-2" style="background-color: #5AA4C2;">PESAN</a>
           @elseif($agenda->redirect_link_pendaftaran == 'Tidak Aktif')
-            <button class="text-white border-0 rounded-2 fs-5 px-5 py-1 w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
+            <button class="text-white border-0 rounded-pill fs-5 px-5 py-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #5AA4C2;">PESAN</button>
           @endif
         </div>
       </div>
