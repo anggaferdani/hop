@@ -55,7 +55,7 @@ class DaftarController extends Controller
 
         $mail = [
             'kepada' => $pendaftar->email,
-            'email' => 'hangoutproject@gmail.com',
+            'email' => 'info@mixnetwork.id',
             'dari' => 'Hangout Project',
             'subject' => 'Terima kasih anda telah melakukan pemesanan tiket' .$judul,
             'nama_panjang' => $nama_panjang,
