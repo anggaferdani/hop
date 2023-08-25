@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Feature;
+use App\Models\Seating;
 use App\Models\Verifikasi;
+use App\Models\Entertaiment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
 class VendorController extends Controller
@@ -102,7 +106,16 @@ class VendorController extends Controller
         }
     }
 
-    public function vendor(){
-        return view('vendor.form');
+    public function foodAndBeverage(){
+        $seatings = Seating::select('id', 'seating')->where('status_aktif', 'Aktif')->get();
+        $features = Feature::select('id', 'feature')->where('status_aktif', 'Aktif')->get();
+        $entertaiments = Entertaiment::select('id', 'entertaiment')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        return view('food-and-beverage.create', compact(
+            'seatings',
+            'provinsis',
+            'features',
+            'entertaiments',
+        ));
     }
 }

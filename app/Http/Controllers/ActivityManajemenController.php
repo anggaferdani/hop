@@ -19,9 +19,15 @@ class ActivityManajemenController extends Controller
     public function index(){
         if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin'){
             if(!empty(auth()->user()->level_admin == 'Activity Manajemen')){
-                $activity_manajemens = ActivityManajemen::with('activity_manajemen_images')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+                $activity_manajemens = ActivityManajemen::with('activity_manajemen_images')->where('created_by', Auth::id())
+                ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
+                ->where('status_aktif', 'Aktif')
+                ->latest()->paginate(10);
             }else{
-                $activity_manajemens = ActivityManajemen::with('activity_manajemen_images')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+                $activity_manajemens = ActivityManajemen::with('activity_manajemen_images')
+                ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
+                ->where('status_aktif', 'Aktif')
+                ->latest()->paginate(10);
             }
             $provinsis = DB::table('m_provinsi')->get();
             $kabupatens = DB::table('m_kabupaten')->get();
@@ -76,21 +82,40 @@ class ActivityManajemenController extends Controller
             $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
             $harga_mulai2 = trim($harga_mulai);
 
-            $array = array(
-                'user_id' => $request['user_id'],
-                'kategori_id' => $request['kategori_id'],
-                'judul' => $request['judul'],
-                'deskripsi' => $request['deskripsi'],
-                'tanggal_publikasi' => $request['tanggal_publikasi'],
-                'lokasi' => $request['lokasi'],
-                'provinsi' => $request['provinsi'],
-                'kabupaten_kota' => $request['kabupaten_kota'],
-                'kecamatan' => $request['kecamatan'],
-                'whatsapp' => $request['whatsapp'],
-                'instagram' => $request['instagram'],
-                'tiktok' => $request['tiktok'],
-                'harga_mulai' => $harga_mulai2,
-            );
+            if(Auth::check()){
+                $array = array(
+                    'user_id' => $request['user_id'],
+                    'kategori_id' => $request['kategori_id'],
+                    'judul' => $request['judul'],
+                    'deskripsi' => $request['deskripsi'],
+                    'tanggal_publikasi' => $request['tanggal_publikasi'],
+                    'lokasi' => $request['lokasi'],
+                    'provinsi' => $request['provinsi'],
+                    'kabupaten_kota' => $request['kabupaten_kota'],
+                    'kecamatan' => $request['kecamatan'],
+                    'whatsapp' => $request['whatsapp'],
+                    'instagram' => $request['instagram'],
+                    'tiktok' => $request['tiktok'],
+                    'harga_mulai' => $harga_mulai2,
+                    'status_approved' => 'Approved',
+                );
+            }else{
+                $array = array(
+                    'user_id' => $request['user_id'],
+                    'kategori_id' => $request['kategori_id'],
+                    'judul' => $request['judul'],
+                    'deskripsi' => $request['deskripsi'],
+                    'tanggal_publikasi' => $request['tanggal_publikasi'],
+                    'lokasi' => $request['lokasi'],
+                    'provinsi' => $request['provinsi'],
+                    'kabupaten_kota' => $request['kabupaten_kota'],
+                    'kecamatan' => $request['kecamatan'],
+                    'whatsapp' => $request['whatsapp'],
+                    'instagram' => $request['instagram'],
+                    'tiktok' => $request['tiktok'],
+                    'harga_mulai' => $harga_mulai2,
+                );
+            }
 
             $activity_manajemen = ActivityManajemen::create($array);
 
@@ -105,10 +130,14 @@ class ActivityManajemenController extends Controller
                 }
             }
 
-            if(auth()->user()->level == 'Superadmin'){
-                return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
-            }elseif(auth()->user()->level == 'Admin'){
-                return redirect()->route('admin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
+            if(Auth::check()){
+                if(auth()->user()->level == 'Superadmin'){
+                    return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
+                }elseif(auth()->user()->level == 'Admin'){
+                    return redirect()->route('admin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
+                }
+            }else{
+                return back()->with('success', 'Data has been created at '.$activity_manajemen->created_at);
             }
 
         }elseif(auth()->user()->level == 'Vendor'){
@@ -319,5 +348,31 @@ class ActivityManajemenController extends Controller
         $image->delete();
 
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
+    }
+
+    public function approved($id){
+        $activity_manajemen = ActivityManajemen::find(Crypt::decrypt($id));
+        
+        $activity_manajemen->update([
+            'status_approved' => 'Approved',
+        ]);
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been approved at '.$activity_manajemen->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.activity-manajemen.index')->with('success', 'Data has been approved at '.$activity_manajemen->updated_at);
+        }
+    }
+
+    public function deletePermanently($id){
+        $activity_manajemen = ActivityManajemen::find(Crypt::decrypt($id));
+        
+        $activity_manajemen->delete();
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been deleted permanently at '.$activity_manajemen->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.activity-manajemen.index')->with('success', 'Data has been deleted permanently at '.$activity_manajemen->updated_at);
+        }
     }
 }

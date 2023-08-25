@@ -19,7 +19,7 @@
           @csrf
           <div class="form-group">
             <label for="">Thumbnail</label>
-            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1440x413. Maksimum file upload 1 images</div>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1080x310. Maksimum file upload 1 images</div>
             <div class="input-images"></div>
           </div>
           <div class="form-group">

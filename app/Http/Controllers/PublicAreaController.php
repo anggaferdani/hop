@@ -17,9 +17,15 @@ class PublicAreaController extends Controller
 {
     public function index(){
         if(!empty(auth()->user()->level_admin == 'Public Area')){
-            $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('created_by', Auth::id())
+            ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
+            ->where('status_aktif', 'Aktif')
+            ->latest()->paginate(10);
         }else{
-            $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')
+            ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
+            ->where('status_aktif', 'Aktif')
+            ->latest()->paginate(10);
         }
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -50,17 +56,32 @@ class PublicAreaController extends Controller
             'kecamatan' => 'required',
         ]);
 
-        $array = array(
-            'nama_tempat' => $request['nama_tempat'],
-            'deskripsi_tempat' => $request['deskripsi_tempat'],
-            'lokasi' => $request['lokasi'],
-            'provinsi' => $request['provinsi'],
-            'kabupaten_kota' => $request['kabupaten_kota'],
-            'kecamatan' => $request['kecamatan'],
-            'instagram' => $request['instagram'],
-            'tiktok' => $request['tiktok'],
-            'status' => 'Public Area',
-        );
+        if(Auth::check()){
+            $array = array(
+                'nama_tempat' => $request['nama_tempat'],
+                'deskripsi_tempat' => $request['deskripsi_tempat'],
+                'lokasi' => $request['lokasi'],
+                'provinsi' => $request['provinsi'],
+                'kabupaten_kota' => $request['kabupaten_kota'],
+                'kecamatan' => $request['kecamatan'],
+                'instagram' => $request['instagram'],
+                'tiktok' => $request['tiktok'],
+                'status' => 'Public Area',
+                'status_approved' => 'Approved',
+            );
+        }else{
+            $array = array(
+                'nama_tempat' => $request['nama_tempat'],
+                'deskripsi_tempat' => $request['deskripsi_tempat'],
+                'lokasi' => $request['lokasi'],
+                'provinsi' => $request['provinsi'],
+                'kabupaten_kota' => $request['kabupaten_kota'],
+                'kecamatan' => $request['kecamatan'],
+                'instagram' => $request['instagram'],
+                'tiktok' => $request['tiktok'],
+                'status' => 'Public Area',
+            );
+        }
 
         $public_area = HangoutPlace::create($array);
 
@@ -75,10 +96,14 @@ class PublicAreaController extends Controller
             }
         }
 
-        if(auth()->user()->level == 'Superadmin'){
-            return redirect()->route('superadmin.public-area.index')->with('success', 'Data has been created at '.$public_area->created_at);
-        }elseif(auth()->user()->level == 'Admin'){
-            return redirect()->route('admin.public-area.index')->with('success', 'Data has been created at '.$public_area->created_at);
+        if(Auth::check()){
+            if(auth()->user()->level == 'Superadmin'){
+                return redirect()->route('superadmin.public-area.index')->with('success', 'Data has been created at '.$public_area->created_at);
+            }elseif(auth()->user()->level == 'Admin'){
+                return redirect()->route('admin.public-area.index')->with('success', 'Data has been created at '.$public_area->created_at);
+            }
+        }else{
+            return back()->with('success', 'Data has been created at '.$public_area->created_at);
         }
     }
 
@@ -174,5 +199,31 @@ class PublicAreaController extends Controller
         $image->delete();
         
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
+    }
+
+    public function approved($id){
+        $public_area = HangoutPlace::find(Crypt::decrypt($id));
+        
+        $public_area->update([
+            'status_approved' => 'Approved',
+        ]);
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.public-area.index')->with('success', 'Data has been approved at '.$public_area->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.public-area.index')->with('success', 'Data has been approved at '.$public_area->updated_at);
+        }
+    }
+
+    public function deletePermanently($id){
+        $public_area = HangoutPlace::find(Crypt::decrypt($id));
+        
+        $public_area->delete();
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.public-area.index')->with('success', 'Data has been deleted permanently at '.$public_area->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.public-area.index')->with('success', 'Data has been deleted permanently at '.$public_area->updated_at);
+        }
     }
 }

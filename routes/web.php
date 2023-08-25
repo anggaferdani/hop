@@ -62,8 +62,6 @@ Route::get('/pendaftar/search', [ScannerController::class, 'search'])->name('pen
 Route::get('/kabupaten/{id}', [LokasiController::class, 'kabupaten'])->name('kabupaten');
 Route::get('/kecamatan/{id}', [LokasiController::class, 'kecamatan'])->name('kecamatan');
 
-Route::get('/vendor', [VendorController::class, 'vendor'])->name('vendor');
-
 Route::middleware(['web', 'disableBackButton'])->group(function(){
     Route::middleware(['disableRedirectToLoginPage'])->group(function(){
         Route::get('login', [Controller::class, 'login'])->name('login');
@@ -96,6 +94,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
+        Route::get('food-and-beverage/approved/{id}', [FoodAndBeverageController::class, 'approved'])->name('food-and-beverage.approved');
+        Route::delete('food-and-beverage/delete-permanently/{id}', [FoodAndBeverageController::class, 'deletePermanently'])->name('food-and-beverage.delete-permanently');
         Route::resource('seating', SeatingController::class);
         Route::resource('feature', FeatureController::class);
         Route::resource('entertaiment', EntertaimentController::class);
@@ -104,11 +104,17 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
         Route::get('lodging/delete-image/{id}', [LodgingController::class, 'deleteImage'])->name('lodging.delete-image');
+        Route::get('lodging/approved/{id}', [LodgingController::class, 'approved'])->name('lodging.approved');
+        Route::delete('lodging/delete-permanently/{id}', [LodgingController::class, 'deletePermanently'])->name('lodging.delete-permanently');
         Route::resource('kategori', KategoriController::class);
         Route::resource('activity-manajemen', ActivityManajemenController::class);
         Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
+        Route::get('activity-manajemen/approved/{id}', [ActivityManajemenController::class, 'approved'])->name('activity-manajemen.approved');
+        Route::delete('activity-manajemen/delete-permanently/{id}', [ActivityManajemenController::class, 'deletePermanently'])->name('activity-manajemen.delete-permanently');
         Route::resource('public-area', PublicAreaController::class);
         Route::get('public-area/delete-image/{id}', [PublicAreaController::class, 'deleteImage'])->name('public-area.delete-image');
+        Route::get('public-area/approved/{id}', [PublicAreaController::class, 'approved'])->name('public-area.approved');
+        Route::delete('public-area/delete-permanently/{id}', [PublicAreaController::class, 'deletePermanently'])->name('public-area.delete-permanently');
         Route::resource('banner', BannerController::class);
         Route::get('banner/kosongkan/{id}', [BannerController::class, 'kosongkan'])->name('banner.kosongkan');
         Route::get('scanner', [ScannerController::class, 'scanner'])->name('scanner');
@@ -130,6 +136,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('pendaftar.index');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
+        Route::get('food-and-beverage/approved/{id}', [FoodAndBeverageController::class, 'approved'])->name('food-and-beverage.approved');
+        Route::delete('food-and-beverage/delete-permanently/{id}', [FoodAndBeverageController::class, 'deletePermanently'])->name('food-and-beverage.delete-permanently');
         Route::resource('seating', SeatingController::class);
         Route::resource('feature', FeatureController::class);
         Route::resource('entertaiment', EntertaimentController::class);
@@ -138,11 +146,17 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('fasilitas', FasilitasController::class);
         Route::resource('lodging', LodgingController::class);
         Route::get('lodging/delete-image/{id}', [LodgingController::class, 'deleteImage'])->name('lodging.delete-image');
+        Route::get('lodging/approved/{id}', [LodgingController::class, 'approved'])->name('lodging.approved');
+        Route::delete('lodging/delete-permanently/{id}', [LodgingController::class, 'deletePermanently'])->name('lodging.delete-permanently');
         Route::resource('kategori', KategoriController::class);
         Route::resource('activity-manajemen', ActivityManajemenController::class);
         Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
+        Route::get('activity-manajemen/approved/{id}', [ActivityManajemenController::class, 'approved'])->name('activity-manajemen.approved');
+        Route::delete('activity-manajemen/delete-permanently/{id}', [ActivityManajemenController::class, 'deletePermanently'])->name('activity-manajemen.delete-permanently');
         Route::resource('public-area', PublicAreaController::class);
         Route::get('public-area/delete-image/{id}', [PublicAreaController::class, 'deleteImage'])->name('public-area.delete-image');
+        Route::get('public-area/approved/{id}', [PublicAreaController::class, 'approved'])->name('public-area.approved');
+        Route::delete('public-area/delete-permanently/{id}', [PublicAreaController::class, 'deletePermanently'])->name('public-area.delete-permanently');
         Route::resource('banner', BannerController::class);
         Route::get('banner/kosongkan/{id}', [BannerController::class, 'kosongkan'])->name('banner.kosongkan');
         Route::get('scanner', [ScannerController::class, 'scanner'])->name('scanner');
@@ -150,11 +164,19 @@ Route::prefix('admin')->name('admin.')->group(function(){
 });
 
 Route::prefix('vendor')->name('vendor.')->group(function(){
-    Route::middleware(['auth:web', 'disableBackButton', 'vendor'])->group(function(){
-        Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
-        Route::get('profile', [Controller::class, 'profile'])->name('profile');
-        Route::put('post-profile', [Controller::class, 'postProfile'])->name('post-profile');
-        Route::resource('activity-manajemen', ActivityManajemenController::class);
-        Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
-    });
+    Route::get('resto-dan-cafe', [VendorController::class, 'foodAndBeverage'])->name('food-and-beverage');
+    Route::post('resto-dan-cafe-post', [FoodAndBeverageController::class, 'store'])->name('food-and-beverage-post');
+    Route::get('lodging', [VendorController::class, 'lodging'])->name('lodging');
+    Route::post('lodging-post', [LodgingController::class, 'store'])->name('lodging-post');
+    Route::get('public-area', [VendorController::class, 'publicArea'])->name('public-area');
+    Route::post('public-area-post', [PublicAreaController::class, 'store'])->name('public-area-post');
+    Route::get('activity-manajemen', [VendorController::class, 'activityManajemen'])->name('activity-manajemen');
+    Route::post('activity-manajemen-post', [ActivityManajemenController::class, 'store'])->name('activity-manajemen-post');
+    // Route::middleware(['auth:web', 'disableBackButton', 'vendor'])->group(function(){
+    //     Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
+    //     Route::get('profile', [Controller::class, 'profile'])->name('profile');
+    //     Route::put('post-profile', [Controller::class, 'postProfile'])->name('post-profile');
+    //     Route::resource('activity-manajemen', ActivityManajemenController::class);
+    //     Route::get('activity-manajemen/delete-image/{id}', [ActivityManajemenController::class, 'deleteImage'])->name('activity-manajemen.delete-image');
+    // });
 });

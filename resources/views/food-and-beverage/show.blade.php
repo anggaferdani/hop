@@ -30,7 +30,7 @@
               <div class="uploaded">
                 @foreach($food_and_beverage->hangout_place_images as $image)
                   <div class="uploaded-image">
-                    <img src="{{ asset('food_and_beverage/image/'.$image["image"]) }}" alt="">
+                    <img src="{{ asset('food-and-beverage/image/'.$image["image"]) }}" alt="">
                   </div>
                 @endforeach
               </div>

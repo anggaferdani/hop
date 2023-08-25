@@ -93,6 +93,7 @@ class Search extends Component
         $food_and_beverage2 = HangoutPlace::selectRaw(' *, "food-and-beverage" as from_table')
             ->where('nama_tempat', 'like', '%' . $this->query . '%')
             ->where('status', 'Food And Beverage')
+            ->where('status_approved', 'Approved')
             ->where('status_aktif', 'Aktif')
             ->get()
             ->toArray();
@@ -100,6 +101,7 @@ class Search extends Component
         $lodging2 = HangoutPlace::selectRaw(' *, "lodging" as from_table')
             ->where('nama_tempat', 'like', '%' . $this->query . '%')
             ->where('status', 'Lodging')
+            ->where('status_approved', 'Approved')
             ->where('status_aktif', 'Aktif')
             ->get()
             ->toArray();
@@ -107,6 +109,7 @@ class Search extends Component
         $public_area2 = HangoutPlace::selectRaw(' *, "public-area" as from_table')
             ->where('nama_tempat', 'like', '%' . $this->query . '%')
             ->where('status', 'Public Area')
+            ->where('status_approved', 'Approved')
             ->where('status_aktif', 'Aktif')
             ->get()
             ->toArray();
@@ -114,6 +117,7 @@ class Search extends Component
         $activity_manajemen2 = ActivityManajemen::selectRaw(' *, "activity-manajemen" as from_table')
             ->where('judul', 'like', '%' . $this->query . '%')
             ->orWhere('deskripsi', 'like', '%' . $this->query . '%')
+            ->where('status_approved', 'Approved')
             ->where('status_aktif', 'Aktif')
             ->get()
             ->toArray();

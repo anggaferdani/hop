@@ -19,9 +19,14 @@ class FoodAndBeverageController extends Controller
 {
     public function index(){
         if(!empty(auth()->user()->level_admin == 'Food And Beverage')){
-            $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('created_by', Auth::id())
+            ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
+            ->where('status_aktif', 'Aktif')->latest()->paginate(10);
         }else{
-            $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')
+            ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
+            ->where('status_aktif', 'Aktif')
+            ->latest()->paginate(10);
         }
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
@@ -62,18 +67,34 @@ class FoodAndBeverageController extends Controller
             'entertaiment.*' => 'required',
         ]);
 
-        $array = array(
-            'nama_tempat' => $request['nama_tempat'],
-            'deskripsi_tempat' => $request['deskripsi_tempat'],
-            'lokasi' => $request['lokasi'],
-            'provinsi' => $request['provinsi'],
-            'kabupaten_kota' => $request['kabupaten_kota'],
-            'kecamatan' => $request['kecamatan'],
-            'harga' => $request['harga'],
-            'instagram' => $request['instagram'],
-            'tiktok' => $request['tiktok'],
-            'status' => 'Food And Beverage',
-        );
+        if(Auth::check()){
+            $array = array(
+                'nama_tempat' => $request['nama_tempat'],
+                'deskripsi_tempat' => $request['deskripsi_tempat'],
+                'lokasi' => $request['lokasi'],
+                'provinsi' => $request['provinsi'],
+                'kabupaten_kota' => $request['kabupaten_kota'],
+                'kecamatan' => $request['kecamatan'],
+                'harga' => $request['harga'],
+                'instagram' => $request['instagram'],
+                'tiktok' => $request['tiktok'],
+                'status' => 'Food And Beverage',
+                'status_approved' => 'Approved',
+            );
+        }else{
+            $array = array(
+                'nama_tempat' => $request['nama_tempat'],
+                'deskripsi_tempat' => $request['deskripsi_tempat'],
+                'lokasi' => $request['lokasi'],
+                'provinsi' => $request['provinsi'],
+                'kabupaten_kota' => $request['kabupaten_kota'],
+                'kecamatan' => $request['kecamatan'],
+                'harga' => $request['harga'],
+                'instagram' => $request['instagram'],
+                'tiktok' => $request['tiktok'],
+                'status' => 'Food And Beverage',
+            );
+        }
 
         $food_and_beverage = HangoutPlace::create($array);
 
@@ -87,14 +108,16 @@ class FoodAndBeverageController extends Controller
                 ]);
             }
         }
-        if($request->has('logo')){
-            foreach($request->file('logo') as $logo){
-                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
-                $logo->move(public_path('food-and-beverage/logo/'), $logo2);
-                HangoutPlaceLogo::create([
-                    'hangout_place_id' => $food_and_beverage->id,
-                    'logo' => $logo2,
-                ]);
+        if(Auth::check()){
+            if($request->has('logo')){
+                foreach($request->file('logo') as $logo){
+                    $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                    $logo->move(public_path('food-and-beverage/logo/'), $logo2);
+                    HangoutPlaceLogo::create([
+                        'hangout_place_id' => $food_and_beverage->id,
+                        'logo' => $logo2,
+                    ]);
+                }
             }
         }
 
@@ -102,10 +125,14 @@ class FoodAndBeverageController extends Controller
         $food_and_beverage->features()->attach($request->feature);
         $food_and_beverage->entertaiments()->attach($request->entertaiment);
 
-        if(auth()->user()->level == 'Superadmin'){
-            return redirect()->route('superadmin.food-and-beverage.index')->with('success', 'Data has been created at '.$food_and_beverage->created_at);
-        }elseif(auth()->user()->level == 'Admin'){
-            return redirect()->route('admin.food-and-beverage.index')->with('success', 'Data has been created at '.$food_and_beverage->created_at);
+        if(Auth::check()){
+            if(auth()->user()->level == 'Superadmin'){
+                return redirect()->route('superadmin.food-and-beverage.index')->with('success', 'Data has been created at '.$food_and_beverage->created_at);
+            }elseif(auth()->user()->level == 'Admin'){
+                return redirect()->route('admin.food-and-beverage.index')->with('success', 'Data has been created at '.$food_and_beverage->created_at);
+            }
+        }else{
+            return back()->with('success', 'Data has been created at '.$food_and_beverage->created_at);
         }
     }
 
@@ -248,5 +275,31 @@ class FoodAndBeverageController extends Controller
         $logo->delete();
         
         return back()->with('success', 'Data has been deleted at '.Carbon::now()->toDateTimeString());
+    }
+
+    public function approved($id){
+        $food_and_beverage = HangoutPlace::find(Crypt::decrypt($id));
+        
+        $food_and_beverage->update([
+            'status_approved' => 'Approved',
+        ]);
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.food-and-beverage.index')->with('success', 'Data has been approved at '.$food_and_beverage->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.food-and-beverage.index')->with('success', 'Data has been approved at '.$food_and_beverage->updated_at);
+        }
+    }
+
+    public function deletePermanently($id){
+        $food_and_beverage = HangoutPlace::find(Crypt::decrypt($id));
+        
+        $food_and_beverage->delete();
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.food-and-beverage.index')->with('success', 'Data has been deleted permanently at '.$food_and_beverage->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.food-and-beverage.index')->with('success', 'Data has been deleted permanently at '.$food_and_beverage->updated_at);
+        }
     }
 }

@@ -82,7 +82,7 @@
                     </tr>
                     <tr>
                       <td align="center">
-                        {!! '<img src="data:image/png;base64,' . DNS2D::getBarcodePNG($token, 'QRCODE', 10, 10) . '" alt="barcode"   />' !!}
+                        <img src="data:image/png;base64,' . DNS2D::getBarcodePNG({!! $token !!}, 'QRCODE', 10, 10) . '" alt="barcode"/>
                         <p style="color: #666666;font-size: 16px;margin: 0; padding: 10px 0 10px;">{!! $judul !!}</p>
                         <p style="color: #666666;font-size: 16px;margin: 0; padding: 10px 0 10px;">{!! $nama_panjang !!}</p>
                       </td>

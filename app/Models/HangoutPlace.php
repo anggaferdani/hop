@@ -37,6 +37,7 @@ class HangoutPlace extends Model
         'tiktok',
         'slug',
         'status_aktif',
+        'status_approved',
         'created_by',
         'updated_by',
     ];

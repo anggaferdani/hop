@@ -35,7 +35,7 @@ class FoodAndBeverage extends Component
         $this->seatings = Seating::where('status_aktif', 'Aktif')->get();
         $this->features = Feature::where('status_aktif', 'Aktif')->get();
         $this->entertaiments = Entertaiment::where('status_aktif', 'Aktif')->get();
-        $this->food_and_beverages = HangoutPlace::where([['status', 'Food And Beverage'], ['status_aktif', 'Aktif']])->get();
+        $this->food_and_beverages = HangoutPlace::where([['status', 'Food And Beverage'], ['status_approved', 'Approved'], ['status_aktif', 'Aktif']])->get();
     }
 
     public function render()
@@ -95,6 +95,6 @@ class FoodAndBeverage extends Component
             $food_and_beverage = $food_and_beverage->where('harga', '=', $this->harga);
         }
 
-        $this->food_and_beverages = $food_and_beverage->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->get();
+        $this->food_and_beverages = $food_and_beverage->where('status', 'Food And Beverage')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->get();
     }
 }
