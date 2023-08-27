@@ -131,6 +131,12 @@
   <script type="text/javascript" src="{{ asset('jquery-toggle-visibility-plugin/src/jquery.toggle-visibility.js') }}"></script>
   <script type="text/javascript" src="{{ asset('fast-filter/filter-table.js') }}"></script>
   @stack('scripts')
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#contact-table').filterTable('#contact-filter');
+    });
+  </script>
   
   <script type="text/javascript">
     $(function() {

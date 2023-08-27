@@ -389,7 +389,6 @@ class ActivityManajemenController extends Controller
                 'judul' => 'required',
                 'deskripsi' => 'required',
                 'tanggal_publikasi' => 'required',
-                'image' => 'required',
                 'provinsi' => 'required',
                 'kabupaten_kota' => 'required',
                 'kecamatan' => 'required',

@@ -63,7 +63,6 @@ class BannerController extends Controller
         $banner = Banner::find(Crypt::decrypt($id));
 
         $request->validate([
-            'thumbnail' => 'required',
         ]);
 
         if($request->has('thumbnail')){

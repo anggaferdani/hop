@@ -27,7 +27,7 @@
         <div class="float-right">
           <form>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search">
+              <input type="text" class="form-control" placeholder="Search" id="contact-filter">
             </div>
           </form>
         </div>
@@ -35,7 +35,7 @@
         <div class="clearfix mb-3"></div>
 
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered" id="contact-table">
             <tbody>
               <tr>
                 <th>No.</th>
