@@ -30,9 +30,6 @@
           <form>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search">
-              <div class="input-group-append">                                            
-                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-              </div>
             </div>
           </form>
         </div>
@@ -50,7 +47,7 @@
                 <th>Kategori</th>
                 <th>Nama Community</th>
                 <th>Image</th>
-                <th>Created At</th>
+                <th>Status Approved</th>
                 <th>Action</th>
               </tr>
               <?php $id = 0; ?>
@@ -68,32 +65,60 @@
                       <div class="image2"><img src="{{ asset('activity-manajemen/image/'.$activity_manajemen_image["image"]) }}" alt="" class="image3"></div>
                     @endforeach
                   </td>
-                  <td>{{ $activity_manajemen->created_at }}</td>
+                  <td>
+                    @if($activity_manajemen->status_approved == 'Approved')
+                    <div class="badge badge-primary">Approved</div>
+                    @elseif($activity_manajemen->status_approved == 'Belum Di Approved')
+                    <div class="badge badge-danger">Belum Di Approved</div>
+                    @endif
+                  </td>
                   <td style="white-space: nowrap">
-                    @if(auth()->user()->level == 'Superadmin')
-                      <form action="{{ route('superadmin.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('superadmin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('superadmin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
-                    @elseif(auth()->user()->level == 'Admin')
-                      <form action="{{ route('admin.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('admin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('admin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
-                    @elseif(auth()->user()->level == 'Vendor')
-                      <form action="{{ route('vendor.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('vendor.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('vendor.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
+                    @if($activity_manajemen->status_approved == 'Belum Di Approved')
+                      @if(auth()->user()->level == 'Superadmin')
+                        <form action="{{ route('superadmin.activity-manajemen.delete-permanently', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('superadmin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <a href="{{ route('superadmin.activity-manajemen.approved', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete-permanently"><i class="fas fa-times"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Admin')
+                        <form action="{{ route('admin.activity-manajemen.delete-permanently', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('admin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('admin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <a href="{{ route('admin.activity-manajemen.approved', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete-permanently"><i class="fas fa-times"></i></button>
+                        </form>
+                      @endif
+                    @elseif($activity_manajemen->status_approved == 'Approved')
+                      @if(auth()->user()->level == 'Superadmin')
+                        <form action="{{ route('superadmin.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('superadmin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Admin')
+                        <form action="{{ route('admin.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('admin.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('admin.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Vendor')
+                        <form action="{{ route('vendor.activity-manajemen.destroy', Crypt::encrypt($activity_manajemen->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('vendor.activity-manajemen.show', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('vendor.activity-manajemen.edit', Crypt::encrypt($activity_manajemen->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @endif
                     @endif
                   </td>
                 </tr>

@@ -22,6 +22,7 @@
                   <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
                 @endforeach
               </select>
+              <div><a href="" data-toggle="modal" data-target="#modal">Tampilkan data vendor</a></div>
               @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           @endif
@@ -112,24 +113,26 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="">WhatsApp</label>
-            <input disabled type="text" class="form-control" name="whatsapp" value="{{ $activity_manajemen->whatsapp }}">
-            @error('whatsapp')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label for="">Instagram</label>
-            <input disabled type="text" class="form-control" name="instagram" value="{{ $activity_manajemen->instagram }}">
-            @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label for="">Tiktok</label>
-            <input disabled type="text" class="form-control" name="tiktok" value="{{ $activity_manajemen->tiktok }}">
-            @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
             <label for="">Harga Mulai</label>
             <input disabled type="text" class="form-control" name="harga_mulai" value="{{ $activity_manajemen->harga_mulai }}" onkeyup="formatNumber(this)">
             @error('harga_mulai')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="">Link WhatsApp</label>
+              <input disabled type="text" class="form-control" name="whatsapp" value="{{ $activity_manajemen->whatsapp }}">
+              @error('whatsapp')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-4">
+              <label for="">Link Instagram</label>
+              <input disabled type="text" class="form-control" name="instagram" value="{{ $activity_manajemen->instagram }}">
+              @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-4">
+              <label for="">Link Tiktok</label>
+              <input disabled type="text" class="form-control" name="tiktok" value="{{ $activity_manajemen->tiktok }}">
+              @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -164,6 +167,38 @@
           @endif
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Vendor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="">
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <label>Logo</label>
+            <div style="width: 150px; height: 150px;"><img src="{{ asset('user/logo/'.$activity_manajemen->users['logo']) }}" id="image" alt="" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          </div>
+          <div class="form-group mb-3">
+            <label>Nama Vendor</label>
+            <input disabled type="text" class="form-control" name="user_id" value="{{ $activity_manajemen->users->nama_panjang }}">
+          </div>
+          <div class="form-group mb-3">
+            <label>Email</label>
+            <input disabled type="email" class="form-control" name="email" value="{{ $activity_manajemen->users->email }}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

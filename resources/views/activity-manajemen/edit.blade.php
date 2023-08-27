@@ -13,6 +13,14 @@
       </div>
     @endif
 
+    @if(session()->get('errors'))
+      <div class="alert alert-important alert-danger" role="alert">
+        @foreach($errors->all() as $error)
+          {{ $error }}<br>
+        @endforeach
+      </div>
+    @endif
+
     <div class="card">
       <div class="card-header">
         <h4>Edit</h4>
@@ -36,6 +44,12 @@
                   <option value="{{ $user->id }}" @if($activity_manajemen->user_id == $user->id)@selected(true)@endif>{{ $user->nama_panjang }}</option>
                 @endforeach
               </select>
+              <div><a href="" data-toggle="modal" data-target="#modal">Tampilkan data vendor</a></div>
+              @if(auth()->user()->level == 'Superadmin')
+                <div class="text-danger">Data tidak ditemukan? <a href="{{ route('superadmin.vendor.index') }}">Klik untuk menambahkan data</a></div>
+              @elseif(auth()->user()->level == 'Admin')
+                <div class="text-danger">Data tidak ditemukan? <a href="{{ route('admin.vendor.index') }}">Klik untuk menambahkan data</a></div>
+              @endif
               @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           @endif
@@ -47,6 +61,11 @@
                 <option value="{{ $kategori->id }}" @if($activity_manajemen->kategori_id == $kategori->id)@selected(true)@endif>{{ $kategori->kategori }}</option>
               @endforeach
             </select>
+            @if(auth()->user()->level == 'Superadmin')
+              <div class="text-danger">Data tidak ditemukan? <a href="{{ route('superadmin.kategori.index') }}">Klik untuk menambahkan data</a></div>
+            @elseif(auth()->user()->level == 'Admin')
+              <div class="text-danger">Data tidak ditemukan? <a href="{{ route('admin.kategori.index') }}">Klik untuk menambahkan data</a></div>
+            @endif
             @error('kategori_id')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
@@ -122,24 +141,26 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="">WhatsApp</label>
-            <input type="text" class="form-control" name="whatsapp" value="{{ $activity_manajemen->whatsapp }}" placeholder="Paste link disini">
-            @error('whatsapp')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label for="">Instagram</label>
-            <input type="text" class="form-control" name="instagram" value="{{ $activity_manajemen->instagram }}" placeholder="Paste link disini">
-            @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
-            <label for="">Tiktok</label>
-            <input type="text" class="form-control" name="tiktok" value="{{ $activity_manajemen->tiktok }}" placeholder="Paste link disini">
-            @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
-          </div>
-          <div class="form-group">
             <label for="">Harga Mulai</label>
             <input type="text" class="form-control" name="harga_mulai" value="{{ $activity_manajemen->harga_mulai }}" onkeyup="formatNumber(this)">
             @error('harga_mulai')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="">Link WhatsApp</label>
+              <input type="text" class="form-control" name="whatsapp" value="{{ $activity_manajemen->whatsapp }}" placeholder="Paste link disini">
+              @error('whatsapp')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-4">
+              <label for="">Link Instagram</label>
+              <input type="text" class="form-control" name="instagram" value="{{ $activity_manajemen->instagram }}" placeholder="Paste link disini">
+              @error('instagram')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="form-group col-md-4">
+              <label for="">Link Tiktok</label>
+              <input type="text" class="form-control" name="tiktok" value="{{ $activity_manajemen->tiktok }}" placeholder="Paste link disini">
+              @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
           </div>
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.activity-manajemen.index') }}" class="btn btn-secondary">Back</a>
@@ -152,6 +173,38 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Vendor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="">
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <label>Logo</label>
+            <div style="width: 150px; height: 150px;"><img src="{{ asset('user/logo/'.$activity_manajemen->users['logo']) }}" id="image" alt="" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          </div>
+          <div class="form-group mb-3">
+            <label>Nama Vendor</label>
+            <input disabled type="text" class="form-control" name="user_id" value="{{ $activity_manajemen->users->nama_panjang }}">
+          </div>
+          <div class="form-group mb-3">
+            <label>Email</label>
+            <input disabled type="email" class="form-control" name="email" value="{{ $activity_manajemen->users->email }}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
