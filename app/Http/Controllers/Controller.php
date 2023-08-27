@@ -37,18 +37,22 @@ class Controller extends BaseController
                     return redirect()->route('superadmin.dashboard');
                 }elseif(auth()->user()->level == 'Admin'){
                     return redirect()->route('admin.dashboard');
-                }elseif(auth()->user()->level == 'Vendor'){
-                    $verifikasi = Verifikasi::where('user_id', auth()->user()->id)->first();
-                    if($verifikasi->status_verifikasi == 'Terverifikasi'){
-                        return redirect()->route('vendor.dashboard');
-                    }elseif($verifikasi->status_verifikasi == 'Belum Terverifikasi'){
-                        Auth::guard('web')->logout();
-                        return redirect()->route('login')->with('fail', 'Your account was not verified yet. A verification email has been sent to '.$request->email.'. Please check your email');
-                    }else{
-                        Auth::guard('web')->logout();
-                        return redirect()->route('login')->with('fail', 'Your account was not verified yet. A verification email has been sent to '.$request->email.'. Please check your email');
-                    }
-                }else{
+                }
+                elseif(auth()->user()->level == 'Vendor'){
+                    Auth::guard('web')->logout();
+                    return redirect()->route('login');
+                    // $verifikasi = Verifikasi::where('user_id', auth()->user()->id)->first();
+                    // if($verifikasi->status_verifikasi == 'Terverifikasi'){
+                    //     return redirect()->route('vendor.dashboard');
+                    // }elseif($verifikasi->status_verifikasi == 'Belum Terverifikasi'){
+                    //     Auth::guard('web')->logout();
+                    //     return redirect()->route('login')->with('fail', 'Your account was not verified yet. A verification email has been sent to '.$request->email.'. Please check your email');
+                    // }else{
+                    //     Auth::guard('web')->logout();
+                    //     return redirect()->route('login')->with('fail', 'Your account was not verified yet. A verification email has been sent to '.$request->email.'. Please check your email');
+                    // }
+                }
+                else{
                     return redirect()->route('login')->with('fail', 'The account level you entered does not match');
                 }
             }if(auth()->user()->status_aktif == 'Tidak Aktif'){
@@ -61,7 +65,8 @@ class Controller extends BaseController
     }
 
     public function register(){
-        return view('authentications.register');
+        // return view('authentications.register');
+        return redirect()->route('index');
     }
 
     public function postRegister(Request $request){

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use Carbon\Carbon;
-use App\Models\Type;
 use App\Models\User;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\ActivityManajemenImage;
+use Illuminate\Support\Facades\Redirect;
 
 class ActivityManajemenController extends Controller
 {
@@ -64,25 +65,25 @@ class ActivityManajemenController extends Controller
     }
 
     public function store(Request $request){
-        if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin'){
-            $request->validate([
-                'user_id' => 'required',
-                'kategori_id' => 'required',
-                'judul' => 'required',
-                'deskripsi' => 'required',
-                'tanggal_publikasi' => 'required',
-                'lokasi' => 'required',
-                'provinsi' => 'required',
-                'kabupaten_kota' => 'required',
-                'kecamatan' => 'required',
-                'image.*' => 'required',
-                'type.*' => 'required',
-            ]);
+        if(Auth::check()){
+            if(auth()->user()->level == 'Superadmin' || auth()->user()->level == 'Admin'){
+                $request->validate([
+                    'user_id' => 'required',
+                    'kategori_id' => 'required',
+                    'judul' => 'required',
+                    'deskripsi' => 'required',
+                    'tanggal_publikasi' => 'required',
+                    'image' => 'required',
+                    'lokasi' => 'required',
+                    'provinsi' => 'required',
+                    'kabupaten_kota' => 'required',
+                    'kecamatan' => 'required',
+                    'image.*' => 'required',
+                ]);
 
-            $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
-            $harga_mulai2 = trim($harga_mulai);
+                $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
+                $harga_mulai2 = trim($harga_mulai);
 
-            if(Auth::check()){
                 $array = array(
                     'user_id' => $request['user_id'],
                     'kategori_id' => $request['kategori_id'],
@@ -99,9 +100,46 @@ class ActivityManajemenController extends Controller
                     'harga_mulai' => $harga_mulai2,
                     'status_approved' => 'Approved',
                 );
-            }else{
+
+                $activity_manajemen = ActivityManajemen::create($array);
+
+                if($request->has('image')){
+                    foreach($request->file('image') as $image){
+                        $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
+                        $image->move(public_path('activity-manajemen/image/'), $image2);
+                        ActivityManajemenImage::create([
+                            'activity_manajemen_id' => $activity_manajemen->id,
+                            'image' => $image2,
+                        ]);
+                    }
+                }
+                
+
+                if(auth()->user()->level == 'Superadmin'){
+                    return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
+                }elseif(auth()->user()->level == 'Admin'){
+                    return redirect()->route('admin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
+                }
+
+            }elseif(auth()->user()->level == 'Vendor'){
+                $request->validate([
+                    'kategori_id' => 'required',
+                    'judul' => 'required',
+                    'deskripsi' => 'required',
+                    'tanggal_publikasi' => 'required',
+                    'image' => 'required',
+                    'lokasi' => 'required',
+                    'provinsi' => 'required',
+                    'kabupaten_kota' => 'required',
+                    'kecamatan' => 'required',
+                    'image.*' => 'required',
+                ]);
+
+                $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
+                $harga_mulai2 = trim($harga_mulai);
+
                 $array = array(
-                    'user_id' => $request['user_id'],
+                    'user_id' => Auth::id(),
                     'kategori_id' => $request['kategori_id'],
                     'judul' => $request['judul'],
                     'deskripsi' => $request['deskripsi'],
@@ -115,78 +153,146 @@ class ActivityManajemenController extends Controller
                     'tiktok' => $request['tiktok'],
                     'harga_mulai' => $harga_mulai2,
                 );
+
+                $activity_manajemen = ActivityManajemen::create($array);
+
+                if($request->has('image')){
+                    foreach($request->file('image') as $image){
+                        $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
+                        $image->move(public_path('activity-manajemen/image/'), $image2);
+                        ActivityManajemenImage::create([
+                            'activity_manajemen_id' => $activity_manajemen->id,
+                            'image' => $image2,
+                        ]);
+                    }
+                }
+
+                return redirect()->route('vendor.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
             }
+        }else{
+            if($request->sudah_mengisi_form_ini_sebelumnya == 'iya'){
+                $request->validate([
+                    'user_id' => 'required',
+                    'kategori_id' => 'required',
+                    'judul' => 'required',
+                    'deskripsi' => 'required',
+                    'tanggal_publikasi' => 'required',
+                    'image' => 'required',
+                    'lokasi' => 'required',
+                    'provinsi' => 'required',
+                    'kabupaten_kota' => 'required',
+                    'kecamatan' => 'required',
+                    'image.*' => 'required',
+                ]);
 
-            $activity_manajemen = ActivityManajemen::create($array);
+                $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
+                $harga_mulai2 = trim($harga_mulai);
 
-            if($request->has('image')){
-                foreach($request->file('image') as $image){
-                    $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
-                    $image->move(public_path('activity-manajemen/image/'), $image2);
-                    ActivityManajemenImage::create([
-                        'activity_manajemen_id' => $activity_manajemen->id,
-                        'image' => $image2,
-                    ]);
+                $array2 = array(
+                    'user_id' => $request->user_id,
+                    'kategori_id' => $request['kategori_id'],
+                    'judul' => $request['judul'],
+                    'deskripsi' => $request['deskripsi'],
+                    'tanggal_publikasi' => $request['tanggal_publikasi'],
+                    'lokasi' => $request['lokasi'],
+                    'provinsi' => $request['provinsi'],
+                    'kabupaten_kota' => $request['kabupaten_kota'],
+                    'kecamatan' => $request['kecamatan'],
+                    'whatsapp' => $request['whatsapp'],
+                    'instagram' => $request['instagram'],
+                    'tiktok' => $request['tiktok'],
+                    'harga_mulai' => $harga_mulai2,
+                );
+
+                $activity_manajemen = ActivityManajemen::create($array2);
+
+                if($request->has('image')){
+                    foreach($request->file('image') as $image){
+                        $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
+                        $image->move(public_path('activity-manajemen/image/'), $image2);
+                        ActivityManajemenImage::create([
+                            'activity_manajemen_id' => $activity_manajemen->id,
+                            'image' => $image2,
+                        ]);
+                    }
+                }
+            }elseif($request->sudah_mengisi_form_ini_sebelumnya == 'tidak'){
+                $request->validate([
+                    'logo' => 'required',
+                    'nama_panjang' => 'required',
+                    'email' => 'required|email|unique:users,email',
+                    'kategori_id' => 'required',
+                    'judul' => 'required',
+                    'deskripsi' => 'required',
+                    'tanggal_publikasi' => 'required',
+                    'image' => 'required',
+                    'lokasi' => 'required',
+                    'provinsi' => 'required',
+                    'kabupaten_kota' => 'required',
+                    'kecamatan' => 'required',
+                    'image.*' => 'required',
+                ]);
+
+                try{
+                    DB::beginTransaction();
+    
+                    $array = array(
+                        'nama_panjang' => $request['nama_panjang'],
+                        'email' => $request['email'],
+                        'level' => 'Vendor',
+                        'password' => bcrypt(12345678),
+                    );
+    
+                    if($request->has('logo')){
+                        foreach($request->file('logo') as $logo){
+                            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                            $logo->move(public_path('user/logo/'), $logo2);
+                            $array['logo'] = $logo2;
+                        }
+                    }
+    
+                    $user = User::create($array);
+    
+                    $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
+                    $harga_mulai2 = trim($harga_mulai);
+    
+                    $array2 = array(
+                        'user_id' => $user->id,
+                        'kategori_id' => $request['kategori_id'],
+                        'judul' => $request['judul'],
+                        'deskripsi' => $request['deskripsi'],
+                        'tanggal_publikasi' => $request['tanggal_publikasi'],
+                        'lokasi' => $request['lokasi'],
+                        'provinsi' => $request['provinsi'],
+                        'kabupaten_kota' => $request['kabupaten_kota'],
+                        'kecamatan' => $request['kecamatan'],
+                        'whatsapp' => $request['whatsapp'],
+                        'instagram' => $request['instagram'],
+                        'tiktok' => $request['tiktok'],
+                        'harga_mulai' => $harga_mulai2,
+                    );
+    
+                    $activity_manajemen = ActivityManajemen::create($array2);
+    
+                    if($request->has('image')){
+                        foreach($request->file('image') as $image){
+                            $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
+                            $image->move(public_path('activity-manajemen/image/'), $image2);
+                            ActivityManajemenImage::create([
+                                'activity_manajemen_id' => $activity_manajemen->id,
+                                'image' => $image2,
+                            ]);
+                        }
+                    }
+    
+                    DB::commit();
+                }catch(Throwable $th){
+                    DB::rollback();
+                    return redirect()->back()->with('error', $th->getMessage());
                 }
             }
 
-            if(Auth::check()){
-                if(auth()->user()->level == 'Superadmin'){
-                    return redirect()->route('superadmin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
-                }elseif(auth()->user()->level == 'Admin'){
-                    return redirect()->route('admin.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
-                }
-            }else{
-                return back()->with('success', 'Data has been created at '.$activity_manajemen->created_at);
-            }
-
-        }elseif(auth()->user()->level == 'Vendor'){
-            $request->validate([
-                'kategori_id' => 'required',
-                'judul' => 'required',
-                'deskripsi' => 'required',
-                'tanggal_publikasi' => 'required',
-                'lokasi' => 'required',
-                'provinsi' => 'required',
-                'kabupaten_kota' => 'required',
-                'kecamatan' => 'required',
-                'image.*' => 'required',
-                'type.*' => 'required',
-            ]);
-
-            $harga_mulai = preg_replace('/\D/', '', $request->harga_mulai);
-            $harga_mulai2 = trim($harga_mulai);
-
-            $array = array(
-                'user_id' => Auth::id(),
-                'kategori_id' => $request['kategori_id'],
-                'judul' => $request['judul'],
-                'deskripsi' => $request['deskripsi'],
-                'tanggal_publikasi' => $request['tanggal_publikasi'],
-                'lokasi' => $request['lokasi'],
-                'provinsi' => $request['provinsi'],
-                'kabupaten_kota' => $request['kabupaten_kota'],
-                'kecamatan' => $request['kecamatan'],
-                'whatsapp' => $request['whatsapp'],
-                'instagram' => $request['instagram'],
-                'tiktok' => $request['tiktok'],
-                'harga_mulai' => $harga_mulai2,
-            );
-
-            $activity_manajemen = ActivityManajemen::create($array);
-
-            if($request->has('image')){
-                foreach($request->file('image') as $image){
-                    $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
-                    $image->move(public_path('activity-manajemen/image/'), $image2);
-                    ActivityManajemenImage::create([
-                        'activity_manajemen_id' => $activity_manajemen->id,
-                        'image' => $image2,
-                    ]);
-                }
-            }
-
-            return redirect()->route('vendor.activity-manajemen.index')->with('success', 'Data has been created at '.$activity_manajemen->created_at);
+            return back()->with('success', 'Data has been created at '.$activity_manajemen->created_at);
         }
     }
 
@@ -283,6 +389,7 @@ class ActivityManajemenController extends Controller
                 'judul' => 'required',
                 'deskripsi' => 'required',
                 'tanggal_publikasi' => 'required',
+                'image' => 'required',
                 'provinsi' => 'required',
                 'kabupaten_kota' => 'required',
                 'kecamatan' => 'required',

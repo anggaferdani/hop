@@ -35,6 +35,7 @@ class ActivityManajemen extends Model
         'harga_mulai',
         'slug',
         'status_aktif',
+        'status_approved',
         'created_by',
         'updated_by',
     ];
@@ -54,7 +55,8 @@ class ActivityManajemen extends Model
     {
         return [
             'slug' => [
-                'source' => 'judul'
+                'source' => 'judul',
+                'onUpdate'=> true,
             ]
         ];
     }

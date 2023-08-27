@@ -56,15 +56,15 @@ class FoodAndBeverageController extends Controller
         $request->validate([
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
-            'image.*' => 'required',
+            'image' => 'required',
             'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
             'harga' => 'required',
-            'seating.*' => 'required',
-            'feature.*' => 'required',
-            'entertaiment.*' => 'required',
+            'seating' => 'required',
+            'feature' => 'required',
+            'entertaiment' => 'required',
         ]);
 
         if(Auth::check()){
@@ -186,7 +186,7 @@ class FoodAndBeverageController extends Controller
         $request->validate([
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
-            'image.*' => 'required',
+            'image' => 'required',
             'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',

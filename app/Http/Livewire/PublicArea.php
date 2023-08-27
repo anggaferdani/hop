@@ -22,7 +22,7 @@ class PublicArea extends Component
 
     public function mount()
     {
-        $this->public_areas = HangoutPlace::where([['status', 'Public Area'], ['status_aktif', 'Aktif']])->get();
+        $this->public_areas = HangoutPlace::where([['status', 'Public Area'], ['status_approved', 'Approved'], ['status_aktif', 'Aktif']])->get();
     }
 
     public function render()
@@ -63,6 +63,6 @@ class PublicArea extends Component
                 $query->where('id_kecamatan', 'like', '%'.$this->kecamatan.'%');
             });
         }
-        $this->public_areas = $public_area->where('status', 'Public Area')->where('status_aktif', 'Aktif')->get();
+        $this->public_areas = $public_area->where('status', 'Public Area')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->get();
     }
 }

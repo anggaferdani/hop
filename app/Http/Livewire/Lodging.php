@@ -27,7 +27,7 @@ class Lodging extends Component
     public function mount()
     {
         $this->fasilitasies = Fasilitas::where('status_aktif', 'Aktif')->get();
-        $this->lodgings = HangoutPlace::where([['status', 'Lodging'], ['status_aktif', 'Aktif']])->get();
+        $this->lodgings = HangoutPlace::where([['status', 'Lodging'], ['status_approved', 'Approved'], ['status_aktif', 'Aktif']])->get();
     }
 
     public function render()
@@ -77,6 +77,6 @@ class Lodging extends Component
             $lodging = $lodging->where('harga', '=', $this->harga);
         }
 
-        $this->lodgings = $lodging->where('status', 'Lodging')->where('status_aktif', 'Aktif')->get();
+        $this->lodgings = $lodging->where('status', 'Lodging')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->get();
     }
 }

@@ -49,7 +49,7 @@ class PublicAreaController extends Controller
         $request->validate([
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
-            'image.*' => 'required',
+            'image' => 'required',
             'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
@@ -139,7 +139,7 @@ class PublicAreaController extends Controller
         $request->validate([
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
-            'image.*' => 'required',
+            'image' => 'required',
             'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Feature;
 use App\Models\Seating;
+use App\Models\Kategori;
+use App\Models\Fasilitas;
 use App\Models\Verifikasi;
 use App\Models\Entertaiment;
 use Illuminate\Http\Request;
@@ -116,6 +118,33 @@ class VendorController extends Controller
             'provinsis',
             'features',
             'entertaiments',
+        ));
+    }
+
+    public function lodging(){
+        $fasilitasies = Fasilitas::select('id', 'fasilitas')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        return view('lodging.create', compact(
+            'fasilitasies',
+            'provinsis',
+        ));
+    }
+
+    public function publicArea(){
+        $provinsis = DB::table('m_provinsi')->get();
+        return view('public-area.create', compact(
+            'provinsis',
+        ));
+    }
+
+    public function activityManajemen(){
+        $users = User::where('level', 'Vendor')->where('status_aktif', 'Aktif')->get();
+        $kategoris = Kategori::select('id', 'kategori')->where('status_aktif', 'Aktif')->get();
+        $provinsis = DB::table('m_provinsi')->get();
+        return view('activity-manajemen.create', compact(
+            'users',
+            'kategoris',
+            'provinsis',
         ));
     }
 }

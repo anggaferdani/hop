@@ -124,7 +124,7 @@ class FrontController extends Controller
     public function food_and_beverages (Request $request) {
         $seatings = Seating::where('status_aktif', 'Aktif')->get();
 
-        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_aktif', 'Aktif')->get();
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('status', 'Food And Beverage')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -144,7 +144,7 @@ class FrontController extends Controller
 
     public function sportainment($slug){
         $sportainment = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->where('slug', $slug)->first();
-        $sportainments = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->whereHas('hangout_place_logos')->where('slug', '<>', $slug)->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
+        $sportainments = HangoutPlace::with('hangout_place_images', 'hangout_place_logos')->whereHas('hangout_place_logos')->where('slug', '<>', $slug)->where('status', 'Food And Beverage')->where('status_approved', 'Approved')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($sportainment->provinsi);
         $kabupaten = Kabupaten::find($sportainment->kabupaten_kota);
         $kecamatan = Kecamatan::find($sportainment->kecamatan);
@@ -173,7 +173,7 @@ class FrontController extends Controller
 
     public function food_and_beverage($slug){
         $food_and_beverage = HangoutPlace::with('hangout_place_images')->where('slug', $slug)->first();
-        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Food And Beverage')->where("status_aktif", "Aktif")->latest()->get();
+        $food_and_beverages = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Food And Beverage')->where('status_approved', 'Approved')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($food_and_beverage->provinsi);
         $kabupaten = Kabupaten::find($food_and_beverage->kabupaten_kota);
         $kecamatan = Kecamatan::find($food_and_beverage->kecamatan);
@@ -202,7 +202,7 @@ class FrontController extends Controller
 
     public function lodgings(Request $request){
         $fasilitasies = Fasilitas::where('status_aktif', 'Aktif')->get();
-        $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('status_aktif', 'Aktif')->latest()->get();
+        $lodgings = HangoutPlace::with('hangout_place_images')->where('status', 'Lodging')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->latest()->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -218,7 +218,7 @@ class FrontController extends Controller
 
     public function lodging($slug){
         $lodging = HangoutPlace::with('hangout_place_images')->where('slug', $slug)->first();
-        $lodgings = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Lodging')->where("status_aktif", "Aktif")->latest()->get();
+        $lodgings = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Lodging')->where('status_approved', 'Approved')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($lodging->provinsi);
         $kabupaten = Kabupaten::find($lodging->kabupaten_kota);
         $kecamatan = Kecamatan::find($lodging->kecamatan);
@@ -246,7 +246,7 @@ class FrontController extends Controller
     }
 
     public function public_areas(Request $request){
-        $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_aktif', 'Aktif')->latest()->get();
+        $public_areas = HangoutPlace::with('hangout_place_images')->where('status', 'Public Area')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->latest()->get();
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -261,7 +261,7 @@ class FrontController extends Controller
 
     public function public_area($slug){
         $public_area = HangoutPlace::with('hangout_place_images')->where('slug', $slug)->first();
-        $public_areas = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Public Area')->where("status_aktif", "Aktif")->latest()->get();
+        $public_areas = HangoutPlace::with('hangout_place_images')->where('slug', '<>', $slug)->where('status', 'Public Area')->where('status_approved', 'Approved')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($public_area->provinsi);
         $kabupaten = Kabupaten::find($public_area->kabupaten_kota);
         $kecamatan = Kecamatan::find($public_area->kecamatan);
@@ -289,7 +289,7 @@ class FrontController extends Controller
     }
 
     public function activity_manajemens(){
-        $kategoris = Kategori::with('activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query){ $query->where("status_aktif", "Aktif"); }])->whereHas("activity_manajemens", function($query){ $query->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->get();
+        $kategoris = Kategori::with('activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query){ $query->where('status_approved', 'Approved')->where("status_aktif", "Aktif"); }])->whereHas("activity_manajemens", function($query){ $query->where('status_approved', 'Approved')->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->get();
         return view('front.activity-manajemens', compact(
             'kategoris',
         ));
@@ -297,7 +297,7 @@ class FrontController extends Controller
 
     public function activity_manajemen($slug){
         $activity_manajemen = ActivityManajemen::with('activity_manajemen_images')->where('slug', $slug)->first();
-        $kategoris = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query) use ($slug){ $query->where('slug', '<>', $slug); }])->whereHas("activity_manajemens", function($query){ $query->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->latest()->get();
+        $kategoris = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query) use ($slug){ $query->where('status_approved', 'Approved')->where('slug', '<>', $slug); }])->whereHas("activity_manajemens", function($query){ $query->where('status_approved', 'Approved')->where("status_aktif", "Aktif"); })->where('status_aktif', 'Aktif')->latest()->get();
         $provinsi = Provinsi::find($activity_manajemen->provinsi);
         $kabupaten = Kabupaten::find($activity_manajemen->kabupaten_kota);
         $kecamatan = Kecamatan::find($activity_manajemen->kecamatan);
@@ -325,7 +325,7 @@ class FrontController extends Controller
     }
     
     public function kategoris($slug){
-        $kategori = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query){ $query->where("status_aktif", "Aktif"); }])->where('slug', $slug)->where('status_aktif', 'Aktif')->where('slug', $slug)->first();
+        $kategori = Kategori::with('activity_manajemens', 'activity_manajemens.activity_manajemen_images')->with(["activity_manajemens" => function($query){ $query->where('status_approved', 'Approved')->where("status_aktif", "Aktif"); }])->where('slug', $slug)->where('status_aktif', 'Aktif')->where('slug', $slug)->first();
         return view('front.kategoris', compact(
             'kategori',
         ));

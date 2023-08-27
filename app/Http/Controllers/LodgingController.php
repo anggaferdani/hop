@@ -53,13 +53,13 @@ class LodgingController extends Controller
         $request->validate([
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
-            'image.*' => 'required',
+            'image' => 'required',
             'lokasi' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
             'harga' => 'required',
-            'fasilitas.*' => 'required',
+            'fasilitas' => 'required',
         ]);
 
         if(Auth::check()){
@@ -157,7 +157,7 @@ class LodgingController extends Controller
         $request->validate([
             'nama_tempat' => 'required',
             'deskripsi_tempat' => 'required',
-            'image.*' => 'required',
+            'image' => 'required',
             'provinsi' => 'required',
             'kabupaten_kota' => 'required',
             'kecamatan' => 'required',
