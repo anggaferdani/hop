@@ -45,7 +45,8 @@ class Update extends Model
     {
         return [
             'slug' => [
-                'source' => 'judul'
+                'source' => 'judul',
+                'onUpdate'=> true,
             ]
         ];
     }

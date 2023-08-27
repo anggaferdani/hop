@@ -57,7 +57,8 @@ class HangoutPlace extends Model
     {
         return [
             'slug' => [
-                'source' => 'nama_tempat'
+                'source' => 'nama_tempat',
+                'onUpdate'=> true,
             ]
         ];
     }

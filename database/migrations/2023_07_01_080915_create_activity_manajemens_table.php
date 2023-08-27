@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('harga_mulai')->nullable();
             $table->string('slug')->unique();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
+            $table->enum('status_approved', ['Approved', 'Belum Di Approved'])->default('Belum Di Approved');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

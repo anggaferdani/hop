@@ -32,6 +32,7 @@ class Agenda extends Model
         'link_pendaftaran',
         'slug',
         'status_aktif',
+        'status_approved',
         'created_by',
         'updated_by',
     ];
@@ -51,7 +52,8 @@ class Agenda extends Model
     {
         return [
             'slug' => [
-                'source' => 'judul'
+                'source' => 'judul',
+                'onUpdate'=> true,
             ]
         ];
     }
