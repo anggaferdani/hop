@@ -32,9 +32,6 @@
           <form>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search">
-              <div class="input-group-append">
-                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-              </div>
             </div>
           </form>
         </div>

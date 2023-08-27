@@ -6,15 +6,34 @@
 @section('content')
 <div class="row">
   <div class="col-12">
+    
+    @if(Session::get('success'))
+      <div class="alert alert-important alert-primary" role="alert">
+        {{ Session::get('success') }}
+      </div>
+    @endif
+
+    @if(session()->get('errors'))
+      <div class="alert alert-important alert-danger" role="alert">
+        @foreach($errors->all() as $error)
+          {{ $error }}<br>
+        @endforeach
+      </div>
+    @endif
+
     <div class="card">
       <div class="card-header">
         <h4>Create</h4>
       </div>
       <div class="card-body">
-        @if(auth()->user()->level == 'Superadmin')
-          <form action="{{ route('superadmin.lodging.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
-        @elseif(auth()->user()->level == 'Admin')
-          <form action="{{ route('admin.lodging.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+        @if (Auth::check())
+          @if(auth()->user()->level == 'Superadmin')
+            <form action="{{ route('superadmin.lodging.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+          @elseif(auth()->user()->level == 'Admin')
+            <form action="{{ route('admin.lodging.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+          @endif
+        @else
+          <form action="{{ route('vendor.lodging-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           <div class="form-group">
@@ -94,10 +113,12 @@
               @error('tiktok')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>
-          @if(auth()->user()->level == 'Superadmin')
-            <a href="{{ route('superadmin.lodging.index') }}" class="btn btn-secondary">Back</a>
-          @elseif(auth()->user()->level == 'Admin')
-            <a href="{{ route('admin.lodging.index') }}" class="btn btn-secondary">Back</a>
+          @if (Auth::check())
+            @if(auth()->user()->level == 'Superadmin')
+              <a href="{{ route('superadmin.lodging.index') }}" class="btn btn-secondary">Back</a>
+            @elseif(auth()->user()->level == 'Admin')
+              <a href="{{ route('admin.lodging.index') }}" class="btn btn-secondary">Back</a>
+            @endif
           @endif
           <button type="button" class="btn btn-secondary" onclick="window.location.reload();">Clear</button>
           <button type="submit" class="btn btn-primary">Submit</button>

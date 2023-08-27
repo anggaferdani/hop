@@ -28,9 +28,6 @@
           <form>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search">
-              <div class="input-group-append">
-                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-              </div>
             </div>
           </form>
         </div>
@@ -45,7 +42,7 @@
                 <th>Nama Tempat</th>
                 <th>Provinsi, Kabupaten/Kota, Kecamatan</th>
                 <th>Image</th>
-                <th>Created At</th>
+                <th>Status Approved</th>
                 <th>Action</th>
               </tr>
               <?php $id = 0; ?>
@@ -70,24 +67,52 @@
                       <div class="image2"><img src="{{ asset('lodging/image/'.$lodging_image["image"]) }}" alt="" class="image3"></div>
                     @endforeach
                   </td>
-                  <td>{{ $lodging->created_at }}</td>
+                  <td>
+                    @if($lodging->status_approved == 'Approved')
+                    <div class="badge badge-primary">Approved</div>
+                    @elseif($lodging->status_approved == 'Belum Di Approved')
+                    <div class="badge badge-danger">Belum Di Approved</div>
+                    @endif
+                  </td>
                   <td style="white-space: nowrap">
-                    @if(auth()->user()->level == 'Superadmin')
-                      <form action="{{ route('superadmin.lodging.destroy', Crypt::encrypt($lodging->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('superadmin.lodging.show', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('superadmin.lodging.edit', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
-                    @elseif(auth()->user()->level == 'Admin')
-                      <form action="{{ route('admin.lodging.destroy', Crypt::encrypt($lodging->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('admin.lodging.show', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('admin.lodging.edit', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
+                    @if($lodging->status_approved == 'Belum Di Approved')
+                      @if(auth()->user()->level == 'Superadmin')
+                        <form action="{{ route('superadmin.lodging.delete-permanently', Crypt::encrypt($lodging->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('superadmin.lodging.show', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.lodging.edit', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <a href="{{ route('superadmin.lodging.approved', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete-permanently"><i class="fas fa-times"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Admin')
+                        <form action="{{ route('admin.lodging.delete-permanently', Crypt::encrypt($lodging->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('admin.lodging.show', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('admin.lodging.edit', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <a href="{{ route('admin.lodging.approved', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete-permanently"><i class="fas fa-times"></i></button>
+                        </form>
+                      @endif
+                    @elseif($lodging->status_approved == 'Approved')
+                      @if(auth()->user()->level == 'Superadmin')
+                        <form action="{{ route('superadmin.lodging.destroy', Crypt::encrypt($lodging->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('superadmin.lodging.show', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.lodging.edit', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Admin')
+                        <form action="{{ route('admin.lodging.destroy', Crypt::encrypt($lodging->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('admin.lodging.show', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('admin.lodging.edit', Crypt::encrypt($lodging->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @endif
                     @endif
                   </td>
                 </tr>

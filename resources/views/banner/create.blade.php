@@ -6,6 +6,15 @@
 @section('content')
 <div class="row">
   <div class="col-12">
+
+    @if(session()->get('errors'))
+      <div class="alert alert-important alert-danger" role="alert">
+        @foreach($errors->all() as $error)
+          {{ $error }}<br>
+        @endforeach
+      </div>
+    @endif
+    
     <div class="card">
       <div class="card-header">
         <h4>Create</h4>
