@@ -33,6 +33,9 @@
   </script>
 
   <style>
+    .hidden {
+      display: none;
+    }
     .parent2{
       position: relative;
       width: 25%;
@@ -125,6 +128,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js" integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js" integrity="sha512-9e9rr82F9BPzG81+6UrwWLFj8ZLf59jnuIA/tIf8dEGoQVu7l5qvr02G/BiAabsFOYrIUTMslVN+iDYuszftVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="text/javascript" src="{{ asset('drag-drop-image-uploader/dist/image-uploader.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('jquery-toggle-visibility-plugin/src/jquery.toggle-visibility.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('fast-filter/filter-table.js') }}"></script>
   @stack('scripts')
   
   <script type="text/javascript">

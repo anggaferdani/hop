@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <img src="{{ asset('front/img/logo2.png') }}" width="130px" alt="">
+      <img src="{{ asset('front/logo.png') }}" width="110px" alt="">
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <img src="{{ asset('front/img/logo.png') }}" width="30px" alt="">
@@ -56,9 +56,9 @@
         @endif
       @else
         <li class="{{ str_contains(Route::currentRouteName(), 'vendor.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.food-and-beverage') }}"><i class="fas fa-coffee"></i><span>Resto & Cafe</span></a></li>
-        {{-- <li class="{{ str_contains(Route::currentRouteName(), 'vendor.lodging') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.lodging') }}"><i class="fas fa-building"></i><span>Hotel</span></a></li>
+        <li class="{{ str_contains(Route::currentRouteName(), 'vendor.lodging') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.lodging') }}"><i class="fas fa-building"></i><span>Hotel</span></a></li>
         <li class="{{ str_contains(Route::currentRouteName(), 'vendor.public-area') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.public-area') }}"><i class="fas fa-map"></i><span>Public Area</span></a></li>
-        <li class="{{ str_contains(Route::currentRouteName(), 'vendor.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.activity-manajemen') }}"><i class="fas fa-th"></i><span>Community</span></a></li> --}}
+        <li class="{{ str_contains(Route::currentRouteName(), 'vendor.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.activity-manajemen') }}"><i class="fas fa-th"></i><span>Community</span></a></li>
       @endif
     </ul>
   </aside>
