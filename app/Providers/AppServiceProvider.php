@@ -21,5 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::share('pendaftarCount', Pendaftar::where('status_approved', 'Belum Di Approved')->count());
     }
 }
