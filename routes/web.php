@@ -62,6 +62,8 @@ Route::get('/pendaftar/search', [ScannerController::class, 'search'])->name('pen
 Route::get('/kabupaten/{id}', [LokasiController::class, 'kabupaten'])->name('kabupaten');
 Route::get('/kecamatan/{id}', [LokasiController::class, 'kecamatan'])->name('kecamatan');
 
+Route::post('/search-by-barcode', [ScannerController::class, 'searchByBarcode'])->name('search-by-barcode');
+
 Route::middleware(['web', 'disableBackButton'])->group(function(){
     Route::middleware(['disableRedirectToLoginPage'])->group(function(){
         Route::get('login', [Controller::class, 'login'])->name('login');
@@ -170,8 +172,8 @@ Route::prefix('vendor')->name('vendor.')->group(function(){
     Route::post('lodging-post', [LodgingController::class, 'store'])->name('lodging-post');
     Route::get('public-area', [VendorController::class, 'publicArea'])->name('public-area');
     Route::post('public-area-post', [PublicAreaController::class, 'store'])->name('public-area-post');
-    Route::get('activity-manajemen', [VendorController::class, 'activityManajemen'])->name('activity-manajemen');
-    Route::post('activity-manajemen-post', [ActivityManajemenController::class, 'store'])->name('activity-manajemen-post');
+    Route::get('community', [VendorController::class, 'activityManajemen'])->name('activity-manajemen');
+    Route::post('community-post', [ActivityManajemenController::class, 'store'])->name('activity-manajemen-post');
     // Route::middleware(['auth:web', 'disableBackButton', 'vendor'])->group(function(){
     //     Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');
     //     Route::get('profile', [Controller::class, 'profile'])->name('profile');
