@@ -49,40 +49,40 @@ class DaftarController extends Controller
     
         $agenda = Agenda::find($request->agenda_id);
 
-        $qrCodeData = $pendaftar->token;
-        $dns2d = new DNS2D();
-        $qrCodeHTML = $dns2d->getBarcodeHTML($qrCodeData, 'QRCODE');
+        // $qrCodeData = $pendaftar->token;
+        // $dns2d = new DNS2D();
+        // $qrCodeHTML = $dns2d->getBarcodeHTML($qrCodeData, 'QRCODE');
 
-        $judul = $agenda->judul;
-        $tanggal_mulai = $agenda->tanggal_mulai;
-        $tanggal_berakhir = $agenda->tanggal_berakhir;
-        $jenis_tiket = $agenda->tiket;
-        $nama_panjang = $pendaftar->nama_panjang;
-        $email = $pendaftar->email;
-        $tanggal_pemesanan = $pendaftar->created_at;
+        // $judul = $agenda->judul;
+        // $tanggal_mulai = $agenda->tanggal_mulai;
+        // $tanggal_berakhir = $agenda->tanggal_berakhir;
+        // $jenis_tiket = $agenda->tiket;
+        // $nama_panjang = $pendaftar->nama_panjang;
+        // $email = $pendaftar->email;
+        // $tanggal_pemesanan = $pendaftar->created_at;
 
-        $mail = [
-            'kepada' => $pendaftar->email,
-            'email' => 'info@mixnetwork.id',
-            'dari' => 'Hangout Project',
-            'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
-            'qrCodeHTML' => $qrCodeHTML,
-            'judul' => $judul,
-            'tanggal_mulai' => $tanggal_mulai,
-            'tanggal_berakhir' => $tanggal_berakhir,
-            'jenis_tiket' => $jenis_tiket,
-            'nama_panjang' => $nama_panjang,
-            'email' => $email,
-            'tanggal_pemesanan' => $tanggal_pemesanan,
-        ];
+        // $mail = [
+        //     'kepada' => $pendaftar->email,
+        //     'email' => 'contact.hangoutproject@gmail.com',
+        //     'dari' => 'Hangout Project',
+        //     'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
+        //     'qrCodeHTML' => $qrCodeHTML,
+        //     'judul' => $judul,
+        //     'tanggal_mulai' => $tanggal_mulai,
+        //     'tanggal_berakhir' => $tanggal_berakhir,
+        //     'jenis_tiket' => $jenis_tiket,
+        //     'nama_panjang' => $nama_panjang,
+        //     'email' => $email,
+        //     'tanggal_pemesanan' => $tanggal_pemesanan,
+        // ];
 
-        Mail::send('email.email', $mail, function($message) use ($mail){
-            $message->to($mail['kepada'])
-            ->from($mail['email'], $mail['dari'])
-            ->subject($mail['subject']);
-        });
+        // Mail::send('email.email', $mail, function($message) use ($mail){
+        //     $message->to($mail['kepada'])
+        //     ->from($mail['email'], $mail['dari'])
+        //     ->subject($mail['subject']);
+        // });
 
-        return back()->with('success', 'Data has been created at '.$pendaftar->created_at);
+        return back()->with('success', 'Terima kasih anda telah melakukan pemesanan tiket '.$agenda->judul).'. QR-Code akan dikirim ke email pemesan setelah admin mengapproved pemesanan. QR-Code dapat ditunjukan ke petugas terkait saat mengikuti kegiatan sebagai bukti pemesanan.';
     }
 
     public function generateNumber(){
