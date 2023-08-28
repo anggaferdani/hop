@@ -68,17 +68,17 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="">Provinsi</label>
-              <input disabled type="text" class="form-control" name="provinsi" value="{{ $agenda->hangout_places->Provinsi->nama_provinsi }}">
+              <input disabled type="text" class="form-control" name="provinsi" value="{{ Str::title(strtolower($agenda->hangout_places->Provinsi->nama_provinsi)) }}">
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kabupaten</label>
-              <input disabled type="text" class="form-control" name="updated_by" value="{{ $agenda->hangout_places->Kabupaten->nama_kabupaten }}">
+              <input disabled type="text" class="form-control" name="updated_by" value="{{ Str::title(strtolower($agenda->hangout_places->Kabupaten->nama_kabupaten)) }}">
               @error('updated_by')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
               <label for="">Kecamatan</label>
-              <input disabled type="text" class="form-control" name="updated_by" value="{{ $agenda->hangout_places->Kecamatan->nama_kecamatan }}">
+              <input disabled type="text" class="form-control" name="updated_by" value="{{ Str::title(strtolower($agenda->hangout_places->Kecamatan->nama_kecamatan)) }}">
               @error('updated_by')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
           </div>

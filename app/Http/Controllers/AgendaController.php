@@ -26,15 +26,15 @@ class AgendaController extends Controller
     public function index(){
         if(auth()->user()->level == 'Admin'){
             if(!empty(auth()->user()->level_admin == 'Activity Manajemen' || auth()->user()->level_admin == 'Food And Beverage' || auth()->user()->level_admin == 'Lodging' || auth()->user()->level_admin == 'Public Area')){
-                $agendas = Agenda::with('agenda_images', 'hangout_places')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+                $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
             }else{
-                $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+                $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->where('status_aktif', 'Aktif')->latest()->paginate(10);
             }
             return view('agenda.index', compact(
                 'agendas',
             ));
         }elseif(auth()->user()->level == 'Superadmin'){
-            $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->where('status_aktif', 'Aktif')->latest()->paginate(10);
             return view('agenda.index', compact(
                 'agendas',
             ));

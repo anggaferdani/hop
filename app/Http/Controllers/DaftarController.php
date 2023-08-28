@@ -26,6 +26,7 @@ class DaftarController extends Controller
     
         $array = array(
             'token' => $token,
+            'agenda_id' => $request->agenda_id,
             'nama_panjang' => $request['nama_panjang'],
             'tanggal_lahir' => $request['tanggal_lahir'],
             'jenis_kelamin' => $request['jenis_kelamin'],
@@ -49,10 +50,6 @@ class DaftarController extends Controller
     
         $agenda = Agenda::find($request->agenda_id);
 
-        $qrCodeData = $pendaftar->token;
-        $dns2d = new DNS2D();
-        $qrCodeHTML = $dns2d->getBarcodeHTML($qrCodeData, 'QRCODE');
-
         $judul = $agenda->judul;
         $tanggal_mulai = $agenda->tanggal_mulai;
         $tanggal_berakhir = $agenda->tanggal_berakhir;
@@ -70,7 +67,6 @@ class DaftarController extends Controller
             'dari' => 'Hangout Project',
             'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
             'imageContent' => $imageContent,
-            'qrCodeHTML' => $qrCodeHTML,
             'judul' => $judul,
             'tanggal_mulai' => $tanggal_mulai,
             'tanggal_berakhir' => $tanggal_berakhir,
@@ -86,7 +82,7 @@ class DaftarController extends Controller
             ->subject($mail['subject']);
         });
 
-        return back()->with('success', 'Berhasil melakukan pemesanan tiket '.$agenda->judul.' pada '.$pendaftar->created_at.'. QR-Code akan dikirim ke email '.$pendaftar->email.' setelah admin mengapproved pemesanan. QR-Code dapat ditunjukan ke petugas terkait saat mengikuti kegiatan sebagai bukti pemesanan.');
+        return back()->with('success', 'Berhasil melakukan pemesanan tiket '.$agenda->judul.' pada '.$pendaftar->created_at.'. Bukti transaksi akan dikirim ke email '.$pendaftar->email.'. QR-Code akan dikirim ke alamat email yang sama setelah admin mengapproved pemesanan');
     }
 
     public function generateNumber(){

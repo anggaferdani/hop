@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pendaftars', function (Blueprint $table) {
             $table->id();
             $table->string('token');
+            $table->foreignId('agenda_id')->references('id')->on('agendas')->onDelete('cascade');
             $table->string('nama_panjang');
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('pekerjaan')->nullable();
             $table->enum('status_aktif', ['Aktif', 'Tidak Aktif'])->default('Aktif');
+            $table->enum('status_approved', ['Approved', 'Belum Di Approved'])->default('Belum Di Approved');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Type;
+use App\Models\Pendaftar;
 use App\Models\JenisTiket;
 use App\Models\AgendaImage;
 use App\Models\HangoutPlace;
@@ -64,6 +65,10 @@ class Agenda extends Model
 
     public function agenda_images(){
         return $this->hasMany(AgendaImage::class);
+    }
+
+    public function pendaftars(){
+        return $this->hasMany(Pendaftar::class);
     }
 
     public function jenis_tikets(){

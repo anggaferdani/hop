@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Agenda;
 use App\Models\JenisTiket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ class Pendaftar extends Model
 
     protected $fillable = [
         'token',
+        'agenda_id',
         'nama_panjang',
         'tanggal_lahir',
         'jenis_kelamin',
@@ -29,6 +31,7 @@ class Pendaftar extends Model
         'kecamatan',
         'pekerjaan',
         'status_aktif',
+        'status_approved',
         'created_by',
         'updated_by',
     ];
@@ -42,6 +45,10 @@ class Pendaftar extends Model
         static::saving(function($model){
             $model->updated_by = Auth::id();
         });
+    }
+
+    public function agendas(){
+        return $this->belongsTo(Agenda::class, 'agenda_id');
     }
 
     public function jenis_tikets(){
