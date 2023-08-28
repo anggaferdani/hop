@@ -109,6 +109,11 @@
             {!! $share !!}
           </ul>
         </div>
+        @if(Session::get('success'))
+          <div class="alert alert-important alert-primary mt-3" role="alert">
+            {{ Session::get('success') }}
+          </div>
+        @endif
         @php
           $tanggalBerikutnya  = \Carbon\Carbon::parse($agenda->tanggal_berakhir);
           $selisihHari  = \Carbon\Carbon::now()->diffInDays($tanggalBerikutnya );

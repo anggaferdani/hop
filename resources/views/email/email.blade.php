@@ -111,7 +111,7 @@ table {
           <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
         </tr>
         <tr>
-          <td align="center"><a href="{{ route('index') }}" title="" target="_blank"><img src="https://github.com/anggaferdani/hop/blob/main/public/front/img/logo.png" width="66" height="79" alt="" style="display: block; border:0; width:66px; height:79px;" border="0"></a></td>
+          <td align="center"><a href="{{ route('index') }}" title="" target="_blank"><img src="data:image/png;base64, {{ base64_encode($imageContent) }}" width="66" height="79" alt="" style="display: block; border:0; width:66px; height:79px;" border="0"></a></td>
         </tr>
         <tr>
           <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
