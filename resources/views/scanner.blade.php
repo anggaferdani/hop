@@ -7,13 +7,9 @@
   <div class="row">
     <div id="reader"></div>
   </div>
-  <div class="row">
+  <form class="row" id="barcode-form">
     <input type="text" id="search" class="result2">
-    <div id="result" style="display:none">
-      <ul class="list-group" id="list">
-       
-      </ul>
-    </div>
-  </div>
+  </form>
+  <div id="result"></div>
 </div>
 @endsection

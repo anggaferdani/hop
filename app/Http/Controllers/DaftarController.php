@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agenda;
-use App\Models\JenisTiket;
+use Milon\Barcode\DNS2D;
 use App\Models\Pendaftar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Crypt;
 
 class DaftarController extends Controller
 {
@@ -50,17 +49,31 @@ class DaftarController extends Controller
     
         $agenda = Agenda::find($request->agenda_id);
 
-        $nama_panjang = $pendaftar->nama_panjang;
+        $qrCodeData = $pendaftar->token;
+        $dns2d = new DNS2D();
+        $qrCodeHTML = $dns2d->getBarcodeHTML($qrCodeData, 'QRCODE');
+
         $judul = $agenda->judul;
+        $tanggal_mulai = $agenda->tanggal_mulai;
+        $tanggal_berakhir = $agenda->tanggal_berakhir;
+        $jenis_tiket = $agenda->tiket;
+        $nama_panjang = $pendaftar->nama_panjang;
+        $email = $pendaftar->email;
+        $tanggal_pemesanan = $pendaftar->created_at;
 
         $mail = [
             'kepada' => $pendaftar->email,
             'email' => 'info@mixnetwork.id',
             'dari' => 'Hangout Project',
-            'subject' => 'Terima kasih anda telah melakukan pemesanan tiket' .$judul,
-            'nama_panjang' => $nama_panjang,
+            'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
+            'qrCodeHTML' => $qrCodeHTML,
             'judul' => $judul,
-            'token' => $pendaftar->token,
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_berakhir' => $tanggal_berakhir,
+            'jenis_tiket' => $jenis_tiket,
+            'nama_panjang' => $nama_panjang,
+            'email' => $email,
+            'tanggal_pemesanan' => $tanggal_pemesanan,
         ];
 
         Mail::send('email.email', $mail, function($message) use ($mail){
@@ -69,7 +82,7 @@ class DaftarController extends Controller
             ->subject($mail['subject']);
         });
 
-        return redirect()->route('agenda', Crypt::encrypt($request->agenda_id))->with('success', 'Data has been created at '.$pendaftar->created_at);
+        return back()->with('success', 'Data has been created at '.$pendaftar->created_at);
     }
 
     public function generateNumber(){

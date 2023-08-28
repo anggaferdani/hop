@@ -32,25 +32,30 @@
   </script>
 
   <script type="text/javascript">
-    $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+      const barcodeInput = document.getElementById('barcode-input');
+      const resultDiv = document.getElementById('result');
+      
+      barcodeInput.addEventListener('input', function(event) {
+        const barcode = event.target.value.trim();
+        
+        if (barcode.length === 12 || barcode.length === 13) {
+          axios.post('/search-by-barcode', { barcode: barcode })
+              .then(response => {
+                  const item = response.data.item;
+                  if (item) {
+                      resultDiv.textContent = `Item found: ${item.name}`;
+                  } else {
+                      resultDiv.textContent = 'Item not found';
+                  }
+              })
+              .catch(error => {
+                  console.error(error);
+              });
           
-        $('#search').keyup(function(){
-            var search = $('#search').val();
-            if(search == ""){
-                $("#list").html("");
-                $('#result').hide();
-            }else{
-                $.get("{{ route('pendaftar.search') }}", {search:search}, function(data){
-                    $('#list').empty().html(data);
-                    $('#result').show();
-                })
-            }
-        });
+          barcodeInput.value = '';
+        }
+      });
     });
   </script>
 </body>

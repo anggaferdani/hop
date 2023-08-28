@@ -1,103 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
-</head>
-<style>  
-  @font-face {
-  font-family: 'Oxygen';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Oxygen Light'), local('Oxygen-Light'), url(https://fonts.gstatic.com/s/oxygen/v7/AwBqWF2kjhlybWamaKMPcZBw1xU1rKptJj_0jans920.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+<title>Terima kasih anda telah melakukan pemesanan tiket</title>
+<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style type="text/css">
+/* Stop WebKit from changing text sizes */
+body, table, td, a {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
 }
-  
-  @font-face {
-  font-family: 'Oxygen';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Oxygen Regular'), local('Oxygen-Regular'), url(https://fonts.gstatic.com/s/oxygen/v7/qBSyz106i5ud7wkBU-FrPevvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+body {
+	height: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 100% !important;
 }
-  
-  @font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v11/ODelI1aHBYDBqgeIAH2zlJbPFduIYtoLzwST68uhz_Y.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+/* Removes spacing between tables in Outlook 2007+ */
+table, td {
+	mso-table-lspace: 0pt;
+	mso-table-rspace: 0pt;
+} 
+img {
+	border: 0;
+	line-height: 100%;
+	text-decoration: none;
+	-ms-interpolation-mode: bicubic; /* Smoother rendering in IE */
+}
+table {
+	border-collapse: collapse !important;
+}
+/* iOS Blue Links */
+a[x-apple-data-detectors] {
+	color: inherit !important;
+	text-decoration: none !important;
+	font-size: inherit !important;
+	font-family: inherit !important;
+	font-weight: inherit !important;
+	line-height: inherit !important;
+}
+/* Table fix for Outlook */
+table {
+	border-collapse:separate;
+}
+.ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td {
+	line-height: 100%;
+}
+.ExternalClass {
+	width: 100%;
+}
+/* Mobile Styling */
+@media screen and (max-width: 525px){
+.wrapper {
+	width: 100% !important;
+	max-width: 100% !important;
+}
+.hide-element {
+	display: none !important;
+}
+.no-padding {
+	padding: 0 !important;
+}
+.img-max {
+	max-width: 100% !important;
+	width: 100% !important;
+	height: auto !important;
+}
+.table-max {
+	width: 100% !important;
+}
+.mobile-btn-container {
+	margin: 0 auto;
+	width: 100% !important;
+}
+.mobile-btn {
+	padding: 15px !important;
+	border: 0 !important;
+	font-size: 16px !important;
+	display: block !important;
+}
+}
+/* iPads (landscape) Styling */
+@media handheld, all and (device-width: 768px) and (device-height: 1024px) and (orientation : landscape) {
+.wrapper-ipad {
+	max-width: 280px !important;
+}
+.table-max-ipad{
+	max-width:465px !important;
+}
 }
 
-  body{
-    margin:0;
-    padding:0;
-  }
-
-  img{
-    border:0 none;
-    height:auto;
-    line-height:100%;
-    outline:none;
-    text-decoration:none;
-  }
-
-  a img{
-    border:0 none;
-  }
-
-  .imageFix{
-    display:block;
-  }
-
-  table, td{
-    border-collapse:collapse;
-  }
-
-  #bodyTable{
-    height:100% !important;
-    margin:0;
-    padding:0;
-    width:100% !important;
-  }
+/* iPads (portrait) Styling */
+@media handheld, all and  (device-width: 768px) and (device-height: 1024px) and (orientation : portrait) {
+.wrapper-ipad {
+	max-width: 280px !important;
+}
+.table-max-ipad{
+	max-width:465px !important;
+}
+}
 </style>
-<body>
-  <table width="100%" height="750" cellpadding="0" cellspacing="0" border="0" style="background: #fff url(https://drive.google.com/uc?id=1MiBhp2XC90SpIqElUFlvP-uHu8P7Jn5G) right bottom no-repeat; background-size: cover;color:#121212;padding:0px;margin:0px;width:100%;font-family: 'Source Sans Pro', sans-serif;font-weight: 400;line-height:1.5">
-    <tbody>
-      <tr>
-        <td>
-          <table cellpadding="0" cellspacing="0" border="0" style="padding:0px;margin:0px;width:100%;">
-            <tr><td align="center" colspan="3" style="margin:0px;" height="20">&nbsp;</td></tr>
-            <tr>
-              <td style="padding:0px;margin:0px;">&nbsp;</td>
-              <td align="center" style="background: #ffffff; box-shadow: 0 9px 18px 0 rgba(0,0,0,.3), 0 2px 6px 0 rgba(0,0,0,.3);border-radius: 16px;padding:30px;margin:0px;" width="400">
-                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                  <tbody>
+</head>
+<body style="margin: 0 !important; padding: 0 !important;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="center">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" class="wrapper">
+        <tr>
+          <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center"><a href="{{ route('index') }}" title="" target="_blank"><img src="{{ $message->embed('front/img/logo.png') }}" width="66" height="79" alt="" style="display: block; border:0; width:66px; height:79px;" border="0"></a></td>
+        </tr>
+        <tr>
+          <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffffff" align="center" style="padding: 0 10px 0 10px;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" class="table-max">
+        <tr>
+          <td><table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center">
+                	<div width="100%" alt="" style="display: block; border:0; width:100%; height:auto !important;" class="img-max">{!! $qrCodeHTML !!}</div>
+                </td>
+              </tr>
+              <tr>
+                <td><table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center">
-                        <h4 style="margin: 0; padding: 0 0 20px;color: #DE1A1A;font-size:40px;font-family: 'Oxygen', sans-serif;font-weight: 700;">Thank You!</h4>
-                      </td>
+                      <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
                     </tr>
                     <tr>
-                      <td align="center">
-                        <img src="data:image/png;base64,' . DNS2D::getBarcodePNG({!! $token !!}, 'QRCODE', 10, 10) . '" alt="barcode"/>
-                        <p style="color: #666666;font-size: 16px;margin: 0; padding: 10px 0 10px;">{!! $judul !!}</p>
-                        <p style="color: #666666;font-size: 16px;margin: 0; padding: 10px 0 10px;">{!! $nama_panjang !!}</p>
+                      <td align="left"><h4 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight:normal; color: #2C3E50; margin:0; mso-line-height-rule:exactly;">Terima kasih anda telah melakukan pemesanan tiket {!! $judul !!}</h4></td>
+                    </tr>
+                    <tr>
+                      <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="left" style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 25px; color: #2C3E50;">
+                        Judul : {!! $judul !!}
+                        <br>
+                        Tanggal mulai dan berakhir : {!! \Carbon\Carbon::parse($tanggal_mulai)->format('l, d M Y') !!} - {!! \Carbon\Carbon::parse($tanggal_berakhir)->format('l, d M Y') !!}
+                        <br>
+                        Jenis tiket : {!! $jenis_tiket !!}
+                        <br>
+                        Nama : {!! $nama_panjang !!}
+                        <br>
+                        Email : {!! $email !!}
+                        <br>
+                        Tanggal pemesanan : {!! \Carbon\Carbon::parse($tanggal_pemesanan)->format('l, d M Y') !!}
                       </td>
                     </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td style="padding:0px;margin:0px;">&nbsp;</td>
-            </tr>
-            <tr><td colspan="3" style="padding:0px;margin:0px;font-size:20px;height:20px;" height="20">&nbsp;</td></tr>
-          </table>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
+  </tr>
+</table>
 </body>
 </html>

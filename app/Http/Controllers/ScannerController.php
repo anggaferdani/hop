@@ -11,13 +11,12 @@ class ScannerController extends Controller
         return view('scanner');
     }
 
-    public function search(Request $request){
-        $search = $request->get('search');
+    public function searchByBarcode(Request $request)
+    {
+        $barcode = $request->input('barcode');
 
-        $agendas = Pendaftar::where('token', 'like', '%' .$search . '%')->where('status_aktif', 'Aktif')->get();
+        $item = Pendaftar::where('token', $barcode)->first();
 
-        return view('result', compact(
-            'agendas',
-        ));
+        return response()->json(['item' => $item]);
     }
 }
