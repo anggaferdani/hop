@@ -33,7 +33,7 @@
             <form action="{{ route('admin.lodging.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
           @endif
         @else
-          <form action="{{ route('vendor.lodging-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+          <form action="{{ route('partner.lodging-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           <div class="form-group">

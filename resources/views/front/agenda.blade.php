@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="col-md-5">
-        <div class="fs-4 fw-bold" style="text-align: justify;">{{ $agenda->judul }}</div>
+        <div class="fs-4 fw-bold lh-sm" style="text-align: justify;">{{ $agenda->judul }}</div>
         <div class="text-muted lh-sm mt-1" style="text-align: justify;">{!! $agenda->deskripsi !!}</div>
         <div class="fw-bold">Event Type</div>
         <div class="text-muted lh-sm mb-2">{{ $agenda->jenis }}, 

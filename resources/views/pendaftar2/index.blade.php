@@ -1,7 +1,7 @@
 @extends('templates.pages')
 @section('title', 'Pendaftar')
 @section('header')
-<h1>Pendaftar : {{ $agenda->judul }}</h1>
+<h1>Pendaftar</h1>
 @endsection
 @section('content')
 <div class="row">
@@ -16,11 +16,7 @@
     <div class="card">
       <div class="card-body">
         <div class="float-left">
-          @if(auth()->user()->level == 'Superadmin')
-            <a href="{{ route('superadmin.agenda.index') }}" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-          @elseif(auth()->user()->level == 'Admin')
-            <a href="{{ route('admin.agenda.index') }}" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-          @endif
+          
         </div>
         <div class="float-right">
           <form>
@@ -37,6 +33,7 @@
             <tbody>
               <tr>
                 <th>No.</th>
+                <th>Agenda</th>
                 <th>Nama Panjang</th>
                 <th>Jenis Kelamin</th>
                 <th>Email</th>
@@ -48,6 +45,7 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
+                  <td>{{ $pendaftar->agendas->judul }}</td>
                   <td>{{ $pendaftar->nama_panjang }}</td>
                   <td>{{ $pendaftar->jenis_kelamin }}</td>
                   <td>{{ $pendaftar->email }}</td>
@@ -136,23 +134,21 @@
             <label>Email <span class="text-danger">*</span></label>
             <input disabled type="email" class="form-control" name="email" value="{{ $pendaftar2->email }}">
           </div>
-          @if($agenda->tiket == 'Berbayar')
-            @if(!empty($pendaftar2->jenis_tiket_id))
-            <div class="form-group">
-              <label for="">Jenis Tiket</label>
-              <div class="form-row mb-2">
-                <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $pendaftar2->jenis_tikets->tiket }}" placeholder="Jenis Tiket" required></div>
-                <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $pendaftar2->jenis_tikets->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
-              </div>
-              @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
-              @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
+          @if(!empty($pendaftar2->jenis_tiket_id))
+          <div class="form-group">
+            <label for="">Jenis Tiket</label>
+            <div class="form-row mb-2">
+              <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $pendaftar2->jenis_tikets->tiket }}" placeholder="Jenis Tiket" required></div>
+              <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $pendaftar2->jenis_tikets->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
             </div>
-            <div class="form-group">
-              <label>Bukti Transfer</label>
-              <input disabled type="file" class="form-control" name="bukti_transfer" value="{{ $pendaftar2->bukti_transfer }}">
-              <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank">{{ $pendaftar2->bukti_transfer }}</a></div>
-            </div>
-            @endif
+            @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
+            @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+          <div class="form-group">
+            <label>Bukti Transfer</label>
+            <input disabled type="file" class="form-control" name="bukti_transfer" value="{{ $pendaftar2->bukti_transfer }}">
+            <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank">{{ $pendaftar2->bukti_transfer }}</a></div>
+          </div>
           @endif
           <div class="form-row">
             <div class="form-group col-md-4">

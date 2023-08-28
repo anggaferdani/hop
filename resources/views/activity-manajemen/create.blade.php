@@ -35,7 +35,7 @@
             <form action="{{ route('vendor.activity-manajemen.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
           @endif
         @else
-          <form action="{{ route('vendor.activity-manajemen-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+          <form action="{{ route('partner.activity-manajemen-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           @if (Auth::check())

@@ -125,12 +125,17 @@ table {
         <tr>
           <td><table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
+                <td align="center">
+                	<div alt="" style="display: block; border:0; width:100%; height:auto !important;" class="img-max">{!! $qrCodeHTML !!}</div>
+                </td>
+              </tr>
+              <tr>
                 <td><table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
                     </tr>
                     <tr>
-                      <td align="left"><h4 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight:normal; color: #2C3E50; margin:0; mso-line-height-rule:exactly;">Terima kasih anda telah melakukan pemesanan tiket {!! $judul !!}. QR-Code akan dikirim ke email {{ $email }} setelah admin mengapproved pemesanan.</h4></td>
+                      <td align="left"><h4 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight:normal; color: #2C3E50; margin:0; mso-line-height-rule:exactly;">Berikut QR-Code hasil pemesanan tiket {!! $judul !!}. QR-Code dapat ditunjukan ke petugas terkait saat mengikuti kegiatan sebagai bukti pemesanan.</h4></td>
                     </tr>
                     <tr>
                       <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>

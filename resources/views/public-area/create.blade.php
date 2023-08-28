@@ -33,7 +33,7 @@
             <form action="{{ route('admin.public-area.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
           @endif
         @else
-          <form action="{{ route('vendor.public-area-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+          <form action="{{ route('partner.public-area-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           <div class="form-group">

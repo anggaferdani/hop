@@ -33,7 +33,7 @@
             <form action="{{ route('admin.food-and-beverage.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
           @endif
         @else
-          <form action="{{ route('vendor.food-and-beverage-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
+          <form action="{{ route('partner.food-and-beverage-post') }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate="">
         @endif
           @csrf
           <div class="form-group">
