@@ -37,28 +37,35 @@
         @endif
           @csrf
           <div class="form-group">
-            <label for="">Nama Tempat</label>
+            <label for="">Nama Tempat <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="nama_tempat">
             @error('nama_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Deskripsi Tempat</label>
+            <label for="">Deskripsi Tempat <span class="text-danger">*</span></label>
             <textarea class="ckeditor" name="deskripsi_tempat"></textarea>
             @error('deskripsi_tempat')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Image</label>
+            <label for="">Image <span class="text-danger">*</span></label>
             <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1:1. Maksimum file upload 3 images</div>
             <div class="input-images"></div>
           </div>
           <div class="form-group">
-            <label for="">Lokasi</label>
+            <label for="">Embed Lokasi <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="lokasi">
             @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="text-muted small">
+              1. Pilih lokasi anda pada google maps<br>
+              2. Pada menu disebelah kiri pilih bagikan lokasi<br>
+              3. Pilih sematkan peta<br>
+              4. Copy embed link lalu paste pada inputan form<br>
+              5. Kurang jelas? <a href="{{ route('documentations.cara-embed-lokasi') }}" target="_blank">klik disini untuk melihat dokumentasi cara embed link</a><br>
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="">Provinsi</label>
+              <label for="">Provinsi <span class="text-danger">*</span></label>
               <select class="form-control select2" name="provinsi" id="provinsi">
                 <option disabled selected>Select</option>
                 @foreach($provinsis as $provinsi)
@@ -68,14 +75,14 @@
               @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
-              <label for="">Kabupaten/Kota</label>
+              <label for="">Kabupaten/Kota <span class="text-danger">*</span></label>
               <select class="form-control select2" name="kabupaten_kota" id="kabupaten">
                 <option disabled selected>Select</option>
               </select>
               @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
-              <label for="">Kecamatan</label>
+              <label for="">Kecamatan <span class="text-danger">*</span></label>
               <select class="form-control select2" name="kecamatan" id="kecamatan">
                 <option disabled selected>Select</option>
               </select>

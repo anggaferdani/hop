@@ -172,6 +172,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
     });
 });
 
+Route::get('documentations/cara-embed-lokasi', function(){ return view('documentations/cara-embed-lokasi'); })->name('documentations.cara-embed-lokasi');
+
 Route::get('partner', function(){ return redirect()->route('partner.food-and-beverage'); })->name('partner');
 Route::get('partner/resto-dan-cafe', [VendorController::class, 'foodAndBeverage'])->name('partner.food-and-beverage');
 Route::post('partner/resto-dan-cafe-post', [FoodAndBeverageController::class, 'store'])->name('partner.food-and-beverage-post');

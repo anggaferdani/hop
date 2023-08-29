@@ -46,7 +46,7 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
-                  <td><img src="{{ asset('banner/thumbnail/'.$banner["thumbnail"]) }}" alt="" width="200px"></td>
+                  <td><div class="image2"><img src="{{ asset('banner/thumbnail/'.$banner["thumbnail"]) }}" alt="" class="image3"></div></td>
                   <td>{{ $banner->created_at }}</td>
                   <td style="white-space: nowrap">
                     @if(auth()->user()->level == 'Superadmin')

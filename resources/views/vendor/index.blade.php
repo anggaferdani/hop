@@ -41,7 +41,6 @@
                 <th>Nama Panjang</th>
                 <th>Email</th>
                 <th>Status Aktif</th>
-                <th>Created At</th>
                 <th>Action</th>
               </tr>
               <?php $id = 0; ?>
@@ -49,7 +48,7 @@
                 <?php $id++; ?>
                 <tr>
                   <td>{{ $id }}</td>
-                  <td style="width: 200px; height: 150px;"><img src="{{ asset('user/logo/'.$vendor['logo']) }}" id="image" alt="" style="width: 100%; height: 100%; object-fit: cover;"></td>
+                  <td><div class="image2"><img src="{{ asset('user/logo/'.$vendor["logo"]) }}" alt="" class="image3"></div></td>
                   <td>{{ $vendor->nama_panjang }}</td>
                   <td>{{ $vendor->email }}</td>
                   <td>
@@ -59,7 +58,6 @@
                       <div class="badge badge-danger">Tidak Aktif</div>
                     @endif
                   </td>
-                  <td>{{ $vendor->created_at }}</td>
                   <td style="white-space: nowrap">
                     @if($vendor->status_aktif == 'Aktif')
                       @if(auth()->user()->level == 'Superadmin')
@@ -67,6 +65,7 @@
                           @csrf
                           @method('DELETE')
                           <a href="{{ route('superadmin.vendor.show', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.vendor.edit', Crypt::encrypt($vendor->id), Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
                           <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-times"></i></button>
                         </form>
                       @elseif(auth()->user()->level == 'Admin')
@@ -74,16 +73,18 @@
                           @csrf
                           @method('DELETE')
                           <a href="{{ route('admin.vendor.show', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                        <a href="{{ route('admin.vendor.edit', Crypt::encrypt($vendor->id), Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+
                           <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-times"></i></button>
                         </form>
                       @endif
                     @elseif($vendor->status_aktif == 'Tidak Aktif')
                       @if(auth()->user()->level == 'Superadmin')
                         <a href="{{ route('superadmin.vendor.show', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('superadmin.vendor.pulihkan', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-check"></i></a>
+                        <a href="{{ route('superadmin.vendor.pulihkan', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary pulihkan"><i class="fas fa-check"></i></a>
                       @elseif(auth()->user()->level == 'Admin')
                         <a href="{{ route('admin.vendor.show', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('admin.vendor.pulihkan', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-check"></i></a>
+                        <a href="{{ route('admin.vendor.pulihkan', Crypt::encrypt($vendor->id)) }}" class="btn btn-icon btn-primary pulihkan"><i class="fas fa-check"></i></a>
                       @endif
                     @endif
                   </td>

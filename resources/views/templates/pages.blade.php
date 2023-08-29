@@ -48,8 +48,8 @@
     }
     .image2{
       display: block;
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
       margin-bottom: 1%;
     }
     .image3{
@@ -296,6 +296,28 @@
           }
       })
     }
+  </script>
+
+  <script type="text/javascript">
+    $('.pulihkan').click(function confirmation(e){
+      e.preventDefault();
+
+      var url = e.currentTarget.getAttribute('href')
+      
+      Swal.fire({
+          icon: 'warning',
+          title: 'You want to recover this record?',
+          text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus amet dolore ex saepe, incidunt accusamus distinctio voluptatum esse recusandae. Beatae dicta tempora culpa libero suscipit quam vero ad, corporis soluta.',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Recover it'
+      }).then((result) => {
+          if(result.value){
+            window.location.href = url;
+          }
+      })
+    });
   </script>
 
 <script type="text/javascript">
