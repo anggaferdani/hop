@@ -8,6 +8,9 @@
 </style>
 @endpush
 @section('content')
+@php
+  date_default_timezone_set('Asia/Jakarta');
+@endphp
 <section class="pt-md-4 pb-md-2 pt-1 pb-2">
   <div class="container">
     {{-- <div class="row mb-md-4">
@@ -115,10 +118,12 @@
           </div>
         @endif
         @php
-          $tanggalBerikutnya  = \Carbon\Carbon::parse($agenda->tanggal_berakhir);
-          $selisihHari  = \Carbon\Carbon::now()->diffInDays($tanggalBerikutnya );
+          use Carbon\Carbon;
+
+          $tanggalBerakhir = Carbon::parse($agenda->tanggal_berakhir)->setTimezone('Asia/Jakarta');
+          $now = Carbon::now('Asia/Jakarta');
         @endphp
-        @if($selisihHari  <= 0)
+        @if ($now->lt($tanggalBerakhir) || $now->isSameDay($tanggalBerakhir))
           <div class="d-block text-center text-md-start mt-3">
             @if($agenda->redirect_link_pendaftaran == 'Aktif')
               <a href="{{ $agenda->link_pendaftaran }}" target="_blank" class="text-white border-0 rounded-pill fs-5 px-5 py-2" style="background-color: #5AA4C2;">PESAN</a>

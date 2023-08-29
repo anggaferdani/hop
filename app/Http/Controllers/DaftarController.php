@@ -46,7 +46,8 @@ class DaftarController extends Controller
             $array['bukti_transfer'] = $bukti_transfer2;
         }
     
-        $pendaftar = Pendaftar::create($array);
+        $pendaftar2 = Pendaftar::create($array);
+        $pendaftar = Pendaftar::with('jenis_tikets')->find($pendaftar2->id);
     
         $agenda = Agenda::find($request->agenda_id);
 
@@ -57,24 +58,47 @@ class DaftarController extends Controller
         $nama_panjang = $pendaftar->nama_panjang;
         $email = $pendaftar->email;
         $tanggal_pemesanan = $pendaftar->created_at;
+        if(!empty($pendaftar->jenis_tiket_id)){
+            $tiket = $pendaftar->jenis_tikets->tiket;
+            $harga = $pendaftar->jenis_tikets->harga;
+        }
 
         $imagePath = public_path('front/img/logo.png');
         $imageContent = file_get_contents($imagePath);
 
-        $mail = [
-            'kepada' => $pendaftar->email,
-            'email' => 'contact.hangoutproject@gmail.com',
-            'dari' => 'Hangout Project',
-            'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
-            'imageContent' => $imageContent,
-            'judul' => $judul,
-            'tanggal_mulai' => $tanggal_mulai,
-            'tanggal_berakhir' => $tanggal_berakhir,
-            'jenis_tiket' => $jenis_tiket,
-            'nama_panjang' => $nama_panjang,
-            'email' => $email,
-            'tanggal_pemesanan' => $tanggal_pemesanan,
-        ];
+        if(!empty($pendaftar->jenis_tiket_id)){
+            $mail = [
+                'kepada' => $pendaftar->email,
+                'email' => 'contact.hangoutproject@gmail.com',
+                'dari' => 'Hangout Project',
+                'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
+                'imageContent' => $imageContent,
+                'judul' => $judul,
+                'tanggal_mulai' => $tanggal_mulai,
+                'tanggal_berakhir' => $tanggal_berakhir,
+                'jenis_tiket' => $jenis_tiket,
+                'nama_panjang' => $nama_panjang,
+                'email' => $email,
+                'tanggal_pemesanan' => $tanggal_pemesanan,
+                'tiket' => $tiket,
+                'harga' => 'Rp. '.strrev(implode('.', str_split(strrev(strval($harga)), 3))),
+            ];
+        }else{
+            $mail = [
+                'kepada' => $pendaftar->email,
+                'email' => 'contact.hangoutproject@gmail.com',
+                'dari' => 'Hangout Project',
+                'subject' => 'Terima kasih anda telah melakukan pemesanan tiket '.$judul,
+                'imageContent' => $imageContent,
+                'judul' => $judul,
+                'tanggal_mulai' => $tanggal_mulai,
+                'tanggal_berakhir' => $tanggal_berakhir,
+                'jenis_tiket' => $jenis_tiket,
+                'nama_panjang' => $nama_panjang,
+                'email' => $email,
+                'tanggal_pemesanan' => $tanggal_pemesanan,
+            ];
+        }
 
         Mail::send('email.email', $mail, function($message) use ($mail){
             $message->to($mail['kepada'])

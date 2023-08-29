@@ -130,7 +130,7 @@ table {
                       <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
                     </tr>
                     <tr>
-                      <td align="left"><h4 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight:normal; color: #2C3E50; margin:0; mso-line-height-rule:exactly;">Terima kasih anda telah melakukan pemesanan tiket {!! $judul !!}. QR-Code akan dikirim ke email {{ $email }} setelah admin mengapproved pemesanan.</h4></td>
+                      <td align="left"><h4 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight:normal; color: #2C3E50; margin:0; mso-line-height-rule:exactly;">Terima kasih anda telah melakukan pemesanan tiket {!! $judul !!}@if(!empty($tiket)) [ {!! $tiket !!} ]@endif. QR-Code akan dikirim ke email {{ $email }} setelah admin mengapproved pemesanan.</h4></td>
                     </tr>
                     <tr>
                       <td align="center" height="25" style="height:25px; font-size: 0;">&nbsp;</td>
@@ -148,6 +148,10 @@ table {
                         Email : {!! $email !!}
                         <br>
                         Tanggal pemesanan : {!! \Carbon\Carbon::parse($tanggal_pemesanan)->format('l, d M Y') !!}
+                        @if(!empty($tiket))
+                        <br>
+                        Tiket : {!! $tiket !!} - {!! $harga !!}
+                        @endif
                       </td>
                     </tr>
                   </table>

@@ -64,7 +64,7 @@
                             <form action="{{ route('superadmin.pendaftar.delete-permanently', Crypt::encrypt($pendaftar->id)) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#pendaftar"><i class="fa fa-info-circle"></i></button>
+                                <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#pendaftar{{ $pendaftar->id }}"><i class="fa fa-info-circle"></i></button>
                                 <a href="{{ route('superadmin.pendaftar.approved', Crypt::encrypt($pendaftar->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
                                 <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-times"></i></button>
                             </form>
@@ -72,13 +72,13 @@
                             <form action="{{ route('admin.pendaftar.delete-permanently', Crypt::encrypt($pendaftar->id)) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#pendaftar"><i class="fa fa-info-circle"></i></button>
+                                <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#pendaftar{{ $pendaftar->id }}"><i class="fa fa-info-circle"></i></button>
                                 <a href="{{ route('admin.pendaftar.approved', Crypt::encrypt($pendaftar->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
                                 <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-times"></i></button>
                             </form>
                         @endif
                     @elseif($pendaftar->status_approved == 'Approved')
-                      <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#pendaftar"><i class="fa fa-info-circle"></i></button>
+                      <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#pendaftar{{ $pendaftar->id }}"><i class="fa fa-info-circle"></i></button>
                     @endif
                   </td>
                 </tr>
@@ -95,7 +95,7 @@
 </div>
 
 @foreach($pendaftars as $pendaftar2)
-<div class="modal fade" id="pendaftar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="pendaftar{{ $pendaftar2->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -106,90 +106,52 @@
       </div>
       <form action="">
         <div class="modal-body">
-          <div class="form-group">
-            <label>Token</label>
-            <input disabled type="text" class="form-control" name="token" value="{{ $pendaftar2->token }}">
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">Token</div>
+            <div style="word-wrap: break-word;">{{ $pendaftar2->token }}</div>
           </div>
-          <div class="form-group">
-            <label>Nama Panjang</label>
-            <input disabled type="text" class="form-control" name="nama_panjang" value="{{ $pendaftar2->nama_panjang }}">
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">Nama Panjang</div>
+            <div style="word-wrap: break-word;">{{ $pendaftar2->nama_panjang }}</div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Tanggal Lahir <span class="text-danger">*</span></label>
-              <input disabled type="date" class="form-control" name="tanggal_lahir" value="{{ $pendaftar2->tanggal_lahir }}">
-            </div>
-            <div class="form-group col-md-6">
-              <label>Jenis Kelamin <span class="text-danger">*</span></label>
-              <select disabled class="form-control" name="jenis_kelamin">
-                <option selected disabled value="">Select</option>
-                <option value="Laki-laki" @if($pendaftar2->jenis_kelamin == 'Laki-laki')@selected(true)@endif>Laki-laki</option>
-                <option value="Perempuan" @if($pendaftar2->jenis_kelamin == 'Perempuan')@selected(true)@endif>Perempuan</option>
-              </select>
-            </div>
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">Tanggal Lahir</div>
+            <div style="word-wrap: break-word;">{{ $pendaftar2->tanggal_lahir }}</div>
           </div>
-          <div class="form-group">
-            <label>No. Telepon <span class="text-danger">*</span></label>
-            <input disabled type="number" class="form-control" name="no_telepon" value="{{ $pendaftar2->no_telepon }}">
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">Jenis Kelamin</div>
+            <div style="word-wrap: break-word;">{{ $pendaftar2->jenis_kelamin }}</div>
           </div>
-          <div class="form-group">
-            <label>Email <span class="text-danger">*</span></label>
-            <input disabled type="email" class="form-control" name="email" value="{{ $pendaftar2->email }}">
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">No. Telepon</div>
+            <div style="word-wrap: break-word;">{{ $pendaftar2->no_telepon }}</div>
+          </div>
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">Email</div>
+            <div style="word-wrap: break-word;">{{ $pendaftar2->email }}</div>
           </div>
           @if($agenda->tiket == 'Berbayar')
             @if(!empty($pendaftar2->jenis_tiket_id))
-            <div class="form-group">
-              <label for="">Jenis Tiket</label>
-              <div class="form-row mb-2">
-                <div class="col"><input disabled type="text" class="form-control" name="jenis_tiket[]" value="{{ $pendaftar2->jenis_tikets->tiket }}" placeholder="Jenis Tiket" required></div>
-                <div class="col"><input disabled type="text" class="form-control" name="harga[]" value="{{ $pendaftar2->jenis_tikets->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
-              </div>
-              @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
-              @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="form-group mb-2">
+              <div style="font-weight: bold;">Jenis Tiket</div>
+              <div style="word-wrap: break-word;">{{ $pendaftar2->jenis_tikets->tiket }} - {{ 'Rp. '.strrev(implode('.', str_split(strrev(strval($pendaftar2->jenis_tikets->harga)), 3))) }}</div>
             </div>
-            <div class="form-group">
-              <label>Bukti Transfer</label>
-              <input disabled type="file" class="form-control" name="bukti_transfer" value="{{ $pendaftar2->bukti_transfer }}">
-              <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank">{{ $pendaftar2->bukti_transfer }}</a></div>
+            <div class="form-group mb-2">
+              <div style="font-weight: bold;">Bukti Transfer</div>
+              <div><a href="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" target="_blank"><img src="{{ asset('pendaftar/bukti-transfer/'.$pendaftar2["bukti_transfer"]) }}" style="width: 100%" alt=""></a></div>
             </div>
             @endif
           @endif
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="">Provinsi</label>
-              <select disabled class="form-control" name="provinsi" id="provinsi">
-                <option disabled selected>Select</option>
-                @foreach($provinsis as $provinsi)
-                  <option value="{{ $provinsi->id_provinsi }}" @if($pendaftar2->provinsi == $provinsi->id_provinsi)@selected(true)@endif>{{ Str::title(strtolower($provinsi->nama_provinsi)) }}</option>
-                @endforeach
-              </select>
-              @error('provinsi')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-4">
-              <label for="">Kabupaten/Kota</label>
-              <select disabled class="form-control" name="kabupaten_kota" id="kabupaten">
-                <option disabled selected>Select</option>
-                @foreach($kabupatens as $kabupaten)
-                  <option value="{{ $pendaftar2->kabupaten_kota }}" @if($pendaftar2->kabupaten_kota == $kabupaten->id_kabupaten)@selected(true)@endif>{{ Str::title(strtolower($kabupaten->nama_kabupaten)) }}</option>
-                @endforeach
-              </select>
-              @error('kabupaten_kota')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-4">
-              <label for="">Kecamatan</label>
-              <select disabled class="form-control" name="kecamatan" id="kecamatan">
-                <option disabled selected>Select</option>
-                @foreach($kecamatans as $kecamatan)
-                  <option value="{{ $pendaftar2->kecamatan }}" @if($pendaftar2->kecamatan == $kecamatan->id_kecamatan)@selected(true)@endif>{{ Str::title(strtolower($kecamatan->nama_kecamatan)) }}</option>
-                @endforeach
-              </select>
-              @error('kecamatan')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
+          <div class="form-group mb-2">
+            <div style="font-weight: bold;">Provinsi</div>
+            <div style="word-wrap: break-word;">{{ Str::title(strtolower($pendaftar2->Provinsi->nama_provinsi)) }} - {{ Str::title(strtolower($pendaftar2->Kabupaten->nama_kabupaten)) }} - {{ Str::title(strtolower($pendaftar2->Kecamatan->nama_kecamatan)) }}</div>
           </div>
-          <div class="form-group">
-            <label>Pekerjaan</label>
-            <input disabled type="text" class="form-control" name="pekerjaan" value="{{ $pendaftar2->pekerjaan }}">
-          </div>
+          @if(!empty($pendaftar2->pekerjaan))
+            <div class="form-group mb-2">
+              <div style="font-weight: bold;">Pekerjaan</div>
+              <div style="word-wrap: break-word;">{{ $pendaftar2->pekerjaan }}</div>
+            </div>
+          @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

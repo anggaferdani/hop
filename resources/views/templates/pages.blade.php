@@ -130,6 +130,14 @@
   <script type="text/javascript" src="{{ asset('drag-drop-image-uploader/dist/image-uploader.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('jquery-toggle-visibility-plugin/src/jquery.toggle-visibility.js') }}"></script>
   <script type="text/javascript" src="{{ asset('fast-filter/filter-table.js') }}"></script>
+  <script src="{{ asset('truncate-multi-line-text-jquery-read-more/readMore.jquery.js') }}"></script>
+  
+  <script type="text/javascript">
+    $(".link3").readMore({
+      numberOfLines: 1,
+    });
+  </script>
+
   @stack('scripts')
 
   <script type="text/javascript">

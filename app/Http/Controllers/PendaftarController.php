@@ -29,7 +29,7 @@ class PendaftarController extends Controller
     }
 
     public function approved($id){
-        $pendaftar = Pendaftar::find(Crypt::decrypt($id));
+        $pendaftar = Pendaftar::with('jenis_tikets')->find(Crypt::decrypt($id));
         
         $pendaftar->update([
             'status_approved' => 'Approved',
@@ -48,25 +48,49 @@ class PendaftarController extends Controller
         $nama_panjang = $pendaftar->nama_panjang;
         $email = $pendaftar->email;
         $tanggal_pemesanan = $pendaftar->created_at;
+        if(!empty($pendaftar->jenis_tiket_id)){
+            $tiket = $pendaftar->jenis_tikets->tiket;
+            $harga = $pendaftar->jenis_tikets->harga;
+        }
 
         $imagePath = public_path('front/img/logo.png');
         $imageContent = file_get_contents($imagePath);
 
-        $mail = [
-            'kepada' => $pendaftar->email,
-            'email' => 'contact.hangoutproject@gmail.com',
-            'dari' => 'Hangout Project',
-            'subject' => 'Approved. Berikut QR-Code untuk '.$judul,
-            'imageContent' => $imageContent,
-            'qrCodeHTML' => $qrCodeHTML,
-            'judul' => $judul,
-            'tanggal_mulai' => $tanggal_mulai,
-            'tanggal_berakhir' => $tanggal_berakhir,
-            'jenis_tiket' => $jenis_tiket,
-            'nama_panjang' => $nama_panjang,
-            'email' => $email,
-            'tanggal_pemesanan' => $tanggal_pemesanan,
-        ];
+        if(!empty($pendaftar->jenis_tiket_id)){
+            $mail = [
+                'kepada' => $pendaftar->email,
+                'email' => 'contact.hangoutproject@gmail.com',
+                'dari' => 'Hangout Project',
+                'subject' => 'Approved. Berikut QR-Code untuk '.$judul,
+                'imageContent' => $imageContent,
+                'qrCodeHTML' => $qrCodeHTML,
+                'judul' => $judul,
+                'tanggal_mulai' => $tanggal_mulai,
+                'tanggal_berakhir' => $tanggal_berakhir,
+                'jenis_tiket' => $jenis_tiket,
+                'nama_panjang' => $nama_panjang,
+                'email' => $email,
+                'tanggal_pemesanan' => $tanggal_pemesanan,
+                'tiket' => $tiket,
+                'harga' => 'Rp. '.strrev(implode('.', str_split(strrev(strval($harga)), 3))),
+            ];
+        }else{
+            $mail = [
+                'kepada' => $pendaftar->email,
+                'email' => 'contact.hangoutproject@gmail.com',
+                'dari' => 'Hangout Project',
+                'subject' => 'Approved. Berikut QR-Code untuk '.$judul,
+                'imageContent' => $imageContent,
+                'qrCodeHTML' => $qrCodeHTML,
+                'judul' => $judul,
+                'tanggal_mulai' => $tanggal_mulai,
+                'tanggal_berakhir' => $tanggal_berakhir,
+                'jenis_tiket' => $jenis_tiket,
+                'nama_panjang' => $nama_panjang,
+                'email' => $email,
+                'tanggal_pemesanan' => $tanggal_pemesanan,
+            ];
+        }
 
         Mail::send('email.email2', $mail, function($message) use ($mail){
             $message->to($mail['kepada'])
