@@ -150,11 +150,12 @@ class Controller extends BaseController
             'password' => 'nullable',
         ]);
 
-        if($logo = $request->file('logo')){
-            $destination_path = 'vendor/logo/';
-            $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
-            $logo->move($destination_path, $logo2);
-            $profile['logo'] = $logo2;
+        if($request->file('logo')){
+            foreach($request->file('logo') as $logo){
+                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                $logo->move(public_path('user/logo/'), $logo2);
+                $profile['logo'] = $logo2;
+            }
         }
 
         if($request->password){

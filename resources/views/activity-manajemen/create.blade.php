@@ -49,16 +49,16 @@
                   @endforeach
                 </select>
                 @if(auth()->user()->level == 'Superadmin')
-                  <div class="text-danger">Data tidak ditemukan? <a href="{{ route('superadmin.vendor.index') }}">Klik untuk menambahkan data</a></div>
+                  <div class="text-muted small">Data tidak ditemukan? <a href="{{ route('superadmin.vendor.index') }}">Klik untuk menambahkan data</a></div>
                 @elseif(auth()->user()->level == 'Admin')
-                  <div class="text-danger">Data tidak ditemukan? <a href="{{ route('admin.vendor.index') }}">Klik untuk menambahkan data</a></div>
+                  <div class="text-muted small">Data tidak ditemukan? <a href="{{ route('admin.vendor.index') }}">Klik untuk menambahkan data</a></div>
                 @endif
                 @error('user_id')<div class="text-danger">{{ $message }}</div>@enderror
               </div>
             @endif
           @else
             <div class="form-group">
-              <label class="d-block">Sudah mengisi form ini sebelumnya?</label>
+              <label class="d-block">Sudah mengisi form ini sebelumnya? <span class="text-danger">*</span></label>
               <div class="toggle">
                 <div class="form-check form-check-inline">
                   <input checked type="radio" class="form-check-input" name="sudah_mengisi_form_ini_sebelumnya" value="iya" data-toggle-element=".radio-button-selections">
@@ -108,9 +108,9 @@
             </select>
             @if (Auth::check())
               @if(auth()->user()->level == 'Superadmin')
-                <div class="text-danger">Data tidak ditemukan? <a href="{{ route('superadmin.kategori.index') }}">Klik untuk menambahkan data</a></div>
+                <div class="text-muted small">Data tidak ditemukan? <a href="{{ route('superadmin.kategori.index') }}">Klik untuk menambahkan data</a></div>
               @elseif(auth()->user()->level == 'Admin')
-                <div class="text-danger">Data tidak ditemukan? <a href="{{ route('admin.kategori.index') }}">Klik untuk menambahkan data</a></div>
+                <div class="text-muted small">Data tidak ditemukan? <a href="{{ route('admin.kategori.index') }}">Klik untuk menambahkan data</a></div>
               @endif
             @endif
             @error('kategori_id')<div class="text-danger">{{ $message }}</div>@enderror
@@ -136,9 +136,16 @@
             <div class="input-images"></div>
           </div>
           <div class="form-group">
-            <label for="">Embed Ifreme Lokasi <span class="text-danger">*</span></label>
+            <label for="">Embed Lokasi <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="lokasi">
             @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="text-muted small">
+              1. Pilih lokasi anda pada google maps<br>
+              2. Pada menu disebelah kiri pilih bagikan lokasi<br>
+              3. Pilih sematkan peta<br>
+              4. Copy embed link lalu paste pada inputan form<br>
+              5. Kurang jelas? <a href="{{ route('documentations.cara-embed-lokasi') }}" target="_blank">klik disini untuk melihat dokumentasi cara embed link</a><br>
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-4">

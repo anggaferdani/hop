@@ -75,7 +75,7 @@
             @error('jenis')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           <div class="form-group">
-            <label for="">Lokasi</label>
+            <label for="">Embed Lokasi</label>
             <input disabled type="text" class="form-control" name="lokasi" value="{{ $activity_manajemen->lokasi }}">
             <div class="parent2">{!! $activity_manajemen->lokasi !!}</div>
             @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror

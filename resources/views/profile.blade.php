@@ -27,9 +27,15 @@
           @method('PUT')
           <div class="form-group">
             <label for="">Logo</label>
-            <input type="file" class="form-control-file" name="logo" value="{{ $profile->logo }}" onchange="file(event)">
-            @error('logo')<div class="text-danger">{{ $message }}</div>@enderror
-            <div style="width: 250px; height: 250px;"><img src="{{ asset('user/logo/'.$profile['logo']) }}" id="image" alt="" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1080x310. Maksimum file upload 1 images</div>
+            <div class="input-images mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                <div class="uploaded-image">
+                  <img src="{{ asset('user/logo/'.$profile["logo"]) }}" alt="">
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">Nama Panjang</label>
@@ -60,3 +66,14 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.input-images').imageUploader({
+      imagesInputName: 'logo',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 1,
+    });
+  });
+</script>
+@endpush

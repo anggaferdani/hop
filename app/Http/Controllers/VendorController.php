@@ -30,14 +30,13 @@ class VendorController extends Controller
         $request->validate([
             'nama_panjang' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
         ]);
 
         if($request['logo'] == null){
             $array = array(
                 'nama_panjang' => $request['nama_panjang'],
                 'email' => $request['email'],
-                'password' => $request['password'],
+                'password' => bcrypt(12345678),
                 'logo' => 'DEFAULT.jpeg',
                 'level' => 'Vendor',
             );
@@ -45,15 +44,16 @@ class VendorController extends Controller
             $array = array(
                 'nama_panjang' => $request['nama_panjang'],
                 'email' => $request['email'],
-                'password' => $request['password'],
+                'password' => bcrypt(12345678),
                 'level' => 'Vendor',
             );
     
-            if($logo = $request->file('logo')){
-                $destination_path = 'user/logo/';
-                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
-                $logo->move($destination_path, $logo2);
-                $array['logo'] = $logo2;
+            if($request->file('logo')){
+                foreach($request->file('logo') as $logo){
+                    $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                    $logo->move(public_path('user/logo/'), $logo2);
+                    $array['logo'] = $logo2;
+                }
             }
         }
 
@@ -78,6 +78,41 @@ class VendorController extends Controller
         return view('vendor.show', compact(
             'vendor',
         ));
+    }
+
+    public function edit($id){
+        $vendor = User::find(Crypt::decrypt($id));
+        return view('vendor.edit', compact(
+            'vendor',
+        ));
+    }
+
+    public function update(Request $request, $id){
+        $vendor = User::find(Crypt::decrypt($id));
+
+        $request->validate([
+            'nama_panjang' => 'required',
+            'email' => 'required|email|unique:users,email,'.$vendor->id.",id",
+        ]);
+
+        if($request->file('logo')){
+            foreach($request->file('logo') as $logo){
+                $logo2 = date('YmdHis').rand(999999999, 9999999999).$logo->getClientOriginalName();
+                $logo->move(public_path('user/logo/'), $logo2);
+                $vendor['logo'] = $logo2;
+            }
+        }
+
+        $vendor->update([
+            'nama_panjang' => $request['nama_panjang'],
+            'email' => $request['email'],
+        ]);
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.vendor.index')->with('success', 'Data has been updated at '.$vendor->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.vendor.index')->with('success', 'Data has been updated at '.$vendor->updated_at);
+        }
     }
 
     public function destroy($id){

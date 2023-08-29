@@ -103,10 +103,17 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="">Lokasi</label>
+            <label for="">Embed Lokasi <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="lokasi" value="{{ $activity_manajemen->lokasi }}">
-            <div class="parent2">{!! $activity_manajemen->lokasi !!}</div>
             @error('lokasi')<div class="text-danger">{{ $message }}</div>@enderror
+            <div class="text-muted small">
+              1. Pilih lokasi anda pada google maps<br>
+              2. Pada menu disebelah kiri pilih bagikan lokasi<br>
+              3. Pilih sematkan peta<br>
+              4. Copy embed link lalu paste pada inputan form<br>
+              5. Kurang jelas? <a href="{{ route('documentations.cara-embed-lokasi') }}" target="_blank">klik disini untuk melihat dokumentasi cara embed link</a><br>
+            </div>
+            <div class="parent2">{!! $activity_manajemen->lokasi !!}</div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-4">
