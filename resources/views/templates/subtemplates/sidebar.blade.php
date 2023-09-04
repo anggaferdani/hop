@@ -57,10 +57,11 @@
           <li class="{{ str_contains(Route::currentRouteName(), 'vendor.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('vendor.activity-manajemen.index') }}"><i class="fas fa-th"></i><span>Community</span></a></li>
         @endif
       @else
-        <li class="{{ str_contains(Route::currentRouteName(), 'partner.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.food-and-beverage') }}"><i class="fas fa-coffee"></i><span>Resto & Cafe</span></a></li>
-        <li class="{{ str_contains(Route::currentRouteName(), 'partner.lodging') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.lodging') }}"><i class="fas fa-building"></i><span>Hotel</span></a></li>
-        <li class="{{ str_contains(Route::currentRouteName(), 'partner.public-area') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.public-area') }}"><i class="fas fa-map"></i><span>Public Area</span></a></li>
-        <li class="{{ str_contains(Route::currentRouteName(), 'partner.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.activity-manajemen') }}"><i class="fas fa-th"></i><span>Community</span></a></li>
+      <li class="{{ str_contains(Route::currentRouteName(), 'partner.food-and-beverage') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.food-and-beverage') }}"><i class="fas fa-coffee"></i><span>Resto & Cafe</span></a></li>
+      <li class="{{ str_contains(Route::currentRouteName(), 'partner.lodging') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.lodging') }}"><i class="fas fa-building"></i><span>Hotel</span></a></li>
+      <li class="{{ str_contains(Route::currentRouteName(), 'partner.public-area') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.public-area') }}"><i class="fas fa-map"></i><span>Public Area</span></a></li>
+      <li class="{{ str_contains(Route::currentRouteName(), 'partner.activity-manajemen') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.activity-manajemen') }}"><i class="fas fa-th"></i><span>Community</span></a></li>
+      <li class="{{ str_contains(Route::currentRouteName(), 'partner.agenda') ? 'active' : '' }}"><a class="nav-link" href="{{ route('partner.agenda') }}"><i class="fas fa-star"></i><span>Agenda</span></a></li>
       @endif
     </ul>
   </aside>

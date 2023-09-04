@@ -27,6 +27,7 @@ class Agenda extends Model
         'deskripsi',
         'jenis',
         'tiket',
+        'qris',
         'tanggal_mulai',
         'tanggal_berakhir',
         'redirect_link_pendaftaran',

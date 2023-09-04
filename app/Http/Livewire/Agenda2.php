@@ -26,7 +26,7 @@ class Agenda2 extends Component
     
     public function mount()
     {
-        $this->agendas = Agenda::with('hangout_places')->where('status_aktif', 'Aktif')->get();
+        $this->agendas = Agenda::with('hangout_places')->where([['status_approved', 'Approved'], ['status_aktif', 'Aktif']])->get();
     }
 
     public function render()
@@ -74,6 +74,6 @@ class Agenda2 extends Component
             $agenda = $agenda->whereDate('tanggal_berakhir', '<=', $this->tanggal_berakhir);
         }
 
-        $this->agendas = $agenda->where('status_aktif', 'Aktif')->get();
+        $this->agendas = $agenda->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->get();
     }
 }

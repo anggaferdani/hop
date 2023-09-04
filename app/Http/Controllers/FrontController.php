@@ -80,7 +80,7 @@ class FrontController extends Controller
     }
 
     public function agendas(Request $request){
-        $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_aktif', 'Aktif')->paginate(9);
+        $agendas = Agenda::with('agenda_images', 'hangout_places')->where('status_approved', 'Approved')->where('status_aktif', 'Aktif')->paginate(9);
         $provinsis = DB::table('m_provinsi')->get();
         $kabupatens = DB::table('m_kabupaten')->get();
         $kecamatans = DB::table('m_kecamatan')->get();
@@ -94,7 +94,7 @@ class FrontController extends Controller
 
     public function agenda($slug){
         $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'hangout_places')->where('slug', $slug)->first();
-        $agendas = Agenda::with('agenda_images')->where('slug', '<>', $slug)->where("status_aktif", "Aktif")->latest()->get();
+        $agendas = Agenda::with('agenda_images')->where('slug', '<>', $slug)->where('status_approved', 'Approved')->where("status_aktif", "Aktif")->latest()->get();
         $provinsi = Provinsi::find($agenda->provinsi);
         $kabupaten = Kabupaten::find($agenda->kabupaten_kota);
         $kecamatan = Kecamatan::find($agenda->kecamatan);

@@ -89,6 +89,7 @@
           </div>
           <div class="form-group">
             <label for="">Tiket</label>
+            <div class="text-muted small">untuk mengganti status. pilih status lalu submit dan kembali ke page ini lagi.</div>
             <select class="form-control select2" name="tiket" id="Menu1">
               <option disabled selected>Select</option>
               <option value="Berbayar" @if($agenda->tiket == 'Berbayar')@selected(true)@endif>Berbayar</option>
@@ -96,21 +97,43 @@
             </select>
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          <div class="form-group" id="Menu2Container">
-            <label for="">Jenis Tiket</label>
-            @foreach($agenda->jenis_tikets as $jenis_tiket)
-              <div class="form-row mb-2">
-                <div class="col"><input type="text" class="form-control" name="jenis_tiket[]" value="{{ $jenis_tiket->tiket }}" placeholder="Jenis Tiket" required></div>
-                <div class="col"><input type="text" class="form-control" name="harga[]" value="{{ $jenis_tiket->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
-                <div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2" style="text-decoration: none;">Delete</a></div>
+          @if($agenda->redirect_link_pendaftaran == 'Tidak Aktif')
+            @if($agenda->tiket == 'Berbayar')
+              <div class="form-group" id="Menu2Container">
+                <label for="">Jenis Tiket</label>
+                @foreach($agenda->jenis_tikets as $jenis_tiket)
+                  <div class="form-row mb-2">
+                    <div class="col"><input type="text" class="form-control" name="jenis_tiket[]" value="{{ $jenis_tiket->tiket }}" placeholder="Jenis Tiket" required></div>
+                    <div class="col"><input type="text" class="form-control" name="harga[]" value="{{ $jenis_tiket->harga }}" placeholder="Harga" required onkeyup="formatNumber(this)"></div>
+                    <div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2" style="text-decoration: none;">Delete</a></div>
+                  </div>
+                @endforeach
+                <div class="jenis_tiket"></div>
+                <button type="button" class="d-block mb-2 btn btn-icon btn-primary add"><i class="fas fa-plus"></i></button>
+                @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
+                @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
               </div>
-            @endforeach
-            <div class="jenis_tiket"></div>
-            <button type="button" class="d-block mb-2 btn btn-icon btn-primary add"><i class="fas fa-plus"></i></button>
-            @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
-            @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
+            @endif
+          <div class="form-group">
+            <label for="">QRIS</label>
+            <div class="text-muted">Maksimum upload file size 1MB. Recommended image size 1080x310. Maksimum file upload 1 images</div>
+            <div class="qris mb-3"></div>
+            <div class="image-uploader">
+              <div class="uploaded">
+                <div class="uploaded-image">
+                  <img src="{{ asset('agenda/qris/'.$agenda["qris"]) }}" alt="">
+                </div>
+              </div>
+            </div>
           </div>
-          @if($agenda->tiket == 'Berbayar')
+          @endif
+          @if($agenda->redirect_link_pendaftaran == 'Aktif')
+            <div class="form-group">
+              <label for="">Link Pendaftaran</label>
+              <input type="text" class="form-control" name="link_pendaftaran" value="{{ $agenda->link_pendaftaran }}">
+              @error('link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
+              <p><a href="{{ $agenda->link_pendaftaran }}" target="_blank">{{ $agenda->link_pendaftaran }}</a></p>
+            </div>
           @endif
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -126,6 +149,7 @@
           </div>
           <div class="form-group">
             <label for="">Redirect Link Pendaftaran</label>
+            <div class="text-muted small">untuk mengganti status. pilih status lalu submit dan kembali ke page ini lagi.</div>
             <select class="form-control select2" name="redirect_link_pendaftaran">
               <option disabled selected>Select</option>
               <option value="Aktif" @if($agenda->redirect_link_pendaftaran == 'Aktif')@selected(true)@endif>Aktif</option>
@@ -133,14 +157,6 @@
             </select>
             @error('redirect_link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          @if($agenda->redirect_link_pendaftaran == 'Aktif')
-            <div class="form-group">
-              <label for="">Link Pendaftaran</label>
-              <input type="text" class="form-control" name="link_pendaftaran" value="{{ $agenda->link_pendaftaran }}">
-              @error('link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
-              <p><a href="{{ $agenda->link_pendaftaran }}" target="_blank">{{ $agenda->link_pendaftaran }}</a></p>
-            </div>
-          @endif
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.agenda.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')
@@ -154,6 +170,17 @@
   </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.qris').imageUploader({
+      imagesInputName: 'qris',
+      maxSize: 1 * 1024 * 1024,
+      maxFiles: 1,
+    });
+  });
+</script>
+@endpush
 @push('scripts')
 <script type="text/javascript">
   $(document).ready(function(){

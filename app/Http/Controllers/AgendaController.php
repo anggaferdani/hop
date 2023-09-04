@@ -26,15 +26,15 @@ class AgendaController extends Controller
     public function index(){
         if(auth()->user()->level == 'Admin'){
             if(!empty(auth()->user()->level_admin == 'Activity Manajemen' || auth()->user()->level_admin == 'Food And Beverage' || auth()->user()->level_admin == 'Lodging' || auth()->user()->level_admin == 'Public Area')){
-                $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
+                $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')->where('created_by', Auth::id())->where('status_aktif', 'Aktif')->latest()->paginate(10);
             }else{
-                $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+                $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')->where('status_aktif', 'Aktif')->latest()->paginate(10);
             }
             return view('agenda.index', compact(
                 'agendas',
             ));
         }elseif(auth()->user()->level == 'Superadmin'){
-            $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->where('status_aktif', 'Aktif')->latest()->paginate(10);
+            $agendas = Agenda::with('agenda_images', 'hangout_places', 'pendaftars')->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')->where('status_aktif', 'Aktif')->latest()->paginate(10);
             return view('agenda.index', compact(
                 'agendas',
             ));
@@ -58,13 +58,15 @@ class AgendaController extends Controller
             'jenis' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_berakhir' => 'required',
+            'image' => 'required',
+            'type' => 'required',
             'tiket' => 'required',
-            'image.*' => 'required',
-            'type.*' => 'required',
-            'redirect_link_pendaftaran' => 'required',
+            'redirect_link_pendaftaran' => 'required_if:tiket,Aktif',
+            'link_pendaftaran' => 'required_if:redirect_link_pendaftaran,Aktif',
+            'qris' => 'required_if:redirect_link_pendaftaran, Tidak Aktif',
+            'jenis_tiket' => 'required_if:redirect_link_pendaftaran, Tidak Aktif',
+            'harga' => 'required_if:redirect_link_pendaftaran, Tidak Aktif',
         ]);
-
-        $hangout_place = HangoutPlace::find($request->hangout_place_id);
 
         $array = array(
             'hangout_place_id' => $request['hangout_place_id'],
@@ -80,6 +82,29 @@ class AgendaController extends Controller
 
         try{
             DB::beginTransaction();
+
+            if(Auth::check()){
+                $array['status_approved'] = 'Approved';
+                if($request['qris'] == null){
+                    $array['qris'] = 'DEFAULT.jpeg';
+                }else{
+                    if($request->has('qris')){
+                        foreach($request->file('qris') as $qris){
+                            $qris2 = date('YmdHis').rand(999999999, 9999999999).$qris->getClientOriginalName();
+                            $qris->move(public_path('agenda/qris/'), $qris2);
+                            $array['qris'] = $qris2;
+                        }
+                    }
+                }
+            }else{
+                if($request->has('qris')){
+                    foreach($request->file('qris') as $qris){
+                        $qris2 = date('YmdHis').rand(999999999, 9999999999).$qris->getClientOriginalName();
+                        $qris->move(public_path('agenda/qris/'), $qris2);
+                        $array['qris'] = $qris2;
+                    }
+                }
+            }
 
             $agenda = Agenda::create($array);
 
@@ -108,7 +133,7 @@ class AgendaController extends Controller
                     ]);
                 }
             }
-
+            
             $agenda->types()->attach($request->type);
 
             DB::commit();
@@ -117,10 +142,14 @@ class AgendaController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
 
-        if(auth()->user()->level == 'Superadmin'){
-            return redirect()->route('superadmin.agenda.index')->with('success', 'Data has been created at '.$agenda->created_at);
-        }elseif(auth()->user()->level == 'Admin'){
-            return redirect()->route('admin.agenda.index')->with('success', 'Data has been created at '.$agenda->created_at);
+        if(Auth::check()){
+            if(auth()->user()->level == 'Superadmin'){
+                return redirect()->route('superadmin.agenda.index')->with('success', 'Data has been created at '.$agenda->created_at);
+            }elseif(auth()->user()->level == 'Admin'){
+                return redirect()->route('admin.agenda.index')->with('success', 'Data has been created at '.$agenda->created_at);
+            }
+        }else{
+            return back()->with('success', 'Data has been created at '.$agenda->created_at);
         }
     }
 
@@ -179,6 +208,14 @@ class AgendaController extends Controller
 
         try{
             DB::beginTransaction();
+
+            if($request->has('qris')){
+                foreach($request->file('qris') as $qris){
+                    $qris2 = date('YmdHis').rand(999999999, 9999999999).$qris->getClientOriginalName();
+                    $qris->move(public_path('agenda/qris/'), $qris2);
+                    $agenda['qris'] = $qris2;
+                }
+            }
 
             $agenda->update([
                 'hangout_place_id' => $request['hangout_place_id'],
@@ -266,5 +303,31 @@ class AgendaController extends Controller
             'agenda',
             'pendaftars',
         ));
+    }
+
+    public function approved($id){
+        $agenda = Agenda::find(Crypt::decrypt($id));
+        
+        $agenda->update([
+            'status_approved' => 'Approved',
+        ]);
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.agenda.index')->with('success', 'Data has been approved at '.$agenda->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.agenda.index')->with('success', 'Data has been approved at '.$agenda->updated_at);
+        }
+    }
+
+    public function deletePermanently($id){
+        $agenda = Agenda::find(Crypt::decrypt($id));
+        
+        $agenda->delete();
+
+        if(auth()->user()->level == 'Superadmin'){
+            return redirect()->route('superadmin.agenda.index')->with('success', 'Data has been deleted permanently at '.$agenda->updated_at);
+        }elseif(auth()->user()->level == 'Admin'){
+            return redirect()->route('admin.agenda.index')->with('success', 'Data has been deleted permanently at '.$agenda->updated_at);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Feature;
 use App\Models\Seating;
@@ -9,6 +10,7 @@ use App\Models\Kategori;
 use App\Models\Fasilitas;
 use App\Models\Verifikasi;
 use App\Models\Entertaiment;
+use App\Models\HangoutPlace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
@@ -180,6 +182,15 @@ class VendorController extends Controller
             'users',
             'kategoris',
             'provinsis',
+        ));
+    }
+
+    public function agenda(){
+        $hangout_places = HangoutPlace::where('status_aktif', 'Aktif')->get();
+        $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
+        return view('agenda.create', compact(
+            'types',
+            'hangout_places',
         ));
     }
 }

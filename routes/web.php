@@ -95,6 +95,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
         Route::resource('type', TypeController::class);
         Route::resource('agenda', AgendaController::class);
         Route::get('agenda/{agenda_id}/pendaftar/', [PendaftarController::class, 'index'])->name('agenda.pendaftar.index');
+        Route::get('agenda/approved/{id}', [AgendaController::class, 'approved'])->name('agenda.approved');
+        Route::delete('agenda/delete-permanently/{id}', [AgendaController::class, 'deletePermanently'])->name('agenda.delete-permanently');
         Route::resource('pendaftar', Pendaftar2Controller::class);
         Route::get('pendaftar/approved/{id}', [PendaftarController::class, 'approved'])->name('pendaftar.approved');
         Route::delete('pendaftar/delete-permanently/{id}', [PendaftarController::class, 'deletePermanently'])->name('pendaftar.delete-permanently');
@@ -144,6 +146,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('pendaftar/approved/{id}', [PendaftarController::class, 'approved'])->name('pendaftar.approved');
         Route::delete('pendaftar/delete-permanently/{id}', [PendaftarController::class, 'deletePermanently'])->name('pendaftar.delete-permanently');
         Route::get('agenda/delete-image/{id}', [AgendaController::class, 'deleteImage'])->name('agenda.delete-image');
+        Route::get('agenda/approved/{id}', [AgendaController::class, 'approved'])->name('agenda.approved');
+        Route::delete('agenda/delete-permanently/{id}', [AgendaController::class, 'deletePermanently'])->name('agenda.delete-permanently');
         Route::resource('food-and-beverage', FoodAndBeverageController::class);
         Route::get('food-and-beverage/approved/{id}', [FoodAndBeverageController::class, 'approved'])->name('food-and-beverage.approved');
         Route::delete('food-and-beverage/delete-permanently/{id}', [FoodAndBeverageController::class, 'deletePermanently'])->name('food-and-beverage.delete-permanently');
@@ -183,6 +187,8 @@ Route::get('partner/public-area', [VendorController::class, 'publicArea'])->name
 Route::post('partner/public-area-post', [PublicAreaController::class, 'store'])->name('partner.public-area-post');
 Route::get('partner/community', [VendorController::class, 'activityManajemen'])->name('partner.activity-manajemen');
 Route::post('partner/community-post', [ActivityManajemenController::class, 'store'])->name('partner.activity-manajemen-post');
+Route::get('partner/agenda', [VendorController::class, 'agenda'])->name('partner.agenda');
+Route::post('partner/agenda-post', [AgendaController::class, 'store'])->name('partner.agenda-post');
 // Route::prefix('vendor')->name('vendor.')->group(function(){
 //     Route::middleware(['auth:web', 'disableBackButton', 'vendor'])->group(function(){
 //         Route::get('dashboard', function(){ return view('dashboard'); })->name('dashboard');

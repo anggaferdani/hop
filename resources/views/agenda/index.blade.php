@@ -41,7 +41,7 @@
                 <th>No.</th>
                 <th>Judul</th>
                 <th>Image</th>
-                <th>Created At</th>
+                <th>Status Approved</th>
                 <th>Action</th>
               </tr>
               <?php $id = 0; ?>
@@ -55,26 +55,52 @@
                       <div class="image2"><img src="{{ asset('agenda/image/'.$agenda_image["image"]) }}" alt="" class="image3"></div>
                     @endforeach
                   </td>
-                  <td>{{ $agenda->created_at }}</td>
+                  <td>
+                    @if($agenda->status_approved == 'Approved')
+                    <div class="badge badge-primary">Approved</div>
+                    @elseif($agenda->status_approved == 'Belum Di Approved')
+                    <div class="badge badge-danger">Belum Di Approved</div>
+                    @endif
+                  </td>
                   <td style="white-space: nowrap">
-                    @if(auth()->user()->level == 'Superadmin')
-                      <form action="{{ route('superadmin.agenda.destroy', Crypt::encrypt($agenda->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('superadmin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('superadmin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <a href="{{ route('superadmin.agenda.pendaftar.index', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i>@if(!empty($agenda->pendaftars))<div class="badge badge-primary">{{ $agenda->pendaftars->where('status_approved', 'Belum Di Approved')->count() }}</div>@endif</a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
-                    @elseif(auth()->user()->level == 'Admin')
-                      <form action="{{ route('admin.agenda.destroy', Crypt::encrypt($agenda->id)) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('admin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
-                        <a href="{{ route('admin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
-                        <a href="{{ route('admin.agenda.pendaftar.index', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-user"></i>@if(!empty($agenda->pendaftars))<div class="badge badge-primary">{{ $agenda->pendaftars->where('status_approved', 'Belum Di Approved')->count() }}</div>@endif</a>
-                        <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
-                      </form>
+                    @if($agenda->status_approved == 'Belum Di Approved')
+                      @if(auth()->user()->level == 'Superadmin')
+                        <form action="{{ route('superadmin.agenda.delete-permanently', Crypt::encrypt($agenda->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('superadmin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <a href="{{ route('superadmin.agenda.approved', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete-permanently"><i class="fas fa-times"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Admin')
+                        <form action="{{ route('admin.agenda.delete-permanently', Crypt::encrypt($agenda->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('admin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('admin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <a href="{{ route('admin.agenda.approved', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-danger approved" onclick="confirmation(event)"><i class="fas fa-check"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete-permanently"><i class="fas fa-times"></i></button>
+                        </form>
+                      @endif
+                    @elseif($agenda->status_approved == 'Approved')
+                      @if(auth()->user()->level == 'Superadmin')
+                        <form action="{{ route('superadmin.agenda.destroy', Crypt::encrypt($agenda->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('superadmin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('superadmin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @elseif(auth()->user()->level == 'Admin')
+                        <form action="{{ route('admin.agenda.destroy', Crypt::encrypt($agenda->id)) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <a href="{{ route('admin.agenda.show', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-info-circle"></i></a>
+                          <a href="{{ route('admin.agenda.edit', Crypt::encrypt($agenda->id)) }}" class="btn btn-icon btn-primary"><i class="fas fa-pen"></i></a>
+                          <button type="button" class="btn btn-icon btn-danger delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                      @endif
                     @endif
                   </td>
                 </tr>

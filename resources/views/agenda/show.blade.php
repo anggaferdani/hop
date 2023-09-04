@@ -98,6 +98,7 @@
             @error('tiket')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
           @if($agenda->tiket == 'Berbayar')
+            @if($agenda->redirect_link_pendaftaran == 'Tidak Aktif')
             <div class="form-group">
               <label for="">Jenis Tiket</label>
               @foreach($agenda->jenis_tikets as $jenis_tiket)
@@ -109,6 +110,25 @@
               @error('jenis_tiket.*')<div class="text-danger">{{ $message }}</div>@enderror
               @error('harga.*')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
+            <div class="form-group">
+              <label for="">QRIS</label>
+              <div class="image-uploader">
+                <div class="uploaded">
+                  <div class="uploaded-image">
+                    <img src="{{ asset('agenda/qris/'.$agenda["qris"]) }}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
+            @if($agenda->redirect_link_pendaftaran == 'Aktif')
+            <div class="form-group">
+              <label for="">Link Pendaftaran</label>
+              <input disabled type="text" class="form-control" name="link_pendaftaran" value="{{ $agenda->link_pendaftaran }}">
+              @error('link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
+              <p><a href="{{ $agenda->link_pendaftaran }}" target="_blank">{{ $agenda->link_pendaftaran }}</a></p>
+            </div>
+            @endif
           @endif
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -131,14 +151,6 @@
             </select>
             @error('redirect_link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
-          @if($agenda->redirect_link_pendaftaran == 'Aktif')
-            <div class="form-group">
-              <label for="">Link Pendaftaran</label>
-              <input disabled type="text" class="form-control" name="link_pendaftaran" value="{{ $agenda->link_pendaftaran }}">
-              @error('link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
-              <p><a href="{{ $agenda->link_pendaftaran }}" target="_blank">{{ $agenda->link_pendaftaran }}</a></p>
-            </div>
-          @endif
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Created By</label>

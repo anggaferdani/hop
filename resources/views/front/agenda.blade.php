@@ -316,7 +316,7 @@
                 @endforeach
               </select>
             </div>
-            <img src="{{ asset('front/qris.jpeg') }}" class="mb-2" width="200" alt="">
+            <img src="{{ asset('agenda/qris/'.$agenda["qris"]) }}" class="mb-2" width="200" alt="">
             <div class="mb-3">
               <label class="form-label">Bukti Transfer <span class="text-danger">*</span></label>
               <input type="file" class="form-control" name="bukti_transfer" @if($agenda->tiket == 'Berbayar')@required(true)@endif>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->enum('jenis', ['Online', 'Offline', 'Hybird']);
             $table->enum('tiket', ['Berbayar', 'Gratis']);
+            $table->string('qris')->nullable();
             $table->string('tanggal_mulai');
             $table->string('tanggal_berakhir');
             $table->enum('redirect_link_pendaftaran', ['Aktif', 'Tidak Aktif']);
