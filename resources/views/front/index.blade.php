@@ -48,7 +48,7 @@
   }
   .color4{
     background-color: #eee !important;
-  }
+}
 </style>
 @endpush
 @section('content')

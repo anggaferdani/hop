@@ -1,8 +1,19 @@
+<style>
+  .search{
+    width: 50% !important;
+    height: 50%;
+  }
+  @media only screen and (max-width: 600px) {
+    .search{
+      width: 80% !important;
+      height: 80%;
+    }
+  }
+</style>
 <div>
   <div class="input-group justify-content-center">
-    <input type="search" autocomplete="off" class="py-3 rounded-pill" id="myInput" name="search"
+    <input type="search" autocomplete="off" class="py-3 rounded-pill search" id="myInput" name="search"
     placeholder="Cari Aja..."
-    style="width: 50%; height: 50%;"
     wire:model="query"
     wire:keydown.escape="reset2"
     wire:keydown.tab="reset2"
