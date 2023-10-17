@@ -1,19 +1,7 @@
-<style>
-  .search{
-    width: 50% !important;
-    height: 50%;
-  }
-  @media only screen and (max-width: 600px) {
-    .search{
-      width: 80% !important;
-      height: 80%;
-    }
-  }
-</style>
 <div>
   <div class="input-group justify-content-center">
-    <input type="search" autocomplete="off" class="py-3 rounded-pill search" id="myInput" name="search"
-    placeholder="Cari Aja..."
+    <input type="search" autocomplete="off" class="py-3 rounded-pill mb-0" id="myInput" name="search"
+    placeholder="Search"
     wire:model="query"
     wire:keydown.escape="reset2"
     wire:keydown.tab="reset2"
@@ -25,7 +13,7 @@
   <div class="d-flex justify-content-center">
     @if(!empty($query))
       @if(!empty($agendas))
-        <ul class="position-absolute" id="myUL" style="width: 50%; height: 50%; height: 210px; overflow: auto;">
+        <ul class="position-absolute" id="myUL">
           @foreach($agendas as $i => $agenda)
             <li>
               <a href="{{ route($agenda['from_table'], $agenda['slug']) }}" class="{{ $highlightIndex === $i ? 'color4' : '' }}">{{ $agenda['judul'] ?? $agenda['nama_tempat'] ?? 'judul' }}</a>
@@ -33,7 +21,7 @@
           @endforeach
         </ul>
       @else
-        <ul class="position-absolute" id="myUL" style="width: 50%; height: 50%; height: 210px; overflow: auto;">
+        <ul class="position-absolute" id="myUL">
           <li><a href="">No results</a></li>
         </ul>
       @endif

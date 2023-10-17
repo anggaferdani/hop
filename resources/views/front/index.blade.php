@@ -1,56 +1,5 @@
 @extends('front.templates.pages')
 @section('title', 'Hangout Project')
-@push('style')
-<style>
-  @media(width < 600px){
-    .container-banner-index{
-      height: 100%;
-    }
-    .banner-index{
-      height: 100%;
-    }
-  }
-  @media(width >= 600px){
-    .container-banner-index{
-      height: 400px;
-    }
-    .banner-index{
-      height: 400px;
-    }
-  }
-  #myInput {
-    background-image: url('/front/img/search.png');
-    background-position: 15px 15px;
-    background-size: 25px;
-    background-repeat: no-repeat;
-    width: 100%;
-    font-size: 16px;
-    padding: 12px 20px 12px 50px;
-    border: 1px solid #ddd;
-    margin-bottom: 12px;
-  }
-  #myUL {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  #myUL li a {
-    border: 1px solid #ddd;
-    background-color: #f6f6f6;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 18px;
-    color: black;
-    display: block
-  }
-  #myUL li a:hover:not(.header) {
-    background-color: #eee;
-  }
-  .color4{
-    background-color: #eee !important;
-}
-</style>
-@endpush
 @section('content')
 <section class="py-0 pt-md-4" style="position: relative;">
   <div class="banner2 mt-0 container-banner-index" style="width: 100%;">
@@ -59,7 +8,7 @@
     @endforeach
   </div>
   <div class="text-white w-100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
-    <div class="position-realtive">
+    <div class="position-realtive" id="searchBar">
       @livewire('search')
     </div>
   </div>

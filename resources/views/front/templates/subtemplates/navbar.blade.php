@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background: white;box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);">
-    <div class="container">
+    <div class="container d-flex justify-content-between">
       <a href="{{ route('index') }}" class="d-flex">
         <div>
           <img src="{{ asset('front/logo.png') }}" alt="" width="140" class="align-text-center">
@@ -10,9 +10,14 @@
           <img src="{{ asset('front/img/MIX.png') }}" alt="" style="position: relative; top: 40px" width="70">
         </div>
       </a>
-      <button class="mx-4 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="d-flex gap-3">
+        <button type="button" id="seacrhIcon" style="border: none; background: none;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa-solid fa-magnifying-glass fs-1"></i>
+        </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto py-4">
           <li class="nav-item mx-1">

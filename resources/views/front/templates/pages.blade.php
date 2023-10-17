@@ -154,8 +154,95 @@ content:""!important;
     font-size: 30px;
     color: #222;
   }
+  @media(width < 600px){
+    .container-banner-index{
+      height: 100%;
+    }
+    .banner-index{
+      height: 100%;
+    }
+  }
+  @media(width >= 600px){
+    .container-banner-index{
+      height: 400px;
+    }
+    .banner-index{
+      height: 400px;
+    }
+  }
+  #myInput {
+    background-image: url('/front/img/search.png');
+    background-position: 15px 15px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 50px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+  #myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  #myUL li a {
+    border: 1px solid #ddd;
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block
+  }
+  #myUL li a:hover:not(.header) {
+    background-color: #eee;
+  }
+  .color4{
+    background-color: #eee !important;
+  }
+  #myInput{
+    width: 50%;
+    height: 50%;
+  }
+  #myUL{
+    width: 50%;
+    height: 50%;
+  }
+  #seacrhIcon{
+    display: none;
+  }
+  #searchBar{
+    display: block;
+  }
+  @media only screen and (max-width: 600px) {
+    #myInput{
+      width: 100%;
+      height: 100%;
+    }
+    #myUL{
+      width: 100%;
+      height: 100%;
+    }
+    #seacrhIcon{
+      display: block;
+    }
+    #searchBar{
+      display: none;
+    }
+  }
 </style>
 <body style="margin-top: 80px;">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          @livewire('search')
+        </div>
+      </div>
+    </div>
+  </div>
+
   @include('front.templates.subtemplates.navbar')
   
   @yield('content')
