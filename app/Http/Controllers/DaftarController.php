@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agenda;
+use App\Models\OptionalAnswer;
 use Milon\Barcode\DNS2D;
 use App\Models\Pendaftar;
 use Illuminate\Http\Request;
@@ -47,10 +48,20 @@ class DaftarController extends Controller
         }
     
         $pendaftar2 = Pendaftar::create($array);
+
+        $agenda = Agenda::with('agendaInputs')->find($request->agenda_id);
+
+        foreach($agenda->agendaInputs as $a => $b){
+            OptionalAnswer::create([
+                'pendaftar_id' => $pendaftar2->id,
+                'name_ref' => $b->name,
+                'agenda_input_id' => $b->id,
+                'jawaban' => $request[$b->name],
+            ]);
+        }
+
         $pendaftar = Pendaftar::with('jenis_tikets')->find($pendaftar2->id);
     
-        $agenda = Agenda::find($request->agenda_id);
-
         $judul = $agenda->judul;
         $tanggal_mulai = $agenda->tanggal_mulai;
         $tanggal_berakhir = $agenda->tanggal_berakhir;

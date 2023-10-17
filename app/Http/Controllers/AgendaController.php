@@ -12,6 +12,7 @@ use App\Models\Pendaftar;
 use App\Models\JenisTiket;
 use App\Models\PublicArea;
 use App\Models\AgendaImage;
+use App\Models\AgendaInput;
 use App\Models\HangoutPlace;
 use Illuminate\Http\Request;
 use App\Models\FoodAndBeverage;
@@ -60,12 +61,12 @@ class AgendaController extends Controller
             'tanggal_berakhir' => 'required',
             'image' => 'required',
             'type' => 'required',
-            'tiket' => 'required',
             'redirect_link_pendaftaran' => 'required_if:tiket,Aktif',
             'link_pendaftaran' => 'required_if:redirect_link_pendaftaran,Aktif',
             'qris' => 'required_if:redirect_link_pendaftaran, Tidak Aktif',
             'jenis_tiket' => 'required_if:redirect_link_pendaftaran, Tidak Aktif',
             'harga' => 'required_if:redirect_link_pendaftaran, Tidak Aktif',
+            'agenda_input' => 'required',
         ]);
 
         $array = array(
@@ -123,6 +124,19 @@ class AgendaController extends Controller
                 }
             }
 
+            if($request->agenda_input){
+                foreach($request['agenda_input'] as $a => $b){
+
+                    $array2 = array(
+                        'agenda_id' => $agenda->id,
+                        'title' => $request['agenda_input'][$a],
+                        'name' => strtolower(str_replace(' ', '-', $request['agenda_input'][$a])),
+                    );
+
+                    AgendaInput::create($array2);
+                }
+            }
+
             if($request->has('image')){
                 foreach($request->file('image') as $image){
                     $image2 = date('YmdHis').rand(999999999, 9999999999).$image->getClientOriginalName();
@@ -154,7 +168,7 @@ class AgendaController extends Controller
     }
 
     public function show($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'agendaInputs')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $hangout_places = HangoutPlace::where('status_aktif', 'Aktif')->get();
@@ -173,7 +187,7 @@ class AgendaController extends Controller
     }
 
     public function edit($id){
-        $agenda = Agenda::with('agenda_images', 'jenis_tikets')->find(Crypt::decrypt($id));
+        $agenda = Agenda::with('agenda_images', 'jenis_tikets', 'agendaInputs')->find(Crypt::decrypt($id));
         $type_id = $agenda->types->pluck('id');
         $types = Type::select('id', 'type')->where('status_aktif', 'Aktif')->get();
         $hangout_places = HangoutPlace::where('status_aktif', 'Aktif')->get();
@@ -193,7 +207,6 @@ class AgendaController extends Controller
 
     public function update(Request $request, $id){
         $agenda = Agenda::with('agenda_images', 'types', 'jenis_tikets')->find(Crypt::decrypt($id));
-        JenisTiket::where('agenda_id', Crypt::decrypt($id))->delete();
 
         $request->validate([
             'hangout_place_id' => 'required',
@@ -243,6 +256,17 @@ class AgendaController extends Controller
                     JenisTiket::create($array2);
                 }
             }
+
+            // if($request->agenda_input){
+            //     foreach($request['agenda_input'] as $a => $b){
+            //         $array2 = array(
+            //             'agenda_id' => $agenda->id,
+            //             'title' => $request['agenda_input'][$a],
+            //         );
+    
+            //         AgendaInput::create($array2);
+            //     }
+            // }
     
             if($request->has('image')){
                 foreach($request->file('image') as $image){

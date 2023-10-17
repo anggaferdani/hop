@@ -151,6 +151,12 @@
             </select>
             @error('redirect_link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          <div class="form-group">
+            <label for="">Input Lainnya</label>
+            @foreach($agenda->agendaInputs as $agenda_input)
+              <input disabled type="text" class="form-control mb-2" name="agenda_input[]" value="{{ $agenda_input->title }}" placeholder="Jenis Tiket" required>
+            @endforeach
+          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Created By</label>

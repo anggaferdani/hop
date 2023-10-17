@@ -55,6 +55,10 @@ content:""!important;
       color: black
     }
   }
+  .banner2 .slider div img{
+    object-fit: fill !important;
+  }
+
   .banner3 .slick-slide{
     height: 360px !important;
   }

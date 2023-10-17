@@ -148,6 +148,14 @@
               <div style="word-wrap: break-word;">{{ $pendaftar2->pekerjaan }}</div>
             </div>
           @endif
+          @if(!empty($pendaftar2->optionalAnswers))
+            @foreach($pendaftar2->optionalAnswers as $a)
+              <div class="form-group mb-2">
+                <div style="font-weight: bold;">{{ $a->name_ref }}</div>
+                <div style="word-wrap: break-word;">{{ $a->jawaban }}</div>
+              </div>
+            @endforeach
+          @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

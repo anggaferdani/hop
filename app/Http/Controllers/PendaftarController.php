@@ -13,7 +13,7 @@ class PendaftarController extends Controller
 {
     public function index($agenda_id){
         $agenda = Agenda::find(Crypt::decrypt($agenda_id));
-        $pendaftars = Pendaftar::with('jenis_tikets')->where('agenda_id', Crypt::decrypt($agenda_id))
+        $pendaftars = Pendaftar::with('jenis_tikets', 'optionalAnswers')->where('agenda_id', Crypt::decrypt($agenda_id))
         ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
         ->where('status_aktif', 'Aktif')->latest()->paginate(10);
         $provinsis = DB::table('m_provinsi')->get();

@@ -323,6 +323,12 @@
             </div>
           @elseif($agenda->tiket == 'Gratis')
           @endif
+          @foreach ($agenda->agendaInputs as $agendaInput)
+            <div class="mb-3">
+              <label class="form-label">{{ $agendaInput->title }}</label>
+              <input type="text" class="form-control" name="{{ $agendaInput->name }}" required>
+            </div>
+          @endforeach
           <div class="text-end">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Pesan</button>

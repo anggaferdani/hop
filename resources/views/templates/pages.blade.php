@@ -260,6 +260,22 @@
     });
   </script>
 
+  <script type="text/javascript">
+    $('.add2').on('click', function(){
+        add2();
+    });
+
+    function add2(){
+      var agenda_input =
+        '<div><div class="form-row mb-2"><div class="col"><input type="text" class="form-control" name="agenda_input[]" placeholder="Title" required></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2" style="text-decoration: none;">Delete</a></div></div></div>';
+      $('.agenda_input').append(agenda_input);
+    };
+
+    $("body").on("click",".delete2",function(){ 
+        $(this).parents(".form-row").remove();
+    });
+  </script>
+
   <!-- Page Specific JS File -->
   <script type="text/javascript">
     $('.delete').click(function(){

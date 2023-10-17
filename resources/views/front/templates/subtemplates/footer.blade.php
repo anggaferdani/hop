@@ -24,12 +24,10 @@
       </div>
       <div class="col-md-2">
         <div class="col-6 col-md-12 mx-auto">
-          <img src="{{ asset('front/logo2.png') }}" style="filter: drop-shadow(0.1px 0 0 white) drop-shadow(0 0.1px 0 white) drop-shadow(-0.1px 0 0 white) drop-shadow(0 -0.1px 0 white)" class="img-fluid w-100" alt="">
+          <img src="{{ asset('front/logo2.png') }}" class="img-fluid w-100" alt="">
         </div>
-        <div class="small text-center mb-2 text-white">Part of</div>
-        <div class="col-4 col-md-6 mx-auto mb-1">
-          <a href="https://www.mixnetwork.id/" target="_blank"><img src="{{ asset('front/img/MIX.png') }}" style="filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white)" class="img-fluid mb-3" alt=""></a>
-        </div>
+        <div class="small text-center text-white">Part of</div>
+        <a href="https://www.mixnetwork.id/" target="_blank"><img src="{{ asset('front/img/MIX2.png') }}" class="img-fluid mb-3" alt=""></a>
       </div>
     </div>
     <div class="row align-items-center">

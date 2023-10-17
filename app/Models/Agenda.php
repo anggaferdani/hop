@@ -6,6 +6,7 @@ use App\Models\Type;
 use App\Models\Pendaftar;
 use App\Models\JenisTiket;
 use App\Models\AgendaImage;
+use App\Models\AgendaInput;
 use App\Models\HangoutPlace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -70,6 +71,10 @@ class Agenda extends Model
 
     public function pendaftars(){
         return $this->hasMany(Pendaftar::class);
+    }
+
+    public function agendaInputs(){
+        return $this->hasMany(AgendaInput::class);
     }
 
     public function jenis_tikets(){

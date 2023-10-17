@@ -157,6 +157,16 @@
             </select>
             @error('redirect_link_pendaftaran')<div class="text-danger">{{ $message }}</div>@enderror
           </div>
+          @if($agenda->agendaInputs)
+            <div class="form-group">
+              <label for="">Input Lainnya</label>
+              @foreach($agenda->agendaInputs as $a)
+                <input type="text" class="form-control mb-2" name="agenda_input[]" value="{{ $a->title }}" placeholder="Title" required>
+              @endforeach
+              <div class="agenda_input"></div>
+              <button type="button" class="d-block mb-2 btn btn-icon btn-primary add2"><i class="fas fa-plus"></i></button>
+            </div>
+            @endif
           @if(auth()->user()->level == 'Superadmin')
             <a href="{{ route('superadmin.agenda.index') }}" class="btn btn-secondary">Back</a>
           @elseif(auth()->user()->level == 'Admin')

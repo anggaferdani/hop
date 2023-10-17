@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Pendaftar2Controller extends Controller
 {
     public function index(){
-        $pendaftars = Pendaftar::with('jenis_tikets')
+        $pendaftars = Pendaftar::with('jenis_tikets', 'optionalAnswers')
         ->orderBy('status_approved', 'DESC')->orderBy('created_at', 'DESC')
         ->where('status_aktif', 'Aktif')->latest()->paginate(10);
         $provinsis = DB::table('m_provinsi')->get();

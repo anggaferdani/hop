@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Agenda;
 use App\Models\JenisTiket;
+use App\Models\OptionalAnswer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -65,5 +66,9 @@ class Pendaftar extends Model
 
     public function jenis_tikets(){
         return $this->belongsTo(JenisTiket::class, 'jenis_tiket_id');
+    }
+
+    public function optionalAnswers(){
+        return $this->hasMany(OptionalAnswer::class);
     }
 }
